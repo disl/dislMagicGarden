@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="dislMagicGarden.Views.NewStoryPage"
+             Title="NewStoryPage">
+    
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
+
+            <Entry Placeholder="Name des Kindes"
+                   Text="{Binding ChildName}" />
+
+            <Entry Placeholder="Tierfreund"
+                   Text="{Binding SidekickAnimal}" />
+
+            <Entry Placeholder="Zauberwelt (z.B. Wald, Meer)"
+                   Text="{Binding WorldSetting}" />
+
+            <Picker Title="Stimmung" SelectedItem="{Binding Mood}">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>beruhigend</x:String>
+                        <x:String>abenteuerlich</x:String>
+                        <x:String>lustig</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Button Text="Geschichte zaubern ✨"
+                    Command="{Binding GenerateStoryCommand}" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
