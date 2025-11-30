@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 
 namespace dislMagicGarden.ViewModels
 {
-    [QueryProperty(nameof(Chapter), "Chapter")]
+    //[QueryProperty(nameof(Chapter), "Chapter")]
     public partial class ChapterEditorViewModel : BaseViewModel
     {
         private readonly IEditorService _editorService;
@@ -25,6 +25,9 @@ namespace dislMagicGarden.ViewModels
         string currentColor = "#FF9ECD"; // rosa Pinsel
 
         public ObservableCollection<EditorStroke> Strokes { get; } = new();
+
+        [ObservableProperty]
+        SKBitmap? baseBitmap;
 
 
 
@@ -50,8 +53,12 @@ namespace dislMagicGarden.ViewModels
             await Shell.Current.GoToAsync(".."); // zurück
         }
 
-        [RelayCommand]
-        void StartStroke(SKPoint point)
+        public void StartStroke(float x, float y)
+        {
+            StartStroke(new SKPoint(x, y));
+        }
+
+        public void StartStroke(SKPoint point)
         {
             _currentStroke = new EditorStroke
             {
@@ -62,13 +69,13 @@ namespace dislMagicGarden.ViewModels
         }
 
         [RelayCommand]
-        void ContinueStroke(SKPoint point)
+        public void ContinueStroke(SKPoint point)
         {
             _currentStroke?.Points.Add(point);
         }
 
         [RelayCommand]
-        void EndStroke()
+        public void EndStroke()
         {
             if (_currentStroke != null)
             {
@@ -77,5 +84,11 @@ namespace dislMagicGarden.ViewModels
                 _currentStroke = null;
             }
         }
+
+        public async Task LoadAsync()
+        {
+            BaseBitmap = await _editorService.EditImageAsync(Chapter.EffectiveImagePath);
+        }
+
     }
 }

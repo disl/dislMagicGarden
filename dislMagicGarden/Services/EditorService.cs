@@ -17,6 +17,16 @@ namespace dislMagicGarden.Services
                 Directory.CreateDirectory(editsDir);
         }
 
+        public async Task<SKBitmap> EditImageAsync(string imagePath)
+        {
+            if (string.IsNullOrWhiteSpace(imagePath))
+                throw new ArgumentNullException(nameof(imagePath));
+
+            using var stream = File.OpenRead(imagePath);
+            return SKBitmap.Decode(stream);
+        }
+
+
         public async Task<SKBitmap> LoadBaseImageAsync(string imagePath)
         {
             using var stream = File.OpenRead(imagePath);
@@ -79,3 +89,4 @@ namespace dislMagicGarden.Services
             return outputFile;
         }
     }
+}
