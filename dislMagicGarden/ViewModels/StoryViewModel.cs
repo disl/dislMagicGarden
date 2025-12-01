@@ -1,4 +1,5 @@
 ﻿using dislMagicGarden.Models;
+using dislMagicGarden.Services;
 
 namespace dislMagicGarden.ViewModels
 {
@@ -27,9 +28,14 @@ namespace dislMagicGarden.ViewModels
 
         private async Task GenerateStory()
         {
-            GeneratedStory = await _storyService.GenerateStory(
-                ChildName, Setting, HeroAnimal
-            );
+            var settings = new StorySettings
+            {
+                WorldSetting = Setting,
+                SidekickAnimal = HeroAnimal
+            };
+
+            var story = await _storyService.GenerateStoryAsync(settings);
+            GeneratedStory = story?.Title;
         }
     }
 

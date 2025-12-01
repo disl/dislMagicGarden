@@ -61,11 +61,56 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die A magical adventure with ähnelt.
+        /// </summary>
+        internal static string A_magical_adventure_with {
+            get {
+                return ResourceManager.GetString("A_magical_adventure_with", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Adventurous ähnelt.
+        /// </summary>
+        internal static string Adventurous {
+            get {
+                return ResourceManager.GetString("Adventurous", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Chapter ähnelt.
+        /// </summary>
+        internal static string Chapter {
+            get {
+                return ResourceManager.GetString("Chapter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Color ähnelt.
+        /// </summary>
+        internal static string Color {
+            get {
+                return ResourceManager.GetString("Color", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Conjure up history ähnelt.
         /// </summary>
         internal static string Conjure_up_history {
             get {
                 return ResourceManager.GetString("Conjure_up_history", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Funny ähnelt.
+        /// </summary>
+        internal static string Funny {
+            get {
+                return ResourceManager.GetString("Funny", resourceCulture);
             }
         }
         
@@ -129,6 +174,24 @@ namespace dislMagicGarden.Properties {
         internal static string Reassuring {
             get {
                 return ResourceManager.GetString("Reassuring", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Save ähnelt.
+        /// </summary>
+        internal static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Undo ähnelt.
+        /// </summary>
+        internal static string Undo {
+            get {
+                return ResourceManager.GetString("Undo", resourceCulture);
             }
         }
     }

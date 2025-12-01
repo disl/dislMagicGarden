@@ -117,8 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Adventurous" xml:space="preserve">
+    <value>Avventuroso</value>
+  </data>
+  <data name="A_magical_adventure_with" xml:space="preserve">
+    <value>Un'avventura magica con %1</value>
+  </data>
+  <data name="Chapter" xml:space="preserve">
+    <value>Capitolo</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Colore</value>
+  </data>
   <data name="Conjure_up_history" xml:space="preserve">
     <value>Incantare la storia</value>
+  </data>
+  <data name="Funny" xml:space="preserve">
+    <value>Divertente</value>
   </data>
   <data name="Home_NewStory" xml:space="preserve">
     <value>Crea una nuova storia</value>
@@ -140,5 +155,11 @@
   </data>
   <data name="Reassuring" xml:space="preserve">
     <value>Rassicurante</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Salva</value>
+  </data>
+  <data name="Undo" xml:space="preserve">
+    <value>Annulla</value>
   </data>
 </root>

@@ -1,4 +1,6 @@
-﻿using dislMagicGarden.ViewModels;
+﻿using dislMagicGarden.Models;
+using dislMagicGarden.Services;
+using dislMagicGarden.ViewModels;
 using dislMagicGarden.Views;
 using Microsoft.Extensions.Logging;
 using System.Globalization;
@@ -31,11 +33,13 @@ namespace dislMagicGarden
             builder.Services.AddTransient<HomePage>();
             builder.Services.AddTransient<NewStoryPage>();
 
+
             // Services (noch nicht implementiert)
             builder.Services.AddSingleton<IStoryService, StoryService>();
-            builder.Services.AddSingleton<IIllustrationService, IllustrationService>();
+            builder.Services.AddSingleton<Models.IIllustrationService, IllustrationService>();
             builder.Services.AddSingleton<IEditorService, EditorService>();
             builder.Services.AddSingleton<IBookExportService, BookExportService>();
+            builder.Services.AddSingleton<ILanguageService, LanguageService>();
 
             builder.Services.AddLocalization();
 

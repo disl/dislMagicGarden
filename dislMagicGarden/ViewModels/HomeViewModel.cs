@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using dislMagicGarden.Views;
 
 namespace dislMagicGarden.ViewModels
 {
@@ -12,7 +13,7 @@ namespace dislMagicGarden.ViewModels
         [RelayCommand]
         async Task GoToNewStory()
         {
-            await Shell.Current.GoToAsync("NewStoryPage");
+            await Shell.Current.GoToAsync(nameof(NewStoryPage));
         }
     }
 }

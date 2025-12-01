@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="dislMagicGarden.Views.NewStoryPage"
+             xmlns:res="clr-namespace:dislMagicGarden.Properties"
              Title="NewStoryPage">
     
     <ScrollView>
@@ -16,14 +17,11 @@
             <Entry Placeholder="Zauberwelt (z.B. Wald, Meer)"
                    Text="{Binding WorldSetting}" />
 
-            <Picker Title="Stimmung" SelectedItem="{Binding Mood}">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>beruhigend</x:String>
-                        <x:String>abenteuerlich</x:String>
-                        <x:String>lustig</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
+            <Picker 
+                Title="Stimmung" 
+                ItemsSource="{Binding Moods}"
+                SelectedItem="{Binding Mood}">
+               
             </Picker>
 
             <Button Text="Geschichte zaubern ✨"

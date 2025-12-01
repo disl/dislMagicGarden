@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:res="clr-namespace:dislMagicGarden.Resources.Strings"
-             x:Class="dislMagicGarden.Views.HomePage"
-             
+             xmlns:res="clr-namespace:dislMagicGarden.Properties"
+             x:Class="dislMagicGarden.Views.HomePage"             
              Title="HomePage">
     <VerticalStackLayout Padding="20" Spacing="30">
 
-        <Label Text="{x:Static res:AppResources.Home_Welcome}"
+        <Label Text="{x:Static res:Resources.Home_Welcome}"
                HorizontalOptions="Center"
                FontAttributes="Bold"
                FontSize="28"
                TextColor="{StaticResource MagicPink}" />
 
-        <Button Text="{x:Static res:AppResources.Home_NewStory}"
+        <Button Text="{x:Static res:Resources.Home_NewStory}"
                 Command="{Binding GoToNewStoryCommand}" />
 
     </VerticalStackLayout>

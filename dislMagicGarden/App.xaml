@@ -7,7 +7,7 @@
         <ResourceDictionary>
 
             <!-- Localization -->
-            <x:Static x:Key="Loc" Member="dislMagicGarden.Resources.Strings.AppResources.ResourceManager" />
+            <!--<x:Static x:Key="Loc" Member="dislMagicGarden.Resources.Strings.AppResources.ResourceManager" />-->
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
