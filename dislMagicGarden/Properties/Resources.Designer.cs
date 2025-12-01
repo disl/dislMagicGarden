@@ -133,6 +133,15 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Insufficient credit. Please purchase more to continue using the service. ähnelt.
+        /// </summary>
+        internal static string insufficient_credit {
+            get {
+                return ResourceManager.GetString("insufficient_credit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Animal friend ähnelt.
         /// </summary>
         internal static string NewStory_Animal {

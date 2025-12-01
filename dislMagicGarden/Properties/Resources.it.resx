@@ -141,6 +141,9 @@
   <data name="Home_Welcome" xml:space="preserve">
     <value>Benvenuti a MagicGarden</value>
   </data>
+  <data name="insufficient_credit" xml:space="preserve">
+    <value>Credito insufficiente. Acquista altro credito per continuare a utilizzare il servizio.</value>
+  </data>
   <data name="NewStory_Animal" xml:space="preserve">
     <value>Amante degli animali</value>
   </data>
