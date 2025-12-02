@@ -453,4 +453,21 @@
         <Setter Property="SelectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
     </Style>
 
+    <Style x:Key="MagicButtonStyle" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="#FFB7E0"/>
+        <Setter Property="TextColor" Value="White"/>
+        <Setter Property="CornerRadius" Value="20"/>
+        <Setter Property="FontAttributes" Value="Bold"/>
+        <Setter Property="Padding" Value="14,10"/>
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow Brush="#FF84C9"
+                    Offset="0,4"
+                    Opacity="0.5"
+                    Radius="10" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
 </ResourceDictionary>

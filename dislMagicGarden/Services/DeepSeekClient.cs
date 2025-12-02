@@ -204,32 +204,32 @@ namespace dislMagicGarden.Services
         //    return await ConvertAudioMultipleMethodsAsync(audioFilePath);
         //}
 
-        private async Task<string> ConvertAudioMultipleMethodsAsync(string inputFilePath)
-        {
-            // Methode 1: Einfache Format-Konvertierung
-            //try
-            //{
-            //    return await ConvertUsingBasicWaveFormat(inputFilePath);
-            //}
-            //catch (Exception ex1)
-            //{
-            //    Console.WriteLine($"Method 1 failed: {ex1.Message}");
-            //}
+        //private async Task<string> ConvertAudioMultipleMethodsAsync(string inputFilePath)
+        //{
+        //    // Methode 1: Einfache Format-Konvertierung
+        //    //try
+        //    //{
+        //    //    return await ConvertUsingBasicWaveFormat(inputFilePath);
+        //    //}
+        //    //catch (Exception ex1)
+        //    //{
+        //    //    Console.WriteLine($"Method 1 failed: {ex1.Message}");
+        //    //}
 
-            // Methode 2: Block-based Resampling
-            try
-            {
-                return await ConvertUsingBlockResampling(inputFilePath);
-            }
-            catch (Exception ex2)
-            {
-                Console.WriteLine($"Method 2 failed: {ex2.Message}");
-            }
+        //    // Methode 2: Block-based Resampling
+        //    try
+        //    {
+        //        return await ConvertUsingBlockResampling(inputFilePath);
+        //    }
+        //    catch (Exception ex2)
+        //    {
+        //        Console.WriteLine($"Method 2 failed: {ex2.Message}");
+        //    }
 
-            // Methode 3: Verwende originale Datei (letzter Ausweg)
-            Console.WriteLine("Using original file as fallback - may not work");
-            return inputFilePath;
-        }
+        //    // Methode 3: Verwende originale Datei (letzter Ausweg)
+        //    Console.WriteLine("Using original file as fallback - may not work");
+        //    return inputFilePath;
+        //}
 
         //private async Task<string> ConvertUsingBasicWaveFormat(string inputFilePath)
         //{
@@ -281,22 +281,22 @@ namespace dislMagicGarden.Services
         //    }
         //}
 
-        public async Task<string> TranscribeAudioWithWhisper(string filePath)
-        {
-            using var httpClient = new HttpClient();
-            using var form = new MultipartFormDataContent();
-            form.Add(new StringContent("whisper-1"), "model");
-            form.Add(new StreamContent(File.OpenRead(filePath)), "file", Path.GetFileName(filePath));
+        //public async Task<string> TranscribeAudioWithWhisper(string filePath)
+        //{
+        //    using var httpClient = new HttpClient();
+        //    using var form = new MultipartFormDataContent();
+        //    form.Add(new StringContent("whisper-1"), "model");
+        //    form.Add(new StreamContent(File.OpenRead(filePath)), "file", Path.GetFileName(filePath));
 
-            var request = new HttpRequestMessage(HttpMethod.Post, "https://api.openai.com/v1/audio/transcriptions");
-            request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _apiKey);
-            request.Content = form;
+        //    var request = new HttpRequestMessage(HttpMethod.Post, "https://api.openai.com/v1/audio/transcriptions");
+        //    request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _apiKey);
+        //    request.Content = form;
 
-            var response = await httpClient.SendAsync(request);
-            var json = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<dynamic>(json);
-            return result.text;
-        }
+        //    var response = await httpClient.SendAsync(request);
+        //    var json = await response.Content.ReadAsStringAsync();
+        //    var result = JsonConvert.DeserializeObject<dynamic>(json);
+        //    return result.text;
+        //}
 
 
         // Response-Klassen

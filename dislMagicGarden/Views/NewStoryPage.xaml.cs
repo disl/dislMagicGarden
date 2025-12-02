@@ -2,7 +2,7 @@ using dislMagicGarden.ViewModels;
 
 namespace dislMagicGarden.Views;
 
-public partial class NewStoryPage : ContentPage
+public partial class NewStoryPage : FairyBasePage
 {
 	public NewStoryPage(NewStoryViewModel vm)
 	{

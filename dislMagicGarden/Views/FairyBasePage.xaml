@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    x:Class="dislMagicGarden.Views.FairyBasePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="{StaticResource CottonCandy}"
+    Title="">
+
+    <Grid>
+        <!-- Pastell-Hintergrunddeko -->
+        <Grid>
+            <Ellipse Fill="#FFE8F4" WidthRequest="350" HeightRequest="350"
+                     TranslationX="-120" TranslationY="-140" Opacity="0.6"/>
+            <Ellipse Fill="#F6D9FF" WidthRequest="280" HeightRequest="280"
+                     TranslationX="180" TranslationY="-160" Opacity="0.55"/>
+            <Ellipse Fill="#E4F9FF" WidthRequest="260" HeightRequest="260"
+                     TranslationX="-100" TranslationY="360" Opacity="0.5"/>
+        </Grid>
+
+        <!-- Seiteninhalt -->
+        <ContentPresenter x:Name="ContentArea" />
+    </Grid>
+</ContentPage>

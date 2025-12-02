@@ -24,7 +24,6 @@ namespace dislMagicGarden
     		builder.Logging.AddDebug();
 #endif
 
-
             // ViewModels
             builder.Services.AddTransient<HomeViewModel>();
             builder.Services.AddTransient<NewStoryViewModel>();
@@ -40,6 +39,8 @@ namespace dislMagicGarden
             builder.Services.AddSingleton<IEditorService, EditorService>();
             builder.Services.AddSingleton<IBookExportService, BookExportService>();
             builder.Services.AddSingleton<ILanguageService, LanguageService>();
+
+            builder.Services.AddTransient<DeepSeekClient>();
 
             builder.Services.AddLocalization();
 

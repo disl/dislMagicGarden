@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ContentPage 
+<views:FairyBasePage
     x:Class="dislMagicGarden.Views.ChapterEditorPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:dislMagicGarden.ViewModels"
+    xmlns:views="clr-namespace:dislMagicGarden.Views"
     xmlns:res="clr-namespace:dislMagicGarden.Properties"
+    
     xmlns:skia="clr-namespace:SkiaSharp.Views.Maui.Controls;assembly=SkiaSharp.Views.Maui.Controls">
 
     <!--<ContentPage.BindingContext>
@@ -48,4 +50,4 @@
 
     </Grid>
 
-</ContentPage>
+</views:FairyBasePage>

@@ -1,19 +1,73 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<views:FairyBasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:res="clr-namespace:dislMagicGarden.Properties"
-             x:Class="dislMagicGarden.Views.HomePage"             
-             Title="HomePage">
-    <VerticalStackLayout Padding="20" Spacing="30">
+             x:Class="dislMagicGarden.Views.HomePage"
+             xmlns:views="clr-namespace:dislMagicGarden.Views"
+             BackgroundColor="{StaticResource CottonCandy}"
+             Title="">
 
-        <Label Text="{x:Static res:Resources.Home_Welcome}"
-               HorizontalOptions="Center"
-               FontAttributes="Bold"
-               FontSize="28"
-               TextColor="{StaticResource MagicPink}" />
+    <Grid>
+        <!-- OPTIONAL: Hintergrundbild -->
+        <Image Source="background_magic.png"
+               Aspect="AspectFill"
+               Opacity="0.25"
+               ZIndex="-1" />
 
-        <Button Text="{x:Static res:Resources.Home_NewStory}"
-                Command="{Binding GoToNewStoryCommand}" />
+        <ScrollView>
+            <VerticalStackLayout Padding="20" Spacing="30">
 
-    </VerticalStackLayout>
-</ContentPage>
+                <!-- Header Illustration -->
+                <Border BackgroundColor="White"
+                        StrokeShape="RoundRectangle 30"
+                        StrokeThickness="0"
+                        Margin="0"
+                        Padding="0">
+                    <Border.Shadow>
+                        <Shadow />
+                    </Border.Shadow>
+                    <Image Source="header_fairy_4.png"
+                           Aspect="AspectFit"
+                           HeightRequest="220" />
+                </Border>
+
+                <!-- Titel -->
+                <Label Text="{x:Static res:Resources.Home_Welcome}"
+                       HorizontalOptions="Center"
+                       FontAttributes="Bold"
+                       FontSize="32"
+                       TextColor="{StaticResource MagicPink}" />
+
+                <!-- Start Button -->
+                <Border StrokeShape="RoundRectangle 25"
+                        BackgroundColor="{StaticResource BlossomPink}"
+                        StrokeThickness="0"
+                        Margin="0"
+                        Padding="0">
+                    <Border.Shadow>
+                        <Shadow   />
+                    </Border.Shadow>
+                    <Button Text="{x:Static res:Resources.Home_NewStory}"
+                            Command="{Binding GoToNewStoryCommand}"
+                            BackgroundColor="Transparent"
+                            FontSize="22"
+                            TextColor="White"
+                            HeightRequest="70"
+                            ImageSource="magic_button_icon.png" />
+                </Border>
+
+                <!-- Maskottchen -->
+                <VerticalStackLayout Spacing="5" HorizontalOptions="Center">
+                    <Image Source="character_bunny.webp"
+                           HeightRequest="140"
+                           Aspect="AspectFit" />
+                    <Label Text="Luna wartet auf ein neues Abenteuer!"
+                           FontSize="18"
+                           TextColor="{StaticResource MagicBlackSoft}"
+                           HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</views:FairyBasePage>

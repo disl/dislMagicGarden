@@ -4,7 +4,7 @@ using SkiaSharp.Views.Maui; // Hinzugefügt für SKPaintSurfaceEventArgs
 
 namespace dislMagicGarden.Views;
 
-public partial class ChapterEditorPage : ContentPage
+public partial class ChapterEditorPage : FairyBasePage
 {
     ChapterEditorViewModel ViewModel => BindingContext as ChapterEditorViewModel;
 
