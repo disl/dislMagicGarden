@@ -1,8 +1,6 @@
 ﻿using dislMagicGarden.Models;
 using Newtonsoft.Json;
-using System.Net.Http.Json;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace dislMagicGarden.Services;
 
@@ -38,7 +36,7 @@ public class StoryService : IStoryService
     public async Task<Story?> GenerateStoryAsync(StorySettings s)
     {
         string prompt = BuildPrompt(s);
-        CompletionResult response = null;
+        //CompletionResult response = null;
 
         //var request = new
         //{
@@ -52,7 +50,17 @@ public class StoryService : IStoryService
 
         //var response = await _http.PostAsJsonAsync(Endpoint, request);
 
-        var client = new DeepSeekClient();
+        //var client = new DeepSeekClient();
+
+
+        string result = null;
+
+        Microsoft.Extensions.Configuration.IConfiguration request=null;
+
+
+
+        var client = new HybridFairyTaleService();
+
         var language = "English";
 
         switch (Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName)
@@ -70,15 +78,17 @@ public class StoryService : IStoryService
 
         try
         {
-            response = await client.GetCompletionAsync(prompt, "application/json");
-            if (response == null || string.IsNullOrEmpty(response.Content))
-            {
-                if (Shell.Current  != null)
-                    await Shell.Current.DisplayAlert("Error", "No response from DeepSeek.", "OK");
-                return null;
-            }
 
-            json= response.Content; //ForForOnDeepSeekClicked(json, response);
+
+            //var response = await client.GetCompletionAsync(prompt, "application/json");
+            //if (response == null || string.IsNullOrEmpty(response.Content))
+            //{
+            //    if (Shell.Current  != null)
+            //        await Shell.Current.DisplayAlert("Error", "No response from DeepSeek.", "OK");
+            //    return null;
+            //}
+
+            //json= response.Content; //ForForOnDeepSeekClicked(json, response);
         }
         catch (CreditIsInsufficientError)
         {
@@ -108,56 +118,56 @@ public class StoryService : IStoryService
 
 
 
-        if (response == null || string.IsNullOrEmpty(response.Content))
-        {
-            throw new Exception($"StoryService API Error: ");
-        }
+        //if (response == null || string.IsNullOrEmpty(response.Content))
+        //{
+        //    throw new Exception($"StoryService API Error: ");
+        //}
 
-        var json_item =  System.Text.Json.JsonSerializer.Deserialize<JsonElement>(response.Content);
+        //var json_item =  System.Text.Json.JsonSerializer.Deserialize<JsonElement>(response.Content);
 
-        string result = json_item
-            .GetProperty("choices")[0]
-            .GetProperty("message")
-            .GetProperty("content")
-            .GetString();
+        //result = json_item
+        //    .GetProperty("choices")[0]
+        //    .GetProperty("message")
+        //    .GetProperty("content")
+        //    .GetString();
 
         return ParseStoryFromText(s, result);
     }
 
-    private string? ForForOnDeepSeekClicked(string json, CompletionResult response)
-    {
-        dynamic? jsonObject = null;
+    //private string? ForForOnDeepSeekClicked(string json, CompletionResult response)
+    //{
+    //    dynamic? jsonObject = null;
 
-        try
-        {
-            //if (!response.Content.Contains("```json") && !IsJSONString(response.Content))
-            //    return null;
-
-
-            //var json_start_ind = response.Content.IndexOf("```json");
-            //var json_end_ind = response.Content.LastIndexOf("```");
-            //if (json_start_ind < 0 || json_end_ind < 0 || json_end_ind <= json_start_ind)
-            //{
-            //    if (Shell.Current  != null)
-            //        Shell.Current.DisplayAlert("Error", "Invalid response format from DeepSeek.", "OK");
-            //    return null;
-            //}
-            //json = response.Content.Substring(json_start_ind, json_end_ind - json_start_ind);
-            //json = json.Replace("json", "").Replace("```", "").Trim();
+    //    try
+    //    {
+    //        //if (!response.Content.Contains("```json") && !IsJSONString(response.Content))
+    //        //    return null;
 
 
-        }
+    //        //var json_start_ind = response.Content.IndexOf("```json");
+    //        //var json_end_ind = response.Content.LastIndexOf("```");
+    //        //if (json_start_ind < 0 || json_end_ind < 0 || json_end_ind <= json_start_ind)
+    //        //{
+    //        //    if (Shell.Current  != null)
+    //        //        Shell.Current.DisplayAlert("Error", "Invalid response format from DeepSeek.", "OK");
+    //        //    return null;
+    //        //}
+    //        //json = response.Content.Substring(json_start_ind, json_end_ind - json_start_ind);
+    //        //json = json.Replace("json", "").Replace("```", "").Trim();
 
-        catch (Exception ex)
-        {
-            MainThread.BeginInvokeOnMainThread(() =>
-            {
-                if (Shell.Current  != null)
-                    Shell.Current.DisplayAlert("Error", ex.Message, "OK");
-            });
-        }
-        return json;
-    }
+
+    //    }
+
+    //    catch (Exception ex)
+    //    {
+    //        MainThread.BeginInvokeOnMainThread(() =>
+    //        {
+    //            if (Shell.Current  != null)
+    //                Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+    //        });
+    //    }
+    //    return json;
+    //}
 
     private bool IsJSONString(string content)
     {

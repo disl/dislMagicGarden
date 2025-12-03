@@ -1,5 +1,4 @@
 ﻿using dislMagicGarden.Models;
-// Services/OpenAIFairyTaleService.cs
 using OpenAI.Chat;
 using OpenAI.Images;
 using System.Diagnostics;
@@ -38,7 +37,7 @@ namespace dislMagicGarden.Services
 
         public async Task<FairyTaleResponse> GenerateFairyTaleAsync(FairyTaleRequest request)
         {
-            if (!_connectivity.NetworkAccess.HasInternet())
+            if (_connectivity.NetworkAccess !=  NetworkAccess.Internet)
                 throw new NoInternetException("Keine Internetverbindung");
 
             var stopwatch = Stopwatch.StartNew();
@@ -63,11 +62,11 @@ namespace dislMagicGarden.Services
                 // 4. Kosten für Text berechnen
                 cost.TextCost = CalculateTextCost(
                     userPrompt.Content.ToString().Length / 4, // Schätzung Input Tokens
-                    chatResponse.Usage.CompletionTokens
+                    chatResponse.Value.Usage.OutputTokenCount
                 );
 
                 // 5. JSON Response parsen
-                var fairyTaleData = ParseFairyTaleResponse(chatResponse.Content[0].Text);
+                var fairyTaleData = ParseFairyTaleResponse(chatResponse.Value .Content[0].Text);
                 response.Title = fairyTaleData.Title;
                 response.Characters = fairyTaleData.Characters;
                 response.Story = fairyTaleData.Story;
@@ -172,22 +171,25 @@ namespace dislMagicGarden.Services
         private async Task<string> GenerateImageAsync(string prompt, string style)
         {
             var imageQuality = style == "HD" ?
-                GeneratedImageQuality.Hd :
+                GeneratedImageQuality.High :
                 GeneratedImageQuality.Standard;
 
             var imageStyle = style == "HD" ?
                 GeneratedImageStyle.Vivid :
                 GeneratedImageStyle.Natural;
 
+            var options = new ImageGenerationOptions
+            {
+                Quality = imageQuality,
+                Style = imageStyle,
+                ResponseFormat = GeneratedImageFormat.Uri
+            };
+
             var imageResponse = await _imageClient.GenerateImageAsync(
-                prompt: $"Fairy tale illustration, children's book style: {prompt}",
-                size: GeneratedImageSize.W1792H1024, // Breitformat für Geschichten
-                quality: imageQuality,
-                style: imageStyle,
-                responseFormat: GeneratedImageFormat.Url
+                prompt: $"Fairy tale illustration, children's book style: {prompt}", options
             );
 
-            return imageResponse.ImageUrl;
+            return imageResponse.Value.ImageUri.AbsoluteUri;
         }
 
         private FairyTaleData ParseFairyTaleResponse(string jsonResponse)

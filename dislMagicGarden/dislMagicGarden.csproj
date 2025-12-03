@@ -69,6 +69,24 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Services\DeepSeekClient.cs" />
+	  <Compile Remove="ViewModels\NewStoryViewModel_old.cs" />
+	  <Compile Remove="Views\Fairy_tale_generator.xaml.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Remove="Views\Fairy_tale_generator.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\Config\appsettings.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Resources\Config\appsettings.json" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Azure.AI.OpenAI" Version="2.1.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="DeepSeek.ApiClient" Version="1.0.6" />

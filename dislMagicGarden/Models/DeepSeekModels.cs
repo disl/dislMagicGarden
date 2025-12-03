@@ -1,19 +1,19 @@
 ﻿namespace dislMagicGarden.Models
 {
-    // Models/FairyTaleModels.cs
     public enum GenerationMode
     {
-        TextOnly,      // Nur Text (günstig)
-        FullStory      // Text + 4 Bilder (Premium)
+        TextOnly,      // Nur Text (günstig mit DeepSeek)
+        FullStory      // Text + Bilder (Hybrid)
     }
 
     public class FairyTaleRequest
     {
         public string Theme { get; set; } = string.Empty;
         public string Style { get; set; } = "Classic";
-        public int AgeGroup { get; set; } = 6; // 3-10
         public GenerationMode Mode { get; set; } = GenerationMode.TextOnly;
-        public int ImageCount { get; set; } = 4; // Für FullStory
+        public int ImageCount { get; set; } = 4;
+        public int AgeGroup { get; internal set; }
+
     }
 
     public class FairyTaleResponse
@@ -26,6 +26,8 @@
         public List<string> ImagePrompts { get; set; } = new();
         public CostBreakdown Cost { get; set; } = new();
         public TimeSpan GenerationTime { get; set; }
+
+        public bool HasImages => ImageUrls?.Any() == true;
     }
 
     public class CostBreakdown
@@ -40,4 +42,13 @@
             return $"{TotalCost:F4} {Currency} (Text: {TextCost:F4}, Images: {ImageCost:F4})";
         }
     }
+
+    public class TextOnlyResponse
+    {
+        public string Title { get; set; } = string.Empty;
+        public string Story { get; set; } = string.Empty;
+        public string Moral { get; set; } = string.Empty;
+        public decimal EstimatedCost { get; set; }
+    }
 }
+

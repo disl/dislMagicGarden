@@ -4,7 +4,7 @@ namespace dislMagicGarden.Views;
 
 public partial class NewStoryPage : FairyBasePage
 {
-	public NewStoryPage(NewStoryViewModel vm)
+	public NewStoryPage(FairyTaleViewModel vm)
 	{
 		InitializeComponent();
 

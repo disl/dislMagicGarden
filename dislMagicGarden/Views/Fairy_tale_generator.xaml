@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="dislMagicGarden.Views.Fairy_tale_generator"
+             xmlns:vm="clr-namespace:dislMagicGarden.ViewModels"
+             Title="Fairy_tale_generator">
+    <ContentPage.BindingContext>
+        <vm:FairyTaleViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!-- Converter für RadioButtons -->
+            <local:EnumToBoolConverter x:Key="EnumToBoolConverter" />
+            <local:InverseBoolConverter x:Key="InverseBoolConverter" />
+            <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- Header -->
+            <Label Text="🎭 Märchen Generator" 
+                   FontSize="24" 
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+
+            <!-- Theme Input -->
+            <Frame BorderColor="LightGray" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Thema deines Märchens:" 
+                           FontSize="16" 
+                           FontAttributes="Bold" />
+
+                    <Entry Text="{Binding Theme}" 
+                           Placeholder="z.B. 'Ein mutiges Eichhörnchen rettet den Wald'"
+                           FontSize="14" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Style Selection -->
+            <Frame BorderColor="LightGray" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Stil:" FontSize="16" FontAttributes="Bold" />
+                    <Picker Title="Stil auswählen" 
+                            ItemsSource="{Binding Styles}"
+                            SelectedItem="{Binding SelectedStyle}"
+                            FontSize="14" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Mode Selection -->
+            <Frame BorderColor="LightGray" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Modus:" FontSize="16" FontAttributes="Bold" />
+
+                    <RadioButton GroupName="Mode" 
+                               Content="📝 Nur Text (DeepSeek) ~$0.0005"
+                               IsChecked="{Binding SelectedMode, 
+                                       Converter={StaticResource EnumToBoolConverter}, 
+                                       ConverterParameter={x:Static models:GenerationMode.TextOnly}}" />
+
+                    <RadioButton GroupName="Mode" 
+                               Content="🎨 Text + 4 Bilder (DeepSeek + DALL-E) ~$0.16"
+                               IsChecked="{Binding SelectedMode, 
+                                       Converter={StaticResource EnumToBoolConverter}, 
+                                       ConverterParameter={x:Static models:GenerationMode.FullStory}}" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Status & Error -->
+            <Frame IsVisible="{Binding HasError}"
+                   BackgroundColor="#FFEBEE"
+                   BorderColor="#F44336"
+                   CornerRadius="10"
+                   Padding="15">
+                <Label Text="{Binding ErrorMessage}" 
+                       TextColor="#D32F2F"
+                       FontSize="14" />
+            </Frame>
+
+            <Label Text="{Binding StatusMessage}" 
+                   FontSize="14" 
+                   TextColor="Gray"
+                   HorizontalOptions="Center" />
+
+            <!-- Action Buttons -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <Button Grid.Column="0" 
+                        Text="✨ Schnell: Nur Text"
+                        Command="{Binding QuickGenerateTextOnlyCommand}"
+                        IsEnabled="{Binding IsGenerating, Converter={StaticResource InverseBoolConverter}}"
+                        BackgroundColor="#2196F3"
+                        TextColor="White"
+                        CornerRadius="10"
+                        HeightRequest="50" />
+
+                <Button Grid.Column="1" 
+                        Text="🎨 Premium: Mit Bildern"
+                        Command="{Binding PremiumGenerateWithImagesCommand}"
+                        IsEnabled="{Binding IsGenerating, Converter={StaticResource InverseBoolConverter}}"
+                        BackgroundColor="#FF9800"
+                        TextColor="White"
+                        CornerRadius="10"
+                        HeightRequest="50" />
+            </Grid>
+
+            <!-- Main Generate Button -->
+            <Button Text="{Binding IsGenerating, 
+                          Converter={StaticResource BoolToTextConverter}, 
+                          ConverterParameter='🎭 Generiere...|🎭 Märchen generieren'}"
+                    Command="{Binding GenerateFairyTaleCommand}"
+                    IsEnabled="{Binding IsGenerating, Converter={StaticResource InverseBoolConverter}}"
+                    BackgroundColor="#4CAF50"
+                    TextColor="White"
+                    CornerRadius="10"
+                    HeightRequest="60"
+                    FontSize="16" />
+
+            <!-- Results -->
+            <Frame IsVisible="{Binding CurrentFairyTale, Converter={StaticResource NullToVisibilityConverter}}"
+                   BorderColor="#4CAF50"
+                   CornerRadius="10"
+                   Padding="0"
+                   Margin="0,20,0,0">
+
+                <VerticalStackLayout Spacing="0">
+                    <!-- Header mit Titel und Kosten -->
+                    <Grid BackgroundColor="#4CAF50" 
+                          HeightRequest="50"
+                          Padding="15,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0"
+                               Text="{Binding CurrentFairyTale.Title}"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               VerticalOptions="Center" />
+
+                        <Button Grid.Column="1"
+                               Text="✕"
+                               Command="{Binding ClearResultsCommand}"
+                               BackgroundColor="Transparent"
+                               TextColor="White"
+                               FontSize="16"
+                               WidthRequest="40"
+                               HeightRequest="40" />
+                    </Grid>
+
+                    <!-- Content -->
+                    <ScrollView Padding="15">
+                        <VerticalStackLayout Spacing="15">
+
+                            <!-- Story -->
+                            <Label Text="{Binding CurrentFairyTale.Story}" 
+                                   FontSize="14" 
+                                   LineBreakMode="WordWrap" />
+
+                            <!-- Moral -->
+                            <Frame BackgroundColor="#E8F5E9" 
+                                   CornerRadius="5" 
+                                   Padding="10">
+                                <Label Text="{Binding CurrentFairyTale.Moral}" 
+                                       FontSize="14" 
+                                       FontAttributes="Italic"
+                                       TextColor="#2E7D32" />
+                            </Frame>
+
+                            <!-- Images Grid -->
+                            <CollectionView ItemsSource="{Binding CurrentFairyTale.ImageUrls}"
+                                        IsVisible="{Binding CurrentFairyTale.HasImages}"
+                                        HeightRequest="320">
+                                <CollectionView.ItemsLayout>
+                                    <GridItemsLayout Orientation="Horizontal"
+                                                   Span="2"
+                                                   HorizontalItemSpacing="5"
+                                                   VerticalItemSpacing="5" />
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Frame Padding="0" 
+                                               CornerRadius="5"
+                                               HasShadow="True">
+                                            <Image Source="{Binding .}"
+                                                   Aspect="AspectFill"
+                                                   HeightRequest="150"
+                                                   WidthRequest="150" />
+                                        </Frame>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+
+                            <!-- Info -->
+                            <Grid ColumnDefinitions="*,*" 
+                                  Margin="0,10,0,0">
+                                <Label Grid.Column="0"
+                                       Text="{Binding CurrentFairyTale.Cost}"
+                                       FontSize="12"
+                                       TextColor="Gray" />
+
+                                <Button Grid.Column="1"
+                                       Text="📤 Teilen"
+                                       Command="{Binding ShareStoryCommand}"
+                                       HorizontalOptions="End"
+                                       BackgroundColor="Transparent"
+                                       TextColor="#2196F3"
+                                       FontSize="14" />
+                            </Grid>
+
+                        </VerticalStackLayout>
+                    </ScrollView>
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

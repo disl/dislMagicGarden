@@ -20,13 +20,15 @@ namespace dislMagicGarden
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+
+
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
 
             // ViewModels
             builder.Services.AddTransient<HomeViewModel>();
-            builder.Services.AddTransient<NewStoryViewModel>();
+            builder.Services.AddTransient<FairyTaleViewModel>();
 
             // Views
             builder.Services.AddTransient<HomePage>();
@@ -39,8 +41,11 @@ namespace dislMagicGarden
             builder.Services.AddSingleton<IEditorService, EditorService>();
             builder.Services.AddSingleton<IBookExportService, BookExportService>();
             builder.Services.AddSingleton<ILanguageService, LanguageService>();
+            builder.Services.AddSingleton<IHybridFairyTaleService, HybridFairyTaleService>();
 
-            builder.Services.AddTransient<DeepSeekClient>();
+            //builder.Services.AddTransient<DeepSeekClient>();
+
+    
 
             builder.Services.AddLocalization();
 
