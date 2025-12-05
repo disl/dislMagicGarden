@@ -3,8 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="dislMagicGarden.Views.NewStoryPage"
              xmlns:res="clr-namespace:dislMagicGarden.Properties"
+             xmlns:vm="clr-namespace:dislMagicGarden.ViewModels"
              xmlns:views="clr-namespace:dislMagicGarden.Views">
-    
+
+    <!--<ContentPage.BindingContext>
+        <vm:FairyTaleViewModel />
+    </ContentPage.BindingContext>-->
+
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="16">
 
@@ -25,7 +30,7 @@
             </Picker>
 
             <Button Text="Geschichte zaubern ✨"
-                    Command="{Binding GenerateStoryCommand}" />
+                    Command="{Binding GenerateFairyTaleCommand}" />
 
         </VerticalStackLayout>
     </ScrollView>

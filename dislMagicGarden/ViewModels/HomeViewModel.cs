@@ -13,7 +13,7 @@ namespace dislMagicGarden.ViewModels
         [RelayCommand]
         async Task GoToNewStory()
         {
-            await Shell.Current.GoToAsync(nameof(NewStoryPage));
+            await Shell.Current.GoToAsync("//FairyTalePage");
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using dislMagicGarden.Models;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using System.Text.Json;
 
 namespace dislMagicGarden.Services;
 
@@ -11,12 +11,14 @@ public class StoryService : IStoryService
     private const string Endpoint = "https://api.openai.com/v1/chat/completions";
     private readonly ILanguageService _language;
     private bool m_isDeepSeekAllowed;
+    private readonly IConfiguration _configuration;
 
-    public StoryService(ILanguageService languageService)
+    public StoryService(ILanguageService languageService, IConfiguration configuration)
     {
         _language = languageService;
         _http = new HttpClient();
         _http.DefaultRequestHeaders.Add("Authorization", $"Bearer {_apiKey}");
+        _configuration = configuration;
     }
 
     public async Task<Story> GenerateStoryAsync(string childName, string sidekickAnimal, string worldSetting, string mood)
@@ -59,7 +61,7 @@ public class StoryService : IStoryService
 
 
 
-        var client = new HybridFairyTaleService();
+        var client = new HybridFairyTaleService(_configuration);
 
         var language = "English";
 

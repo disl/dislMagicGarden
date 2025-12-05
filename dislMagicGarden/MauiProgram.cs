@@ -2,8 +2,10 @@
 using dislMagicGarden.Services;
 using dislMagicGarden.ViewModels;
 using dislMagicGarden.Views;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Globalization;
+using System.Reflection;
 
 namespace dislMagicGarden
 {
@@ -20,10 +22,28 @@ namespace dislMagicGarden
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            // 2. appsettings.json als Embedded Resource auslesen und zur Konfiguration hinzufügen
+            var a = Assembly.GetExecutingAssembly();
+            var res_names = a.GetManifestResourceNames();
+            using var stream = a.GetManifestResourceStream(@"dislMagicGarden.appsettings.json");
+
+            // !!! WICHTIG: Ersetzen Sie "IhrProjektnamensraum" durch den tatsächlichen Standard-Namespace Ihres Projekts.
+            // Beispiel: "MauiApp1.appsettings.json"
+
+            if (stream != null)
+            {
+                var config = new ConfigurationBuilder()
+                    .AddJsonStream(stream) // Diese Erweiterungsmethode ist in Microsoft.Extensions.Configuration.Json verfügbar
+                    .Build();
+
+                builder.Configuration.AddConfiguration(config);
+            }
+
+
 
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             // ViewModels
@@ -32,7 +52,8 @@ namespace dislMagicGarden
 
             // Views
             builder.Services.AddTransient<HomePage>();
-            builder.Services.AddTransient<NewStoryPage>();
+            //builder.Services.AddTransient<NewStoryPage>();
+            builder.Services.AddTransient<FairyTalePage>();
 
 
             // Services (noch nicht implementiert)

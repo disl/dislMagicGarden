@@ -75,7 +75,7 @@ namespace dislMagicGarden.ViewModels
         }
 
         [RelayCommand]
-        private async Task GenerateFairyTaleAsync()
+        private async Task GenerateFairyTale()
         {
             if (string.IsNullOrWhiteSpace(Theme))
             {

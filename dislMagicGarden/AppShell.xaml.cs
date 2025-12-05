@@ -8,7 +8,7 @@ namespace dislMagicGarden
         {
             InitializeComponent();
 
-            Routing.RegisterRoute("NewStoryPage", typeof(NewStoryPage));
+            Routing.RegisterRoute("NewStoryPage", typeof(FairyTalePage));
         }
     }
 }

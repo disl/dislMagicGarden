@@ -20,6 +20,7 @@ namespace dislMagicGarden.Services
         private readonly HttpClient _httpClient;
         private readonly IConnectivity _connectivity;
         private readonly ILogger<HybridFairyTaleService> _logger;
+        private readonly IConfiguration _configuration;
 
         // API Keys (aus SecureStorage oder appsettings)
         private readonly string _deepSeekApiKey;
@@ -44,11 +45,13 @@ namespace dislMagicGarden.Services
             _connectivity = Connectivity.Current;
             _logger = LoggerFactory.Create(builder => builder.AddDebug()).CreateLogger<HybridFairyTaleService>();
 
+            _configuration = configuration;
+
             // API Keys aus Konfiguration laden
-            _deepSeekApiKey = configuration["DeepSeek:ApiKey"]
+            _deepSeekApiKey = _configuration["DeepSeek:ApiKey"]
                 ?? throw new ArgumentException("DeepSeek API Key fehlt. Bitte in appsettings.json eintragen.");
 
-            _openAiApiKey = configuration["OpenAI:ApiKey"]
+            _openAiApiKey = _configuration["OpenAI:ApiKey"]
                 ?? throw new ArgumentException("OpenAI API Key fehlt. Bitte in appsettings.json eintragen.");
 
             // Timeout setzen

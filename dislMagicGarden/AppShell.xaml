@@ -25,7 +25,7 @@
 
     <ShellContent 
         Title="Neue Geschichte"
-        ContentTemplate="{DataTemplate views:NewStoryPage}"
-        Route="NewStoryPage" />
+        ContentTemplate="{DataTemplate views:FairyTalePage}"
+        Route="FairyTalePage" />
 
 </Shell>
