@@ -11,4 +11,9 @@ public partial class FairyTalePage : FairyBasePage
 
         BindingContext = vm;
     }
+
+    private void Picker_Focused(object sender, FocusEventArgs e)
+    {
+
+    }
 }

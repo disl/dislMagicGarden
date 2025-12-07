@@ -469,5 +469,19 @@
         </Setter>
     </Style>
 
-
+    <Style x:Key="FairyInputBorderStyle" TargetType="Border">
+        <Setter Property="Stroke" Value="{StaticResource BlossomPink}" />
+        <Setter Property="StrokeThickness" Value="2" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 18" />
+        <Setter Property="Background" Value="{StaticResource FairyRose}" />
+        <Setter Property="Padding" Value="15" />
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow Brush="#FF8ED7"
+                        Offset="0,4"
+                        Opacity="0.35"
+                        Radius="14" />
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>
