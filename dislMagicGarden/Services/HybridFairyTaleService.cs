@@ -269,7 +269,7 @@ namespace dislMagicGarden.Services
                 {
                     "title": "Titel des Märchens",
                     "characters": ["Charakter 1", "Charakter 2", "Charakter 3"],
-                    "story": "Die vollständige Geschichte (500-700 Wörter)",
+                    "story": "Die vollständige Geschichte (Dauer zirka 5 min.)",
                     "moral": "Die Moral der Geschichte",
                     "image_prompts": [
                         "English description for image 1: magical forest scene",
