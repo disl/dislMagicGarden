@@ -13,6 +13,7 @@
         public GenerationMode Mode { get; set; } = GenerationMode.TextOnly;
         public int ImageCount { get; set; } = 4;
         public int AgeGroup { get; internal set; }
+        public int Duration_min { get; internal set; } = 5;
 
     }
 

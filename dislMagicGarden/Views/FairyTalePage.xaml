@@ -7,26 +7,12 @@
              xmlns:views="clr-namespace:dislMagicGarden.Views"
              x:Class="dislMagicGarden.Views.FairyTalePage"
              Title="Märchen Generator">
-
+    
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:EnumToBoolConverter x:Key="EnumToBoolConverter" />
             <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
             <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
-
-            <!-- Einheitlicher Style für Eingabecontainer -->
-            <!--<Style x:Key="FairyInputBorderStyle" TargetType="Border">
-                <Setter Property="Stroke" Value="{StaticResource BlossomPink}" />
-                <Setter Property="StrokeThickness" Value="2" />
-                <Setter Property="Background" Value="{StaticResource CottonCandy}" />
-                <Setter Property="StrokeShape" Value="RoundRectangle 15" />
-                <Setter Property="Padding" Value="15" />
-                <Setter Property="Shadow">
-                    <Setter.Value>
-                        <Shadow Brush="#FFC9E3" Offset="0,4" Opacity="0.3" Radius="10" />
-                    </Setter.Value>
-                </Setter>
-            </Style>-->
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -102,6 +88,20 @@
                    TextColor="Gray"
                    HorizontalOptions="Center" />-->
 
+            <!-- Dauer -->
+            <Border Style="{StaticResource FairyInputBorderStyle}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Geschichtenlänge (Minuten):"
+     FontAttributes="Bold"
+     TextColor="{StaticResource MagicBlackSoft}" />
+
+                    <Picker Title="Dauer wählen"
+                      ItemsSource="{Binding DurationOptions}"
+                      SelectedItem="{Binding SelectedDuration}"
+                      FontSize="18" />  
+                </VerticalStackLayout>
+            </Border>
+
 
             <Border Style="{StaticResource FairyInputBorderStyle}"
                 IsVisible="{Binding IsGenerating}"
@@ -125,6 +125,7 @@
                 </HorizontalStackLayout>
             </Border>
 
+          
 
 
             <!-- Quick Buttons -->
@@ -144,24 +145,14 @@
                         IsEnabled="{Binding IsGenerating, Converter={StaticResource InverseBoolConverter}}" />
             </Grid>
 
-            <!-- Hauptbutton -->
-            <!--<Button Text="{Binding IsGenerating,
-                                 Converter={StaticResource BoolToTextConverter},
-                                 ConverterParameter='🎭 Generiere...|🎭 Märchen generieren'}"
-                    Command="{Binding GenerateFairyTaleCommand}"
-                    Style="{StaticResource MagicButtonStyle}"
-                    BackgroundColor="{StaticResource LavenderDream}"
-                    IsEnabled="{Binding IsGenerating, Converter={StaticResource InverseBoolConverter}}" />-->
-
             <!-- Ergebnis -->
-            <Border IsVisible="{Binding CurrentFairyTale, Converter={StaticResource NullToVisibilityConverter}}"
-                    Stroke="{StaticResource FairyRose}"
-     
+            <!--<Border IsVisible="{Binding CurrentFairyTale, Converter={StaticResource NullToVisibilityConverter}}"
+                    Stroke="{StaticResource FairyRose}"     
                     StrokeShape="RoundRectangle 15"
                     Padding="0">
 
                 <VerticalStackLayout>
-                    <!-- Titel -->
+                    --><!-- Titel --><!--
                     <Grid Background="{StaticResource BlossomPink}"
                           HeightRequest="50"
                           Padding="15,0">
@@ -185,7 +176,7 @@
                                 FontSize="20" />
                     </Grid>
 
-                    <!-- Inhalt -->
+                    --><!-- Inhalt --><!--
                     <ScrollView Padding="15">
                         <VerticalStackLayout Spacing="15">
 
@@ -200,7 +191,7 @@
                                        TextColor="#2E7D32" />
                             </Border>
 
-                            <!-- Bilder -->
+                            --><!-- Bilder --><!--
                             <CollectionView ItemsSource="{Binding CurrentFairyTale.ImageUrls}"
                                             ItemsLayout="VerticalGrid, 2"
                                             IsVisible="{Binding CurrentFairyTale.HasImages}">
@@ -231,7 +222,7 @@
                         </VerticalStackLayout>
                     </ScrollView>
                 </VerticalStackLayout>
-            </Border>
+            </Border>-->
 
         </VerticalStackLayout>
     </ScrollView>

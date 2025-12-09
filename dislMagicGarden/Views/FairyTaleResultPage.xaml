@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="dislMagicGarden.Views.FairyTaleResultPage"
+             Title="Märchen">
+
+    <Grid BackgroundColor="{StaticResource CottonCandy}"
+          Padding="20"
+          RowDefinitions="Auto,*">
+
+        <!-- Header -->
+        <Grid Background="{StaticResource BlossomPink}"
+              Padding="15,10"
+              RowDefinitions="Auto"
+              ColumnDefinitions="*,Auto"
+              >
+
+            <Label Grid.Column="0"
+                   Text="{Binding FairyTale.Title}"
+                   FontSize="22"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   VerticalOptions="Center" />
+
+            <Button Grid.Column="1"
+                    Text="✕"
+                    BackgroundColor="Transparent"
+                    TextColor="White"
+                    FontSize="24"
+                    Command="{Binding CloseCommand}" />
+        </Grid>
+
+        <!-- Content -->
+        <ScrollView Grid.Row="1" Padding="5">
+            <VerticalStackLayout Spacing="14">
+
+                <Label Text="{Binding FairyTale.Story}"
+                       FontSize="18"
+                       TextColor="{StaticResource MidnightBlue}" />
+
+                <Border BackgroundColor="{StaticResource MintGarden}"
+                        StrokeShape="RoundRectangle 8"
+                        Padding="10">
+                    <Label Text="{Binding FairyTale.Moral}"
+                           FontAttributes="Italic"
+                           TextColor="#2E7D32" />
+                </Border>
+
+                <CollectionView ItemsSource="{Binding FairyTale.ImageUrls}"
+                                ItemsLayout="VerticalGrid,2"
+                                IsVisible="{Binding FairyTale.HasImages}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Stroke="{StaticResource LavenderDream}"
+                                    StrokeShape="RoundRectangle 10">
+                                <Image Source="{Binding .}"
+                                       Aspect="AspectFill"
+                                       HeightRequest="150" />
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- Stimme auswählen -->
+                <Border Style="{StaticResource FairyInputBorderStyle}">
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Vorlesestimme:"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource MagicBlackSoft}" />
+
+                        <Picker Title="Stimme auswählen"
+                    ItemsSource="{Binding AvailableVoices}"
+                    SelectedItem="{Binding SelectedVoice}"
+                    ItemDisplayBinding="{Binding DisplayName}"
+                    FontSize="16" />
+                    </VerticalStackLayout>
+                </Border>
+
+
+                <!-- Action Buttons -->
+                <Grid ColumnDefinitions="*,*"
+                      ColumnSpacing="10"
+                      Margin="0,10,0,0">
+
+                    <Button Grid.Column="0"
+                            Text="🔊 Erzählen"
+                            Style="{StaticResource MagicButtonStyle}"
+                            Command="{Binding SpeakStoryCommand}" />
+
+                    <Button Grid.Column="1"
+                            Text="📤 Teilen"
+                            BackgroundColor="Transparent"
+                            TextColor="{StaticResource MidnightBlue}"
+                            Command="{Binding ShareCommand}" />
+                </Grid>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+</ContentPage>

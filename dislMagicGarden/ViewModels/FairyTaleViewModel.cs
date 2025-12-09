@@ -3,6 +3,8 @@ using CommunityToolkit.Mvvm.Input;
 using dislMagicGarden.Models;
 using dislMagicGarden.Properties;
 using dislMagicGarden.Services;
+using dislMagicGarden.Views;
+using System.Collections.ObjectModel;
 
 namespace dislMagicGarden.ViewModels
 {
@@ -60,6 +62,15 @@ namespace dislMagicGarden.ViewModels
         private readonly ILanguageService _language;
 
 
+        // Duration-Auswahl (in Minuten)
+        public ObservableCollection<int> DurationOptions { get; } = new() { 3, 5, 10, 15, 20, 30, 60 };
+        private int _selectedDuration = 3;
+        public int SelectedDuration
+        {
+            get => _selectedDuration;
+            set => SetProperty(ref _selectedDuration, value);
+        }
+
         public FairyTaleViewModel(IHybridFairyTaleService fairyTaleService, ILanguageService language)
         {
             _fairyTaleService = fairyTaleService;
@@ -94,10 +105,21 @@ namespace dislMagicGarden.ViewModels
                     Theme = Theme,
                     Style = SelectedStyle,
                     Mode = SelectedMode,
-                    ImageCount = SelectedMode == GenerationMode.FullStory ? 4 : 0
+                    ImageCount = SelectedMode == GenerationMode.FullStory ? 4 : 0,
+                    Duration_min = SelectedDuration
                 };
 
                 CurrentFairyTale = await _fairyTaleService.GenerateFairyTaleAsync(request);
+
+                if (CurrentFairyTale != null)
+                {
+                    var model = ConvertResponseToModel(CurrentFairyTale);
+
+                    await Application.Current.MainPage.Navigation
+                        .PushModalAsync(new FairyTaleResultPage(model), true);
+                }
+
+
                 StatusMessage = $"Fertig! ({CurrentFairyTale.GenerationTime.TotalSeconds:F1}s)";
             }
             catch (Exception ex)
@@ -110,6 +132,31 @@ namespace dislMagicGarden.ViewModels
                 IsGenerating = false;
             }
         }
+
+        private FairyTaleModel ConvertResponseToModel(FairyTaleResponse response)
+        {
+            if (response == null)
+                return null;
+
+            return new FairyTaleModel
+            {
+                Title = response.Title,
+                Story = response.Story,
+                Moral = response.Moral,
+                Characters = new ObservableCollection<string>(response.Characters),
+                ImageUrls = new ObservableCollection<string>(response.ImageUrls),
+                ImagePromptsCombined = string.Join("\n\n", response.ImagePrompts),
+
+                CostText = response.Cost != null
+                    ? $"Kosten: ${response.Cost?.TotalCost:F4}"
+                    : string.Empty,
+
+                DurationText = response.GenerationTime.TotalSeconds > 0
+                    ? $"Dauer: {response.GenerationTime.TotalSeconds:F1} Sekunden"
+                    : string.Empty
+            };
+        }
+
 
         [RelayCommand]
         private async Task QuickGenerateTextOnlyAsync()

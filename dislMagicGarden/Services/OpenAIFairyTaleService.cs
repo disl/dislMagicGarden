@@ -163,7 +163,7 @@ namespace dislMagicGarden.Services
             return new UserChatMessage(
                 $"Thema: {request.Theme}\n" +
                 $"Stil: {styleDescription}\n" +
-                $"Länge: 500-700 Wörter\n" +
+                $"Dauer: {request.Duration_min} Minuten\n" +
                 $"Bitte generiere ein vollständiges Märchen."
             );
         }
