@@ -30,9 +30,9 @@
                     <Label Text="Thema deines Märchens:"
                            FontAttributes="Bold"
                            TextColor="{StaticResource MagicBlackSoft}" />
-                    <Entry Text="{Binding Theme}"
+                    <Entry Text="{Binding Theme, Mode=TwoWay}"
                            Placeholder="z.B. 'Ein mutiges Eichhörnchen rettet den Wald'"
-                          
+                           PlaceholderColor="Gray"
                            FontSize="16" />
                 </VerticalStackLayout>
             </Border>
@@ -58,17 +58,19 @@
                            FontAttributes="Bold"
                            TextColor="{StaticResource MagicBlackSoft}" />
 
+                    <!--Content="📝 Nur Text (DeepSeek) ~$0.0005"-->
+                    
                     <RadioButton GroupName="Mode"
-                                 Content="📝 Nur Text (DeepSeek) ~$0.0005"
+                                 Content="📝 Nur Text"  
                                  IsChecked="{Binding SelectedMode,
                                                 Converter={StaticResource EnumToBoolConverter},
                                                 ConverterParameter={x:Static models:GenerationMode.TextOnly}}" />
 
-                    <RadioButton GroupName="Mode"
+                    <!--<RadioButton GroupName="Mode"
                                  Content="🎨 Text + 4 Bilder (DALL·E) ~$0.16"
                                  IsChecked="{Binding SelectedMode,
                                                 Converter={StaticResource EnumToBoolConverter},
-                                                ConverterParameter={x:Static models:GenerationMode.FullStory}}" />
+                                                ConverterParameter={x:Static models:GenerationMode.FullStory}}" />-->
                 </VerticalStackLayout>
             </Border>
 
@@ -129,20 +131,20 @@
 
 
             <!-- Quick Buttons -->
-            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+            <Grid ColumnDefinitions="*" ColumnSpacing="10">
                 <Button Grid.Column="0"
-                        Text="✨ Schnell: Nur Text"
+                        Text="✨ Erstellen"
                         Command="{Binding QuickGenerateTextOnlyCommand}"
                         IsEnabled="{Binding IsGenerating, Converter={StaticResource InverseBoolConverter}}"
                         Style="{StaticResource MagicButtonStyle}" />
 
-                <Button Grid.Column="1"
+                <!--<Button Grid.Column="1"
                         Text="🎨 Premium: Mit Bildern"
                         Command="{Binding PremiumGenerateWithImagesCommand}"
                         Style="{StaticResource MagicButtonStyle}"
                         BackgroundColor="{StaticResource MintGarden}"
                         TextColor="{StaticResource MagicBlackSoft}"
-                        IsEnabled="{Binding IsGenerating, Converter={StaticResource InverseBoolConverter}}" />
+                        IsEnabled="{Binding IsGenerating, Converter={StaticResource InverseBoolConverter}}" />-->
             </Grid>
 
             <!-- Ergebnis -->

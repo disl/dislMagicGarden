@@ -14,7 +14,7 @@ namespace dislMagicGarden.ViewModels
         private readonly IHybridFairyTaleService _fairyTaleService;
 
         [ObservableProperty]
-        private string _theme = "Ein kleiner Drache lernt fliegen";
+        private string _theme = ""; // "Ein kleiner Drache lernt fliegen";
 
         [ObservableProperty]
         private string _selectedStyle = "Classic";
@@ -161,7 +161,7 @@ namespace dislMagicGarden.ViewModels
         [RelayCommand]
         private async Task QuickGenerateTextOnlyAsync()
         {
-            Theme = "Ein magisches Abenteuer im Wald";
+            //Theme = ""; // Ein magisches Abenteuer im Wald";
             SelectedMode = GenerationMode.TextOnly;
             await GenerateFairyTaleCommand.ExecuteAsync(null);
         }

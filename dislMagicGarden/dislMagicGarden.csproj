@@ -45,13 +45,11 @@
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
-		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
-		
+		<!--<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />-->
+
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
 
@@ -60,32 +58,43 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <AndroidResource Remove="Resources\Strings\**" />
-	  <Compile Remove="Resources\Strings\**" />
-	  <EmbeddedResource Remove="Resources\Strings\**" />
-	  <MauiCss Remove="Resources\Strings\**" />
-	  <MauiXaml Remove="Resources\Strings\**" />
-	  <None Remove="Resources\Strings\**" />
+		<AndroidResource Remove="Resources\Strings\**" />
+		<Compile Remove="Resources\Strings\**" />
+		<EmbeddedResource Remove="Resources\Strings\**" />
+		<MauiCss Remove="Resources\Strings\**" />
+		<MauiXaml Remove="Resources\Strings\**" />
+		<None Remove="Resources\Strings\**" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Services\DeepSeekClient.cs" />
-	  <Compile Remove="ViewModels\NewStoryViewModel_old.cs" />
-	  <Compile Remove="Views\Fairy_tale_generator.xaml.cs" />
-	  <Compile Remove="Views\NewStoryPage.xaml.cs" />
+		<Compile Remove="Services\DeepSeekClient.cs" />
+		<Compile Remove="ViewModels\NewStoryViewModel_old.cs" />
+		<Compile Remove="Views\Fairy_tale_generator.xaml.cs" />
+		<Compile Remove="Views\NewStoryPage.xaml.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Remove="Views\Fairy_tale_generator.xaml" />
-	  <MauiXaml Remove="Views\NewStoryPage.xaml" />
+		<MauiImage Remove="Resources\Images\background_magic.png" />
+		<MauiImage Remove="Resources\Images\character_bunny.webp" />
+		<MauiImage Remove="Resources\Images\header_fairy_3.jpg" />
+		<MauiImage Remove="Resources\Images\header_fairy_3.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\Config\appsettings.json" />
+		<MauiXaml Remove="Views\Fairy_tale_generator.xaml" />
+		<MauiXaml Remove="Views\NewStoryPage.xaml" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="appsettings.json" />
+		<None Remove="Resources\Config\appsettings.json" />
+		<None Remove="Resources\Images\background_magic.png" />
+		<None Remove="Resources\Images\character_bunny.webp" />
+		<None Remove="Resources\Images\header_fairy_3.jpg" />
+		<None Remove="Resources\Images\header_fairy_3.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="appsettings.json" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -104,41 +113,45 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Properties\Resources.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>Resources.resx</DependentUpon>
-	  </Compile>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Update="Properties\Resources.resx">
-	    <Generator>ResXFileCodeGenerator</Generator>
-	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\FairyBasePage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\ChapterEditorPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\FairyTalePage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\FairyTaleResultPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\HomePage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+		<MauiXaml Update="Views\FairyBasePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\ChapterEditorPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\FairyTalePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\FairyTaleResultPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\HomePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Controls\" />
-	  <Folder Include="Resources\Config\" />
+		<Folder Include="Controls\" />
+		<Folder Include="Resources\Config\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<MauiSplashScreen Include="Resources\Splash\splash.jpg" Color="#FFE2F1"   />
 	</ItemGroup>
 
 </Project>

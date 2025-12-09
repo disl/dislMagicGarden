@@ -9,7 +9,7 @@
 
     <Grid>
         <!-- OPTIONAL: Hintergrundbild -->
-        <Image Source="background_magic.png"
+        <Image Source="background_magic.jpg"
                Aspect="AspectFill"
                Opacity="0.25"
                ZIndex="-1" />
@@ -35,8 +35,8 @@
                 <Label Text="{x:Static res:Resources.Home_Welcome}"
                        HorizontalOptions="Center"
                        FontAttributes="Bold"
-                       FontSize="32"
-                       TextColor="{StaticResource MagicPink}" />
+                       FontSize="28"
+                       TextColor="{StaticResource BlossomPink}" />
 
                 <!-- Start Button -->
                 <Border StrokeShape="RoundRectangle 25"
@@ -58,8 +58,8 @@
 
                 <!-- Maskottchen -->
                 <VerticalStackLayout Spacing="5" HorizontalOptions="Center">
-                    <Image Source="character_bunny.webp"
-                           HeightRequest="140"
+                    <Image Source="character_bunny.png"
+                           HeightRequest="250"
                            Aspect="AspectFit" />
                     <Label Text="Luna wartet auf ein neues Abenteuer!"
                            FontSize="18"
