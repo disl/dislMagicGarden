@@ -90,7 +90,7 @@ namespace dislMagicGarden.ViewModels
         {
             if (string.IsNullOrWhiteSpace(Theme))
             {
-                await ShowErrorAsync("Bitte gib ein Thema ein.");
+                await ShowErrorAsync(Properties.Resources.Please_enter_a_topic);
                 return;
             }
 
@@ -124,7 +124,7 @@ namespace dislMagicGarden.ViewModels
             }
             catch (Exception ex)
             {
-                await ShowErrorAsync($"Fehler: {ex.Message}");
+                await ShowErrorAsync($"{Properties.Resources.Error}: {ex.Message}");
                 CurrentFairyTale = null;
             }
             finally
@@ -177,7 +177,7 @@ namespace dislMagicGarden.ViewModels
         private void ClearResults()
         {
             CurrentFairyTale = null;
-            StatusMessage = "Bereit";
+            StatusMessage = Properties.Resources.Ready;
             HasError = false;
         }
 
@@ -196,7 +196,7 @@ namespace dislMagicGarden.ViewModels
             }
             catch (Exception ex)
             {
-                await ShowErrorAsync($"Teilen fehlgeschlagen: {ex.Message}");
+                await ShowErrorAsync($"{Properties.Resources.Error}: {ex.Message}");
             }
         }
 

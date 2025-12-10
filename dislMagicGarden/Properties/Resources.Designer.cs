@@ -61,6 +61,15 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die e.g. A brave squirrel saves the forest ähnelt.
+        /// </summary>
+        internal static string A_brave_squirrel_saves_the_forest {
+            get {
+                return ResourceManager.GetString("A_brave_squirrel_saves_the_forest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die A magical adventure with ähnelt.
         /// </summary>
         internal static string A_magical_adventure_with {
@@ -106,6 +115,33 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ✨ Create ähnelt.
+        /// </summary>
+        internal static string Create_button {
+            get {
+                return ResourceManager.GetString("Create_button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Error ähnelt.
+        /// </summary>
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 🎭 Fairy Tale Generator ähnelt.
+        /// </summary>
+        internal static string Fairy_Tale_Generator {
+            get {
+                return ResourceManager.GetString("Fairy_Tale_Generator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Funny ähnelt.
         /// </summary>
         internal static string Funny {
@@ -138,6 +174,24 @@ namespace dislMagicGarden.Properties {
         internal static string insufficient_credit {
             get {
                 return ResourceManager.GetString("insufficient_credit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Luna is waiting for a new adventure! ähnelt.
+        /// </summary>
+        internal static string Luna_is_waiting {
+            get {
+                return ResourceManager.GetString("Luna_is_waiting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Mode ähnelt.
+        /// </summary>
+        internal static string Mode {
+            get {
+                return ResourceManager.GetString("Mode", resourceCulture);
             }
         }
         
@@ -178,6 +232,42 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Please enter a topic ähnelt.
+        /// </summary>
+        internal static string Please_enter_a_topic {
+            get {
+                return ResourceManager.GetString("Please_enter_a_topic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 🔊 Read aloud ähnelt.
+        /// </summary>
+        internal static string Read_aloud {
+            get {
+                return ResourceManager.GetString("Read_aloud", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Reading voice ähnelt.
+        /// </summary>
+        internal static string reading_voice {
+            get {
+                return ResourceManager.GetString("reading_voice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ready ähnelt.
+        /// </summary>
+        internal static string Ready {
+            get {
+                return ResourceManager.GetString("Ready", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Reassuring ähnelt.
         /// </summary>
         internal static string Reassuring {
@@ -192,6 +282,51 @@ namespace dislMagicGarden.Properties {
         internal static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Select duration ähnelt.
+        /// </summary>
+        internal static string Select_duration {
+            get {
+                return ResourceManager.GetString("Select_duration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 📤 Share ähnelt.
+        /// </summary>
+        internal static string Share_button {
+            get {
+                return ResourceManager.GetString("Share_button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Story length (minutes) ähnelt.
+        /// </summary>
+        internal static string Story_length {
+            get {
+                return ResourceManager.GetString("Story_length", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Style ähnelt.
+        /// </summary>
+        internal static string Style {
+            get {
+                return ResourceManager.GetString("Style", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Theme of your fairy tale ähnelt.
+        /// </summary>
+        internal static string Theme_of_your_fairy_tale {
+            get {
+                return ResourceManager.GetString("Theme_of_your_fairy_tale", resourceCulture);
             }
         }
         

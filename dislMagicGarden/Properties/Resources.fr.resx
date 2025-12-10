@@ -120,6 +120,9 @@
   <data name="Adventurous" xml:space="preserve">
     <value>Aventureux</value>
   </data>
+  <data name="A_brave_squirrel_saves_the_forest" xml:space="preserve">
+    <value>Par exemple : un écureuil courageux sauve la forêt.</value>
+  </data>
   <data name="A_magical_adventure_with" xml:space="preserve">
     <value>Une aventure magique avec %1</value>
   </data>
@@ -131,6 +134,15 @@
   </data>
   <data name="Conjure_up_history" xml:space="preserve">
     <value>Conjurer l'histoire</value>
+  </data>
+  <data name="Create_button" xml:space="preserve">
+    <value>✨ Créer</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="Fairy_Tale_Generator" xml:space="preserve">
+    <value>🎭 Générateur de contes de fées</value>
   </data>
   <data name="Funny" xml:space="preserve">
     <value>Drôle</value>
@@ -144,6 +156,12 @@
   <data name="insufficient_credit" xml:space="preserve">
     <value>Crédit insuffisant. Veuillez acheter davantage pour continuer à utiliser le service.</value>
   </data>
+  <data name="Luna_is_waiting" xml:space="preserve">
+    <value>Luna attend une nouvelle aventure !</value>
+  </data>
+  <data name="Mode" xml:space="preserve">
+    <value>Mode</value>
+  </data>
   <data name="NewStory_Animal" xml:space="preserve">
     <value>Ami des animaux</value>
   </data>
@@ -156,11 +174,38 @@
   <data name="NewStory_World" xml:space="preserve">
     <value>Monde magique</value>
   </data>
+  <data name="Please_enter_a_topic" xml:space="preserve">
+    <value>Veuillez saisir un sujet.</value>
+  </data>
+  <data name="reading_voice" xml:space="preserve">
+    <value>Voix de lecture</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Prêt</value>
+  </data>
+  <data name="Read_aloud" xml:space="preserve">
+    <value>🔊 Lire à haute voix</value>
+  </data>
   <data name="Reassuring" xml:space="preserve">
     <value>Apaisant</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Enregistrer</value>
+  </data>
+  <data name="Select_duration" xml:space="preserve">
+    <value>Sélectionner la durée</value>
+  </data>
+  <data name="Share_button" xml:space="preserve">
+    <value>📤 Partager</value>
+  </data>
+  <data name="Story_length" xml:space="preserve">
+    <value>Durée de l'histoire (minutes)</value>
+  </data>
+  <data name="Style" xml:space="preserve">
+    <value>Style</value>
+  </data>
+  <data name="Theme_of_your_fairy_tale" xml:space="preserve">
+    <value>Thème de ton conte</value>
   </data>
   <data name="Undo" xml:space="preserve">
     <value>Annuler</value>

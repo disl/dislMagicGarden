@@ -5,6 +5,7 @@
              xmlns:models="clr-namespace:dislMagicGarden.Models"
              xmlns:converters="clr-namespace:dislMagicGarden.Converters"
              xmlns:views="clr-namespace:dislMagicGarden.Views"
+             xmlns:res="clr-namespace:dislMagicGarden.Properties"
              x:Class="dislMagicGarden.Views.FairyTalePage"
              Title="Märchen Generator">
     
@@ -19,7 +20,7 @@
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
 
-            <Label Text="🎭 Märchen Generator"
+            <Label Text="{x:Static res:Resources.Fairy_Tale_Generator}"
                    FontSize="26"
                    FontAttributes="Bold"
                    HorizontalOptions="Center" />
@@ -27,11 +28,11 @@
             <!-- Thema -->
             <Border Style="{StaticResource FairyInputBorderStyle}">
                 <VerticalStackLayout Spacing="10">
-                    <Label Text="Thema deines Märchens:"
+                    <Label Text="{x:Static res:Resources.Theme_of_your_fairy_tale}"
                            FontAttributes="Bold"
                            TextColor="{StaticResource MagicBlackSoft}" />
-                    <Entry Text="{Binding Theme, Mode=TwoWay}"
-                           Placeholder="z.B. 'Ein mutiges Eichhörnchen rettet den Wald'"
+                    <Entry Text="{Binding Theme}"
+                           Placeholder="{x:Static res:Resources.A_brave_squirrel_saves_the_forest}"
                            PlaceholderColor="Gray"
                            FontSize="16" />
                 </VerticalStackLayout>
@@ -40,7 +41,7 @@
             <!-- Stil -->
             <Border Style="{StaticResource FairyInputBorderStyle}">
                 <VerticalStackLayout Spacing="10">
-                    <Label Text="Stil:"
+                    <Label Text="{x:Static res:Resources.Style}"
                            FontAttributes="Bold"
                            TextColor="{StaticResource MagicBlackSoft}" />
                     <Picker ItemsSource="{Binding Styles}"
@@ -52,13 +53,13 @@
             </Border>
 
             <!-- Modus -->
-            <Border Style="{StaticResource FairyInputBorderStyle}">
+            <!--<Border Style="{StaticResource FairyInputBorderStyle}">
                 <VerticalStackLayout Spacing="8">
-                    <Label Text="Modus:"
+                    <Label Text="{x:Static res:Resources.Mode}"
                            FontAttributes="Bold"
                            TextColor="{StaticResource MagicBlackSoft}" />
 
-                    <!--Content="📝 Nur Text (DeepSeek) ~$0.0005"-->
+                    --><!--Content="📝 Nur Text (DeepSeek) ~$0.0005"--><!--
                     
                     <RadioButton GroupName="Mode"
                                  Content="📝 Nur Text"  
@@ -66,13 +67,13 @@
                                                 Converter={StaticResource EnumToBoolConverter},
                                                 ConverterParameter={x:Static models:GenerationMode.TextOnly}}" />
 
-                    <!--<RadioButton GroupName="Mode"
+                    --><!--<RadioButton GroupName="Mode"
                                  Content="🎨 Text + 4 Bilder (DALL·E) ~$0.16"
                                  IsChecked="{Binding SelectedMode,
                                                 Converter={StaticResource EnumToBoolConverter},
-                                                ConverterParameter={x:Static models:GenerationMode.FullStory}}" />-->
+                                                ConverterParameter={x:Static models:GenerationMode.FullStory}}" />--><!--
                 </VerticalStackLayout>
-            </Border>
+            </Border>-->
 
             <!-- Fehler -->
             <Border IsVisible="{Binding HasError}"
@@ -93,11 +94,11 @@
             <!-- Dauer -->
             <Border Style="{StaticResource FairyInputBorderStyle}">
                 <VerticalStackLayout Spacing="8">
-                    <Label Text="Geschichtenlänge (Minuten):"
+                    <Label Text="{x:Static res:Resources.Story_length}"
      FontAttributes="Bold"
      TextColor="{StaticResource MagicBlackSoft}" />
 
-                    <Picker Title="Dauer wählen"
+                    <Picker Title="{x:Static res:Resources.Select_duration}"
                       ItemsSource="{Binding DurationOptions}"
                       SelectedItem="{Binding SelectedDuration}"
                       FontSize="18" />  
@@ -133,7 +134,7 @@
             <!-- Quick Buttons -->
             <Grid ColumnDefinitions="*" ColumnSpacing="10">
                 <Button Grid.Column="0"
-                        Text="✨ Erstellen"
+                        Text="{x:Static res:Resources.Create_button}"
                         Command="{Binding QuickGenerateTextOnlyCommand}"
                         IsEnabled="{Binding IsGenerating, Converter={StaticResource InverseBoolConverter}}"
                         Style="{StaticResource MagicButtonStyle}" />
@@ -146,85 +147,6 @@
                         TextColor="{StaticResource MagicBlackSoft}"
                         IsEnabled="{Binding IsGenerating, Converter={StaticResource InverseBoolConverter}}" />-->
             </Grid>
-
-            <!-- Ergebnis -->
-            <!--<Border IsVisible="{Binding CurrentFairyTale, Converter={StaticResource NullToVisibilityConverter}}"
-                    Stroke="{StaticResource FairyRose}"     
-                    StrokeShape="RoundRectangle 15"
-                    Padding="0">
-
-                <VerticalStackLayout>
-                    --><!-- Titel --><!--
-                    <Grid Background="{StaticResource BlossomPink}"
-                          HeightRequest="50"
-                          Padding="15,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <Label Grid.Column="0"
-                               Text="{Binding CurrentFairyTale.Title}"
-                               TextColor="White"
-                               FontSize="20"
-                               FontAttributes="Bold"
-                               VerticalOptions="Center" />
-
-                        <Button Grid.Column="1"
-                                Text="✕"
-                                Command="{Binding ClearResultsCommand}"
-                                BackgroundColor="Transparent"
-                                TextColor="White"
-                                FontSize="20" />
-                    </Grid>
-
-                    --><!-- Inhalt --><!--
-                    <ScrollView Padding="15">
-                        <VerticalStackLayout Spacing="15">
-
-                            <Label Text="{Binding CurrentFairyTale.Story}"
-                                   FontSize="16" />
-
-                            <Border BackgroundColor="{StaticResource MintGarden}"
-                                    StrokeShape="RoundRectangle 8"
-                                    Padding="10">
-                                <Label Text="{Binding CurrentFairyTale.Moral}"
-                                       FontAttributes="Italic"
-                                       TextColor="#2E7D32" />
-                            </Border>
-
-                            --><!-- Bilder --><!--
-                            <CollectionView ItemsSource="{Binding CurrentFairyTale.ImageUrls}"
-                                            ItemsLayout="VerticalGrid, 2"
-                                            IsVisible="{Binding CurrentFairyTale.HasImages}">
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate>
-                                        <Border Stroke="{StaticResource LavenderDream}"
-                                                StrokeShape="RoundRectangle 5">
-                                            <Image Source="{Binding .}"
-                                                   Aspect="AspectFill"
-                                                   HeightRequest="150" />
-                                        </Border>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
-
-                            <Grid ColumnDefinitions="*,Auto">
-                                <Label Grid.Column="0"
-                                       Text="{Binding CurrentFairyTale.Cost}"
-                                       FontSize="12"
-                                       TextColor="Gray" />
-
-                                <Button Grid.Column="1"
-                                        Text="📤 Teilen"
-                                        Command="{Binding ShareStoryCommand}"
-                                        BackgroundColor="Transparent"
-                                        TextColor="{StaticResource MagicBlackSoft}" />
-                            </Grid>
-                        </VerticalStackLayout>
-                    </ScrollView>
-                </VerticalStackLayout>
-            </Border>-->
 
         </VerticalStackLayout>
     </ScrollView>

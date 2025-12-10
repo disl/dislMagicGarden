@@ -49,7 +49,6 @@
                     </Border.Shadow>
                     <Button Text="{x:Static res:Resources.Home_NewStory}"
                             Command="{Binding GoToNewStoryCommand}"
-                            BackgroundColor="Transparent"
                             FontSize="22"
                             TextColor="White"
                             HeightRequest="70"
@@ -61,7 +60,7 @@
                     <Image Source="character_bunny.png"
                            HeightRequest="250"
                            Aspect="AspectFit" />
-                    <Label Text="Luna wartet auf ein neues Abenteuer!"
+                    <Label Text="{x:Static res:Resources.Luna_is_waiting}"
                            FontSize="18"
                            TextColor="{StaticResource MagicBlackSoft}"
                            HorizontalTextAlignment="Center"/>

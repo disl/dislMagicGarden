@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="dislMagicGarden.Views.FairyTaleResultPage"
+             xmlns:res="clr-namespace:dislMagicGarden.Properties"
              Title="Märchen">
 
     <Grid BackgroundColor="{StaticResource CottonCandy}"
@@ -64,7 +65,7 @@
                 <!-- Stimme auswählen -->
                 <Border Style="{StaticResource FairyInputBorderStyle}">
                     <VerticalStackLayout Spacing="6">
-                        <Label Text="Vorlesestimme:"
+                        <Label Text="{x:Static res:Resources.reading_voice}"  
                    FontAttributes="Bold"
                    TextColor="{StaticResource MagicBlackSoft}" />
 
@@ -83,12 +84,12 @@
                       Margin="0,10,0,0">
 
                     <Button Grid.Column="0"
-                            Text="🔊 Erzählen"
+                            Text="{x:Static res:Resources.Read_aloud}"
                             Style="{StaticResource MagicButtonStyle}"
                             Command="{Binding SpeakStoryCommand}" />
 
                     <Button Grid.Column="1"
-                            Text="📤 Teilen"
+                            Text="{x:Static res:Resources.Share_button}"
                             BackgroundColor="Transparent"
                             TextColor="{StaticResource MidnightBlue}"
                             Command="{Binding ShareCommand}" />
