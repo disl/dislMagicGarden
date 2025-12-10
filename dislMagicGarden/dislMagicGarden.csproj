@@ -21,7 +21,8 @@
 		<Nullable>enable</Nullable>
 
 		<!-- Display name -->
-		<ApplicationTitle>dislMagicGarden</ApplicationTitle>
+		<ApplicationTitle>Magic Garden</ApplicationTitle>
+		<DisplayName>Magic Garden</DisplayName>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.dislmagicgarden</ApplicationId>
@@ -39,11 +40,11 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+		<AssemblyTitle>Magic Garden</AssemblyTitle>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
 
 		<!-- Images -->
@@ -151,7 +152,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<MauiSplashScreen Include="Resources\Splash\splash.jpg" Color="#FFE2F1"   />
+	  <MauiIcon Include="Resources\AppIcon\appicon.png" />
+	  <MauiSplashScreen Include="Resources\Splash\appicon.png" color="white" />
 	</ItemGroup>
 
 </Project>
