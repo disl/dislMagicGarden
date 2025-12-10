@@ -59,7 +59,7 @@ namespace dislMagicGarden
             // Services (noch nicht implementiert)
             builder.Services.AddSingleton<IStoryService, StoryService>();
             builder.Services.AddSingleton<Models.IIllustrationService, IllustrationService>();
-            builder.Services.AddSingleton<IEditorService, EditorService>();
+            //builder.Services.AddSingleton<IEditorService, EditorService>();
             builder.Services.AddSingleton<IBookExportService, BookExportService>();
             builder.Services.AddSingleton<ILanguageService, LanguageService>();
             builder.Services.AddSingleton<IHybridFairyTaleService, HybridFairyTaleService>();

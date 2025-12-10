@@ -198,7 +198,7 @@ public class StoryService : IStoryService
 You are a professional children's storyteller AI.
 Please write the ENTIRE OUTPUT in: {Language}.
 
-Write a magical, soft bedtime story for a little girl.
+Write a magical, soft bedtime story for a little child.
 Use a warm, pastel, emotional tone.
 Write visually, with enough detail to inspire illustrations.
 Each chapter should have 4–6 sentences.

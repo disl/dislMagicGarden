@@ -11,7 +11,7 @@
             string.IsNullOrWhiteSpace(ImageEditedPath) ? ImageOriginalPath : ImageEditedPath;
 
         // Kinderstriche
-        public List<EditorStroke> EditorStrokes { get; set; } = new();
+        //public List<EditorStroke> EditorStrokes { get; set; } = new();
     }
 
 

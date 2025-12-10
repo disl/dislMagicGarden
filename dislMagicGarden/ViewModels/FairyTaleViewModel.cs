@@ -96,7 +96,7 @@ namespace dislMagicGarden.ViewModels
 
             IsGenerating = true;
             HasError = false;
-            StatusMessage = "Generiere Märchen...";
+            StatusMessage = $"{Properties.Resources.Generate_fairy_tales}...";
 
             try
             {
@@ -148,11 +148,11 @@ namespace dislMagicGarden.ViewModels
                 ImagePromptsCombined = string.Join("\n\n", response.ImagePrompts),
 
                 CostText = response.Cost != null
-                    ? $"Kosten: ${response.Cost?.TotalCost:F4}"
+                    ? $"{Properties.Resources.Costs}: ${response.Cost?.TotalCost:F4}"
                     : string.Empty,
 
                 DurationText = response.GenerationTime.TotalSeconds > 0
-                    ? $"Dauer: {response.GenerationTime.TotalSeconds:F1} Sekunden"
+                    ? $"{Properties.Resources.Duration}: {response.GenerationTime.TotalSeconds:F1} {Properties.Resources.seconds}"
                     : string.Empty
             };
         }

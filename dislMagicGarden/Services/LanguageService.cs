@@ -38,6 +38,28 @@ public class LanguageService : ILanguageService
     {
         try
         {
+            // TEST !!!!!!!!
+
+            //var culture = new CultureInfo("en-US");
+
+            //CultureInfo.DefaultThreadCurrentCulture = culture;
+            //CultureInfo.DefaultThreadCurrentUICulture = culture;
+
+            //Thread.CurrentThread.CurrentCulture = culture;
+            //Thread.CurrentThread.CurrentUICulture = culture;
+
+
+            //string iso = culture.TwoLetterISOLanguageName;
+
+            //// Falls Sprache nicht unterstützt wird → Default DE
+            //CurrentIso = _map.ContainsKey(iso)
+            //    ? iso
+            //    : "de";
+
+
+
+            // AKTIVIEREN !!!!!!!!
+
             string iso = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
 
             // Falls Sprache nicht unterstützt wird → Default DE

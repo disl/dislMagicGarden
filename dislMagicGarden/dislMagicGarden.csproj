@@ -43,6 +43,46 @@
 		<AssemblyTitle>Magic Garden</AssemblyTitle>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-android|AnyCPU'">
+	  <ApplicationDisplayVersion>1.4</ApplicationDisplayVersion>
+	  <ApplicationVersion>4</ApplicationVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-ios|AnyCPU'">
+	  <ApplicationDisplayVersion>1.4</ApplicationDisplayVersion>
+	  <ApplicationVersion>4</ApplicationVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-maccatalyst|AnyCPU'">
+	  <ApplicationDisplayVersion>1.4</ApplicationDisplayVersion>
+	  <ApplicationVersion>4</ApplicationVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-windows10.0.19041.0|AnyCPU'">
+	  <ApplicationDisplayVersion>1.4</ApplicationDisplayVersion>
+	  <ApplicationVersion>4</ApplicationVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android|AnyCPU'">
+	  <ApplicationDisplayVersion>1.4</ApplicationDisplayVersion>
+	  <ApplicationVersion>4</ApplicationVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-ios|AnyCPU'">
+	  <ApplicationDisplayVersion>1.4</ApplicationDisplayVersion>
+	  <ApplicationVersion>4</ApplicationVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-maccatalyst|AnyCPU'">
+	  <ApplicationDisplayVersion>1.4</ApplicationDisplayVersion>
+	  <ApplicationVersion>4</ApplicationVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-windows10.0.19041.0|AnyCPU'">
+	  <ApplicationDisplayVersion>1.4</ApplicationDisplayVersion>
+	  <ApplicationVersion>4</ApplicationVersion>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<!-- App Icon -->
 
@@ -68,8 +108,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Compile Remove="Models\EditorStroke.cs" />
+		<Compile Remove="Models\IEditorService.cs" />
 		<Compile Remove="Services\DeepSeekClient.cs" />
+		<Compile Remove="Services\EditorService.cs" />
+		<Compile Remove="ViewModels\ChapterEditorViewModel.cs" />
 		<Compile Remove="ViewModels\NewStoryViewModel_old.cs" />
+		<Compile Remove="Views\ChapterEditorPage.xaml.cs" />
 		<Compile Remove="Views\Fairy_tale_generator.xaml.cs" />
 		<Compile Remove="Views\NewStoryPage.xaml.cs" />
 	</ItemGroup>
@@ -82,6 +127,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<MauiXaml Remove="Views\ChapterEditorPage.xaml" />
 		<MauiXaml Remove="Views\Fairy_tale_generator.xaml" />
 		<MauiXaml Remove="Views\NewStoryPage.xaml" />
 	</ItemGroup>
@@ -109,11 +155,14 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.8" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 		<PackageReference Include="PdfSharpCore" Version="1.3.67" />
-		<PackageReference Include="SkiaSharp" Version="3.119.1" />
-		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="3.119.1" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<Compile Update="Properties\Resources.ru.Designer.cs">
+		  <DependentUpon>Resources.ru.resx</DependentUpon>
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		</Compile>
 		<Compile Update="Properties\Resources.Designer.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
@@ -122,6 +171,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<EmbeddedResource Update="Properties\Resources.ru.resx">
+		  <SubType>Designer</SubType>
+		  <LastGenOutput>Resources.ru.Designer.cs</LastGenOutput>
+		  <Generator>ResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
 		<EmbeddedResource Update="Properties\Resources.resx">
 			<Generator>ResXFileCodeGenerator</Generator>
 			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -130,9 +184,6 @@
 
 	<ItemGroup>
 		<MauiXaml Update="Views\FairyBasePage.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Views\ChapterEditorPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\FairyTalePage.xaml">

@@ -115,11 +115,29 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Costs ähnelt.
+        /// </summary>
+        internal static string Costs {
+            get {
+                return ResourceManager.GetString("Costs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die ✨ Create ähnelt.
         /// </summary>
         internal static string Create_button {
             get {
                 return ResourceManager.GetString("Create_button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Duration ähnelt.
+        /// </summary>
+        internal static string Duration {
+            get {
+                return ResourceManager.GetString("Duration", resourceCulture);
             }
         }
         
@@ -147,6 +165,15 @@ namespace dislMagicGarden.Properties {
         internal static string Funny {
             get {
                 return ResourceManager.GetString("Funny", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Generate fairy tales ähnelt.
+        /// </summary>
+        internal static string Generate_fairy_tales {
+            get {
+                return ResourceManager.GetString("Generate_fairy_tales", resourceCulture);
             }
         }
         
@@ -286,6 +313,15 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die seconds ähnelt.
+        /// </summary>
+        internal static string seconds {
+            get {
+                return ResourceManager.GetString("seconds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Select duration ähnelt.
         /// </summary>
         internal static string Select_duration {
@@ -300,6 +336,15 @@ namespace dislMagicGarden.Properties {
         internal static string Share_button {
             get {
                 return ResourceManager.GetString("Share_button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Share fairy tales ähnelt.
+        /// </summary>
+        internal static string Share_fairy_tales {
+            get {
+                return ResourceManager.GetString("Share_fairy_tales", resourceCulture);
             }
         }
         

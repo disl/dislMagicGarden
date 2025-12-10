@@ -1,7 +1,7 @@
 ﻿using dislMagicGarden.Models;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Windows.Input;
-using MauiLocale = Microsoft.Maui.Media.Locale;
 
 namespace dislMagicGarden.ViewModels
 {
@@ -19,27 +19,49 @@ namespace dislMagicGarden.ViewModels
             set => SetProperty(ref _selectedVoice, value);
         }
 
-       
-
-
         public ICommand SpeakStoryCommand { get; }
         public ICommand ShareCommand { get; }
         public ICommand CloseCommand { get; }
 
+
+
         public async Task LoadVoicesAsync()
         {
-            var locales = await TextToSpeech.GetLocalesAsync(); // liefert MAUI-Locales!
+            var locales = await TextToSpeech.GetLocalesAsync();
 
             AvailableVoices.Clear();
-            foreach (var locale in locales.Where(v => v.Language.StartsWith("de")))
+
+            // Aktuelle UI-Culture holen (z. B. "de-DE", "en-US")
+            var currentCulture = CultureInfo.CurrentUICulture;
+            string langPrefix = currentCulture.TwoLetterISOLanguageName; // z.B. "de"
+
+            // Stimmen zuerst nach exakter Culture suchen
+            var exactMatches = locales.Where(l =>
+                string.Equals(l.Language, currentCulture.Name, StringComparison.OrdinalIgnoreCase));
+
+            foreach (var match in exactMatches)
+                AvailableVoices.Add(new LocaleWrapper { Locale = match });
+
+            // Wenn keine exakte Übereinstimmung → Suche nach gleichem Sprach-Stamm ("de", "en", ...)
+            if (!AvailableVoices.Any())
             {
-                AvailableVoices.Add(new LocaleWrapper { Locale = locale });
+                var fallbackMatches = locales.Where(l =>
+                    l.Language.StartsWith(langPrefix, StringComparison.OrdinalIgnoreCase));
+
+                foreach (var match in fallbackMatches)
+                    AvailableVoices.Add(new LocaleWrapper { Locale = match });
             }
 
-            SelectedVoice = AvailableVoices
-                .FirstOrDefault(v => v.Locale.Language == "de")
-                ?? AvailableVoices.FirstOrDefault();
+            // Wenn immer noch keine gefunden → einfach irgend eine nehmen
+            if (!AvailableVoices.Any())
+            {
+                foreach (var locale in locales)
+                    AvailableVoices.Add(new LocaleWrapper { Locale = locale });
+            }
+
+            SelectedVoice = AvailableVoices.FirstOrDefault();
         }
+
 
         public FairyTaleResultViewModel(FairyTaleModel fairyTale, Action closeAction)
         {
@@ -62,7 +84,7 @@ namespace dislMagicGarden.ViewModels
             {
                 await Share.RequestAsync(new ShareTextRequest
                 {
-                    Title = "Märchen teilen",
+                    Title = Properties.Resources.Share_fairy_tales,
                     Text = FairyTale.Story
                 });
             });

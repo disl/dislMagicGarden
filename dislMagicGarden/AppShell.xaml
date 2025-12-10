@@ -18,10 +18,10 @@
         ContentTemplate="{DataTemplate views:HomePage}"
         Route="HomePage" />
 
-    <ShellContent 
+    <!--<ShellContent 
          Title="Start"
          ContentTemplate="{DataTemplate views:ChapterEditorPage}"
-         Route="ChapterEditorPage" />
+         Route="ChapterEditorPage" />-->
 
     <ShellContent 
         Title="Neue Geschichte"

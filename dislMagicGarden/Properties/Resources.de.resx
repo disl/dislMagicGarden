@@ -135,8 +135,14 @@
   <data name="Conjure_up_history" xml:space="preserve">
     <value>Geschichte zaubern</value>
   </data>
+  <data name="Costs" xml:space="preserve">
+    <value>Kosten</value>
+  </data>
   <data name="Create_button" xml:space="preserve">
     <value>✨ Erstellen</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Dauer</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Fehler</value>
@@ -146,6 +152,9 @@
   </data>
   <data name="Funny" xml:space="preserve">
     <value>Lustig</value>
+  </data>
+  <data name="Generate_fairy_tales" xml:space="preserve">
+    <value>Generiere Märchen</value>
   </data>
   <data name="Home_NewStory" xml:space="preserve">
     <value>Neue Geschichte erstellen</value>
@@ -192,11 +201,17 @@
   <data name="Save" xml:space="preserve">
     <value>Speichern</value>
   </data>
+  <data name="seconds" xml:space="preserve">
+    <value>Sekunden</value>
+  </data>
   <data name="Select_duration" xml:space="preserve">
     <value>Dauer wählen</value>
   </data>
   <data name="Share_button" xml:space="preserve">
     <value>📤 Teilen</value>
+  </data>
+  <data name="Share_fairy_tales" xml:space="preserve">
+    <value>Märchen teilen</value>
   </data>
   <data name="Story_length" xml:space="preserve">
     <value>Geschichtenlänge (Minuten)</value>

@@ -7,7 +7,7 @@ namespace dislMagicGarden.ViewModels
     {
         public HomeViewModel()
         {
-            Title = "dislMagicGarden";
+            Title = "Magic Garden";
         }
 
         [RelayCommand]

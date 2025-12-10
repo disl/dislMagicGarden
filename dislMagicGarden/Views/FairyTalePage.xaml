@@ -95,8 +95,8 @@
             <Border Style="{StaticResource FairyInputBorderStyle}">
                 <VerticalStackLayout Spacing="8">
                     <Label Text="{x:Static res:Resources.Story_length}"
-     FontAttributes="Bold"
-     TextColor="{StaticResource MagicBlackSoft}" />
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource MagicBlackSoft}" />
 
                     <Picker Title="{x:Static res:Resources.Select_duration}"
                       ItemsSource="{Binding DurationOptions}"
@@ -117,18 +117,18 @@
                            VerticalOptions="Center">
 
                     <ActivityIndicator 
-            IsRunning="{Binding IsGenerating}"
-            WidthRequest="22"
-            HeightRequest="22" />
+                        IsRunning="{Binding IsGenerating}"
+                        WidthRequest="22"
+                        HeightRequest="22" />
 
                     <Label Text="{Binding StatusMessage}"
-               FontSize="18"
-               FontAttributes="Bold"
-               TextColor="{AppThemeBinding Light={StaticResource MidnightBlue}, Dark={StaticResource White}}" />
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light={StaticResource MidnightBlue}, Dark={StaticResource White}}" />
                 </HorizontalStackLayout>
             </Border>
 
-          
+
 
 
             <!-- Quick Buttons -->

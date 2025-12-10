@@ -173,7 +173,7 @@ namespace dislMagicGarden.Services
                     new { role = "user", content = prompt }
                 },
                 temperature = 0.7,
-                max_tokens = 1000
+                //max_tokens = 1000
             };
 
             var json = JsonSerializer.Serialize(requestBody);
@@ -253,17 +253,22 @@ namespace dislMagicGarden.Services
         {
             var styleText = request.Style switch
             {
-                "Classic" => "im klassischen Märchenstil der Gebrüder Grimm",
+                "Classic" => "im klassischen Märchenstil",
                 "Modern" => "im modernen, kindgerechten Stil",
                 "Funny" => "im lustigen, humorvollen Stil",
                 "HD" => "im sehr detaillierten Stil für hochwertige Illustrationen",
                 _ => "im klassischen Märchenstil"
             };
 
+
+            string _currentLanguage = Thread.CurrentThread.CurrentCulture.NativeName;          
+
             return $$"""
-                Erstelle ein komplettes Märchen {{styleText}}.
+                Erstelle ein komplettes (!) Märchen {{styleText}}. Ohne '...' am Ende. 
                 
                 Thema: {{request.Theme}}
+
+                Ausgabesprache: {{_currentLanguage}}
                 
                 Format: JSON mit folgenden Feldern:
                 {
