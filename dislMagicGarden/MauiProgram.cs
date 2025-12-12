@@ -1,9 +1,7 @@
-﻿using dislMagicGarden.Models;
-using dislMagicGarden.Services;
+﻿using dislMagicGarden.Services;
 using dislMagicGarden.ViewModels;
 using dislMagicGarden.Views;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using System.Globalization;
 using System.Reflection;
 
@@ -43,7 +41,7 @@ namespace dislMagicGarden
 
 
 #if DEBUG
-            builder.Logging.AddDebug();
+            //builder.Logging.AddDebug();
 #endif
 
             // ViewModels

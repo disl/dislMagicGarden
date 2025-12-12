@@ -165,6 +165,9 @@
   <data name="insufficient_credit" xml:space="preserve">
     <value>Crédit insuffisant. Veuillez acheter davantage pour continuer à utiliser le service.</value>
   </data>
+  <data name="Language" xml:space="preserve">
+    <value>Langue</value>
+  </data>
   <data name="Luna_is_waiting" xml:space="preserve">
     <value>Luna attend une nouvelle aventure !</value>
   </data>
@@ -206,6 +209,12 @@
   </data>
   <data name="Select_duration" xml:space="preserve">
     <value>Sélectionner la durée</value>
+  </data>
+  <data name="Select_language" xml:space="preserve">
+    <value>Choisir la langue</value>
+  </data>
+  <data name="Select_style" xml:space="preserve">
+    <value>Sélectionner le style</value>
   </data>
   <data name="Share_button" xml:space="preserve">
     <value>📤 Partager</value>

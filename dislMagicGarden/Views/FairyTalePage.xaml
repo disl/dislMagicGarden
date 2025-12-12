@@ -8,7 +8,7 @@
              xmlns:res="clr-namespace:dislMagicGarden.Properties"
              x:Class="dislMagicGarden.Views.FairyTalePage"
              Title="Märchen Generator">
-    
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:EnumToBoolConverter x:Key="EnumToBoolConverter" />
@@ -21,7 +21,7 @@
         <VerticalStackLayout Padding="20" Spacing="15">
 
             <Label Text="{x:Static res:Resources.Fairy_Tale_Generator}"
-                   FontSize="26"
+                   FontSize="20"
                    FontAttributes="Bold"
                    HorizontalOptions="Center" />
 
@@ -46,9 +46,24 @@
                            TextColor="{StaticResource MagicBlackSoft}" />
                     <Picker ItemsSource="{Binding Styles}"
                             SelectedItem="{Binding SelectedStyle}"
-                            Title="Stil auswählen"
+                            Title="{x:Static res:Resources.Select_style}"
                             TitleColor="Gray"
                             FontSize="16" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Sprache auswählen -->
+            <Border Style="{StaticResource FairyInputBorderStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="{x:Static res:Resources.Language}"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource MagicBlackSoft}" />
+
+                    <Picker Title="{x:Static res:Resources.Select_language}"
+                        ItemsSource="{Binding AvailableLanguages}"
+                        SelectedItem="{Binding SelectedLanguage}"
+                        ItemDisplayBinding="{Binding DisplayName}"                        
+                        FontSize="16" />    
                 </VerticalStackLayout>
             </Border>
 
@@ -59,7 +74,9 @@
                            FontAttributes="Bold"
                            TextColor="{StaticResource MagicBlackSoft}" />
 
-                    --><!--Content="📝 Nur Text (DeepSeek) ~$0.0005"--><!--
+                    -->
+            <!--Content="📝 Nur Text (DeepSeek) ~$0.0005"-->
+            <!--
                     
                     <RadioButton GroupName="Mode"
                                  Content="📝 Nur Text"  
@@ -67,11 +84,13 @@
                                                 Converter={StaticResource EnumToBoolConverter},
                                                 ConverterParameter={x:Static models:GenerationMode.TextOnly}}" />
 
-                    --><!--<RadioButton GroupName="Mode"
+                    -->
+            <!--<RadioButton GroupName="Mode"
                                  Content="🎨 Text + 4 Bilder (DALL·E) ~$0.16"
                                  IsChecked="{Binding SelectedMode,
                                                 Converter={StaticResource EnumToBoolConverter},
-                                                ConverterParameter={x:Static models:GenerationMode.FullStory}}" />--><!--
+                                                ConverterParameter={x:Static models:GenerationMode.FullStory}}" />-->
+            <!--
                 </VerticalStackLayout>
             </Border>-->
 
@@ -86,11 +105,6 @@
                        FontSize="14" />
             </Border>
 
-            <!--<Label Text="{Binding StatusMessage}"
-                   FontSize="14"
-                   TextColor="Gray"
-                   HorizontalOptions="Center" />-->
-
             <!-- Dauer -->
             <Border Style="{StaticResource FairyInputBorderStyle}">
                 <VerticalStackLayout Spacing="8">
@@ -101,7 +115,7 @@
                     <Picker Title="{x:Static res:Resources.Select_duration}"
                       ItemsSource="{Binding DurationOptions}"
                       SelectedItem="{Binding SelectedDuration}"
-                      FontSize="18" />  
+                      FontSize="18" />
                 </VerticalStackLayout>
             </Border>
 

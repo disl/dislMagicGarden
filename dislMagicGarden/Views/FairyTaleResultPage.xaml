@@ -18,7 +18,7 @@
 
             <Label Grid.Column="0"
                    Text="{Binding FairyTale.Title}"
-                   FontSize="22"
+                   FontSize="20"
                    FontAttributes="Bold"
                    TextColor="White"
                    VerticalOptions="Center" />
@@ -70,10 +70,10 @@
                    TextColor="{StaticResource MagicBlackSoft}" />
 
                         <Picker Title="Stimme auswählen"
-                    ItemsSource="{Binding AvailableVoices}"
-                    SelectedItem="{Binding SelectedVoice}"
-                    ItemDisplayBinding="{Binding DisplayName}"
-                    FontSize="16" />
+                            ItemsSource="{Binding AvailableVoices}"
+                            SelectedItem="{Binding SelectedVoice}"
+                            ItemDisplayBinding="{Binding DisplayName}"
+                            FontSize="16" />    
                     </VerticalStackLayout>
                 </Border>
 
@@ -90,7 +90,7 @@
 
                     <Button Grid.Column="1"
                             Text="{x:Static res:Resources.Share_button}"
-                            BackgroundColor="Transparent"
+                            Style="{StaticResource MagicButtonStyle}"
                             TextColor="{StaticResource MidnightBlue}"
                             Command="{Binding ShareCommand}" />
                 </Grid>

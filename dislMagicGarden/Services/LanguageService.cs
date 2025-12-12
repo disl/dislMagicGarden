@@ -18,8 +18,20 @@ public class LanguageService : ILanguageService
         { "en", "English" },
         { "fr", "French"  },
         { "es", "Spanish" },
-        { "it", "Italian" }
+        { "it", "Italian" },
+        { "ru", "Russian" },
     };
+
+    public static void SetLanguage(string cultureCode)
+    {
+        var culture = new CultureInfo(cultureCode);
+
+        CultureInfo.DefaultThreadCurrentCulture = culture;
+        CultureInfo.DefaultThreadCurrentUICulture = culture;
+
+        Thread.CurrentThread.CurrentCulture = culture;
+        Thread.CurrentThread.CurrentUICulture = culture;
+    }
 
     public string CurrentIso { get; set; } = "de";
 
@@ -65,7 +77,7 @@ public class LanguageService : ILanguageService
             // Falls Sprache nicht unterstützt wird → Default DE
             CurrentIso = _map.ContainsKey(iso)
                 ? iso
-                : "de";
+                : "en";
         }
         catch
         {

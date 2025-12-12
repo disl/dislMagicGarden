@@ -30,6 +30,7 @@ namespace dislMagicGarden.Models
                 "fr" => "Französisch",
                 "es" => "Spanisch",
                 "it" => "Italienisch",
+                "ru" => "Russisch",
                 _ => langCode
             };
     }

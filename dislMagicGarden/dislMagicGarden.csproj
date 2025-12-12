@@ -44,43 +44,44 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-android|AnyCPU'">
-	  <ApplicationDisplayVersion>1.4</ApplicationDisplayVersion>
-	  <ApplicationVersion>4</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.7</ApplicationDisplayVersion>
+	  <ApplicationVersion>7</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-ios|AnyCPU'">
-	  <ApplicationDisplayVersion>1.4</ApplicationDisplayVersion>
-	  <ApplicationVersion>4</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.7</ApplicationDisplayVersion>
+	  <ApplicationVersion>7</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-maccatalyst|AnyCPU'">
-	  <ApplicationDisplayVersion>1.4</ApplicationDisplayVersion>
-	  <ApplicationVersion>4</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.7</ApplicationDisplayVersion>
+	  <ApplicationVersion>7</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-windows10.0.19041.0|AnyCPU'">
-	  <ApplicationDisplayVersion>1.4</ApplicationDisplayVersion>
-	  <ApplicationVersion>4</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.7</ApplicationDisplayVersion>
+	  <ApplicationVersion>7</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android|AnyCPU'">
-	  <ApplicationDisplayVersion>1.4</ApplicationDisplayVersion>
-	  <ApplicationVersion>4</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.7</ApplicationDisplayVersion>
+	  <ApplicationVersion>7</ApplicationVersion>
+	  <AndroidLinkTool>r8</AndroidLinkTool>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-ios|AnyCPU'">
-	  <ApplicationDisplayVersion>1.4</ApplicationDisplayVersion>
-	  <ApplicationVersion>4</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.7</ApplicationDisplayVersion>
+	  <ApplicationVersion>7</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-maccatalyst|AnyCPU'">
-	  <ApplicationDisplayVersion>1.4</ApplicationDisplayVersion>
-	  <ApplicationVersion>4</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.7</ApplicationDisplayVersion>
+	  <ApplicationVersion>7</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-windows10.0.19041.0|AnyCPU'">
-	  <ApplicationDisplayVersion>1.4</ApplicationDisplayVersion>
-	  <ApplicationVersion>4</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.7</ApplicationDisplayVersion>
+	  <ApplicationVersion>7</ApplicationVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -183,6 +184,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<MauiXaml Update="Controls\FlyoutHeader.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Views\FairyBasePage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
@@ -198,7 +202,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Controls\" />
 		<Folder Include="Resources\Config\" />
 	</ItemGroup>
 

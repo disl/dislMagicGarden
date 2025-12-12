@@ -1,10 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using dislMagicGarden.Models;
 using dislMagicGarden.Properties;
 using dislMagicGarden.Services;
 using dislMagicGarden.Views;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Globalization;
 
 namespace dislMagicGarden.ViewModels
 {
@@ -62,8 +65,118 @@ namespace dislMagicGarden.ViewModels
         private readonly ILanguageService _language;
 
 
+        // Verfügbare Sprachen
+
+        public ObservableCollection<LanguageOption> AvailableLanguages { get; }
+         = new ObservableCollection<LanguageOption>
+             {
+                new() { Code = "en-US", DisplayName = "English (US)" },
+                new() { Code = "de-DE", DisplayName = "Deutsch (DE)" },
+                new() { Code = "fr-FR", DisplayName = "Français (FR)" },
+                new() { Code = "es-ES", DisplayName = "Español (ES)" },
+                new() { Code = "it-IT", DisplayName = "Italiano (IT)" },
+                new() { Code = "ru-RU", DisplayName = "Русский (RU)" }
+             };
+
+
+        private bool _isApplyingLanguage;
+
+        private LanguageOption _selectedLanguage;
+        public LanguageOption SelectedLanguage
+        {
+            get => _selectedLanguage;
+            set
+            {
+                if (value == null)
+                    return;
+
+                if (_selectedLanguage?.Code == value.Code)
+                    return;
+
+                SetProperty(ref _selectedLanguage, value);
+
+                // verhindert Re-Entry beim Reload / Init
+                if (_isApplyingLanguage)
+                    return;
+
+                ApplyLanguage(value.Code);
+            }
+        }
+
+        public FairyTaleViewModel()
+        {
+            // Default Gerätelanguage übernehmen
+            var currentCulture = CultureInfo.CurrentUICulture.Name;
+
+            SelectedLanguage =
+                AvailableLanguages.FirstOrDefault(l => l.Code == currentCulture)
+                ?? AvailableLanguages.First(l => l.Code.StartsWith("en"));
+        }
+
+        //partial void OnSelectedLanguageChanged(string value)
+        //{
+        //    if (!string.IsNullOrWhiteSpace(value))
+        //    {
+        //        ApplyLanguage(value);
+        //    }
+        //}
+
+        //private void ApplyLanguage(string lang)
+        //{
+        //    try
+        //    {
+        //        var culture = new CultureInfo(lang);
+
+        //        CultureInfo.DefaultThreadCurrentCulture = culture;
+        //        CultureInfo.DefaultThreadCurrentUICulture = culture;
+
+        //        Thread.CurrentThread.CurrentCulture = culture;
+        //        Thread.CurrentThread.CurrentUICulture = culture;
+
+        //        // Sprache speichern
+        //        Preferences.Set("AppLanguage", lang);
+
+        //        // andere ViewModels informieren
+        //        //WeakReferenceMessenger.Default.Send(
+        //        //    new LanguageChangedMessage(lang));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Debug.WriteLine("Language change failed: " + ex.Message);
+        //    }
+        //}
+
+        private void ApplyLanguage(string lang)
+        {
+            if (CultureInfo.CurrentUICulture.Name == lang)
+                return;
+
+            try
+            {
+                _isApplyingLanguage = true;
+
+                LanguageService.SetLanguage(lang);
+                Preferences.Set("app_language", lang);
+
+                // optional: TTS Stimmen neu laden
+                //_ = LoadVoicesAsync();
+
+                App.Reload();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Language change failed: " + ex.Message);
+            }
+            finally
+            {
+                _isApplyingLanguage = false;
+            }
+        }
+
+
+
         // Duration-Auswahl (in Minuten)
-        public ObservableCollection<int> DurationOptions { get; } = new() { 3, 5, 10, 15, 20, 30, 60 };
+        public ObservableCollection<int> DurationOptions { get; } = new() { 3, 5, 10};
         private int _selectedDuration = 3;
         public int SelectedDuration
         {
@@ -83,6 +196,17 @@ namespace dislMagicGarden.ViewModels
                 Resources.Adventurous,
                 Resources.Funny
             };
+
+            // Default Gerätelanguage übernehmen
+            var currentCulture = CultureInfo.CurrentUICulture.Name;
+
+            _isApplyingLanguage = true;
+
+            SelectedLanguage =
+                AvailableLanguages.FirstOrDefault(l => l.Code == currentCulture)
+                ?? AvailableLanguages.First(l => l.Code.StartsWith("en"));
+
+            _isApplyingLanguage = false;
         }
 
         [RelayCommand]
@@ -191,7 +315,7 @@ namespace dislMagicGarden.ViewModels
                 await Share.Default.RequestAsync(new ShareTextRequest
                 {
                     Text = $"{CurrentFairyTale.Title}\n\n{CurrentFairyTale.Story}",
-                    Title = "Mein generiertes Märchen"
+                    Title = "Share file"
                 });
             }
             catch (Exception ex)
@@ -204,10 +328,10 @@ namespace dislMagicGarden.ViewModels
         {
             ErrorMessage = message;
             HasError = true;
-            StatusMessage = "Fehler aufgetreten";
+            StatusMessage = Properties.Resources.Error;
 
             // Optional: Dialog anzeigen
-            await Application.Current.MainPage.DisplayAlert("Fehler", message, "OK");
+            await Application.Current.MainPage.DisplayAlert(Properties.Resources.Error, message, "OK");
         }
     }
 }

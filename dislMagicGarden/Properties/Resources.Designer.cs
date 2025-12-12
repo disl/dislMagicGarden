@@ -205,6 +205,15 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Language ähnelt.
+        /// </summary>
+        internal static string Language {
+            get {
+                return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Luna is waiting for a new adventure! ähnelt.
         /// </summary>
         internal static string Luna_is_waiting {
@@ -327,6 +336,24 @@ namespace dislMagicGarden.Properties {
         internal static string Select_duration {
             get {
                 return ResourceManager.GetString("Select_duration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Select language ähnelt.
+        /// </summary>
+        internal static string Select_language {
+            get {
+                return ResourceManager.GetString("Select_language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Select style ähnelt.
+        /// </summary>
+        internal static string Select_style {
+            get {
+                return ResourceManager.GetString("Select_style", resourceCulture);
             }
         }
         

@@ -4,7 +4,9 @@ namespace dislMagicGarden.Views;
 
 public partial class HomePage : FairyBasePage
 {
-	public HomePage(HomeViewModel vm)
+  
+
+    public HomePage(HomeViewModel vm)
 	{
 		InitializeComponent();
 
