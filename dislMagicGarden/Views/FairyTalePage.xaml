@@ -27,7 +27,7 @@
 
             <!-- Thema -->
             <Border Style="{StaticResource FairyInputBorderStyle}">
-                <VerticalStackLayout Spacing="10">
+                <VerticalStackLayout>
                     <Label Text="{x:Static res:Resources.Theme_of_your_fairy_tale}"
                            FontAttributes="Bold"
                            TextColor="{StaticResource MagicBlackSoft}" />
@@ -38,8 +38,24 @@
                 </VerticalStackLayout>
             </Border>
 
-            <!-- Stil -->
+            <!-- Märchentyp -->
             <Border Style="{StaticResource FairyInputBorderStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="{x:Static res:Resources.fairy_tale_type}"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource MagicBlackSoft}" />
+
+                    <Picker Title="{x:Static res:Resources.Select}"
+                        ItemsSource="{Binding AvailableFairyTaleTypes}"
+                        SelectedItem="{Binding SelectedFairyTaleType}"
+                        ItemDisplayBinding="{Binding Title_description}" />
+                </VerticalStackLayout>
+            </Border>
+
+
+
+            <!-- Stil -->
+            <!--<Border Style="{StaticResource FairyInputBorderStyle}">
                 <VerticalStackLayout Spacing="10">
                     <Label Text="{x:Static res:Resources.Style}"
                            FontAttributes="Bold"
@@ -50,7 +66,7 @@
                             TitleColor="Gray"
                             FontSize="16" />
                 </VerticalStackLayout>
-            </Border>
+            </Border>-->
 
             <!-- Sprache auswählen -->
             <Border Style="{StaticResource FairyInputBorderStyle}">
@@ -59,11 +75,11 @@
                         FontAttributes="Bold"
                         TextColor="{StaticResource MagicBlackSoft}" />
 
-                    <Picker Title="{x:Static res:Resources.Select_language}"
+                    <Picker Title="{x:Static res:Resources.Select}"
                         ItemsSource="{Binding AvailableLanguages}"
                         SelectedItem="{Binding SelectedLanguage}"
                         ItemDisplayBinding="{Binding DisplayName}"                        
-                        FontSize="16" />    
+                        />
                 </VerticalStackLayout>
             </Border>
 
@@ -94,6 +110,22 @@
                 </VerticalStackLayout>
             </Border>-->
 
+
+
+            <!-- Dauer -->
+            <Border Style="{StaticResource FairyInputBorderStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="{x:Static res:Resources.Story_length}"
+                              FontAttributes="Bold"
+                           TextColor="{StaticResource MagicBlackSoft}" />
+
+                    <Picker Title="{x:Static res:Resources.Select}"
+                      ItemsSource="{Binding DurationOptions}"
+                      SelectedItem="{Binding SelectedDuration}"
+                       />
+                </VerticalStackLayout>
+            </Border>
+
             <!-- Fehler -->
             <Border IsVisible="{Binding HasError}"
                     BackgroundColor="#FFEBEE"
@@ -102,23 +134,8 @@
                     Padding="12">
                 <Label Text="{Binding ErrorMessage}"
                        TextColor="#B71C1C"
-                       FontSize="14" />
+                       />
             </Border>
-
-            <!-- Dauer -->
-            <Border Style="{StaticResource FairyInputBorderStyle}">
-                <VerticalStackLayout Spacing="8">
-                    <Label Text="{x:Static res:Resources.Story_length}"
-                           FontAttributes="Bold"
-                           TextColor="{StaticResource MagicBlackSoft}" />
-
-                    <Picker Title="{x:Static res:Resources.Select_duration}"
-                      ItemsSource="{Binding DurationOptions}"
-                      SelectedItem="{Binding SelectedDuration}"
-                      FontSize="18" />
-                </VerticalStackLayout>
-            </Border>
-
 
             <Border Style="{StaticResource FairyInputBorderStyle}"
                 IsVisible="{Binding IsGenerating}"
@@ -136,8 +153,7 @@
                         HeightRequest="22" />
 
                     <Label Text="{Binding StatusMessage}"
-                           FontSize="18"
-                           FontAttributes="Bold"
+                 
                            TextColor="{AppThemeBinding Light={StaticResource MidnightBlue}, Dark={StaticResource White}}" />
                 </HorizontalStackLayout>
             </Border>

@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
 using dislMagicGarden.Models;
 using dislMagicGarden.Properties;
 using dislMagicGarden.Services;
@@ -64,6 +63,19 @@ namespace dislMagicGarden.ViewModels
 
         private readonly ILanguageService _language;
 
+        // Verfügbare Märchentypen
+        public ObservableCollection<FairyTaleTypeOption> AvailableFairyTaleTypes { get; } = new(FairyTaleTypes.All);
+
+        [ObservableProperty]
+        FairyTaleTypeOption? selectedFairyTaleType;
+
+        //public FairyTaleTypeOption? SelectedFairyTaleType
+        //{
+        //    get => _selectedFairyTaleType;
+        //    set => SetProperty(ref _selectedFairyTaleType, value);
+        //}
+
+
 
         // Verfügbare Sprachen
 
@@ -111,6 +123,8 @@ namespace dislMagicGarden.ViewModels
             SelectedLanguage =
                 AvailableLanguages.FirstOrDefault(l => l.Code == currentCulture)
                 ?? AvailableLanguages.First(l => l.Code.StartsWith("en"));
+
+            SelectedFairyTaleType = AvailableFairyTaleTypes.FirstOrDefault();
         }
 
         //partial void OnSelectedLanguageChanged(string value)
@@ -176,7 +190,7 @@ namespace dislMagicGarden.ViewModels
 
 
         // Duration-Auswahl (in Minuten)
-        public ObservableCollection<int> DurationOptions { get; } = new() { 3, 5, 10};
+        public ObservableCollection<int> DurationOptions { get; } = new() { 3, 5, 10 };
         private int _selectedDuration = 3;
         public int SelectedDuration
         {
@@ -188,7 +202,7 @@ namespace dislMagicGarden.ViewModels
         {
             _fairyTaleService = fairyTaleService;
             Title = Properties.Resources.Home_NewStory;
-            _language=language;
+            _language = language;
 
             Moods = new()
             {
@@ -207,6 +221,8 @@ namespace dislMagicGarden.ViewModels
                 ?? AvailableLanguages.First(l => l.Code.StartsWith("en"));
 
             _isApplyingLanguage = false;
+
+            SelectedFairyTaleType = AvailableFairyTaleTypes.FirstOrDefault();
         }
 
         [RelayCommand]
@@ -230,7 +246,8 @@ namespace dislMagicGarden.ViewModels
                     Style = SelectedStyle,
                     Mode = SelectedMode,
                     ImageCount = SelectedMode == GenerationMode.FullStory ? 4 : 0,
-                    Duration_min = SelectedDuration
+                    Duration_min = SelectedDuration,
+                    FairyTaleType = SelectedFairyTaleType?.Type ?? FairyTaleType.Funny,
                 };
 
                 CurrentFairyTale = await _fairyTaleService.GenerateFairyTaleAsync(request);

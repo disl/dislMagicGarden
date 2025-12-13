@@ -159,11 +159,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile Update="Properties\Resources.ru.Designer.cs">
-		  <DependentUpon>Resources.ru.resx</DependentUpon>
-		  <DesignTime>True</DesignTime>
-		  <AutoGen>True</AutoGen>
-		</Compile>
 		<Compile Update="Properties\Resources.Designer.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
@@ -174,8 +169,7 @@
 	<ItemGroup>
 		<EmbeddedResource Update="Properties\Resources.ru.resx">
 		  <SubType>Designer</SubType>
-		  <LastGenOutput>Resources.ru.Designer.cs</LastGenOutput>
-		  <Generator>ResXFileCodeGenerator</Generator>
+		  <Generator></Generator>
 		</EmbeddedResource>
 		<EmbeddedResource Update="Properties\Resources.resx">
 			<Generator>ResXFileCodeGenerator</Generator>
@@ -195,6 +189,9 @@
 		</MauiXaml>
 		<MauiXaml Update="Views\FairyTaleResultPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\FairyTaleTypePage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\HomePage.xaml">
 			<Generator>MSBuild:Compile</Generator>

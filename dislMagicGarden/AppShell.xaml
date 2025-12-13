@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:dislMagicGarden"
     xmlns:views="clr-namespace:dislMagicGarden.Views"
+    xmlns:res="clr-namespace:dislMagicGarden.Properties"
     xmlns:controls="clr-namespace:dislMagicGarden.Controls"       
     Shell.NavBarIsVisible="False"
     FlyoutBackgroundColor="{StaticResource CottonCandy}"
@@ -21,8 +22,13 @@
         Route="HomePage" />
 
     <ShellContent 
-        Title="Neue Geschichte"
+        Title="{x:Static res:Resources.NewStory}"
         ContentTemplate="{DataTemplate views:FairyTalePage}"
         Route="FairyTalePage" />
+
+    <ShellContent
+        Title="{x:Static res:Resources.fairy_tale_type}"
+        Route="FairyTaleTypePage"
+        ContentTemplate="{DataTemplate views:FairyTaleTypePage}" />
 
 </Shell>

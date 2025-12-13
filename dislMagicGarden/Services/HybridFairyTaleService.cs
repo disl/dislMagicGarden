@@ -251,20 +251,38 @@ namespace dislMagicGarden.Services
 
         private string CreatePrompt(FairyTaleRequest request)
         {
-            var styleText = request.Style switch
+            //var styleText = request.Style switch
+            //{
+            //    "Classic" => "im klassischen Märchenstil",
+            //    "Modern" => "im modernen, kindgerechten Stil",
+            //    "Funny" => "im lustigen, humorvollen Stil",
+            //    "HD" => "im sehr detaillierten Stil für hochwertige Illustrationen",
+            //    _ => "im klassischen Märchenstil"
+            //};
+
+            var FairyTaleTypeText = request.FairyTaleType switch
             {
-                "Classic" => "im klassischen Märchenstil",
-                "Modern" => "im modernen, kindgerechten Stil",
-                "Funny" => "im lustigen, humorvollen Stil",
-                "HD" => "im sehr detaillierten Stil für hochwertige Illustrationen",
-                _ => "im klassischen Märchenstil"
+                FairyTaleType.Funny => "ein klassisches Märchen",
+                FairyTaleType.Educational => "ein lehrreiches Märchen",
+                FairyTaleType.Adventure => "ein abenteuerliches Märchen",
+                FairyTaleType.Fantasy => "ein fantastisches Märchen",
+                FairyTaleType.Modern => "ein modernes Märchen",
+                FairyTaleType.Arabian => "ein arabisches Märchen",
+                FairyTaleType.African => "ein afrikanisches Märchen",
+                FairyTaleType.Asian => "ein asiatisches Märchen",
+                FairyTaleType.Slavic => "ein slawisches Märchen",
+                FairyTaleType.Perrault => "ein Märchen im Stil von Charles Perrault",
+                FairyTaleType.Andersen => "ein Märchen im Stil von Hans Christian Andersen",
+                FairyTaleType.Grimm => "ein Märchen im Stil der Brüder Grimm",
+                _ => "ein klassisches Märchen"
+
             };
 
 
             string _currentLanguage = Thread.CurrentThread.CurrentCulture.NativeName;          
 
             return $$"""
-                Erstelle ein komplettes (!) Märchen {{styleText}}. Ohne '...' am Ende. 
+                Erstelle ein komplettes (!) als {{FairyTaleTypeText}}. Ohne '...' am Ende. 
                 
                 Thema: {{request.Theme}}
 

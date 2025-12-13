@@ -126,14 +126,23 @@
   <data name="A_magical_adventure_with" xml:space="preserve">
     <value>A magical adventure with</value>
   </data>
+  <data name="Brothers_Grimm" xml:space="preserve">
+    <value>Brothers Grimm</value>
+  </data>
   <data name="Chapter" xml:space="preserve">
     <value>Chapter</value>
+  </data>
+  <data name="Classic_German_fairy_tales" xml:space="preserve">
+    <value>Classic German fairy tales</value>
   </data>
   <data name="Color" xml:space="preserve">
     <value>Color</value>
   </data>
   <data name="Conjure_up_history" xml:space="preserve">
     <value>Conjure up history</value>
+  </data>
+  <data name="Contemporary_and_welcoming" xml:space="preserve">
+    <value>Contemporary and welcoming.</value>
   </data>
   <data name="Costs" xml:space="preserve">
     <value>Costs</value>
@@ -144,11 +153,20 @@
   <data name="Duration" xml:space="preserve">
     <value>Duration</value>
   </data>
+  <data name="Educational_fairy_tales" xml:space="preserve">
+    <value>Educational fairy tales</value>
+  </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
   </data>
   <data name="Fairy_Tale_Generator" xml:space="preserve">
     <value>🎭 Fairy Tale Generator</value>
+  </data>
+  <data name="fairy_tale_type" xml:space="preserve">
+    <value>Fairy tale type</value>
+  </data>
+  <data name="fantasy" xml:space="preserve">
+    <value>Fantasy</value>
   </data>
   <data name="Funny" xml:space="preserve">
     <value>Funny</value>
@@ -162,6 +180,12 @@
   <data name="Home_Welcome" xml:space="preserve">
     <value>Welcome to MagicGarden</value>
   </data>
+  <data name="Humorous_stories" xml:space="preserve">
+    <value>Humorous stories</value>
+  </data>
+  <data name="H_C_Andersen" xml:space="preserve">
+    <value>H. C. Andersen</value>
+  </data>
   <data name="insufficient_credit" xml:space="preserve">
     <value>Insufficient credit. Please purchase more to continue using the service.</value>
   </data>
@@ -171,8 +195,17 @@
   <data name="Luna_is_waiting" xml:space="preserve">
     <value>Luna is waiting for a new adventure!</value>
   </data>
+  <data name="Magical_worlds_and_creatures" xml:space="preserve">
+    <value>Magical worlds and creatures</value>
+  </data>
   <data name="Mode" xml:space="preserve">
     <value>Mode</value>
+  </data>
+  <data name="Modern_fairy_tales" xml:space="preserve">
+    <value>Modern fairy tales</value>
+  </data>
+  <data name="NewStory" xml:space="preserve">
+    <value>New Story</value>
   </data>
   <data name="NewStory_Animal" xml:space="preserve">
     <value>Animal friend</value>
@@ -188,6 +221,9 @@
   </data>
   <data name="Please_enter_a_topic" xml:space="preserve">
     <value>Please enter a topic</value>
+  </data>
+  <data name="Poetic_fairy_tales_with_feeling" xml:space="preserve">
+    <value>Poetic fairy tales with feeling</value>
   </data>
   <data name="reading_voice" xml:space="preserve">
     <value>Reading voice</value>
@@ -206,6 +242,9 @@
   </data>
   <data name="seconds" xml:space="preserve">
     <value>seconds</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
   </data>
   <data name="Select_duration" xml:space="preserve">
     <value>Select duration</value>
@@ -233,5 +272,8 @@
   </data>
   <data name="Undo" xml:space="preserve">
     <value>Undo</value>
+  </data>
+  <data name="Values_and_knowledge_through_play" xml:space="preserve">
+    <value>Values and knowledge through play</value>
   </data>
 </root>

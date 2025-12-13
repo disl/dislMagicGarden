@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:dislMagicGarden.ViewModels"
+    x:Class="dislMagicGarden.Views.FairyTaleTypePage"
+    BackgroundColor="{StaticResource CottonCandy}">
+
+    <ContentPage.BindingContext>
+        <vm:FairyTaleTypeViewModel />
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout Padding="20" Spacing="16">
+
+        <!-- Titel -->
+        <Label Text="🧚 Märchentyp auswählen"
+               FontSize="26"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               TextColor="{StaticResource MagicBlackSoft}" />
+
+        <!-- Auswahl -->
+        <CollectionView ItemsSource="{Binding Types}"
+                        SelectionMode="Single"
+                        SelectedItem="{Binding SelectedType}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Span="2"
+                                 HorizontalItemSpacing="12"
+                                 Orientation="Vertical"
+                                 VerticalItemSpacing="12"/>
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Stroke="{StaticResource BlossomPink}"
+                            StrokeShape="RoundRectangle 16"
+                            BackgroundColor="{StaticResource CottonCandy}"
+                            Padding="14">
+
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="{Binding Emoji}"
+                                   FontSize="32"
+                                   HorizontalOptions="Center" />
+
+                            <Label Text="{Binding Title}"
+                                   FontAttributes="Bold"
+                                   FontSize="16"
+                                   HorizontalOptions="Center"
+                                   TextColor="{StaticResource MagicBlackSoft}" />
+
+                            <Label Text="{Binding Description}"
+                                   FontSize="12"
+                                   HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center"
+                                   TextColor="{StaticResource Gray600}" />
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Weiter -->
+        <Button Text="Weiter ➜"
+                Command="{Binding ContinueCommand}"
+                IsEnabled="{Binding CanContinue}"
+                Style="{StaticResource MagicButtonStyle}" />
+
+    </VerticalStackLayout>
+</ContentPage>

@@ -88,11 +88,29 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Brothers Grimm ähnelt.
+        /// </summary>
+        internal static string Brothers_Grimm {
+            get {
+                return ResourceManager.GetString("Brothers_Grimm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Chapter ähnelt.
         /// </summary>
         internal static string Chapter {
             get {
                 return ResourceManager.GetString("Chapter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Classic German fairy tales ähnelt.
+        /// </summary>
+        internal static string Classic_German_fairy_tales {
+            get {
+                return ResourceManager.GetString("Classic_German_fairy_tales", resourceCulture);
             }
         }
         
@@ -111,6 +129,15 @@ namespace dislMagicGarden.Properties {
         internal static string Conjure_up_history {
             get {
                 return ResourceManager.GetString("Conjure_up_history", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Contemporary and welcoming. ähnelt.
+        /// </summary>
+        internal static string Contemporary_and_welcoming {
+            get {
+                return ResourceManager.GetString("Contemporary_and_welcoming", resourceCulture);
             }
         }
         
@@ -142,6 +169,15 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Educational fairy tales ähnelt.
+        /// </summary>
+        internal static string Educational_fairy_tales {
+            get {
+                return ResourceManager.GetString("Educational_fairy_tales", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Error ähnelt.
         /// </summary>
         internal static string Error {
@@ -156,6 +192,24 @@ namespace dislMagicGarden.Properties {
         internal static string Fairy_Tale_Generator {
             get {
                 return ResourceManager.GetString("Fairy_Tale_Generator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Fairy tale type ähnelt.
+        /// </summary>
+        internal static string fairy_tale_type {
+            get {
+                return ResourceManager.GetString("fairy_tale_type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Fantasy ähnelt.
+        /// </summary>
+        internal static string fantasy {
+            get {
+                return ResourceManager.GetString("fantasy", resourceCulture);
             }
         }
         
@@ -178,6 +232,15 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die H. C. Andersen ähnelt.
+        /// </summary>
+        internal static string H_C_Andersen {
+            get {
+                return ResourceManager.GetString("H_C_Andersen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Create new story ähnelt.
         /// </summary>
         internal static string Home_NewStory {
@@ -192,6 +255,15 @@ namespace dislMagicGarden.Properties {
         internal static string Home_Welcome {
             get {
                 return ResourceManager.GetString("Home_Welcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Humorous stories ähnelt.
+        /// </summary>
+        internal static string Humorous_stories {
+            get {
+                return ResourceManager.GetString("Humorous_stories", resourceCulture);
             }
         }
         
@@ -223,11 +295,38 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Magical worlds and creatures ähnelt.
+        /// </summary>
+        internal static string Magical_worlds_and_creatures {
+            get {
+                return ResourceManager.GetString("Magical_worlds_and_creatures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Mode ähnelt.
         /// </summary>
         internal static string Mode {
             get {
                 return ResourceManager.GetString("Mode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Modern fairy tales ähnelt.
+        /// </summary>
+        internal static string Modern_fairy_tales {
+            get {
+                return ResourceManager.GetString("Modern_fairy_tales", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die New Story ähnelt.
+        /// </summary>
+        internal static string NewStory {
+            get {
+                return ResourceManager.GetString("NewStory", resourceCulture);
             }
         }
         
@@ -273,6 +372,15 @@ namespace dislMagicGarden.Properties {
         internal static string Please_enter_a_topic {
             get {
                 return ResourceManager.GetString("Please_enter_a_topic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Poetic fairy tales with feeling ähnelt.
+        /// </summary>
+        internal static string Poetic_fairy_tales_with_feeling {
+            get {
+                return ResourceManager.GetString("Poetic_fairy_tales_with_feeling", resourceCulture);
             }
         }
         
@@ -327,6 +435,15 @@ namespace dislMagicGarden.Properties {
         internal static string seconds {
             get {
                 return ResourceManager.GetString("seconds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Select ähnelt.
+        /// </summary>
+        internal static string Select {
+            get {
+                return ResourceManager.GetString("Select", resourceCulture);
             }
         }
         
@@ -408,6 +525,15 @@ namespace dislMagicGarden.Properties {
         internal static string Undo {
             get {
                 return ResourceManager.GetString("Undo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Values and knowledge through play ähnelt.
+        /// </summary>
+        internal static string Values_and_knowledge_through_play {
+            get {
+                return ResourceManager.GetString("Values_and_knowledge_through_play", resourceCulture);
             }
         }
     }

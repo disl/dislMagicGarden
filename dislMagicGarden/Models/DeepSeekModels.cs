@@ -10,6 +10,9 @@
     {
         public string Theme { get; set; } = string.Empty;
         public string Style { get; set; } = "Classic";
+
+        public FairyTaleType FairyTaleType { get; set; } = FairyTaleType.Adventure;
+
         public GenerationMode Mode { get; set; } = GenerationMode.TextOnly;
         public int ImageCount { get; set; } = 4;
         public int AgeGroup { get; internal set; }
