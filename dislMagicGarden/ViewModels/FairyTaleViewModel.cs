@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Extensions;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using dislMagicGarden.Models;
 using dislMagicGarden.Properties;
@@ -223,6 +224,25 @@ namespace dislMagicGarden.ViewModels
             _isApplyingLanguage = false;
 
             SelectedFairyTaleType = AvailableFairyTaleTypes.FirstOrDefault();
+        }
+
+
+        [RelayCommand]
+        private async Task AudioRecognation()
+        {
+            try
+            {
+                var popup = new VoiceRecognitionPage();
+                var result = await Shell.Current.ShowPopupAsync<string>(popup);
+                if (result != null && !string.IsNullOrEmpty(result.Result))
+                {
+                    Theme= result.Result;
+                }
+            }
+            catch (Exception ex)
+            {
+                await ShowErrorAsync($"{Properties.Resources.Error}: {ex.Message}");
+            }
         }
 
         [RelayCommand]

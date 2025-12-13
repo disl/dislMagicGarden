@@ -150,6 +150,9 @@
   <data name="Create_button" xml:space="preserve">
     <value>✨ Crear</value>
   </data>
+  <data name="Dictate_your_fairy_tale_description" xml:space="preserve">
+    <value>Dicta la descripción de tu cuento de hadas</value>
+  </data>
   <data name="Duration" xml:space="preserve">
     <value>Duración</value>
   </data>
@@ -275,5 +278,8 @@
   </data>
   <data name="Values_and_knowledge_through_play" xml:space="preserve">
     <value>Valores y conocimientos de forma lúdica</value>
+  </data>
+  <data name="Your_description_appears_here" xml:space="preserve">
+    <value>Tu descripción aparecerá aquí.</value>
   </data>
 </root>

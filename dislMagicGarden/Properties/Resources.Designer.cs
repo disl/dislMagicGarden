@@ -160,6 +160,15 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Dictate your fairy tale description ähnelt.
+        /// </summary>
+        internal static string Dictate_your_fairy_tale_description {
+            get {
+                return ResourceManager.GetString("Dictate_your_fairy_tale_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Duration ähnelt.
         /// </summary>
         internal static string Duration {
@@ -534,6 +543,15 @@ namespace dislMagicGarden.Properties {
         internal static string Values_and_knowledge_through_play {
             get {
                 return ResourceManager.GetString("Values_and_knowledge_through_play", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Your description appears here ähnelt.
+        /// </summary>
+        internal static string Your_description_appears_here {
+            get {
+                return ResourceManager.GetString("Your_description_appears_here", resourceCulture);
             }
         }
     }

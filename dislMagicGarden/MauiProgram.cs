@@ -1,4 +1,5 @@
-﻿using dislMagicGarden.Services;
+﻿using CommunityToolkit.Maui;
+using dislMagicGarden.Services;
 using dislMagicGarden.ViewModels;
 using dislMagicGarden.Views;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +15,7 @@ namespace dislMagicGarden
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

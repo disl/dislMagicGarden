@@ -31,10 +31,23 @@
                     <Label Text="{x:Static res:Resources.Theme_of_your_fairy_tale}"
                            FontAttributes="Bold"
                            TextColor="{StaticResource MagicBlackSoft}" />
-                    <Entry Text="{Binding Theme}"
+
+                    <Grid ColumnDefinitions="*,Auto"
+                       Grid.Row="6"
+                       Margin="0,10,0,0"
+                       ColumnSpacing="10">
+
+                        <Entry Text="{Binding Theme}" Grid.Column="0"
                            Placeholder="{x:Static res:Resources.A_brave_squirrel_saves_the_forest}"
                            PlaceholderColor="Gray"
                            FontSize="16" />
+
+                        <Button Text="🎤"
+                            Grid.Column="1"
+                            CornerRadius="10"
+                            Command="{Binding AudioRecognationCommand}"
+                            Style="{StaticResource MagicButtonStyle}" />
+                    </Grid>
                 </VerticalStackLayout>
             </Border>
 

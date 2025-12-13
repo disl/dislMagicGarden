@@ -26,9 +26,4 @@
         ContentTemplate="{DataTemplate views:FairyTalePage}"
         Route="FairyTalePage" />
 
-    <ShellContent
-        Title="{x:Static res:Resources.fairy_tale_type}"
-        Route="FairyTaleTypePage"
-        ContentTemplate="{DataTemplate views:FairyTaleTypePage}" />
-
 </Shell>

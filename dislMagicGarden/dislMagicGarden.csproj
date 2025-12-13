@@ -44,44 +44,44 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-android|AnyCPU'">
-	  <ApplicationDisplayVersion>1.8</ApplicationDisplayVersion>
-	  <ApplicationVersion>8</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.9</ApplicationDisplayVersion>
+	  <ApplicationVersion>9</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-ios|AnyCPU'">
-	  <ApplicationDisplayVersion>1.8</ApplicationDisplayVersion>
-	  <ApplicationVersion>8</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.9</ApplicationDisplayVersion>
+	  <ApplicationVersion>9</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-maccatalyst|AnyCPU'">
-	  <ApplicationDisplayVersion>1.8</ApplicationDisplayVersion>
-	  <ApplicationVersion>8</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.9</ApplicationDisplayVersion>
+	  <ApplicationVersion>9</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-windows10.0.19041.0|AnyCPU'">
-	  <ApplicationDisplayVersion>1.8</ApplicationDisplayVersion>
-	  <ApplicationVersion>8</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.9</ApplicationDisplayVersion>
+	  <ApplicationVersion>9</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android|AnyCPU'">
-	  <ApplicationDisplayVersion>1.8</ApplicationDisplayVersion>
-	  <ApplicationVersion>8</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.9</ApplicationDisplayVersion>
+	  <ApplicationVersion>9</ApplicationVersion>
 	  <AndroidLinkTool>r8</AndroidLinkTool>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-ios|AnyCPU'">
-	  <ApplicationDisplayVersion>1.8</ApplicationDisplayVersion>
-	  <ApplicationVersion>8</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.9</ApplicationDisplayVersion>
+	  <ApplicationVersion>9</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-maccatalyst|AnyCPU'">
-	  <ApplicationDisplayVersion>1.8</ApplicationDisplayVersion>
-	  <ApplicationVersion>8</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.9</ApplicationDisplayVersion>
+	  <ApplicationVersion>9</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-windows10.0.19041.0|AnyCPU'">
-	  <ApplicationDisplayVersion>1.8</ApplicationDisplayVersion>
-	  <ApplicationVersion>8</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.9</ApplicationDisplayVersion>
+	  <ApplicationVersion>9</ApplicationVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -116,6 +116,7 @@
 		<Compile Remove="ViewModels\ChapterEditorViewModel.cs" />
 		<Compile Remove="ViewModels\NewStoryViewModel_old.cs" />
 		<Compile Remove="Views\ChapterEditorPage.xaml.cs" />
+		<Compile Remove="Views\FairyTaleTypePage.xaml.cs" />
 		<Compile Remove="Views\Fairy_tale_generator.xaml.cs" />
 		<Compile Remove="Views\NewStoryPage.xaml.cs" />
 	</ItemGroup>
@@ -129,6 +130,7 @@
 
 	<ItemGroup>
 		<MauiXaml Remove="Views\ChapterEditorPage.xaml" />
+		<MauiXaml Remove="Views\FairyTaleTypePage.xaml" />
 		<MauiXaml Remove="Views\Fairy_tale_generator.xaml" />
 		<MauiXaml Remove="Views\NewStoryPage.xaml" />
 	</ItemGroup>
@@ -147,6 +149,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Azure.AI.OpenAI" Version="2.1.0" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="12.3.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="DeepSeek.ApiClient" Version="1.0.6" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.11" />
@@ -181,6 +184,9 @@
 		<MauiXaml Update="Controls\FlyoutHeader.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Views\VoiceRecognitionPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Views\FairyBasePage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
@@ -189,9 +195,6 @@
 		</MauiXaml>
 		<MauiXaml Update="Views\FairyTaleResultPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Views\FairyTaleTypePage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\HomePage.xaml">
 			<Generator>MSBuild:Compile</Generator>
