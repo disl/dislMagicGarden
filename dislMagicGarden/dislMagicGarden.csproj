@@ -100,11 +100,17 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<AndroidResource Remove="Platforms\Tizen\**" />
 		<AndroidResource Remove="Resources\Strings\**" />
+		<Compile Remove="Platforms\Tizen\**" />
 		<Compile Remove="Resources\Strings\**" />
+		<EmbeddedResource Remove="Platforms\Tizen\**" />
 		<EmbeddedResource Remove="Resources\Strings\**" />
+		<MauiCss Remove="Platforms\Tizen\**" />
 		<MauiCss Remove="Resources\Strings\**" />
+		<MauiXaml Remove="Platforms\Tizen\**" />
 		<MauiXaml Remove="Resources\Strings\**" />
+		<None Remove="Platforms\Tizen\**" />
 		<None Remove="Resources\Strings\**" />
 	</ItemGroup>
 

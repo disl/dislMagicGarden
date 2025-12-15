@@ -1,14 +1,19 @@
-﻿using dislMagicGarden.Models;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using dislMagicGarden.Models;
+using dislMagicGarden.Services;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Input;
 
 namespace dislMagicGarden.ViewModels
 {
-    public class FairyTaleResultViewModel : BaseViewModel
+    public partial class FairyTaleResultViewModel : BaseViewModel
     {
         public FairyTaleModel FairyTale { get; }
         private readonly Action _closeAction;
+
+        [ObservableProperty]
+        private float speakSpeed = 0.5f;
 
         // Verfügbare Stimmen
         public ObservableCollection<LocaleWrapper> AvailableVoices { get; } = new();
@@ -23,7 +28,7 @@ namespace dislMagicGarden.ViewModels
         public ICommand ShareCommand { get; }
         public ICommand CloseCommand { get; }
 
-
+        private readonly ITextToSpeechService _ttsService;
 
         public async Task LoadVoicesAsync()
         {
@@ -63,21 +68,26 @@ namespace dislMagicGarden.ViewModels
         }
 
 
-        public FairyTaleResultViewModel(FairyTaleModel fairyTale, Action closeAction)
+        public FairyTaleResultViewModel(FairyTaleModel fairyTale, Action closeAction, ITextToSpeechService ttsService)
         {
             FairyTale = fairyTale;
             _closeAction = closeAction;
 
+            _ttsService = ttsService;
+
             SpeakStoryCommand = new Command(async () =>
             {
-                var options = new SpeechOptions
-                {
-                    Locale = SelectedVoice?.Locale, // 💡 jetzt eindeutig
-                    Pitch = 1.15f,                   // etwas höher = märchenhaft
-                    Volume = 1.0f
-                };
 
-                await TextToSpeech.SpeakAsync(FairyTale.Story, options);
+                await SpeakAtHalfSpeed();
+
+                //var options = new SpeechOptions
+                //{
+                //    Locale = SelectedVoice?.Locale, // 💡 jetzt eindeutig
+                //    Pitch = 1.15f,                   // etwas höher = märchenhaft
+                //    Volume = 1.0f,                    
+                //};
+
+                //await TextToSpeech.SpeakAsync(FairyTale.Story, options);
             });
 
             ShareCommand = new Command(async () =>
@@ -90,6 +100,12 @@ namespace dislMagicGarden.ViewModels
             });
 
             CloseCommand = new Command(_closeAction);
+        }
+
+        public async Task SpeakAtHalfSpeed()
+        {
+            // Funktioniert plattformübergreifend, dank der Implementierungen
+            await _ttsService.Speak(FairyTale.Story, SpeakSpeed);
         }
     }
 

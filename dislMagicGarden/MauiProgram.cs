@@ -66,7 +66,7 @@ namespace dislMagicGarden
 
             //builder.Services.AddTransient<DeepSeekClient>();
 
-    
+            builder.Services.AddSingleton<ITextToSpeechService, TextToSpeechService>();
 
             builder.Services.AddLocalization();
 

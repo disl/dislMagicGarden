@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Maui.Extensions;
+﻿using CommunityToolkit.Maui.Core.Extensions;
+using CommunityToolkit.Maui.Extensions;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using dislMagicGarden.Models;
@@ -15,6 +16,7 @@ namespace dislMagicGarden.ViewModels
     public partial class FairyTaleViewModel : BaseViewModel
     {
         private readonly IHybridFairyTaleService _fairyTaleService;
+        private readonly ITextToSpeechService _textToSpeechService;
 
         [ObservableProperty]
         private string _theme = ""; // "Ein kleiner Drache lernt fliegen";
@@ -65,7 +67,7 @@ namespace dislMagicGarden.ViewModels
         private readonly ILanguageService _language;
 
         // Verfügbare Märchentypen
-        public ObservableCollection<FairyTaleTypeOption> AvailableFairyTaleTypes { get; } = new(FairyTaleTypes.All);
+        public ObservableCollection<FairyTaleTypeOption> AvailableFairyTaleTypes { get; } = new();
 
         [ObservableProperty]
         FairyTaleTypeOption? selectedFairyTaleType;
@@ -113,6 +115,8 @@ namespace dislMagicGarden.ViewModels
                     return;
 
                 ApplyLanguage(value.Code);
+
+
             }
         }
 
@@ -125,7 +129,11 @@ namespace dislMagicGarden.ViewModels
                 AvailableLanguages.FirstOrDefault(l => l.Code == currentCulture)
                 ?? AvailableLanguages.First(l => l.Code.StartsWith("en"));
 
+
+
             SelectedFairyTaleType = AvailableFairyTaleTypes.FirstOrDefault();
+
+
         }
 
         //partial void OnSelectedLanguageChanged(string value)
@@ -176,6 +184,8 @@ namespace dislMagicGarden.ViewModels
                 // optional: TTS Stimmen neu laden
                 //_ = LoadVoicesAsync();
 
+                ReloadFairyTaleTypes();
+
                 App.Reload();
             }
             catch (Exception ex)
@@ -199,9 +209,10 @@ namespace dislMagicGarden.ViewModels
             set => SetProperty(ref _selectedDuration, value);
         }
 
-        public FairyTaleViewModel(IHybridFairyTaleService fairyTaleService, ILanguageService language)
+        public FairyTaleViewModel(IHybridFairyTaleService fairyTaleService, ILanguageService language, ITextToSpeechService textToSpeechService)
         {
             _fairyTaleService = fairyTaleService;
+            _textToSpeechService = textToSpeechService;
             Title = Properties.Resources.Home_NewStory;
             _language = language;
 
@@ -223,7 +234,27 @@ namespace dislMagicGarden.ViewModels
 
             _isApplyingLanguage = false;
 
-            SelectedFairyTaleType = AvailableFairyTaleTypes.FirstOrDefault();
+            ReloadFairyTaleTypes();
+
+            //SelectedFairyTaleType = AvailableFairyTaleTypes.FirstOrDefault();
+            _textToSpeechService=textToSpeechService;
+        }
+
+        public void ReloadFairyTaleTypes()
+        {
+            var selectedType = SelectedFairyTaleType?.Type;
+
+            AvailableFairyTaleTypes.Clear();
+            foreach (var item in FairyTaleTypes.Create())
+                AvailableFairyTaleTypes.Add(item);
+
+            // Auswahl wiederherstellen
+            if (selectedType != null)
+                SelectedFairyTaleType =
+                    AvailableFairyTaleTypes.FirstOrDefault(x => x.Type == selectedType);
+            else
+                SelectedFairyTaleType =
+                    AvailableFairyTaleTypes.FirstOrDefault();
         }
 
 
@@ -277,7 +308,7 @@ namespace dislMagicGarden.ViewModels
                     var model = ConvertResponseToModel(CurrentFairyTale);
 
                     await Application.Current.MainPage.Navigation
-                        .PushModalAsync(new FairyTaleResultPage(model), true);
+                        .PushModalAsync(new FairyTaleResultPage(model, _textToSpeechService), true);
                 }
 
 

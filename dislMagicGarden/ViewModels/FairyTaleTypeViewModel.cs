@@ -18,7 +18,7 @@ namespace dislMagicGarden.ViewModels
 
         public FairyTaleTypeViewModel()
         {
-            Types = new ObservableCollection<FairyTaleTypeOption>(FairyTaleTypes.All);
+            Types = new ObservableCollection<FairyTaleTypeOption>();
 
             ContinueCommand = new RelayCommand(OnContinue, () => CanContinue);
         }

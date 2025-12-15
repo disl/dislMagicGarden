@@ -1,4 +1,5 @@
 using dislMagicGarden.Models;
+using dislMagicGarden.Services;
 using dislMagicGarden.ViewModels;
 
 namespace dislMagicGarden.Views;
@@ -12,10 +13,10 @@ public partial class FairyTaleResultPage : ContentPage
             await vm.LoadVoicesAsync();
     }
 
-    public FairyTaleResultPage(FairyTaleModel fairyTale)
+    public FairyTaleResultPage(FairyTaleModel fairyTale, ITextToSpeechService textToSpeechService)
     {
         InitializeComponent();
-        BindingContext = new FairyTaleResultViewModel(fairyTale, Close);
+        BindingContext = new FairyTaleResultViewModel(fairyTale, Close, textToSpeechService);
     }
 
     private async void Close()
