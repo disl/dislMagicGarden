@@ -547,6 +547,15 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 🟥 Stop aloud ähnelt.
+        /// </summary>
+        internal static string Stop_aloud {
+            get {
+                return ResourceManager.GetString("Stop_aloud", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Story length (minutes) ähnelt.
         /// </summary>
         internal static string Story_length {

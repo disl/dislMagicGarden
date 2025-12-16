@@ -279,6 +279,9 @@
   <data name="Stop" xml:space="preserve">
     <value>Parar</value>
   </data>
+  <data name="Stop_aloud" xml:space="preserve">
+    <value>🟥 Detener en voz alta</value>
+  </data>
   <data name="Story_length" xml:space="preserve">
     <value>Duración de la historia (minutos)</value>
   </data>
