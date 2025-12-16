@@ -79,6 +79,15 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Access denied ähnelt.
+        /// </summary>
+        internal static string Access_denied {
+            get {
+                return ResourceManager.GetString("Access_denied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Adventurous ähnelt.
         /// </summary>
         internal static string Adventurous {
@@ -313,6 +322,15 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Microphone access is required ähnelt.
+        /// </summary>
+        internal static string Microphone_access_is_required {
+            get {
+                return ResourceManager.GetString("Microphone_access_is_required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Mode ähnelt.
         /// </summary>
         internal static string Mode {
@@ -498,6 +516,33 @@ namespace dislMagicGarden.Properties {
         internal static string Share_fairy_tales {
             get {
                 return ResourceManager.GetString("Share_fairy_tales", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Speak now... ähnelt.
+        /// </summary>
+        internal static string Speak_now {
+            get {
+                return ResourceManager.GetString("Speak_now", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Speed ähnelt.
+        /// </summary>
+        internal static string speed {
+            get {
+                return ResourceManager.GetString("speed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Stop ähnelt.
+        /// </summary>
+        internal static string Stop {
+            get {
+                return ResourceManager.GetString("Stop", resourceCulture);
             }
         }
         

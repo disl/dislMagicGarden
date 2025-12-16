@@ -5,7 +5,7 @@
              x:Class="dislMagicGarden.Views.HomePage"
              xmlns:views="clr-namespace:dislMagicGarden.Views"
              BackgroundColor="{StaticResource CottonCandy}"
-             Title="">
+             Title="Magic Garden">
 
     <Grid>
         <!-- OPTIONAL: Hintergrundbild -->

@@ -4,10 +4,13 @@ namespace dislMagicGarden.Services
 {
     public class TextToSpeechService : ITextToSpeechService
     {
+        AVSpeechSynthesizer speechSynthesizer = new AVSpeechSynthesizer();
+        AVSpeechUtterance speechUtterance = new AVSpeechUtterance();
+
         public Task Speak(string text, float speed)
         {
-            var speechSynthesizer = new AVSpeechSynthesizer();
-            var speechUtterance = new AVSpeechUtterance(text);
+            speechSynthesizer = new AVSpeechSynthesizer();
+            speechUtterance = new AVSpeechUtterance(text);
 
             // Setzt die Geschwindigkeit (Rate)
             // iOS nutzt Rate, Werte sind typischerweise 0.0 bis 1.0
@@ -22,6 +25,11 @@ namespace dislMagicGarden.Services
             // Hinweis: Um auf das Ende zu warten, müssten Sie einen Delegate 
             // implementieren (AVSpeechSynthesizerDelegate) und den Task dort beenden.
             return Task.CompletedTask;
+        }
+
+        public void Stop()
+        {
+            speechSynthesizer.PauseSpeaking(AVSpeechBoundary.Immediate);
         }
     }
 }

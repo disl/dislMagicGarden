@@ -55,7 +55,7 @@ namespace dislMagicGarden.Services
                 ?? throw new ArgumentException("OpenAI API Key fehlt. Bitte in appsettings.json eintragen.");
 
             // Timeout setzen
-            _httpClient.Timeout = TimeSpan.FromSeconds(60);
+            _httpClient.Timeout = TimeSpan.FromSeconds(120);
         }
 
         public async Task<FairyTaleResponse> GenerateFairyTaleAsync(FairyTaleRequest request)

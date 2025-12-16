@@ -126,7 +126,7 @@
 
 
             <!-- Dauer -->
-            <Border Style="{StaticResource FairyInputBorderStyle}">
+            <!--<Border Style="{StaticResource FairyInputBorderStyle}">
                 <VerticalStackLayout Spacing="10">
                     <Label Text="{x:Static res:Resources.Story_length}"
                               FontAttributes="Bold"
@@ -137,7 +137,7 @@
                       SelectedItem="{Binding SelectedDuration}"
                        />
                 </VerticalStackLayout>
-            </Border>
+            </Border>-->
 
             <!-- Fehler -->
             <Border IsVisible="{Binding HasError}"

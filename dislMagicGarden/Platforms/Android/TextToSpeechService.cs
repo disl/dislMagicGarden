@@ -46,5 +46,10 @@ namespace dislMagicGarden.Services
                 _tcs.SetResult(false);
             }
         }
+
+        public void Stop()
+        {
+            _speaker.Stop();
+        }
     }
 }

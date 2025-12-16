@@ -65,5 +65,10 @@ namespace dislMagicGarden.Services
                 throw;
             }
         }
+
+        public void Stop()
+        {
+            _mediaPlayer.Pause();
+        }
     }
 }

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Access_denied" xml:space="preserve">
+    <value>Доступ запрещен</value>
+  </data>
   <data name="Adventurous" xml:space="preserve">
     <value>Приключенческий</value>
   </data>
@@ -201,6 +204,9 @@
   <data name="Magical_worlds_and_creatures" xml:space="preserve">
     <value>Волшебные миры и существа</value>
   </data>
+  <data name="Microphone_access_is_required" xml:space="preserve">
+    <value>Требуется доступ к микрофону.</value>
+  </data>
   <data name="Mode" xml:space="preserve">
     <value>Режим</value>
   </data>
@@ -263,6 +269,15 @@
   </data>
   <data name="Share_fairy_tales" xml:space="preserve">
     <value>Поделиться сказками</value>
+  </data>
+  <data name="Speak_now" xml:space="preserve">
+    <value>Говорите сейчас...</value>
+  </data>
+  <data name="speed" xml:space="preserve">
+    <value>Скорость</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Стоп</value>
   </data>
   <data name="Story_length" xml:space="preserve">
     <value>Продолжительность истории (минуты)</value>

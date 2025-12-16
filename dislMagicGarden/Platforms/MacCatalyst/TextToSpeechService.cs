@@ -45,5 +45,10 @@ namespace dislMagicGarden.Services
             // implementieren. Für eine einfache "Feuer-und-Vergiss"-Implementierung reicht Task.CompletedTask.
             return Task.CompletedTask;
         }
+
+        public void Stop()
+        {
+            _speechSynthesizer.PauseSpeaking(AVSpeechBoundary.Immediate);
+        }
     }
 }

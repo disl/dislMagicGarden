@@ -1,10 +1,10 @@
 #if ANDROID
-
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Speech;
 #endif
+
 using CommunityToolkit.Maui.Views;
 using System.Text;
 
@@ -47,7 +47,7 @@ public partial class VoiceRecognitionPage : Popup<string>
 
         if (!await CheckMicrophonePermissionAsync())
         {
-            await Application.Current.MainPage.DisplayAlert("Access denied", "Microphone access is required.", "OK");
+            await Application.Current.MainPage.DisplayAlert(Properties.Resources.Access_denied, Properties.Resources.Microphone_access_is_required, "OK");
             return;
         }
 
@@ -59,7 +59,7 @@ public partial class VoiceRecognitionPage : Popup<string>
 
         voiceIntent = new Intent(RecognizerIntent.ActionRecognizeSpeech);
         voiceIntent.PutExtra(RecognizerIntent.ExtraLanguageModel, RecognizerIntent.LanguageModelFreeForm);
-        voiceIntent.PutExtra(RecognizerIntent.ExtraPrompt, "Speak now...");
+        voiceIntent.PutExtra(RecognizerIntent.ExtraPrompt, Properties.Resources.Speak_now);
         voiceIntent.PutExtra(RecognizerIntent.ExtraLanguage, Java.Util.Locale.Default);
         voiceIntent.PutExtra(RecognizerIntent.ExtraPartialResults, true);
         voiceIntent.PutExtra(RecognizerIntent.ExtraSpeechInputCompleteSilenceLengthMillis, 15000);
