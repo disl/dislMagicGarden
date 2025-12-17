@@ -15,6 +15,11 @@ namespace dislMagicGarden.ViewModels
         [ObservableProperty]
         private float speechSpeed = 1f;
 
+        partial  void OnSpeechSpeedChanging(float value)
+        {
+            Preferences.Set("speechSpeed", value);
+        }
+
         // Verfügbare Stimmen
         public ObservableCollection<LocaleWrapper> AvailableVoices { get; } = new();
         private LocaleWrapper _selectedVoice;
@@ -75,7 +80,7 @@ namespace dislMagicGarden.ViewModels
             _closeAction = closeAction;
 
             _ttsService = ttsService;
-
+            
             SpeakStoryCommand = new Command(async () =>
             {
 
@@ -110,6 +115,8 @@ namespace dislMagicGarden.ViewModels
 
         public async Task SpeakAtHalfSpeed()
         {
+            SpeechSpeed = Preferences.Get("speechSpeed", 1f);
+
             // Funktioniert plattformübergreifend, dank der Implementierungen
             await _ttsService.Speak(FairyTale.Story, SpeechSpeed);
         }

@@ -260,6 +260,13 @@ namespace dislMagicGarden.Services
             //    _ => "im klassischen Märchenstil"
             //};
 
+            var Gender_male_text = request.Gender_male switch
+            {
+                true => "Das Kind, für das das Märchen erstellt wird, ist ein Junge.",
+                false => "Das Kind, für das das Märchen erstellt wird, ist ein Mädchen.",
+                null => ""
+            };
+
             var FairyTaleTypeText = request.FairyTaleType switch
             {
                 FairyTaleType.Funny => "ein klassisches Märchen",
@@ -282,6 +289,8 @@ namespace dislMagicGarden.Services
             string _currentLanguage = Thread.CurrentThread.CurrentCulture.NativeName;          
 
             return $$"""
+                {{Gender_male_text}}
+
                 Erstelle ein komplettes (!) als {{FairyTaleTypeText}}. Ohne '...' am Ende. 
                 
                 Thema: {{request.Theme}}

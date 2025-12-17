@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Maui.Core.Extensions;
-using CommunityToolkit.Maui.Extensions;
+﻿using CommunityToolkit.Maui.Extensions;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using dislMagicGarden.Models;
@@ -17,6 +16,9 @@ namespace dislMagicGarden.ViewModels
     {
         private readonly IHybridFairyTaleService _fairyTaleService;
         private readonly ITextToSpeechService _textToSpeechService;
+
+        [ObservableProperty]
+        private bool? _gender_male = null; // "Geschlecht-Männlich";
 
         [ObservableProperty]
         private string _theme = ""; // "Ein kleiner Drache lernt fliegen";
@@ -115,8 +117,6 @@ namespace dislMagicGarden.ViewModels
                     return;
 
                 ApplyLanguage(value.Code);
-
-
             }
         }
 
@@ -180,9 +180,6 @@ namespace dislMagicGarden.ViewModels
 
                 LanguageService.SetLanguage(lang);
                 Preferences.Set("app_language", lang);
-
-                // optional: TTS Stimmen neu laden
-                //_ = LoadVoicesAsync();
 
                 ReloadFairyTaleTypes();
 
