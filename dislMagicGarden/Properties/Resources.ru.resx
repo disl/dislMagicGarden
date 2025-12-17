@@ -129,6 +129,9 @@
   <data name="A_magical_adventure_with" xml:space="preserve">
     <value>Волшебное приключение с</value>
   </data>
+  <data name="boy" xml:space="preserve">
+    <value>Мальчик</value>
+  </data>
   <data name="Brothers_Grimm" xml:space="preserve">
     <value>Братья Гримм</value>
   </data>
@@ -177,8 +180,14 @@
   <data name="Funny" xml:space="preserve">
     <value>Забавный</value>
   </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Пол</value>
+  </data>
   <data name="Generate_fairy_tales" xml:space="preserve">
     <value>Создайте сказки</value>
+  </data>
+  <data name="girl" xml:space="preserve">
+    <value>Девочка</value>
   </data>
   <data name="Home_NewStory" xml:space="preserve">
     <value>Создайте новую историю</value>
@@ -212,6 +221,9 @@
   </data>
   <data name="Modern_fairy_tales" xml:space="preserve">
     <value>Современные сказки</value>
+  </data>
+  <data name="Neutral" xml:space="preserve">
+    <value>Нейтральный</value>
   </data>
   <data name="NewStory" xml:space="preserve">
     <value>Новая история</value>

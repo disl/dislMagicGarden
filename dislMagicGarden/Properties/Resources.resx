@@ -129,6 +129,9 @@
   <data name="A_magical_adventure_with" xml:space="preserve">
     <value>A magical adventure with</value>
   </data>
+  <data name="boy" xml:space="preserve">
+    <value>Boy</value>
+  </data>
   <data name="Brothers_Grimm" xml:space="preserve">
     <value>Brothers Grimm</value>
   </data>
@@ -177,8 +180,14 @@
   <data name="Funny" xml:space="preserve">
     <value>Funny</value>
   </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Gender</value>
+  </data>
   <data name="Generate_fairy_tales" xml:space="preserve">
     <value>Generate fairy tales</value>
+  </data>
+  <data name="girl" xml:space="preserve">
+    <value>Girl</value>
   </data>
   <data name="Home_NewStory" xml:space="preserve">
     <value>Create new story</value>
@@ -212,6 +221,9 @@
   </data>
   <data name="Modern_fairy_tales" xml:space="preserve">
     <value>Modern fairy tales</value>
+  </data>
+  <data name="Neutral" xml:space="preserve">
+    <value>Neutral</value>
   </data>
   <data name="NewStory" xml:space="preserve">
     <value>New Story</value>
@@ -278,9 +290,6 @@
   </data>
   <data name="Stop" xml:space="preserve">
     <value>Stop</value>
-  </data>
-  <data name="Stop_aloud" xml:space="preserve">
-    <value>🟥 Stop aloud</value>
   </data>
   <data name="Story_length" xml:space="preserve">
     <value>Story length (minutes)</value>

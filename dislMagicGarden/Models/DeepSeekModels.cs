@@ -18,7 +18,7 @@
         public int AgeGroup { get; internal set; }
         public int Duration_min { get; internal set; } = 5;
 
-        public bool? Gender_male { get; set; } = null;
+        public GenderOption Gender_male { get; set; } = GenderOption.Neutral;
 
     }
 

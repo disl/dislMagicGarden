@@ -14,6 +14,7 @@
             <converters:EnumToBoolConverter x:Key="EnumToBoolConverter" />
             <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
             <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+            <converters:NullToBoolConverter x:Key="NullToBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -64,6 +65,39 @@
                         ItemDisplayBinding="{Binding Title_description}" />
                 </VerticalStackLayout>
             </Border>
+
+
+            <!-- Geschlecht -->
+            <Border Style="{StaticResource FairyInputBorderStyle}">
+                <VerticalStackLayout>
+                    <Label Text="{x:Static res:Resources.Gender}" FontAttributes="Bold" />
+                    <HorizontalStackLayout Spacing="40" HorizontalOptions="Center">
+
+                        <RadioButton
+                            Content="👦"
+                            FontSize="Title"
+                            IsChecked="{Binding SelectedGender,
+                                Converter={StaticResource EnumToBoolConverter},
+                                ConverterParameter={x:Static models:GenderOption.Male}}" />
+
+                        <RadioButton
+                            Content="👧"
+                            FontSize="Title"
+                            IsChecked="{Binding SelectedGender,
+                                Converter={StaticResource EnumToBoolConverter},
+                                ConverterParameter={x:Static models:GenderOption.Female}}" />
+
+                        <RadioButton
+                            Content=""
+                            FontSize="Large"
+                            IsChecked="{Binding SelectedGender,
+                                Converter={StaticResource EnumToBoolConverter},
+                                ConverterParameter={x:Static models:GenderOption.Neutral}}" />
+
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
 
 
 

@@ -97,6 +97,15 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Boy ähnelt.
+        /// </summary>
+        internal static string boy {
+            get {
+                return ResourceManager.GetString("boy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Brothers Grimm ähnelt.
         /// </summary>
         internal static string Brothers_Grimm {
@@ -241,11 +250,29 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Gender ähnelt.
+        /// </summary>
+        internal static string Gender {
+            get {
+                return ResourceManager.GetString("Gender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Generate fairy tales ähnelt.
         /// </summary>
         internal static string Generate_fairy_tales {
             get {
                 return ResourceManager.GetString("Generate_fairy_tales", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Girl ähnelt.
+        /// </summary>
+        internal static string girl {
+            get {
+                return ResourceManager.GetString("girl", resourceCulture);
             }
         }
         
@@ -345,6 +372,15 @@ namespace dislMagicGarden.Properties {
         internal static string Modern_fairy_tales {
             get {
                 return ResourceManager.GetString("Modern_fairy_tales", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Neutral ähnelt.
+        /// </summary>
+        internal static string Neutral {
+            get {
+                return ResourceManager.GetString("Neutral", resourceCulture);
             }
         }
         
@@ -543,15 +579,6 @@ namespace dislMagicGarden.Properties {
         internal static string Stop {
             get {
                 return ResourceManager.GetString("Stop", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die 🟥 Stop aloud ähnelt.
-        /// </summary>
-        internal static string Stop_aloud {
-            get {
-                return ResourceManager.GetString("Stop_aloud", resourceCulture);
             }
         }
         

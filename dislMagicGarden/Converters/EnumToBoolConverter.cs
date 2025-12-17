@@ -6,28 +6,28 @@ namespace dislMagicGarden.Converters
     public class EnumToBoolConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value == null || parameter == null) return false;
-            return value.ToString() == parameter.ToString();
-        }
+            => value?.Equals(parameter) == true;
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value == null || parameter == null) return Binding.DoNothing;
-            return (bool)value ? Enum.Parse(targetType, parameter.ToString()) : Binding.DoNothing;
-        }
+            => (bool)value ? parameter! : Binding.DoNothing;
     }
+
 
     public class InverseBoolConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (value == null) return null;
+
             return !(bool)value;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return !(bool)value;
+            if (value == null || parameter == null)
+                return Binding.DoNothing;
+            else
+                return !(bool)value;
         }
     }
 

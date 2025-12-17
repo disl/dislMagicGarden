@@ -129,6 +129,9 @@
   <data name="A_magical_adventure_with" xml:space="preserve">
     <value>Una aventura mágica con %1</value>
   </data>
+  <data name="boy" xml:space="preserve">
+    <value>Joven</value>
+  </data>
   <data name="Brothers_Grimm" xml:space="preserve">
     <value>Hermanos Grimm</value>
   </data>
@@ -177,8 +180,14 @@
   <data name="Funny" xml:space="preserve">
     <value>Divertido</value>
   </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Género</value>
+  </data>
   <data name="Generate_fairy_tales" xml:space="preserve">
     <value>Generar cuentos de hadas</value>
+  </data>
+  <data name="girl" xml:space="preserve">
+    <value>Niña</value>
   </data>
   <data name="Home_NewStory" xml:space="preserve">
     <value>Crear nueva historia</value>
@@ -212,6 +221,9 @@
   </data>
   <data name="Modern_fairy_tales" xml:space="preserve">
     <value>Cuentos modernos</value>
+  </data>
+  <data name="Neutral" xml:space="preserve">
+    <value>Neutral</value>
   </data>
   <data name="NewStory" xml:space="preserve">
     <value>Nueva historia</value>
@@ -278,9 +290,6 @@
   </data>
   <data name="Stop" xml:space="preserve">
     <value>Parar</value>
-  </data>
-  <data name="Stop_aloud" xml:space="preserve">
-    <value>🟥 Detener en voz alta</value>
   </data>
   <data name="Story_length" xml:space="preserve">
     <value>Duración de la historia (minutos)</value>

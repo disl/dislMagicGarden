@@ -262,9 +262,9 @@ namespace dislMagicGarden.Services
 
             var Gender_male_text = request.Gender_male switch
             {
-                true => "Das Kind, für das das Märchen erstellt wird, ist ein Junge.",
-                false => "Das Kind, für das das Märchen erstellt wird, ist ein Mädchen.",
-                null => ""
+                GenderOption.Male => "Das Kind, für das das Märchen erstellt wird, ist ein Junge.",
+                GenderOption.Female => "Das Kind, für das das Märchen erstellt wird, ist ein Mädchen.",
+                GenderOption.Neutral => ""
             };
 
             var FairyTaleTypeText = request.FairyTaleType switch
