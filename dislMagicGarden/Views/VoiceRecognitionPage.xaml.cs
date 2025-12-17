@@ -12,7 +12,6 @@ namespace dislMagicGarden.Views;
 
 public partial class VoiceRecognitionPage : Popup<string>
 {
-
     bool isListening = false;
     bool IsListening
     {
@@ -107,7 +106,6 @@ public partial class VoiceRecognitionPage : Popup<string>
         }
     }
 
-    private readonly HashSet<string> recognizedLines = new();
     private readonly StringBuilder textBuilder = new();
     private string bestSentence = "";
 
