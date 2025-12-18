@@ -216,4 +216,10 @@
 	  <MauiSplashScreen Include="Resources\Splash\appicon.png" color="white" />
 	</ItemGroup>
 
+	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
+	  <PackageReference Include="Xamarin.Google.Android.Play.Core">
+	    <Version>1.10.3.19</Version>
+	  </PackageReference>
+	</ItemGroup>
+
 </Project>
