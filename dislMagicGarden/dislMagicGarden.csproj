@@ -44,44 +44,44 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-android|AnyCPU'">
-	  <ApplicationDisplayVersion>1.12</ApplicationDisplayVersion>
-	  <ApplicationVersion>12</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.14</ApplicationDisplayVersion>
+	  <ApplicationVersion>14</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-ios|AnyCPU'">
-	  <ApplicationDisplayVersion>1.12</ApplicationDisplayVersion>
-	  <ApplicationVersion>12</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.14</ApplicationDisplayVersion>
+	  <ApplicationVersion>14</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-maccatalyst|AnyCPU'">
-	  <ApplicationDisplayVersion>1.12</ApplicationDisplayVersion>
-	  <ApplicationVersion>12</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.14</ApplicationDisplayVersion>
+	  <ApplicationVersion>14</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-windows10.0.19041.0|AnyCPU'">
-	  <ApplicationDisplayVersion>1.12</ApplicationDisplayVersion>
-	  <ApplicationVersion>12</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.14</ApplicationDisplayVersion>
+	  <ApplicationVersion>14</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android|AnyCPU'">
-	  <ApplicationDisplayVersion>1.12</ApplicationDisplayVersion>
-	  <ApplicationVersion>12</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.14</ApplicationDisplayVersion>
+	  <ApplicationVersion>14</ApplicationVersion>
 	  <AndroidLinkTool>r8</AndroidLinkTool>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-ios|AnyCPU'">
-	  <ApplicationDisplayVersion>1.12</ApplicationDisplayVersion>
-	  <ApplicationVersion>12</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.14</ApplicationDisplayVersion>
+	  <ApplicationVersion>14</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-maccatalyst|AnyCPU'">
-	  <ApplicationDisplayVersion>1.12</ApplicationDisplayVersion>
-	  <ApplicationVersion>12</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.14</ApplicationDisplayVersion>
+	  <ApplicationVersion>14</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-windows10.0.19041.0|AnyCPU'">
-	  <ApplicationDisplayVersion>1.12</ApplicationDisplayVersion>
-	  <ApplicationVersion>12</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.14</ApplicationDisplayVersion>
+	  <ApplicationVersion>14</ApplicationVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -128,10 +128,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<MauiImage Remove="Resources\Images\background_magic.jpg" />
 		<MauiImage Remove="Resources\Images\background_magic.png" />
-		<MauiImage Remove="Resources\Images\character_bunny.webp" />
+		<MauiImage Remove="Resources\Images\character_bunny.png" />
+		<MauiImage Remove="Resources\Images\header_fairy.png" />
 		<MauiImage Remove="Resources\Images\header_fairy_3.jpg" />
 		<MauiImage Remove="Resources\Images\header_fairy_3.png" />
+		<MauiImage Remove="Resources\Images\header_fairy_4.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -143,10 +146,14 @@
 
 	<ItemGroup>
 		<None Remove="Resources\Config\appsettings.json" />
+		<None Remove="Resources\Images\background_magic.jpg" />
 		<None Remove="Resources\Images\background_magic.png" />
+		<None Remove="Resources\Images\character_bunny.png" />
 		<None Remove="Resources\Images\character_bunny.webp" />
+		<None Remove="Resources\Images\header_fairy.png" />
 		<None Remove="Resources\Images\header_fairy_3.jpg" />
 		<None Remove="Resources\Images\header_fairy_3.png" />
+		<None Remove="Resources\Images\header_fairy_4.png" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -21,7 +21,7 @@
 
                 <VerticalStackLayout Padding="20" Spacing="30">
                     <!-- Header Illustration -->
-                    <Border BackgroundColor="White"
+                    <Border BackgroundColor="Transparent"
                         StrokeShape="RoundRectangle 30"
                         StrokeThickness="0"
                         Margin="0"
@@ -29,7 +29,7 @@
                         <Border.Shadow>
                             <Shadow />
                         </Border.Shadow>
-                        <Image Source="header_fairy_4.png"
+                        <Image Source="header_fairy_4.webp"
                            Aspect="AspectFit"
                            HeightRequest="220" />
                     </Border>
@@ -60,7 +60,7 @@
 
                     <!-- Maskottchen -->
                     <VerticalStackLayout Spacing="5" HorizontalOptions="Center">
-                        <Image Source="character_bunny.png"
+                        <Image Source="character_bunny.webp"
                            HeightRequest="250"
                            Aspect="AspectFit" />
                         <Label Text="{x:Static res:Resources.Luna_is_waiting}"
