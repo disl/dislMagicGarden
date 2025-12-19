@@ -44,44 +44,44 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-android|AnyCPU'">
-	  <ApplicationDisplayVersion>1.11</ApplicationDisplayVersion>
-	  <ApplicationVersion>11</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.12</ApplicationDisplayVersion>
+	  <ApplicationVersion>12</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-ios|AnyCPU'">
-	  <ApplicationDisplayVersion>1.11</ApplicationDisplayVersion>
-	  <ApplicationVersion>11</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.12</ApplicationDisplayVersion>
+	  <ApplicationVersion>12</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-maccatalyst|AnyCPU'">
-	  <ApplicationDisplayVersion>1.11</ApplicationDisplayVersion>
-	  <ApplicationVersion>11</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.12</ApplicationDisplayVersion>
+	  <ApplicationVersion>12</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-windows10.0.19041.0|AnyCPU'">
-	  <ApplicationDisplayVersion>1.11</ApplicationDisplayVersion>
-	  <ApplicationVersion>11</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.12</ApplicationDisplayVersion>
+	  <ApplicationVersion>12</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android|AnyCPU'">
-	  <ApplicationDisplayVersion>1.11</ApplicationDisplayVersion>
-	  <ApplicationVersion>11</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.12</ApplicationDisplayVersion>
+	  <ApplicationVersion>12</ApplicationVersion>
 	  <AndroidLinkTool>r8</AndroidLinkTool>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-ios|AnyCPU'">
-	  <ApplicationDisplayVersion>1.11</ApplicationDisplayVersion>
-	  <ApplicationVersion>11</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.12</ApplicationDisplayVersion>
+	  <ApplicationVersion>12</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-maccatalyst|AnyCPU'">
-	  <ApplicationDisplayVersion>1.11</ApplicationDisplayVersion>
-	  <ApplicationVersion>11</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.12</ApplicationDisplayVersion>
+	  <ApplicationVersion>12</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-windows10.0.19041.0|AnyCPU'">
-	  <ApplicationDisplayVersion>1.11</ApplicationDisplayVersion>
-	  <ApplicationVersion>11</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.12</ApplicationDisplayVersion>
+	  <ApplicationVersion>12</ApplicationVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
