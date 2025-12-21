@@ -6,6 +6,7 @@
              xmlns:converters="clr-namespace:dislMagicGarden.Converters"
              xmlns:views="clr-namespace:dislMagicGarden.Views"
              xmlns:res="clr-namespace:dislMagicGarden.Properties"
+             xmlns:local="clr-namespace:dislMagicGarden.Controls"
              x:Class="dislMagicGarden.Views.FairyTalePage"
              Title="Märchen Generator">
 
@@ -20,6 +21,12 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- AdMob -->
+            <local:AdBannerView HeightRequest="50" 
+                           WidthRequest="320" 
+                           BackgroundColor="LightGray" />
+
 
             <Label Text="{x:Static res:Resources.Fairy_Tale_Generator}"
                    FontSize="20"

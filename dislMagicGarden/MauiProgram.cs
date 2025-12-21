@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Maui;
+using dislMagicGarden.Controls;
+using dislMagicGarden.Handlers;
 using dislMagicGarden.Services;
 using dislMagicGarden.ViewModels;
 using dislMagicGarden.Views;
@@ -27,9 +29,6 @@ namespace dislMagicGarden
             var res_names = a.GetManifestResourceNames();
             using var stream = a.GetManifestResourceStream(@"dislMagicGarden.appsettings.json");
 
-            // !!! WICHTIG: Ersetzen Sie "IhrProjektnamensraum" durch den tatsächlichen Standard-Namespace Ihres Projekts.
-            // Beispiel: "MauiApp1.appsettings.json"
-
             if (stream != null)
             {
                 var config = new ConfigurationBuilder()
@@ -39,7 +38,11 @@ namespace dislMagicGarden
                 builder.Configuration.AddConfiguration(config);
             }
 
-
+            // Handler registrieren - Jede Plattform bekommt ihren eigenen
+            builder.ConfigureMauiHandlers(handlers =>
+            {
+                handlers.AddHandler<AdBannerView, AdBannerViewHandler>();
+            });
 
 
 #if DEBUG
