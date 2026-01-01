@@ -48,6 +48,7 @@
                         <Entry Text="{Binding Theme}" Grid.Column="0"
                            Placeholder="{x:Static res:Resources.A_brave_squirrel_saves_the_forest}"
                            PlaceholderColor="Gray"
+                           ClearButtonVisibility="WhileEditing"
                            FontSize="16" />
 
                         <Button Text="🎤"

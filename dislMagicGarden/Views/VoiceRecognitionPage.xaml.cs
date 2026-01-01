@@ -60,17 +60,42 @@ public partial class VoiceRecognitionPage : Popup<string>
         voiceIntent.PutExtra(RecognizerIntent.ExtraLanguageModel, RecognizerIntent.LanguageModelFreeForm);
         voiceIntent.PutExtra(RecognizerIntent.ExtraPrompt, Properties.Resources.Speak_now);
         voiceIntent.PutExtra(RecognizerIntent.ExtraLanguage, Java.Util.Locale.Default);
-        voiceIntent.PutExtra(RecognizerIntent.ExtraPartialResults, true);
-        voiceIntent.PutExtra(RecognizerIntent.ExtraSpeechInputCompleteSilenceLengthMillis, 15000);
-        voiceIntent.PutExtra(RecognizerIntent.ExtraSpeechInputPossiblyCompleteSilenceLengthMillis, 15000);
+        voiceIntent.PutExtra(RecognizerIntent.ExtraCallingPackage, Platform.AppContext.PackageName);
 
-        var listener = new ContinuousSpeechListener(OnTextRecognized, RestartListening);
+        // Wichtig für kontinuierliche Erkennung
+        voiceIntent.PutExtra(RecognizerIntent.ExtraPartialResults, true);
+
+        // Timeout-Einstellungen anpassen
+        voiceIntent.PutExtra(RecognizerIntent.ExtraSpeechInputCompleteSilenceLengthMillis, 2500);
+        voiceIntent.PutExtra(RecognizerIntent.ExtraSpeechInputPossiblyCompleteSilenceLengthMillis, 1500);
+        voiceIntent.PutExtra(RecognizerIntent.ExtraSpeechInputMinimumLengthMillis, 5000);
+
+        // Mehr Ergebnisse anfordern
+        voiceIntent.PutExtra(RecognizerIntent.ExtraMaxResults, 10);
+
+        // Optional: Sprach-Erkennung verbessern
+        voiceIntent.PutExtra(RecognizerIntent.ExtraPreferOffline, false);
+        voiceIntent.PutExtra(RecognizerIntent.ExtraPrompt, "Speak now...");
+
+        //var listener = new ContinuousSpeechListener(OnTextRecognized, RestartListening);
+        var listener = new ContinuousSpeechListener(
+                            OnTextRecognized,
+                            RestartListening,
+                            RestartListening,
+                            () => IsListening  // <--- Das ist der _statusCheck
+                        );
         recognizer = SpeechRecognizer.CreateSpeechRecognizer(context);
+
+
+
         recognizer.SetRecognitionListener(listener);
+
+        
+
+
 
         IsListening = true;
         recognizer.StartListening(voiceIntent);
-        //await Application.Current.MainPage.DisplayAlert("Info", "Du kannst jetzt deine Einkaufsliste diktieren.", "OK");
 #else
         if(Application.Current != null && Application.Current.MainPage != null)
             await Application.Current.MainPage.DisplayAlert("Nicht unterstützt", "Nur auf Android verfügbar.", "OK");
@@ -82,7 +107,7 @@ public partial class VoiceRecognitionPage : Popup<string>
 #if ANDROID
         IsListening = false;
         recognizer?.StopListening();
-        recognizer?.Destroy();
+        //recognizer?.Destroy();
 
         if (!string.IsNullOrEmpty(txtResult.Text))
         {
@@ -168,11 +193,16 @@ public partial class VoiceRecognitionPage : Popup<string>
     {
         private readonly Action<string> _onResult;
         private readonly Action _onEnd;
+        private readonly Action _onRestart;
+        // Das ist die Funktion, die den Status von IsListening abfragt
+        private readonly Func<bool> _statusCheck;
 
-        public ContinuousSpeechListener(Action<string> onResult, Action onEnd)
+        public ContinuousSpeechListener(Action<string> onResult, Action onEnd,  Action onRestart, Func<bool> statusCheck)
         {
             _onResult = onResult;
             _onEnd = onEnd;
+            _onRestart = onRestart;
+            _statusCheck = statusCheck;
         }
 
         public void OnReadyForSpeech(Bundle? @params) { }
@@ -193,6 +223,13 @@ public partial class VoiceRecognitionPage : Popup<string>
             var matches = results?.GetStringArrayList(SpeechRecognizer.ResultsRecognition);
             if (matches != null && matches.Count > 0)
                 _onResult.Invoke(matches[0]);
+
+            // HIER wird _statusCheck() aufgerufen. 
+            // Es schaut in Ihrer Page nach: Ist IsListening noch true?
+            if (_statusCheck != null && _statusCheck.Invoke())
+            {
+                _onRestart?.Invoke();
+            }
         }
 
         public void OnPartialResults(Bundle? partialResults)
