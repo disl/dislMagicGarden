@@ -6,6 +6,7 @@ using Android.Speech;
 #endif
 
 using CommunityToolkit.Maui.Views;
+using dislMagicGarden.Platforms.Android;
 using System.Text;
 
 namespace dislMagicGarden.Views;
@@ -66,8 +67,8 @@ public partial class VoiceRecognitionPage : Popup<string>
         voiceIntent.PutExtra(RecognizerIntent.ExtraPartialResults, true);
 
         // Timeout-Einstellungen anpassen
-        voiceIntent.PutExtra(RecognizerIntent.ExtraSpeechInputCompleteSilenceLengthMillis, 2500);
-        voiceIntent.PutExtra(RecognizerIntent.ExtraSpeechInputPossiblyCompleteSilenceLengthMillis, 1500);
+        //voiceIntent.PutExtra(RecognizerIntent.ExtraSpeechInputCompleteSilenceLengthMillis, 2500);
+        //voiceIntent.PutExtra(RecognizerIntent.ExtraSpeechInputPossiblyCompleteSilenceLengthMillis, 1500);
         voiceIntent.PutExtra(RecognizerIntent.ExtraSpeechInputMinimumLengthMillis, 5000);
 
         // Mehr Ergebnisse anfordern
@@ -77,13 +78,7 @@ public partial class VoiceRecognitionPage : Popup<string>
         voiceIntent.PutExtra(RecognizerIntent.ExtraPreferOffline, false);
         voiceIntent.PutExtra(RecognizerIntent.ExtraPrompt, "Speak now...");
 
-        //var listener = new ContinuousSpeechListener(OnTextRecognized, RestartListening);
-        var listener = new ContinuousSpeechListener(
-                            OnTextRecognized,
-                            RestartListening,
-                            RestartListening,
-                            () => IsListening  // <--- Das ist der _statusCheck
-                        );
+        var listener = new ContinuousSpeechListener(OnTextRecognized, RestartListening);
         recognizer = SpeechRecognizer.CreateSpeechRecognizer(context);
 
 
@@ -170,8 +165,27 @@ public partial class VoiceRecognitionPage : Popup<string>
 
     private void RestartListening()
     {
-        if (!IsListening || voiceIntent == null) return;
-        recognizer?.StartListening(voiceIntent);
+#if ANDROID
+        if (!IsListening || recognizer == null)
+            return;
+
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            try
+            {
+                recognizer.StopListening();
+                recognizer.StartListening(voiceIntent);
+            }
+            catch
+            {
+                // bei manchen Geräten nötig
+            }
+        });
+#endif
+
+
+        //if (!IsListening || voiceIntent == null) return;
+        //recognizer?.StartListening(voiceIntent);
     }
 #endif
 
@@ -188,58 +202,5 @@ public partial class VoiceRecognitionPage : Popup<string>
     }
 
 
-#if ANDROID
-    public class ContinuousSpeechListener : Java.Lang.Object, IRecognitionListener
-    {
-        private readonly Action<string> _onResult;
-        private readonly Action _onEnd;
-        private readonly Action _onRestart;
-        // Das ist die Funktion, die den Status von IsListening abfragt
-        private readonly Func<bool> _statusCheck;
 
-        public ContinuousSpeechListener(Action<string> onResult, Action onEnd,  Action onRestart, Func<bool> statusCheck)
-        {
-            _onResult = onResult;
-            _onEnd = onEnd;
-            _onRestart = onRestart;
-            _statusCheck = statusCheck;
-        }
-
-        public void OnReadyForSpeech(Bundle? @params) { }
-        public void OnBeginningOfSpeech() { }
-        public void OnRmsChanged(float rmsdB) { }
-        public void OnBufferReceived(byte[]? buffer) { }
-        public void OnEndOfSpeech() => _onEnd.Invoke();
-
-        public void OnError([GeneratedEnum] SpeechRecognizerError error)
-        {
-            // bestimmte Fehler ignorieren und neu starten
-            if (error == SpeechRecognizerError.NoMatch || error == SpeechRecognizerError.SpeechTimeout)
-                _onEnd.Invoke();
-        }
-
-        public void OnResults(Bundle? results)
-        {
-            var matches = results?.GetStringArrayList(SpeechRecognizer.ResultsRecognition);
-            if (matches != null && matches.Count > 0)
-                _onResult.Invoke(matches[0]);
-
-            // HIER wird _statusCheck() aufgerufen. 
-            // Es schaut in Ihrer Page nach: Ist IsListening noch true?
-            if (_statusCheck != null && _statusCheck.Invoke())
-            {
-                _onRestart?.Invoke();
-            }
-        }
-
-        public void OnPartialResults(Bundle? partialResults)
-        {
-            var matches = partialResults?.GetStringArrayList(SpeechRecognizer.ResultsRecognition);
-            if (matches != null && matches.Count > 0)
-                _onResult.Invoke(matches[0]);
-        }
-
-        public void OnEvent(int eventType, Bundle? @params) { }
-    }
-#endif
 }

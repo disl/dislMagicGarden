@@ -1,73 +1,61 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 #if ANDROID
-using Android.Content;
-using Android.Speech;
 using Android.OS;
 using Android.Runtime;
+using Android.Speech;
 
 namespace dislMagicGarden.Platforms.Android
 {
-    public class ContinuousSpeechListener : Java.Lang.Object/*, ISpeechRecognitionListener*/
+    public class ContinuousSpeechListener : Java.Lang.Object, IRecognitionListener
     {
-        private readonly Action<string> _onPartialResult;
-        private readonly Action<string> _onFinalResult;
-        private readonly Action _onRestartNeeded;
-        private readonly Func<bool> _isListening;
+        private readonly Action<string> _onTextRecognized;
+        private readonly Action _restartListening;
 
-        public ContinuousSpeechListener(
-            Action<string> onPartialResult,
-            Action<string> onFinalResult,
-            Action onRestartNeeded,
-            Func<bool> isListening)
+        public ContinuousSpeechListener(Action<string> onTextRecognized, Action restartListening)
         {
-            _onPartialResult = onPartialResult;
-            _onFinalResult = onFinalResult;
-            _onRestartNeeded = onRestartNeeded;
-            _isListening = isListening;
+            _onTextRecognized = onTextRecognized;
+            _restartListening = restartListening;
         }
 
         public void OnResults(Bundle results)
         {
             var matches = results?.GetStringArrayList(SpeechRecognizer.ResultsRecognition);
             if (matches != null && matches.Count > 0)
-            {
-                _onFinalResult?.Invoke(matches[0]);
-            }
+                _onTextRecognized(matches[0]);
 
-            // Wenn die App noch im Modus "Zuhören" ist, starten wir neu
-            if (_isListening()) _onRestartNeeded?.Invoke();
+            _restartListening();
         }
 
         public void OnPartialResults(Bundle partialResults)
         {
             var matches = partialResults?.GetStringArrayList(SpeechRecognizer.ResultsRecognition);
             if (matches != null && matches.Count > 0)
-            {
-                _onPartialResult?.Invoke(matches[0]);
-            }
+                _onTextRecognized(matches[0]);
         }
 
-        public void OnError(SpeechRecognizerError error)
+        public void OnError([GeneratedEnum] SpeechRecognizerError error)
         {
-            // Fehler 7 (No Match) oder 6 (Timeout) ignorieren wir und starten neu,
-            // falls der User nicht aktiv "Stop" gedrückt hat.
-            if (_isListening())
+            // Typische "normale" Fehler beim Continuous Listening:
+            if (error == SpeechRecognizerError.NoMatch ||
+                error == SpeechRecognizerError.SpeechTimeout)
             {
-                _onRestartNeeded?.Invoke();
+                _restartListening();
             }
         }
 
-        // Diese Methoden müssen existieren, können aber leer bleiben
-        public void OnReadyForSpeech(Bundle paramsBundle) { }
+        public void OnEndOfSpeech()
+        {
+            _restartListening();
+        }
+
+        // Pflichtmethoden (leer)
+        public void OnReadyForSpeech(Bundle @params) { }
         public void OnBeginningOfSpeech() { }
-        public void OnBufferReceived(byte[] buffer) { }
-        public void OnEndOfSpeech() { }
-        public void OnEvent(int eventType, Bundle @params) { }
         public void OnRmsChanged(float rmsdB) { }
+        public void OnBufferReceived(byte[] buffer) { }
+        public void OnEvent(int eventType, Bundle @params) { }
     }
+
 }
 
 #endif

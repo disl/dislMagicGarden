@@ -117,6 +117,7 @@
 	<ItemGroup>
 		<Compile Remove="Models\EditorStroke.cs" />
 		<Compile Remove="Models\IEditorService.cs" />
+		<Compile Remove="Platforms\Android\ContinuousSpeechListener_old.cs" />
 		<Compile Remove="Services\DeepSeekClient.cs" />
 		<Compile Remove="Services\EditorService.cs" />
 		<Compile Remove="ViewModels\ChapterEditorViewModel.cs" />
