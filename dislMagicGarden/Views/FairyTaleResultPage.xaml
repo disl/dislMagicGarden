@@ -93,15 +93,15 @@
 
 
                 <!-- Action Buttons -->
-                <Grid ColumnDefinitions="*,*,*"
+                <Grid ColumnDefinitions="*,*,*,*"
                       ColumnSpacing="10"
                       Margin="0,10,0,20">
 
                     <Button Grid.Column="0"
                             Text="&#x1F50A;"
                             Style="{StaticResource MagicButtonStyle}"
-                            Command="{Binding SpeakStoryCommand}" /> 
-                    
+                            Command="{Binding SpeakStoryCommand}" />
+
                     <Button Grid.Column="1"
                             Text="&#x23F8;"
                             Style="{StaticResource MagicButtonStyle}"
@@ -112,7 +112,12 @@
                             Style="{StaticResource MagicButtonStyle}"
                             TextColor="{StaticResource MidnightBlue}"
                             Command="{Binding ShareCommand}" />
-                </Grid>
+
+                    <Button Grid.Column="3"
+                            Text="🖼️"
+                            Style="{StaticResource MagicButtonStyle}"
+                            Command="{Binding ShowPictureCommand}" />    
+                </Grid> 
 
             </VerticalStackLayout>
         </ScrollView>

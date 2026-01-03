@@ -7,8 +7,8 @@
     <Application.Resources>
         <ResourceDictionary>
 
-            <!-- Localization -->
-            <!--<x:Static x:Key="Loc" Member="dislMagicGarden.Resources.Strings.AppResources.ResourceManager" />-->
+            <!--<FontFamily x:Key="OpenSansRegular">OpenSans-Regular.ttf#Open Sans</FontFamily>
+            <FontFamily x:Key="OpenSansSemibold">OpenSans-Semibold.ttf#Open Sans</FontFamily>-->
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />

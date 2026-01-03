@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using dislMagicGarden.Models;
 using dislMagicGarden.Services;
+using dislMagicGarden.Views;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Input;
@@ -32,7 +33,8 @@ namespace dislMagicGarden.ViewModels
         public ICommand SpeakStoryCommand { get; }
         public ICommand StopStoryCommand { get; }
         public ICommand ShareCommand { get; }
-        public ICommand CloseCommand { get; }
+        public ICommand CloseCommand { get; }  
+        public ICommand ShowPictureCommand { get; }
 
         private readonly ITextToSpeechService _ttsService;
 
@@ -108,6 +110,15 @@ namespace dislMagicGarden.ViewModels
                     Title = Properties.Resources.Share_fairy_tales,
                     Text = FairyTale.Story
                 });
+            });
+
+            ShowPictureCommand = new Command(async () =>
+            {
+                await Application.Current.MainPage.Navigation
+                       .PushModalAsync(new ColoringGenerator(FairyTale.Story, FairyTale.Title), true);
+
+                //string encodedPrompt = Uri.EscapeDataString(Theme);
+                //await Shell.Current.GoToAsync($"{nameof(ColoringGenerator)}?Prompt={encodedPrompt}");
             });
 
             CloseCommand = new Command(_closeAction);

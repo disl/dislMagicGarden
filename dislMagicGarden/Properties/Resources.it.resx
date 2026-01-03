@@ -144,6 +144,12 @@
   <data name="Color" xml:space="preserve">
     <value>Colore</value>
   </data>
+  <data name="Coloring_page" xml:space="preserve">
+    <value>Disegno da colorare</value>
+  </data>
+  <data name="Colour_page" xml:space="preserve">
+    <value>Pagina a colori</value>
+  </data>
   <data name="Conjure_up_history" xml:space="preserve">
     <value>Incantare la storia</value>
   </data>
@@ -152,6 +158,9 @@
   </data>
   <data name="Costs" xml:space="preserve">
     <value>Costi</value>
+  </data>
+  <data name="Create_PDF_with_image_and_text" xml:space="preserve">
+    <value>Creare un PDF con immagini e testo</value>
   </data>
   <data name="Create_button" xml:space="preserve">
     <value>✨ Creare</value>
@@ -201,6 +210,12 @@
   <data name="H_C_Andersen" xml:space="preserve">
     <value>H. C. Andersen</value>
   </data>
+  <data name="Image_could_not_be_generated" xml:space="preserve">
+    <value>Impossibile generare l'immagine</value>
+  </data>
+  <data name="Image_saved_to_gallery" xml:space="preserve">
+    <value>L'immagine è stata salvata nella galleria</value>
+  </data>
   <data name="insufficient_credit" xml:space="preserve">
     <value>Credito insufficiente. Acquista altro credito per continuare a utilizzare il servizio.</value>
   </data>
@@ -240,6 +255,9 @@
   <data name="NewStory_World" xml:space="preserve">
     <value>Mondo magico</value>
   </data>
+  <data name="PDF_could_not_be_created" xml:space="preserve">
+    <value>Impossibile creare il PDF</value>
+  </data>
   <data name="Please_enter_a_topic" xml:space="preserve">
     <value>Inserisci un argomento.</value>
   </data>
@@ -260,6 +278,12 @@
   </data>
   <data name="Save" xml:space="preserve">
     <value>Salva</value>
+  </data>
+  <data name="Save_to_gallery" xml:space="preserve">
+    <value>Salva nella galleria</value>
+  </data>
+  <data name="Saving_cancelled" xml:space="preserve">
+    <value>Salvataggio interrotto</value>
   </data>
   <data name="seconds" xml:space="preserve">
     <value>secondi</value>

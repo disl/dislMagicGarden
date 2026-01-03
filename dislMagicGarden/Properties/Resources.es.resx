@@ -144,6 +144,12 @@
   <data name="Color" xml:space="preserve">
     <value>Color</value>
   </data>
+  <data name="Coloring_page" xml:space="preserve">
+    <value>Dibujo para colorear</value>
+  </data>
+  <data name="Colour_page" xml:space="preserve">
+    <value>Página en color</value>
+  </data>
   <data name="Conjure_up_history" xml:space="preserve">
     <value>Evocar la historia</value>
   </data>
@@ -152,6 +158,9 @@
   </data>
   <data name="Costs" xml:space="preserve">
     <value>Costes</value>
+  </data>
+  <data name="Create_PDF_with_image_and_text" xml:space="preserve">
+    <value>Crear PDF con imagen y texto</value>
   </data>
   <data name="Create_button" xml:space="preserve">
     <value>✨ Crear</value>
@@ -201,6 +210,12 @@
   <data name="H_C_Andersen" xml:space="preserve">
     <value>H. C. Andersen</value>
   </data>
+  <data name="Image_could_not_be_generated" xml:space="preserve">
+    <value>No se pudo generar la imagen.</value>
+  </data>
+  <data name="Image_saved_to_gallery" xml:space="preserve">
+    <value>La imagen se ha guardado en la galería.</value>
+  </data>
   <data name="insufficient_credit" xml:space="preserve">
     <value>Crédito insuficiente. Por favor, compre más para continuar utilizando el servicio.</value>
   </data>
@@ -240,6 +255,9 @@
   <data name="NewStory_World" xml:space="preserve">
     <value>Mundo mágico</value>
   </data>
+  <data name="PDF_could_not_be_created" xml:space="preserve">
+    <value>No se pudo crear el PDF</value>
+  </data>
   <data name="Please_enter_a_topic" xml:space="preserve">
     <value>Por favor, introduce un tema.</value>
   </data>
@@ -260,6 +278,12 @@
   </data>
   <data name="Save" xml:space="preserve">
     <value>Guardar</value>
+  </data>
+  <data name="Save_to_gallery" xml:space="preserve">
+    <value>Guardar en la galería</value>
+  </data>
+  <data name="Saving_cancelled" xml:space="preserve">
+    <value>Guardado cancelado</value>
   </data>
   <data name="seconds" xml:space="preserve">
     <value>segundos</value>

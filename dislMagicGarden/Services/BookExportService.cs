@@ -1,6 +1,6 @@
 ﻿using dislMagicGarden.Models;
-using PdfSharpCore.Drawing;
-using PdfSharpCore.Pdf;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
 
 namespace dislMagicGarden.Services
 {
@@ -27,9 +27,9 @@ namespace dislMagicGarden.Services
             var doc = new PdfDocument();
             doc.Info.Title = story.Title;
 
-            var fontTitle = new XFont("Arial", 24, XFontStyle.Bold);
-            var fontChapter = new XFont("Arial", 18, XFontStyle.Bold);
-            var fontText = new XFont("Arial", 14, XFontStyle.Regular);
+            var fontTitle = new XFont("Arial", 24, XFontStyleEx. Bold);
+            var fontChapter = new XFont("Arial", 18, XFontStyleEx.Bold);
+            var fontText = new XFont("Arial", 14, XFontStyleEx.Regular);
 
             // ---------------------
             // 1. TITELSEITE
@@ -80,7 +80,7 @@ namespace dislMagicGarden.Services
                     try
                     {
                         using var imageStream = File.OpenRead(ch.EffectiveImagePath);
-                        var img = XImage.FromStream(() => imageStream);
+                        var img = XImage.FromStream(imageStream);
 
                         double imgWidth = page.Width * 0.6;
                         double ratio = imgWidth / img.PixelWidth;

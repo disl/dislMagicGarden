@@ -1,38 +1,28 @@
-#if ANDROID
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Speech;
-#endif
-
+using CommunityToolkit.Maui.Media;
 using CommunityToolkit.Maui.Views;
-using dislMagicGarden.Platforms.Android;
-using System.Text;
+using System.Globalization;
 
 namespace dislMagicGarden.Views;
 
 public partial class VoiceRecognitionPage : Popup<string>
 {
+    private CancellationTokenSource recognitionCts = new CancellationTokenSource();
+    private DateTime lastRecognitionTime = DateTime.MinValue;
+    private string lastProcessedText = string.Empty;
+    private bool isAutoRestarting = false; // Flag für automatische Neustarts
+
     bool isListening = false;
     bool IsListening
     {
         get { return isListening; }
-
         set
         {
             isListening = value;
-
             startButton.IsVisible = !isListening;
             stopButton.IsVisible = isListening;
+            //restartButton.IsVisible = isListening;
         }
     }
-
-#if ANDROID
-    SpeechRecognizer? recognizer;
-    Intent? voiceIntent;
-    //StringBuilder textBuilder = new();
-
-#endif
 
     public VoiceRecognitionPage()
     {
@@ -41,166 +31,355 @@ public partial class VoiceRecognitionPage : Popup<string>
 
     private async void OnStartListeningClicked(object sender, EventArgs e)
     {
-#if ANDROID
-        if (IsListening)
-            return;
-
-        if (!await CheckMicrophonePermissionAsync())
-        {
-            await Application.Current.MainPage.DisplayAlert(Properties.Resources.Access_denied, Properties.Resources.Microphone_access_is_required, "OK");
-            return;
-        }
-
-        textBuilder.Clear();
-        txtResult.Text = string.Empty;
-
-
-        var context = Platform.CurrentActivity ?? Android.App.Application.Context;
-
-        voiceIntent = new Intent(RecognizerIntent.ActionRecognizeSpeech);
-        voiceIntent.PutExtra(RecognizerIntent.ExtraLanguageModel, RecognizerIntent.LanguageModelFreeForm);
-        voiceIntent.PutExtra(RecognizerIntent.ExtraPrompt, Properties.Resources.Speak_now);
-        voiceIntent.PutExtra(RecognizerIntent.ExtraLanguage, Java.Util.Locale.Default);
-        voiceIntent.PutExtra(RecognizerIntent.ExtraCallingPackage, Platform.AppContext.PackageName);
-
-        // Wichtig für kontinuierliche Erkennung
-        voiceIntent.PutExtra(RecognizerIntent.ExtraPartialResults, true);
-
-        // Timeout-Einstellungen anpassen
-        //voiceIntent.PutExtra(RecognizerIntent.ExtraSpeechInputCompleteSilenceLengthMillis, 2500);
-        //voiceIntent.PutExtra(RecognizerIntent.ExtraSpeechInputPossiblyCompleteSilenceLengthMillis, 1500);
-        voiceIntent.PutExtra(RecognizerIntent.ExtraSpeechInputMinimumLengthMillis, 5000);
-
-        // Mehr Ergebnisse anfordern
-        voiceIntent.PutExtra(RecognizerIntent.ExtraMaxResults, 10);
-
-        // Optional: Sprach-Erkennung verbessern
-        voiceIntent.PutExtra(RecognizerIntent.ExtraPreferOffline, false);
-        voiceIntent.PutExtra(RecognizerIntent.ExtraPrompt, "Speak now...");
-
-        var listener = new ContinuousSpeechListener(OnTextRecognized, RestartListening);
-        recognizer = SpeechRecognizer.CreateSpeechRecognizer(context);
-
-
-
-        recognizer.SetRecognitionListener(listener);
-
-        
-
-
-
-        IsListening = true;
-        recognizer.StartListening(voiceIntent);
-#else
-        if(Application.Current != null && Application.Current.MainPage != null)
-            await Application.Current.MainPage.DisplayAlert("Nicht unterstützt", "Nur auf Android verfügbar.", "OK");
-#endif
+        await StartListening();
     }
 
-    private async void OnStopListeningClicked(object sender, EventArgs e)
+    private async Task StartListening(bool isRestart = false)
     {
-#if ANDROID
-        IsListening = false;
-        recognizer?.StopListening();
-        //recognizer?.Destroy();
+        if (IsListening && !isRestart)
+            return;
 
-        if (!string.IsNullOrEmpty(txtResult.Text))
+        try
         {
-            await CloseMe(txtResult.Text);
+            IsListening = true;
+            isAutoRestarting = false;
+
+            // Bereits vorhandenen CTS beenden
+            if (recognitionCts != null && !recognitionCts.IsCancellationRequested)
+            {
+                recognitionCts.Cancel();
+                await Task.Delay(100); // Kurze Pause
+            }
+
+            recognitionCts = new CancellationTokenSource();
+
+            // Nur beim ersten Start oder manuellen Neustart leeren
+            if (!isRestart)
+            {
+                txtResult.Text = string.Empty;
+                lastProcessedText = string.Empty;
+            }
+
+            // Berechtigungen prüfen
+            var permissionsOk = await SpeechToText.Default.RequestPermissions(recognitionCts.Token);
+            if (!permissionsOk)
+            {
+                await Application.Current.MainPage.DisplayAlert(
+                    "Zugriff verweigert",
+                    "Mikrofonzugriff ist erforderlich",
+                    "OK");
+                IsListening = false;
+                return;
+            }
+
+            // Event-Handler registrieren (nur wenn nicht bereits registriert)
+            SpeechToText.Default.RecognitionResultUpdated -= OnRecognitionTextUpdated;
+            SpeechToText.Default.RecognitionResultCompleted -= OnRecognitionTextCompleted;
+
+            SpeechToText.Default.RecognitionResultUpdated += OnRecognitionTextUpdated;
+            SpeechToText.Default.RecognitionResultCompleted += OnRecognitionTextCompleted;
+
+            // Optionen für kontinuierliche Erkennung
+            var options = new SpeechToTextOptions
+            {
+                Culture = CultureInfo.CurrentCulture,
+                ShouldReportPartialResults = true
+            };
+
+            // Erkennung starten
+            await SpeechToText.Default.StartListenAsync(options, recognitionCts.Token);
+
+            Console.WriteLine($"### Speech recognition started (Restart: {isRestart})");
         }
-#endif
-    }
-
-    async Task CloseMe(dynamic param)
-    {
-        // Popup zuerst schließen
-        if (Handler != null)
+        catch (OperationCanceledException)
         {
-            CloseAsync(param); // Bei Popup<TResult> -> kein await, sofort Ergebnis setzen
+            Console.WriteLine("### Recognition cancelled on start");
         }
-
-        // Danach Navigation
-        if (Navigation.ModalStack.Any())
+        catch (Exception ex)
         {
-            await Navigation.PopModalAsync();
+            Console.WriteLine($"### Error starting recognition: {ex.Message}");
+
+            if (!isAutoRestarting) // Nur Fehler anzeigen wenn nicht automatischer Neustart
+            {
+                await Application.Current.MainPage.DisplayAlert("Fehler",
+                    "Spracherkennung konnte nicht gestartet werden", "OK");
+            }
+
+            IsListening = false;
         }
     }
 
-    private readonly StringBuilder textBuilder = new();
-    private string bestSentence = "";
-
-#if ANDROID
-
-    private void OnTextRecognized(string text)
+    private void OnRecognitionTextUpdated(object sender, SpeechToTextRecognitionResultUpdatedEventArgs e)
     {
-        if (string.IsNullOrWhiteSpace(text))
-            return;
+        lastRecognitionTime = DateTime.Now;
 
-        text = text.Trim();
+        if (!string.IsNullOrEmpty(e.RecognitionResult))
+        {
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                ProcessNewText(e.RecognitionResult, isFinalResult: false);
+            });
+        }
+    }
+
+    private async void OnRecognitionTextCompleted(object sender, SpeechToTextRecognitionResultCompletedEventArgs e)
+    {
+        lastRecognitionTime = DateTime.Now;
+
+        if (!string.IsNullOrEmpty(e.RecognitionResult.Text))
+        {
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                ProcessNewText(e.RecognitionResult.Text, isFinalResult: true);
+            });
+        }
+
+        // Automatisch neu starten (nur wenn nicht bereits im Neustart)
+        if (IsListening && !isAutoRestarting)
+        {
+            await AutoRestartRecognition();
+        }
+    }
+
+    private string confirmedText = ""; // Globaler Speicher für fertige Sätze
+
+
+    private void ProcessNewText(string newText, bool isFinalResult)
+    {
+        if (string.IsNullOrWhiteSpace(newText)) return;
 
         MainThread.BeginInvokeOnMainThread(() =>
         {
-            // Neuer Text ist eine Erweiterung des alten
-            if (text.Length > bestSentence.Length &&
-                (text.Contains(bestSentence) || bestSentence.Contains(text)))
+            if (isFinalResult)
             {
-                bestSentence = text;
-                txtResult.Text = bestSentence;
+                // Wir hängen den Text an, aber ohne manuellen Punkt!
+                // Wir prüfen nur, ob wir ein Leerzeichen brauchen.
+                if (!string.IsNullOrEmpty(confirmedText) && !confirmedText.EndsWith(" "))
+                {
+                    confirmedText += " ";
+                }
+
+                confirmedText += newText.Trim();
+                txtResult.Text = confirmedText;
             }
+            else
+            {
+                // Während des Sprechens: Feststehender Text + aktuelle Vorschau
+                string separator = (string.IsNullOrEmpty(confirmedText) || confirmedText.EndsWith(" ")) ? "" : " ";
+                txtResult.Text = confirmedText + separator + newText;
+            }
+
+            // Cursor immer ans Ende setzen
+            txtResult.CursorPosition = txtResult.Text.Length;
         });
     }
 
-    //private void OnTextRecognized(string text)
-    //{
-    //    if (string.IsNullOrWhiteSpace(text)) return;
-
-    //    MainThread.BeginInvokeOnMainThread(() =>
-    //    {
-    //        if (!textBuilder.ToString().EndsWith(text))
-    //            textBuilder.AppendLine(text);
-
-    //        txtResult.Text = textBuilder.ToString();
-    //    });
-    //}
-
-    private void RestartListening()
+    private void ReplaceOrAppendPartialText(string newPartialText)
     {
-#if ANDROID
-        if (!IsListening || recognizer == null)
+        var currentText = txtResult.Text.Trim();
+
+        // Wenn Textbox leer ist
+        if (string.IsNullOrEmpty(currentText))
+        {
+            txtResult.Text = newPartialText + " ";
+            return;
+        }
+
+        // Finde den letzten Punkt
+        var lastDotIndex = currentText.LastIndexOf('.');
+
+        if (lastDotIndex >= 0 && lastDotIndex < currentText.Length - 1)
+        {
+            // Es gibt Text nach dem letzten Punkt -> ersetzen
+            var baseText = currentText.Substring(0, lastDotIndex + 2); // Punkt + Leerzeichen
+            txtResult.Text = baseText + newPartialText + " ";
+        }
+        else if (lastDotIndex == currentText.Length - 1)
+        {
+            // Letztes Zeichen ist ein Punkt -> anhängen
+            txtResult.Text = currentText + " " + newPartialText + " ";
+        }
+        else
+        {
+            // Kein Punkt vorhanden -> gesamten Text ersetzen (da unvollständig)
+            txtResult.Text = newPartialText + " ";
+        }
+    }
+
+    private bool IsTextAlreadyInTextBox(string newText)
+    {
+        if (string.IsNullOrEmpty(newText) || string.IsNullOrEmpty(txtResult.Text))
+            return false;
+
+        var existingText = txtResult.Text;
+
+        // Direkte Übereinstimmung
+        if (existingText.Contains(newText, StringComparison.OrdinalIgnoreCase))
+            return true;
+
+        // Ähnlichkeitsprüfung für längere Texte
+        if (newText.Split(' ').Length > 2)
+        {
+            var existingWords = existingText.Split(new[] { ' ', '.', ',', '!', '?' }, StringSplitOptions.RemoveEmptyEntries)
+                                           .Select(w => w.ToLower())
+                                           .Distinct()
+                                           .ToList();
+
+            var newWords = newText.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                                 .Select(w => w.ToLower())
+                                 .Distinct()
+                                 .ToList();
+
+            var commonWords = newWords.Count(w => existingWords.Contains(w));
+            var similarity = (double)commonWords / newWords.Count;
+
+            return similarity > 0.7; // Mehr als 70% der Wörter sind bereits vorhanden
+        }
+
+        return false;
+    }
+
+    private async Task AutoRestartRecognition()
+    {
+        if (!IsListening || recognitionCts == null || recognitionCts.IsCancellationRequested)
             return;
 
-        MainThread.BeginInvokeOnMainThread(() =>
+        isAutoRestarting = true;
+
+        try
         {
+            Console.WriteLine("### Auto-restarting recognition...");
+
+            // Kurze Pause
+            await Task.Delay(300);
+
+            // Event-Handler temporär entfernen
+            SpeechToText.Default.RecognitionResultUpdated -= OnRecognitionTextUpdated;
+            SpeechToText.Default.RecognitionResultCompleted -= OnRecognitionTextCompleted;
+
+            // Erkennung stoppen
             try
             {
-                recognizer.StopListening();
-                recognizer.StartListening(voiceIntent);
+                await SpeechToText.Default.StopListenAsync(CancellationToken.None);
             }
             catch
             {
-                // bei manchen Geräten nötig
+                // Ignorieren wenn bereits gestoppt
             }
-        });
-#endif
 
+            await Task.Delay(200);
 
-        //if (!IsListening || voiceIntent == null) return;
-        //recognizer?.StartListening(voiceIntent);
+            // Neu starten MIT Beibehaltung des Textes
+            var options = new SpeechToTextOptions
+            {
+                Culture = CultureInfo.CurrentCulture,
+                ShouldReportPartialResults = true
+            };
+
+            // Event-Handler wieder registrieren
+            SpeechToText.Default.RecognitionResultUpdated += OnRecognitionTextUpdated;
+            SpeechToText.Default.RecognitionResultCompleted += OnRecognitionTextCompleted;
+
+            await SpeechToText.Default.StartListenAsync(options, recognitionCts.Token);
+
+            Console.WriteLine("### Auto-restart completed successfully");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"### Auto-restart error: {ex.Message}");
+
+            // Nach 2 Sekunden erneut versuchen
+            await Task.Delay(2000);
+            if (IsListening)
+            {
+                await AutoRestartRecognition();
+            }
+        }
+        finally
+        {
+            isAutoRestarting = false;
+        }
     }
-#endif
 
-    private async Task<bool> CheckMicrophonePermissionAsync()
+    private async Task StopListening()
     {
-#if ANDROID
-        var status = await Permissions.CheckStatusAsync<Permissions.Microphone>();
-        if (status != PermissionStatus.Granted)
-            status = await Permissions.RequestAsync<Permissions.Microphone>();
-        return status == PermissionStatus.Granted;
-#else
-            return false;
-#endif
+        try
+        {
+            IsListening = false;
+            isAutoRestarting = false;
+
+            // Handler sofort entfernen, um keine weiteren Events zu feuern
+            SpeechToText.Default.RecognitionResultUpdated -= OnRecognitionTextUpdated;
+            SpeechToText.Default.RecognitionResultCompleted -= OnRecognitionTextCompleted;
+
+            if (recognitionCts != null)
+            {
+                recognitionCts.Cancel();
+                recognitionCts.Dispose();
+                recognitionCts = null;
+            }
+
+            await SpeechToText.Default.StopListenAsync(CancellationToken.None);
+            Console.WriteLine("### Stopped");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"### Error stopping: {ex.Message}");
+        }
     }
 
+    // Der Button ruft nun direkt das Schließen auf
+    private async void OnStopListeningClicked(object sender, EventArgs e)
+    {
+        await StopListening();
+        string finalResult = txtResult.Text?.Trim() ?? "";
 
+        // Nur hier am Ende einen Punkt setzen, falls gar keiner da ist
+        if (!string.IsNullOrEmpty(finalResult) && !finalResult.EndsWith(".") && !finalResult.EndsWith("!") && !finalResult.EndsWith("?"))
+        {
+            finalResult += ".";
+        }
 
+        await CloseAsync(finalResult);
+    }
+
+    private async void OnRestartListeningClicked(object sender, EventArgs e)
+    {
+        // Manueller Neustart - Text bleibt erhalten
+        await ManualRestart();
+    }
+
+    private async Task ManualRestart()
+    {
+        if (IsListening)
+        {
+            // Erst stoppen
+            try
+            {
+                SpeechToText.Default.RecognitionResultUpdated -= OnRecognitionTextUpdated;
+                SpeechToText.Default.RecognitionResultCompleted -= OnRecognitionTextCompleted;
+
+                await SpeechToText.Default.StopListenAsync(CancellationToken.None);
+            }
+            catch { }
+
+            await Task.Delay(300);
+        }
+
+        // Neu starten MIT Beibehaltung des Textes
+        await StartListening(true);
+    }
+
+    private async Task CloseMe(dynamic param)
+    {
+        // Sicherstellen, dass alles gestoppt ist
+        await StopListening();
+
+        // Popup schließen
+        if (Handler != null)
+        {
+            CloseAsync(param);
+        }
+    }
 }
+

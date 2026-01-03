@@ -1,4 +1,5 @@
 ﻿using dislMagicGarden.Services;
+using PdfSharp.Fonts;
 using System.Globalization;
 
 namespace dislMagicGarden
@@ -22,6 +23,8 @@ namespace dislMagicGarden
 
             var lang = Preferences.Get("app_language", curr_cult);
             LanguageService.SetLanguage(lang);
+
+            //MyFontResolver.Initialize();
         }
 
         protected override Window CreateWindow(IActivationState? activationState)

@@ -22,8 +22,9 @@
                     Placeholder="{x:Static properties:Resources.Your_description_appears_here}"  />
         </Border>
         <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
-            <Button x:Name="startButton" IsVisible="True" Text="🎤  START" FontSize="Medium" TextColor="White" Clicked="OnStartListeningClicked"   />
-            <Button x:Name="stopButton" IsVisible="False" Text="⏹  STOP" FontSize="Medium" TextColor="White" Clicked="OnStopListeningClicked"  />
+            <Button x:Name="startButton" IsVisible="True" Text="🎤 START" FontSize="Medium" TextColor="White" Clicked="OnStartListeningClicked"   />
+            <Button x:Name="stopButton" IsVisible="False" Text="⏹ STOP" FontSize="Medium" TextColor="White" Clicked="OnStopListeningClicked"  />
+            <!--<Button x:Name="restartButton" IsVisible="False" Text="RESTART" FontSize="Medium" TextColor="White" Clicked="OnRestartListeningClicked"  />-->
         </HorizontalStackLayout>
     </VerticalStackLayout>
 </toolkit:Popup>

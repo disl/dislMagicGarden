@@ -273,6 +273,11 @@ namespace dislMagicGarden.ViewModels
                     AvailableFairyTaleTypes.FirstOrDefault();
         }
 
+        [RelayCommand]
+        private async Task ClearButton()
+        {
+            Theme = string.Empty;
+        }
 
         [RelayCommand]
         private async Task AudioRecognation()
@@ -328,8 +333,10 @@ namespace dislMagicGarden.ViewModels
                         .PushModalAsync(new FairyTaleResultPage(model, _textToSpeechService), true);
                 }
 
-
                 StatusMessage = $"Fertig! ({CurrentFairyTale.GenerationTime.TotalSeconds:F1}s)";
+
+                //string encodedPrompt = Uri.EscapeDataString(Theme);
+                //await Shell.Current.GoToAsync($"{nameof(ColoringGenerator)}?Prompt={encodedPrompt}");
             }
             catch (Exception ex)
             {

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:FairyBasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:dislMagicGarden.Views"
+             xmlns:res="clr-namespace:dislMagicGarden.Properties"
+             x:Class="dislMagicGarden.Views.ColoringGenerator"
+             Title="ColoringGenerator">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!--<Label Text="{x:Static res:Resources.Fairy_Tale_Generator}"
+               FontSize="20"
+               FontAttributes="Bold"
+               HorizontalOptions="Center" />-->
+
+            <Button x:Name="Generate_coloring_pageBtn"
+                    Text="{x:Static res:Resources.Coloring_page}"
+                    Clicked="OnGenerate_ColoringPageClicked"
+                    Style="{StaticResource MagicButtonStyle}" />
+
+            <Button x:Name="GenerateBtn"
+                Text="{x:Static res:Resources.Colour_page}"
+                Clicked="OnGenerateClicked"
+                Style="{StaticResource MagicButtonStyle}" />
+
+            <ActivityIndicator x:Name="LoadingIndicator" 
+                               IsRunning="False" 
+                               HorizontalOptions="Center" />
+
+            <Border x:Name="ImageFrame"
+                IsVisible="True"
+                Stroke="#D1D1D1"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 10"
+                HeightRequest="400"
+                Padding="5"
+                HorizontalOptions="Fill">
+
+                <Border.Shadow>
+                    <Shadow Brush="Black"
+                        Offset="5,5"
+                        Radius="10"
+                        Opacity="0.1" />
+                </Border.Shadow>
+
+                <Image x:Name="ResultImage" Aspect="AspectFit" />
+            </Border>
+
+            <Button x:Name="SaveBtn"
+                    Text="{x:Static res:Resources.Save_to_gallery}"
+                    IsVisible="False"
+                    Clicked="OnSaveClicked"
+                    Style="{StaticResource MagicButtonStyle}" />
+
+            <Button x:Name="CreatePDFBtn"
+                 Text="{x:Static res:Resources.Create_PDF_with_image_and_text}"
+
+                 Clicked="OnCreatePDFBtnClicked"
+                 Style="{StaticResource MagicButtonStyle}" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</views:FairyBasePage>

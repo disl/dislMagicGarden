@@ -144,6 +144,12 @@
   <data name="Color" xml:space="preserve">
     <value>Цвет</value>
   </data>
+  <data name="Coloring_page" xml:space="preserve">
+    <value>Раскраска</value>
+  </data>
+  <data name="Colour_page" xml:space="preserve">
+    <value>Цветная страница</value>
+  </data>
   <data name="Conjure_up_history" xml:space="preserve">
     <value>Создайте историю</value>
   </data>
@@ -152,6 +158,9 @@
   </data>
   <data name="Costs" xml:space="preserve">
     <value>Стоимость</value>
+  </data>
+  <data name="Create_PDF_with_image_and_text" xml:space="preserve">
+    <value>Создать PDF с изображением и текстом</value>
   </data>
   <data name="Create_button" xml:space="preserve">
     <value>✨ Создать</value>
@@ -201,6 +210,12 @@
   <data name="H_C_Andersen" xml:space="preserve">
     <value>Г. Х. Андерсен</value>
   </data>
+  <data name="Image_could_not_be_generated" xml:space="preserve">
+    <value>Не удалось сгенерировать изображение</value>
+  </data>
+  <data name="Image_saved_to_gallery" xml:space="preserve">
+    <value>Изображение сохранено в галерее</value>
+  </data>
   <data name="insufficient_credit" xml:space="preserve">
     <value>Недостаточно кредитов. Пожалуйста, купите больше, чтобы продолжить пользоваться услугой.</value>
   </data>
@@ -240,6 +255,9 @@
   <data name="NewStory_World" xml:space="preserve">
     <value>Волшебный мир</value>
   </data>
+  <data name="PDF_could_not_be_created" xml:space="preserve">
+    <value>Не удалось создать PDF-файл</value>
+  </data>
   <data name="Please_enter_a_topic" xml:space="preserve">
     <value>Введите тему</value>
   </data>
@@ -260,6 +278,12 @@
   </data>
   <data name="Save" xml:space="preserve">
     <value>Сохранить</value>
+  </data>
+  <data name="Save_to_gallery" xml:space="preserve">
+    <value>Сохранить в галерее</value>
+  </data>
+  <data name="Saving_cancelled" xml:space="preserve">
+    <value>Сохранение прервано</value>
   </data>
   <data name="seconds" xml:space="preserve">
     <value>секунд</value>

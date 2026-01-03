@@ -2,7 +2,6 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net9.0-tizen</TargetFrameworks> -->
 
@@ -41,47 +40,58 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 		<AssemblyTitle>Whimsy Tales</AssemblyTitle>
+
+
+		<!-- WICHTIG für Release-Builds -->
+		<MauiEnableAssemblyTrimming>false</MauiEnableAssemblyTrimming>
+	
+		<EnableCompressionInSingleFile>false</EnableCompressionInSingleFile>
+		
+		
 	</PropertyGroup>
 
+
+	
+
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-android|AnyCPU'">
-	  <ApplicationDisplayVersion>1.16</ApplicationDisplayVersion>
-	  <ApplicationVersion>16</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.17</ApplicationDisplayVersion>
+	  <ApplicationVersion>17</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-ios|AnyCPU'">
-	  <ApplicationDisplayVersion>1.16</ApplicationDisplayVersion>
-	  <ApplicationVersion>16</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.17</ApplicationDisplayVersion>
+	  <ApplicationVersion>17</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-maccatalyst|AnyCPU'">
-	  <ApplicationDisplayVersion>1.16</ApplicationDisplayVersion>
-	  <ApplicationVersion>16</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.17</ApplicationDisplayVersion>
+	  <ApplicationVersion>17</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-windows10.0.19041.0|AnyCPU'">
-	  <ApplicationDisplayVersion>1.16</ApplicationDisplayVersion>
-	  <ApplicationVersion>16</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.17</ApplicationDisplayVersion>
+	  <ApplicationVersion>17</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android|AnyCPU'">
-	  <ApplicationDisplayVersion>1.16</ApplicationDisplayVersion>
-	  <ApplicationVersion>16</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.17</ApplicationDisplayVersion>
+	  <ApplicationVersion>17</ApplicationVersion>
 	  <AndroidLinkTool>r8</AndroidLinkTool>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-ios|AnyCPU'">
-	  <ApplicationDisplayVersion>1.16</ApplicationDisplayVersion>
-	  <ApplicationVersion>16</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.17</ApplicationDisplayVersion>
+	  <ApplicationVersion>17</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-maccatalyst|AnyCPU'">
-	  <ApplicationDisplayVersion>1.16</ApplicationDisplayVersion>
-	  <ApplicationVersion>16</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.17</ApplicationDisplayVersion>
+	  <ApplicationVersion>17</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-windows10.0.19041.0|AnyCPU'">
-	  <ApplicationDisplayVersion>1.16</ApplicationDisplayVersion>
-	  <ApplicationVersion>16</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.17</ApplicationDisplayVersion>
+	  <ApplicationVersion>17</ApplicationVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -93,7 +103,17 @@
 		<!--<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />-->
 
 		<!-- Custom Fonts -->
-		<MauiFont Include="Resources\Fonts\*" />
+		<MauiFont Include="Resources\Fonts\*.ttf">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</MauiFont>
+
+		<!-- ODER alle Fonts als Embedded Resource -->
+		<EmbeddedResource Include="Resources\Fonts\*.ttf" />
+		
+		
+		
+		
+		
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
@@ -172,7 +192,7 @@
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.8" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-		<PackageReference Include="PdfSharpCore" Version="1.3.67" />
+		<PackageReference Include="PdfSharp.Maui" Version="1.0.5" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -196,6 +216,9 @@
 
 	<ItemGroup>
 		<MauiXaml Update="Controls\FlyoutHeader.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\ColoringGenerator.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\VoiceRecognitionPage.xaml">
@@ -232,5 +255,9 @@
 	    <Version>123.6.0.1</Version>
 	  </PackageReference>
 	</ItemGroup>
+
+	
+
+	
 
 </Project>

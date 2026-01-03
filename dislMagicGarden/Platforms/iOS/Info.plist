@@ -28,5 +28,10 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
+
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Diese App möchte generierte Ausmalbilder in deiner Galerie speichern.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Diese App benötigt Zugriff auf deine Galerie.</string>
 </dict>
 </plist>

@@ -144,6 +144,12 @@
   <data name="Color" xml:space="preserve">
     <value>Couleur</value>
   </data>
+  <data name="Coloring_page" xml:space="preserve">
+    <value>Image à colorier</value>
+  </data>
+  <data name="Colour_page" xml:space="preserve">
+    <value>Page en couleur</value>
+  </data>
   <data name="Conjure_up_history" xml:space="preserve">
     <value>Conjurer l'histoire</value>
   </data>
@@ -152,6 +158,9 @@
   </data>
   <data name="Costs" xml:space="preserve">
     <value>Frais</value>
+  </data>
+  <data name="Create_PDF_with_image_and_text" xml:space="preserve">
+    <value>Créer un PDF avec image et texte</value>
   </data>
   <data name="Create_button" xml:space="preserve">
     <value>✨ Créer</value>
@@ -201,6 +210,12 @@
   <data name="H_C_Andersen" xml:space="preserve">
     <value>H. C. Andersen</value>
   </data>
+  <data name="Image_could_not_be_generated" xml:space="preserve">
+    <value>Impossible de générer l'image</value>
+  </data>
+  <data name="Image_saved_to_gallery" xml:space="preserve">
+    <value>L'image a été enregistrée dans la galerie.</value>
+  </data>
   <data name="insufficient_credit" xml:space="preserve">
     <value>Crédit insuffisant. Veuillez acheter davantage pour continuer à utiliser le service.</value>
   </data>
@@ -240,6 +255,9 @@
   <data name="NewStory_World" xml:space="preserve">
     <value>Monde magique</value>
   </data>
+  <data name="PDF_could_not_be_created" xml:space="preserve">
+    <value>Impossible de créer le fichier PDF</value>
+  </data>
   <data name="Please_enter_a_topic" xml:space="preserve">
     <value>Veuillez saisir un sujet.</value>
   </data>
@@ -260,6 +278,12 @@
   </data>
   <data name="Save" xml:space="preserve">
     <value>Enregistrer</value>
+  </data>
+  <data name="Save_to_gallery" xml:space="preserve">
+    <value>Enregistrer dans la galerie</value>
+  </data>
+  <data name="Saving_cancelled" xml:space="preserve">
+    <value>Enregistrement interrompu</value>
   </data>
   <data name="seconds" xml:space="preserve">
     <value>secondes</value>

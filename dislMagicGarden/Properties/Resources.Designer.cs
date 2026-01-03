@@ -142,6 +142,24 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Coloring_page ähnelt.
+        /// </summary>
+        internal static string Coloring_page {
+            get {
+                return ResourceManager.GetString("Coloring_page", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Colour page ähnelt.
+        /// </summary>
+        internal static string Colour_page {
+            get {
+                return ResourceManager.GetString("Colour_page", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Conjure up history ähnelt.
         /// </summary>
         internal static string Conjure_up_history {
@@ -174,6 +192,15 @@ namespace dislMagicGarden.Properties {
         internal static string Create_button {
             get {
                 return ResourceManager.GetString("Create_button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die CreaCreate PDF with image and text ähnelt.
+        /// </summary>
+        internal static string Create_PDF_with_image_and_text {
+            get {
+                return ResourceManager.GetString("Create_PDF_with_image_and_text", resourceCulture);
             }
         }
         
@@ -313,6 +340,24 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Image could not be generated ähnelt.
+        /// </summary>
+        internal static string Image_could_not_be_generated {
+            get {
+                return ResourceManager.GetString("Image_could_not_be_generated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Image saved to gallery ähnelt.
+        /// </summary>
+        internal static string Image_saved_to_gallery {
+            get {
+                return ResourceManager.GetString("Image_saved_to_gallery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Insufficient credit. Please purchase more to continue using the service. ähnelt.
         /// </summary>
         internal static string insufficient_credit {
@@ -430,6 +475,15 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die PDF could not be created ähnelt.
+        /// </summary>
+        internal static string PDF_could_not_be_created {
+            get {
+                return ResourceManager.GetString("PDF_could_not_be_created", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Please enter a topic ähnelt.
         /// </summary>
         internal static string Please_enter_a_topic {
@@ -489,6 +543,24 @@ namespace dislMagicGarden.Properties {
         internal static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Save to gallery ähnelt.
+        /// </summary>
+        internal static string Save_to_gallery {
+            get {
+                return ResourceManager.GetString("Save_to_gallery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Saving cancelled ähnelt.
+        /// </summary>
+        internal static string Saving_cancelled {
+            get {
+                return ResourceManager.GetString("Saving_cancelled", resourceCulture);
             }
         }
         
