@@ -333,4 +333,22 @@
   <data name="Your_description_appears_here" xml:space="preserve">
     <value>Ihre Beschreibung erscheint hier</value>
   </data>
+  <data name="Support_the_project" xml:space="preserve">
+    <value>Projekt unterstützen? ❤️</value>
+  </data>
+  <data name="Would_you_like_to_watch_a_short_video" xml:space="preserve">
+    <value>Möchtest du ein kurzes Video ansehen? Damit schaltest du einen Bonus frei und hilfst gleichzeitig dabei, die Weiterentwicklung dieses Projekts zu finanzieren. Vielen Dank!</value>
+  </data>
+  <data name="Watch_video" xml:space="preserve">
+    <value>Video ansehen</value>
+  </data>
+  <data name="Maybe_later" xml:space="preserve">
+    <value>Vielleicht später</value>
+  </data>
+  <data name="Thank_you" xml:space="preserve">
+    <value>Danke!</value>
+  </data>
+  <data name="You_have_received_n_points" xml:space="preserve">
+    <value>Du hast %1 Punkte erhalten. Danke für deinen Support!</value>
+  </data>
 </root>

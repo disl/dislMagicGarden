@@ -22,10 +22,10 @@
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
 
-            <!-- AdMob -->
+            <!-- AdMob --><!--
             <local:AdBannerView HeightRequest="50" 
                            WidthRequest="320" 
-                           BackgroundColor="LightGray" />
+                           BackgroundColor="LightGray" />-->
 
 
             <Label Text="{x:Static res:Resources.Fairy_Tale_Generator}"
@@ -41,15 +41,13 @@
                            TextColor="{StaticResource MagicBlackSoft}" />
 
                     <Grid ColumnDefinitions="*,Auto,Auto"
-                       Grid.Row="6"
-                       Margin="0,10,0,0"
-                       ColumnSpacing="5">
 
-                        <Editor Text="{Binding Theme}" Grid.Column="0"
-                           Placeholder="{x:Static res:Resources.A_brave_squirrel_saves_the_forest}"
-                           PlaceholderColor="Gray"
-                         
-                           FontSize="16" />
+                       ColumnSpacing="10">
+
+                        <Editor Text="{Binding Theme}" 
+                                Grid.Column="0"
+                                Placeholder="{x:Static res:Resources.A_brave_squirrel_saves_the_forest}"
+                                PlaceholderColor="Gray" />
 
                         <Button Text="✖️"
                                 Grid.Column="1"
@@ -57,7 +55,7 @@
                                 CornerRadius="10"
                                 FontSize="Medium"
                                 Style="{StaticResource MagicButtonStyle}"                        
-                                Command="{Binding ClearButtonCommand}" /> 
+                                Command="{Binding ClearButtonCommand}" />
 
                         <Button Text="🎤"
                             Grid.Column="2"
@@ -116,23 +114,6 @@
                 </VerticalStackLayout>
             </Border>
 
-
-
-
-            <!-- Stil -->
-            <!--<Border Style="{StaticResource FairyInputBorderStyle}">
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="{x:Static res:Resources.Style}"
-                           FontAttributes="Bold"
-                           TextColor="{StaticResource MagicBlackSoft}" />
-                    <Picker ItemsSource="{Binding Styles}"
-                            SelectedItem="{Binding SelectedStyle}"
-                            Title="{x:Static res:Resources.Select_style}"
-                            TitleColor="Gray"
-                            FontSize="16" />
-                </VerticalStackLayout>
-            </Border>-->
-
             <!-- Sprache auswählen -->
             <Border Style="{StaticResource FairyInputBorderStyle}">
                 <VerticalStackLayout Spacing="10">
@@ -148,49 +129,6 @@
                 </VerticalStackLayout>
             </Border>
 
-            <!-- Modus -->
-            <!--<Border Style="{StaticResource FairyInputBorderStyle}">
-                <VerticalStackLayout Spacing="8">
-                    <Label Text="{x:Static res:Resources.Mode}"
-                           FontAttributes="Bold"
-                           TextColor="{StaticResource MagicBlackSoft}" />
-
-                    -->
-            <!--Content="📝 Nur Text (DeepSeek) ~$0.0005"-->
-            <!--
-                    
-                    <RadioButton GroupName="Mode"
-                                 Content="📝 Nur Text"  
-                                 IsChecked="{Binding SelectedMode,
-                                                Converter={StaticResource EnumToBoolConverter},
-                                                ConverterParameter={x:Static models:GenerationMode.TextOnly}}" />
-
-                    -->
-            <!--<RadioButton GroupName="Mode"
-                                 Content="🎨 Text + 4 Bilder (DALL·E) ~$0.16"
-                                 IsChecked="{Binding SelectedMode,
-                                                Converter={StaticResource EnumToBoolConverter},
-                                                ConverterParameter={x:Static models:GenerationMode.FullStory}}" />-->
-            <!--
-                </VerticalStackLayout>
-            </Border>-->
-
-
-
-            <!-- Dauer -->
-            <!--<Border Style="{StaticResource FairyInputBorderStyle}">
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="{x:Static res:Resources.Story_length}"
-                              FontAttributes="Bold"
-                           TextColor="{StaticResource MagicBlackSoft}" />
-
-                    <Picker Title="{x:Static res:Resources.Select}"
-                      ItemsSource="{Binding DurationOptions}"
-                      SelectedItem="{Binding SelectedDuration}"
-                       />
-                </VerticalStackLayout>
-            </Border>-->
-
             <!-- Fehler -->
             <Border IsVisible="{Binding HasError}"
                     BackgroundColor="#FFEBEE"
@@ -202,7 +140,7 @@
                        />
             </Border>
 
-            <Border Style="{StaticResource FairyInputBorderStyle}"
+            <!--<Border Style="{StaticResource FairyInputBorderStyle}"
                 IsVisible="{Binding IsGenerating}"
                 Margin="0,10"
                 Padding="14"
@@ -214,17 +152,19 @@
 
                     <ActivityIndicator 
                         IsRunning="{Binding IsGenerating}"
+                        Color="#B71C1C"
                         WidthRequest="22"
                         HeightRequest="22" />
 
                     <Label Text="{Binding StatusMessage}"
-                 
                            TextColor="{AppThemeBinding Light={StaticResource MidnightBlue}, Dark={StaticResource White}}" />
                 </HorizontalStackLayout>
-            </Border>
+            </Border>-->
 
-
-
+            <Image Source="fox_cute.gif"
+                   HeightRequest="100"
+                   IsAnimationPlaying="{Binding IsGenerating}"
+                   IsVisible="{Binding IsGenerating}" />
 
             <!-- Quick Buttons -->
             <Grid ColumnDefinitions="*" ColumnSpacing="10">
@@ -233,14 +173,6 @@
                         Command="{Binding QuickGenerateTextOnlyCommand}"
                         IsVisible="{Binding IsGenerating, Converter={StaticResource InverseBoolConverter}}"
                         Style="{StaticResource MagicButtonStyle}" />
-
-                <!--<Button Grid.Column="1"
-                        Text="🎨 Premium: Mit Bildern"
-                        Command="{Binding PremiumGenerateWithImagesCommand}"
-                        Style="{StaticResource MagicButtonStyle}"
-                        BackgroundColor="{StaticResource MintGarden}"
-                        TextColor="{StaticResource MagicBlackSoft}"
-                        IsEnabled="{Binding IsGenerating, Converter={StaticResource InverseBoolConverter}}" />-->
             </Grid>
 
         </VerticalStackLayout>

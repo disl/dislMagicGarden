@@ -394,6 +394,15 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Maybe later ähnelt.
+        /// </summary>
+        internal static string Maybe_later {
+            get {
+                return ResourceManager.GetString("Maybe_later", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Microphone access is required ähnelt.
         /// </summary>
         internal static string Microphone_access_is_required {
@@ -673,6 +682,24 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Support the project? ❤️ ähnelt.
+        /// </summary>
+        internal static string Support_the_project {
+            get {
+                return ResourceManager.GetString("Support_the_project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Thank you! ähnelt.
+        /// </summary>
+        internal static string Thank_you {
+            get {
+                return ResourceManager.GetString("Thank_you", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Theme of your fairy tale ähnelt.
         /// </summary>
         internal static string Theme_of_your_fairy_tale {
@@ -696,6 +723,33 @@ namespace dislMagicGarden.Properties {
         internal static string Values_and_knowledge_through_play {
             get {
                 return ResourceManager.GetString("Values_and_knowledge_through_play", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Watch video ähnelt.
+        /// </summary>
+        internal static string Watch_video {
+            get {
+                return ResourceManager.GetString("Watch_video", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Would you like to watch a short video? By doing so, you will unlock a bonus and help finance the further development of this project. Thank you very much! ähnelt.
+        /// </summary>
+        internal static string Would_you_like_to_watch_a_short_video {
+            get {
+                return ResourceManager.GetString("Would_you_like_to_watch_a_short_video", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die You have received %1 points. Thank you for your support! ähnelt.
+        /// </summary>
+        internal static string You_have_received_n_points {
+            get {
+                return ResourceManager.GetString("You_have_received_n_points", resourceCulture);
             }
         }
         
