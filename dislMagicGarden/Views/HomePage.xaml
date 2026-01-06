@@ -50,12 +50,15 @@
                         <Border.Shadow>
                             <Shadow   />
                         </Border.Shadow>
+
+                        <!--Command="{Binding GoToNewStoryCommand}"-->
                         <Button Text="{x:Static res:Resources.Home_NewStory}"
-                            Command="{Binding GoToNewStoryCommand}"
+                           
+                            Clicked="GoToNewStory_Clicked"
                             FontSize="20"
                             TextColor="White"
                             HeightRequest="70"
-                            ImageSource="magic_button_icon.png" />
+                             />
                     </Border>
 
                     <!-- Maskottchen -->

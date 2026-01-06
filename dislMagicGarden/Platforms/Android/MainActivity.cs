@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.Gms.Ads;
+using Android.Gms.Ads.Initialization;
 using Android.OS;
 
 namespace dislMagicGarden
@@ -9,19 +10,27 @@ namespace dislMagicGarden
     public class MainActivity : MauiAppCompatActivity
     {
 
-        protected override void OnCreate(Bundle savedInstanceState)
+        protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            // Initialisierung der Google Play Services Ads
-            Android.Gms.Ads.MobileAds.Initialize(this);
+
+            MobileAds.Initialize(this, new OnInitializationCompleteListener());
+
+            //Android.Gms.Ads.MobileAds.Initialize(this);
         }
 
-        //public override void OnAdFailedToLoad(LoadAdError error)
-        //{
-        //    base.OnAdFailedToLoad(error);
-        //    // Schau in das Output-Fenster von Visual Studio:
-        //    System.Diagnostics.Debug.WriteLine($"AdMob Error Code: {error.Code} - Message: {error.Message}");
-        //}
+        public class OnInitializationCompleteListener : Java.Lang.Object, IOnInitializationCompleteListener
+        {
+            public void OnInitializationComplete(IInitializationStatus status)
+            {
+                Console.WriteLine("DEBUG_AD: Google SDK ist jetzt wirklich bereit!");
+            }
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+        }
     }
 
 

@@ -46,6 +46,8 @@
 		<MauiEnableAssemblyTrimming>false</MauiEnableAssemblyTrimming>
 	
 		<EnableCompressionInSingleFile>false</EnableCompressionInSingleFile>
+	
+		<AllowUnsafeBlocks>False</AllowUnsafeBlocks>
 		
 		
 	</PropertyGroup>
@@ -136,8 +138,11 @@
 
 	<ItemGroup>
 		<Compile Remove="Models\EditorStroke.cs" />
+		<Compile Remove="Models\IAdMobRewardedService.cs" />
 		<Compile Remove="Models\IEditorService.cs" />
 		<Compile Remove="Platforms\Android\ContinuousSpeechListener_old.cs" />
+		<Compile Remove="Platforms\Android\Handlers\AdBannerViewHandler.cs" />
+		<Compile Remove="Platforms\Android\RewardedAdService.cs" />
 		<Compile Remove="Services\DeepSeekClient.cs" />
 		<Compile Remove="Services\EditorService.cs" />
 		<Compile Remove="ViewModels\ChapterEditorViewModel.cs" />
@@ -251,8 +256,8 @@
 	  <PackageReference Include="Xamarin.Google.Android.Play.Core">
 	    <Version>1.10.3.19</Version>
 	  </PackageReference>
-	  <PackageReference Include="Xamarin.GooglePlayServices.Ads.Lite">
-	    <Version>123.6.0.1</Version>
+	  <PackageReference Include="Xamarin.GooglePlayServices.Ads">
+	    <Version>122.0.0</Version>
 	  </PackageReference>
 	</ItemGroup>
 

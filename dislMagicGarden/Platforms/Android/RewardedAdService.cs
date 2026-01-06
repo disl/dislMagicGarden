@@ -1,77 +1,154 @@
-﻿using Android.Gms.Ads;
+﻿// Platforms/Android/FixedAdMobService.cs
+using Android.Gms.Ads;
 using Android.Gms.Ads.Rewarded;
 using dislMagicGarden.Models;
-using Microsoft.Maui.Controls.Shapes;
-using static AndroidX.Room.FtsOptions;
+using Java.Lang;
+using System;
+using Exception = System.Exception;
 
-[assembly: Dependency(typeof(dislMagicGarden.Platforms.Android.RewardedAdService))]
 namespace dislMagicGarden.Platforms.Android
 {
-    public class RewardedAdService : IRewardedAdService
+    public class AdMobRewardedService : IAdMobRewardedService
     {
         private RewardedAd _rewardedAd;
-        // Test-ID für Rewarded Ads:
-        private string _adUnitId = "ca-app-pub-3940256099942544/5224354917";
+        private bool _isLoading;
+        private TaskCompletionSource<bool> _completionSource;
 
-        public bool IsLoaded => _rewardedAd != null;
+        private const string TEST_AD_UNIT_ID = "ca-app-pub-3940256099942544/5224354917";
 
-        public void LoadAd()
+        public bool IsAdLoaded => _rewardedAd != null && !_isLoading;
+
+        public void LoadRewardedAd()
         {
-            var adRequest = new AdRequest.Builder().Build();
-            RewardedAd.Load(Platform.CurrentActivity, _adUnitId, adRequest, new MyRewardedAdLoadCallback(ad => _rewardedAd = ad));
-        }
+            if (_isLoading || _rewardedAd != null) return;
 
-        public void ShowAd(Action<int> onRewardEarned)
-        {
-            if (_rewardedAd != null)
+            _isLoading = true;
+
+            try
             {
-                _rewardedAd.Show(Platform.CurrentActivity, new OnUserEarnedRewardListener(rewardItem =>
-                {
-                    // Belohnung an MAUI zurückgeben
-                    onRewardEarned?.Invoke(rewardItem.Amount);
-                    _rewardedAd = null;
-                    LoadAd(); // Nächstes Video im Hintergrund laden
-                }));
+                var activity = Platform.CurrentActivity;
+                if (activity == null) return;
+
+                // ✅ KORREKT: Für deine Version
+                var adRequest = new AdRequest.Builder().Build();
+
+                // ✅ KORREKTER Aufruf für deine API
+                RewardedAd.Load(activity, TEST_AD_UNIT_ID, adRequest,
+                    new AdLoadCallback(this));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"AdMob Load Error: {ex.Message}");
+                _isLoading = false;
             }
         }
-    }
 
-    // Callback für den Ladevorgang
-    public class MyRewardedAdLoadCallback : RewardedAdLoadCallback
-    {
-        private readonly Action<RewardedAd> _onLoaded;
-
-        public MyRewardedAdLoadCallback(Action<RewardedAd> onLoaded)
+        public async Task<bool> ShowRewardedAd()
         {
-            _onLoaded = onLoaded;
+            if (!IsAdLoaded)
+            {
+                LoadRewardedAd();
+                await Task.Delay(500);
+                if (!IsAdLoaded) return false;
+            }
+
+            try
+            {
+                _completionSource = new TaskCompletionSource<bool>();
+
+                _rewardedAd.FullScreenContentCallback = new FullScreenCallback(this);
+                _rewardedAd.Show(Platform.CurrentActivity, new RewardListener(this));
+
+                return await _completionSource.Task;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"AdMob Show Error: {ex.Message}");
+                return false;
+            }
         }
 
-        // WICHTIG: Die Signatur muss exakt so aussehen
-        //public override void OnAdLoaded(RewardedAd rewardedAd)
-        //{
-        //    base.OnAdLoaded(rewardedAd);
-        //    _onLoaded?.Invoke(rewardedAd);
-        //}
+        internal void OnAdLoaded(RewardedAd ad)
+        {
+            _rewardedAd = ad;
+            _isLoading = false;
+            Console.WriteLine("✅ Ad loaded");
+        }
 
-        /// <summary>
-        /// Code 0 (Internal Error): Oft Konfigurationsfehler oder Internetprobleme.
-        /// Code 2 (Network Error): Keine Internetverbindung oder Firewall/Emulator-Problem.
-        /// Code 3 (No Fill): Das passiert bei Test-IDs selten, heißt aber eigentlich: "Keine Werbung verfügbar".
-        /// </summary>
-        /// <param name="error"></param>
+        internal void OnRewardEarned()
+        {
+            _completionSource?.TrySetResult(true);
+            Console.WriteLine("💰 Reward earned");
+            _rewardedAd = null;
+            LoadRewardedAd();
+        }
+
+        internal void OnAdDismissed()
+        {
+            _completionSource?.TrySetResult(false);
+            Console.WriteLine("❎ Ad dismissed");
+            _rewardedAd = null;
+            LoadRewardedAd();
+        }
+    }
+
+    // ✅ KORREKTER Callback für deine Version
+    internal class AdLoadCallback : RewardedAdLoadCallback
+    {
+        private readonly AdMobRewardedService _service;
+
+        public AdLoadCallback(AdMobRewardedService service)
+        {
+            _service = service;
+        }
+
+        // ✅ KORREKT: Diese Methode überschreiben
+        public override void OnAdLoaded(Java.Lang.Object ad)
+        {
+            if (ad is RewardedAd rewardedAd)
+            {
+                _service.OnAdLoaded(rewardedAd);
+            }
+        }
+
         public override void OnAdFailedToLoad(LoadAdError error)
         {
-            base.OnAdFailedToLoad(error);
-            // Optional: Logge den Fehler, um zu sehen, warum keine Werbung kommt
-            System.Diagnostics.Debug.WriteLine($"AdMob Error: {error.Message}");
+            Console.WriteLine($"Ad load failed: {error?.Message}");
         }
     }
 
-    // Callback für die Belohnung
-    public class OnUserEarnedRewardListener : Java.Lang.Object, IOnUserEarnedRewardListener
+    internal class FullScreenCallback : FullScreenContentCallback
     {
-        private Action<IRewardItem> _onReward;
-        public OnUserEarnedRewardListener(Action<IRewardItem> onReward) => _onReward = onReward;
-        public void OnUserEarnedReward(IRewardItem rewardItem) => _onReward?.Invoke(rewardItem);
+        private readonly AdMobRewardedService _service;
+
+        public FullScreenCallback(AdMobRewardedService service)
+        {
+            _service = service;
+        }
+
+        public override void OnAdDismissedFullScreenContent()
+        {
+            _service.OnAdDismissed();
+        }
+
+        public override void OnAdFailedToShowFullScreenContent(AdError error)
+        {
+            _service.OnAdDismissed();
+        }
+    }
+
+    internal class RewardListener : Java.Lang.Object, IOnUserEarnedRewardListener
+    {
+        private readonly AdMobRewardedService _service;
+
+        public RewardListener(AdMobRewardedService service)
+        {
+            _service = service;
+        }
+
+        public void OnUserEarnedReward(IRewardItem reward)
+        {
+            _service.OnRewardEarned();
+        }
     }
 }

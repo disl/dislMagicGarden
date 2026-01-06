@@ -1,7 +1,4 @@
 ﻿using CommunityToolkit.Maui;
-using dislMagicGarden.Controls;
-using dislMagicGarden.Handlers;
-using dislMagicGarden.Models;
 using dislMagicGarden.Services;
 using dislMagicGarden.Services.dislMagicGarden.Services;
 using dislMagicGarden.ViewModels;
@@ -60,14 +57,14 @@ namespace dislMagicGarden
             }
 
             // Handler registrieren - Jede Plattform bekommt ihren eigenen
-            builder.ConfigureMauiHandlers(handlers =>
-            {
-                handlers.AddHandler<AdBannerView, AdBannerViewHandler>();
-            });
+            //builder.ConfigureMauiHandlers(handlers =>
+            //{
+            //    handlers.AddHandler<AdBannerView, AdBannerViewHandler>();
+            //});
 
-#if ANDROID
-            builder.Services.AddSingleton<IRewardedAdService, dislMagicGarden.Platforms.Android.RewardedAdService>();
-#endif
+//#if ANDROID
+//            builder.Services.AddSingleton<IAdMobRewardedService, dislMagicGarden.Platforms.Android.AdMobRewardedService>();
+//#endif
 
 
 #if DEBUG
