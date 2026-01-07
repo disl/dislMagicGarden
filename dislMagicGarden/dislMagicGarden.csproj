@@ -198,6 +198,7 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.8" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 		<PackageReference Include="PdfSharp.Maui" Version="1.0.5" />
+		<PackageReference Include="Plugin.MauiMTAdmob" Version="2.2.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -253,6 +254,9 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
+	  <PackageReference Include="Xamarin.Firebase.Core">
+	    <Version>120.1.2</Version>
+	  </PackageReference>
 	  <PackageReference Include="Xamarin.Google.Android.Play.Core">
 	    <Version>1.10.3.19</Version>
 	  </PackageReference>

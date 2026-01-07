@@ -91,55 +91,7 @@ public partial class HomePage : FairyBasePage
 
 
 #if ANDROID
-    // DIREKTER ANSATZ - Keine komplexen Klassen
-    //private static async Task<bool> ShowAdSimple()
-    //{
-    //    var activity = Platform.CurrentActivity;
-    //    if (activity == null) return false;
-
-    //    var tcs = new TaskCompletionSource<bool>();
-
-    //    // 1. Create request with try-catch
-    //    AdRequest request;
-    //    try
-    //    {
-    //        request = new AdRequest.Builder().Build();
-    //    }
-    //    catch
-    //    {
-    //        // Alternative
-    //        try
-    //        {
-    //            var builderType = Type.GetType("Android.Gms.Ads.AdManagerAdRequest+Builder");
-    //            var builder = Activator.CreateInstance(builderType);
-    //            var buildMethod = builderType.GetMethod("Build");
-    //            request = (AdRequest)buildMethod.Invoke(builder, null);
-    //        }
-    //        catch
-    //        {
-    //            return false;
-    //        }
-    //    }
-
-    //    // 2. Use anonymous class
-    //    var callback = new DirectCallback(tcs);
-
-    //    // 3. Load ad
-    //    RewardedAd.Load(activity, "ca-app-pub-3940256099942544/5224354917",
-    //        request, callback);
-
-    //    // Warte maximal 10 Sekunden auf das Ad
-    //    var timeoutTask = Task.Delay(10000);
-    //    var completedTask = await Task.WhenAny(tcs.Task, timeoutTask);
-
-    //    if (completedTask == timeoutTask)
-    //    {
-    //        Debug.WriteLine("DEBUG_AD: Zeitüberschreitung (Timeout)!");
-    //        return false; // App läuft weiter, auch wenn kein Ad kam
-    //    }
-
-    //    return await tcs.Task;
-    //}
+    
 
     private static async Task<bool> ShowAdSimple()
     {
@@ -170,7 +122,7 @@ public partial class HomePage : FairyBasePage
             });
 
             // Dein Timeout-Code
-            var timeoutTask = Task.Delay(10000);
+            var timeoutTask = Task.Delay(15000);
             var completedTask = await Task.WhenAny(tcs.Task, timeoutTask);
 
             return completedTask == tcs.Task ? await tcs.Task : false;

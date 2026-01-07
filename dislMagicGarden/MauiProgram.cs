@@ -5,6 +5,7 @@ using dislMagicGarden.ViewModels;
 using dislMagicGarden.Views;
 using Microsoft.Extensions.Configuration;
 using PdfSharp.Fonts;
+using Plugin.MauiMtAdmob;
 using System.Globalization;
 using System.Reflection;
 
@@ -96,6 +97,9 @@ namespace dislMagicGarden
             builder.Services.AddSingleton<ITextToSpeechService, TextToSpeechService>();
 
             builder.Services.AddLocalization();
+
+            // Plugin registrieren
+            builder.UseMauiMTAdmob();
 
 
             var app = builder.Build();
