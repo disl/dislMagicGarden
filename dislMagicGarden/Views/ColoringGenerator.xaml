@@ -18,10 +18,10 @@
                     Clicked="OnGenerate_ColoringPageClicked"
                     Style="{StaticResource MagicButtonStyle}" />
 
-            <Button x:Name="GenerateBtn"
+            <!--<Button x:Name="GenerateBtn"
                 Text="{x:Static res:Resources.Colour_page}"
                 Clicked="OnGenerateClicked"
-                Style="{StaticResource MagicButtonStyle}" />
+                Style="{StaticResource MagicButtonStyle}" />-->
 
             <ActivityIndicator x:Name="LoadingIndicator" 
                                IsRunning="False" 

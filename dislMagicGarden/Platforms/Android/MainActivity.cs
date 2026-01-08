@@ -1,9 +1,8 @@
 ﻿using Android.App;
 using Android.Content.PM;
-using Android.Gms.Ads;
 using Android.Gms.Ads.Initialization;
 using Android.OS;
-using Plugin.MauiMtAdmob;
+using Plugin.MauiMTAdmob;
 
 namespace dislMagicGarden
 {

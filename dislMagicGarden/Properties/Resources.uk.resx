@@ -1,0 +1,354 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Access_denied" xml:space="preserve">
+    <value>Доступ заборонено</value>
+  </data>
+  <data name="Adventurous" xml:space="preserve">
+    <value>Пригодницький</value>
+  </data>
+  <data name="A_brave_squirrel_saves_the_forest" xml:space="preserve">
+    <value>Наприклад: Смілива білка рятує ліс</value>
+  </data>
+  <data name="A_magical_adventure_with" xml:space="preserve">
+    <value>Чарівна пригода з %1</value>
+  </data>
+  <data name="boy" xml:space="preserve">
+    <value>хлопчик</value>
+  </data>
+  <data name="Brothers_Grimm" xml:space="preserve">
+    <value>Брати Грімм</value>
+  </data>
+  <data name="Chapter" xml:space="preserve">
+    <value>Розділ</value>
+  </data>
+  <data name="Classic_German_fairy_tales" xml:space="preserve">
+    <value>Класичні німецькі казки</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Колір</value>
+  </data>
+  <data name="Coloring_page" xml:space="preserve">
+    <value>розмальовка</value>
+  </data>
+  <data name="Colour_page" xml:space="preserve">
+    <value>Кольорова сторінка</value>
+  </data>
+  <data name="Conjure_up_history" xml:space="preserve">
+    <value>Чарівна історія</value>
+  </data>
+  <data name="Contemporary_and_welcoming" xml:space="preserve">
+    <value>Сучасний та теплий</value>
+  </data>
+  <data name="Costs" xml:space="preserve">
+    <value>витрати</value>
+  </data>
+  <data name="Create_PDF_with_image_and_text" xml:space="preserve">
+    <value>Створити PDF-файл із зображенням і текстом</value>
+  </data>
+  <data name="Create_button" xml:space="preserve">
+    <value>✨ Створити</value>
+  </data>
+  <data name="Dictate_your_fairy_tale_description" xml:space="preserve">
+    <value>Продиктуй опис своєї казки</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>тривалість</value>
+  </data>
+  <data name="Educational_fairy_tales" xml:space="preserve">
+    <value>Казки для навчання</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>помилка</value>
+  </data>
+  <data name="Fairy_Tale_Generator" xml:space="preserve">
+    <value>🎭 Генератор казок</value>
+  </data>
+  <data name="fairy_tale_type" xml:space="preserve">
+    <value>Тип казки</value>
+  </data>
+  <data name="fantasy" xml:space="preserve">
+    <value>Фантастика</value>
+  </data>
+  <data name="Funny" xml:space="preserve">
+    <value>Смішно</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Стать</value>
+  </data>
+  <data name="Generate_fairy_tales" xml:space="preserve">
+    <value>Створи казку</value>
+  </data>
+  <data name="girl" xml:space="preserve">
+    <value>дівчинка</value>
+  </data>
+  <data name="Home_NewStory" xml:space="preserve">
+    <value>Створити нову історію</value>
+  </data>
+  <data name="Home_Welcome" xml:space="preserve">
+    <value>Ласкаво просимо до «Whimsy Tales»!</value>
+  </data>
+  <data name="Humorous_stories" xml:space="preserve">
+    <value>Гумористичні історії</value>
+  </data>
+  <data name="H_C_Andersen" xml:space="preserve">
+    <value>Г. К. Андерсен</value>
+  </data>
+  <data name="Image_could_not_be_generated" xml:space="preserve">
+    <value>Зображення не вдалося створити</value>
+  </data>
+  <data name="Image_saved_to_gallery" xml:space="preserve">
+    <value>Зображення збережено в галереї</value>
+  </data>
+  <data name="insufficient_credit" xml:space="preserve">
+    <value>Недостатній баланс. Будь ласка, придбайте додаткові кошти, щоб продовжити користування послугою.</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Мова</value>
+  </data>
+  <data name="Luna_is_waiting" xml:space="preserve">
+    <value>Луна чекає на нову пригоду!</value>
+  </data>
+  <data name="Magical_worlds_and_creatures" xml:space="preserve">
+    <value>Чарівні світи та істоти</value>
+  </data>
+  <data name="Microphone_access_is_required" xml:space="preserve">
+    <value>Потрібен доступ до мікрофона.</value>
+  </data>
+  <data name="Mode" xml:space="preserve">
+    <value>Режим</value>
+  </data>
+  <data name="Modern_fairy_tales" xml:space="preserve">
+    <value>Сучасні казки</value>
+  </data>
+  <data name="Neutral" xml:space="preserve">
+    <value>Нейтральний</value>
+  </data>
+  <data name="NewStory" xml:space="preserve">
+    <value>Нова історія</value>
+  </data>
+  <data name="NewStory_Animal" xml:space="preserve">
+    <value>Любитель тварин</value>
+  </data>
+  <data name="NewStory_ChildName" xml:space="preserve">
+    <value>Ім'я дитини</value>
+  </data>
+  <data name="NewStory_Mood" xml:space="preserve">
+    <value>Настрій</value>
+  </data>
+  <data name="NewStory_World" xml:space="preserve">
+    <value>Чарівний світ</value>
+  </data>
+  <data name="PDF_could_not_be_created" xml:space="preserve">
+    <value>Не вдалося створити PDF-файл</value>
+  </data>
+  <data name="Please_enter_a_topic" xml:space="preserve">
+    <value>Будь ласка, введіть тему.</value>
+  </data>
+  <data name="Poetic_fairy_tales_with_feeling" xml:space="preserve">
+    <value>Поетичні казки з почуттями</value>
+  </data>
+  <data name="reading_voice" xml:space="preserve">
+    <value>Голос для читання</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Готовий</value>
+  </data>
+  <data name="Read_aloud" xml:space="preserve">
+    <value>🔊 Прочитати вголос</value>
+  </data>
+  <data name="Reassuring" xml:space="preserve">
+    <value>Заспокійливий</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Записати</value>
+  </data>
+  <data name="Save_to_gallery" xml:space="preserve">
+    <value>Зберегти в галереї</value>
+  </data>
+  <data name="Saving_cancelled" xml:space="preserve">
+    <value>Speichern abgebrochen</value>
+  </data>
+  <data name="seconds" xml:space="preserve">
+    <value>Секунди</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Вибрати</value>
+  </data>
+  <data name="Select_duration" xml:space="preserve">
+    <value>Вибрати тривалість</value>
+  </data>
+  <data name="Select_language" xml:space="preserve">
+    <value>Вибрати мову</value>
+  </data>
+  <data name="Select_style" xml:space="preserve">
+    <value>Вибрати стиль</value>
+  </data>
+  <data name="Share_button" xml:space="preserve">
+    <value>📤 Поділитися</value>
+  </data>
+  <data name="Share_fairy_tales" xml:space="preserve">
+    <value>Поділитися казкою</value>
+  </data>
+  <data name="Speak_now" xml:space="preserve">
+    <value>Говоріть зараз...</value>
+  </data>
+  <data name="speed" xml:space="preserve">
+    <value>Швидкість</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Стоп</value>
+  </data>
+  <data name="Story_length" xml:space="preserve">
+    <value>Тривалість історії (хвилини)</value>
+  </data>
+  <data name="Style" xml:space="preserve">
+    <value>Стиль</value>
+  </data>
+  <data name="Theme_of_your_fairy_tale" xml:space="preserve">
+    <value>Тема твоєї казки</value>
+  </data>
+  <data name="Undo" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="Values_and_knowledge_through_play" xml:space="preserve">
+    <value>Цінності та знання в ігровій формі</value>
+  </data>
+  <data name="Your_description_appears_here" xml:space="preserve">
+    <value>Ваш опис з'явиться тут</value>
+  </data>
+  <data name="Support_the_project" xml:space="preserve">
+    <value>Підтримати проект? ❤️</value>
+  </data>
+  <data name="Would_you_like_to_watch_a_short_video" xml:space="preserve">
+    <value>Хочеш подивитися коротке відео? Таким чином ти отримаєш бонус і одночасно допоможеш фінансувати подальший розвиток цього проекту. Дякуємо!!</value>
+  </data>
+  <data name="Watch_video" xml:space="preserve">
+    <value>Переглянути відео</value>
+  </data>
+  <data name="Maybe_later" xml:space="preserve">
+    <value>Можливо пізніше</value>
+  </data>
+  <data name="Thank_you" xml:space="preserve">
+    <value>Дякую!</value>
+  </data>
+  <data name="You_have_received_n_points" xml:space="preserve">
+    <value>Ти отримав %1 балів. Дякуємо за підтримку!</value>
+  </data>
+</root>

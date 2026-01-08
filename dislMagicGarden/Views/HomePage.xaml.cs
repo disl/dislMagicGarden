@@ -67,31 +67,9 @@ public partial class HomePage : FairyBasePage
         }
     }
 
-    private async void GoToNewStory_Clicked(object sender, EventArgs e)
-    {
-        Debug.WriteLine("------- GoToNewStory_Clicked - Start");
-
-        var result = await ShowAdSimple();
-
-        if (result)
-        {
-            await DisplayAlert("Erfolg", "Belohnung erhalten!", "OK");
-            // Nur wenn das Ad erfolgreich war, zur neuen Seite
-            await Shell.Current.GoToAsync("//FairyTalePage");
-        }
-        else
-        {
-            // Optional: Nachricht wenn Ad nicht geladen werden konnte
-            bool weiter = await DisplayAlert("Ad Info", "Ad konnte nicht geladen werden. Trotzdem fortfahren?", "Ja", "Nein");
-            if (weiter) await Shell.Current.GoToAsync("//FairyTalePage");
-        }
-    }
-
-    // Direkt in deinem Button-Click verwenden:
-
 
 #if ANDROID
-    
+
 
     private static async Task<bool> ShowAdSimple()
     {
@@ -174,7 +152,39 @@ public partial class HomePage : FairyBasePage
 
         public void OnUserEarnedReward(IRewardItem reward) => _tcs.TrySetResult(true);
     }
+
+    
+
+    private void Button_Clicked(object sender, EventArgs e)
+    {
+
+    }
 #endif
 
+
+
+
 #endif
+
+
+    private async void GoToNewStory_Clicked(object sender, EventArgs e)
+    {
+        Debug.WriteLine("------- GoToNewStory_Clicked - Start");
+
+        //var result = await ShowAdSimple();
+
+        //if (result)
+        //{
+        //    await DisplayAlert("Erfolg", "Belohnung erhalten!", "OK");
+        //    // Nur wenn das Ad erfolgreich war, zur neuen Seite
+        await Shell.Current.GoToAsync("//FairyTalePage");
+        //}
+        //else
+        //{
+        //    // Optional: Nachricht wenn Ad nicht geladen werden konnte
+        //    bool weiter = await DisplayAlert("Ad Info", "Ad konnte nicht geladen werden. Trotzdem fortfahren?", "Ja", "Nein");
+        //    if (weiter) await Shell.Current.GoToAsync("//FairyTalePage");
+        //}
+    }
+
 }

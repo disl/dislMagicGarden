@@ -1,7 +1,6 @@
 ﻿using Android.App;
 using Android.Gms.Ads;
 using Android.Runtime;
-using Firebase;
 
 namespace dislMagicGarden
 {
@@ -17,10 +16,10 @@ namespace dislMagicGarden
         {
             base.OnCreate();
 
-            MobileAds.Initialize(this);
+            //MobileAds.Initialize(this);
 
             // Firebase muss initialisiert werden
-            FirebaseApp.InitializeApp(this);
+            //FirebaseApp.InitializeApp(this);
         }
 
         protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();

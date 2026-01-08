@@ -101,7 +101,9 @@ namespace dislMagicGarden.ViewModels
                 new() { Code = "fr-FR", DisplayName = "Français (FR)" },
                 new() { Code = "es-ES", DisplayName = "Español (ES)" },
                 new() { Code = "it-IT", DisplayName = "Italiano (IT)" },
-                new() { Code = "ru-RU", DisplayName = "Русский (RU)" }
+                new() { Code = "uk-UA", DisplayName = "Українська (UA)" },
+                new() { Code = "ru-RU", DisplayName = "Русский (RU)" },
+
              };
 
 
@@ -114,7 +116,9 @@ namespace dislMagicGarden.ViewModels
             set
             {
                 if (value == null)
+                {
                     return;
+                }
 
                 if (_selectedLanguage?.Code == value.Code)
                     return;
@@ -243,17 +247,17 @@ namespace dislMagicGarden.ViewModels
             ReloadFairyTaleTypes();
 
             //SelectedFairyTaleType = AvailableFairyTaleTypes.FirstOrDefault();
-            _textToSpeechService=textToSpeechService;
+            _textToSpeechService = textToSpeechService;
 
-           var genderString = Preferences.Get(m_c_selectedGender, defaultValue: GenderOption.Neutral.ToString());
-           if (Enum.TryParse<GenderOption>(genderString, out var gender))
-           {
-               SelectedGender = gender;
-           }
-           else
-           {
-               SelectedGender = GenderOption.Neutral;
-           }
+            var genderString = Preferences.Get(m_c_selectedGender, defaultValue: GenderOption.Neutral.ToString());
+            if (Enum.TryParse<GenderOption>(genderString, out var gender))
+            {
+                SelectedGender = gender;
+            }
+            else
+            {
+                SelectedGender = GenderOption.Neutral;
+            }
         }
 
         public void ReloadFairyTaleTypes()
@@ -288,7 +292,7 @@ namespace dislMagicGarden.ViewModels
                 var result = await Shell.Current.ShowPopupAsync<string>(popup);
                 if (result != null && !string.IsNullOrEmpty(result.Result))
                 {
-                    Theme= result.Result;
+                    Theme = result.Result;
                 }
             }
             catch (Exception ex)

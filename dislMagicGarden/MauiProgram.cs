@@ -5,7 +5,7 @@ using dislMagicGarden.ViewModels;
 using dislMagicGarden.Views;
 using Microsoft.Extensions.Configuration;
 using PdfSharp.Fonts;
-using Plugin.MauiMtAdmob;
+using Plugin.MauiMTAdmob;
 using System.Globalization;
 using System.Reflection;
 
@@ -94,7 +94,9 @@ namespace dislMagicGarden
 
             //builder.Services.AddTransient<DeepSeekClient>();
 
+#if ANDROID
             builder.Services.AddSingleton<ITextToSpeechService, TextToSpeechService>();
+#endif
 
             builder.Services.AddLocalization();
 

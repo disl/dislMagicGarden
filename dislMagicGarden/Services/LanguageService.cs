@@ -19,6 +19,7 @@ public class LanguageService : ILanguageService
         { "fr", "French"  },
         { "es", "Spanish" },
         { "it", "Italian" },
+        { "uk", "Ukrainian" },
         { "ru", "Russian" },
     };
 
@@ -33,7 +34,7 @@ public class LanguageService : ILanguageService
         Thread.CurrentThread.CurrentUICulture = culture;
     }
 
-    public string CurrentIso { get; set; } = "de";
+    public string CurrentIso { get; set; } = "en";
 
     public string LanguageName => Resolve(CurrentIso);
 
@@ -43,7 +44,7 @@ public class LanguageService : ILanguageService
 
         return _map.ContainsKey(iso)
             ? _map[iso]
-            : "German";
+            : "English";
     }
 
     public void SetSystemLanguage()

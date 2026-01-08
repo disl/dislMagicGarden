@@ -48,7 +48,7 @@ public partial class ColoringGenerator : FairyBasePage
         if (string.IsNullOrWhiteSpace(theme)) return false;
 
         // UI-Status setzen
-        GenerateBtn.IsEnabled = false;
+        //GenerateBtn.IsEnabled = false;
         LoadingIndicator.IsRunning = true;
         ImageFrame.IsVisible = false;
 
@@ -66,7 +66,7 @@ public partial class ColoringGenerator : FairyBasePage
         }
 
         LoadingIndicator.IsRunning = false;
-        GenerateBtn.IsEnabled = true;
+        //GenerateBtn.IsEnabled = true;
         return true;
     }
 
