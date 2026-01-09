@@ -26,30 +26,30 @@ public partial class HomePage : FairyBasePage
 
         BindingContext = vm;
 
-        InitializeAds();
+        //InitializeAds();
     }
 
 
 
-    private void InitializeAds()
-    {
-        try
-        {
-            // Banner Ad hinzufügen
-            //AddBannerAd();
+    //private void InitializeAds()
+    //{
+    //    try
+    //    {
+    //        // Banner Ad hinzufügen
+    //        //AddBannerAd();
 
-            // Interstitial Ad im Hintergrund laden
-            _ = Task.Run(async () =>
-            {
-                await Task.Delay(3000); // 3 Sekunden warten
-                await _adService.LoadInterstitialAsync();
-            });
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine($"HomePage Ad Initialization Error: {ex.Message}");
-        }
-    }
+    //        // Interstitial Ad im Hintergrund laden
+    //        _ = Task.Run(async () =>
+    //        {
+    //            await Task.Delay(3000); // 3 Sekunden warten
+    //            await _adService.LoadRewardedAsync();  // LoadInterstitialAsync();
+    //        });
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Debug.WriteLine($"HomePage Ad Initialization Error: {ex.Message}");
+    //    }
+    //}
 
     //private void AddBannerAd()
     //{
@@ -84,11 +84,11 @@ public partial class HomePage : FairyBasePage
         }
 
         // Bei Seitenwechsel Ad prüfen
-        Device.StartTimer(TimeSpan.FromSeconds(1), () =>
-        {
-            _adService.TryShowInterstitial();
-            return false; // Nur einmal ausführen
-        });
+        //Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+        //{
+        //    _adService.TryShowInterstitial();
+        //    return false; // Nur einmal ausführen
+        //});
     }
 
 

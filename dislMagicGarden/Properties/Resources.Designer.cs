@@ -142,7 +142,7 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Coloring_page ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Create colouring page ähnelt.
         /// </summary>
         internal static string Coloring_page {
             get {

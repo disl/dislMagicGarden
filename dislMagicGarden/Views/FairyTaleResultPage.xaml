@@ -73,13 +73,14 @@
                         <Picker Title="Stimme auswählen"
                             ItemsSource="{Binding AvailableVoices}"
                             SelectedItem="{Binding SelectedVoice}"
+                                TextColor="{StaticResource MagicBlackSoft}"
                             ItemDisplayBinding="{Binding DisplayName}"
                             FontSize="16" />    
                     </VerticalStackLayout>
                 </Border>
 
                 <!-- Geschwindigkeit auswaehlen -->
-                <Border Style="{StaticResource FairyInputBorderStyle}">
+                <!--<Border Style="{StaticResource FairyInputBorderStyle}">
                     <VerticalStackLayout Spacing="6">
                         <Label Text="{x:Static res:Resources.speed}"  
                                FontAttributes="Bold"
@@ -89,7 +90,7 @@
                                Keyboard="Numeric" />  
                       
                     </VerticalStackLayout>
-                </Border>
+                </Border>-->
 
 
                 <!-- Action Buttons -->

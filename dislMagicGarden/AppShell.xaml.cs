@@ -19,37 +19,37 @@ namespace dislMagicGarden
             Routing.RegisterRoute("NewStoryPage", typeof(FairyTalePage));
 
             // Navigation Events
-            this.Navigated += OnShellNavigated;
+            //this.Navigated += OnShellNavigated;
         }
 
         private async void OnShellNavigated(object sender, ShellNavigatedEventArgs e)
         {
-            // Navigation zählen
-            _navigationCount++;
+            //// Navigation zählen
+            //_navigationCount++;
 
-            // Nach 2 Navigationen Ad zeigen
-            if (_navigationCount >= 2 && e.Source == ShellNavigationSource.ShellItemChanged)
-            {
-                _navigationCount = 0;
+            //// Nach 2 Navigationen Ad zeigen
+            //if (_navigationCount >= 2 && e.Source == ShellNavigationSource.ShellItemChanged)
+            //{
+            //    _navigationCount = 0;
 
-                // Kleine Verzögerung
-                await Task.Delay(800);
+            //    // Kleine Verzögerung
+            //    await Task.Delay(800);
 
-                // Ad versuchen zu zeigen
-                _adService.TryShowInterstitial();
-            }
+            //    // Ad versuchen zu zeigen
+            //    await _adService.TryShowInterstitial();
+            //}
         }
 
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
+        //protected override void OnAppearing()
+        //{
+        //    base.OnAppearing();
 
-            // Initiale Ads laden
-            _ = Task.Run(async () =>
-            {
-                await Task.Delay(5000); // 5 Sekunden nach Start
-                await _adService.LoadInterstitialAsync();
-            });
-        }
+        //    // Initiale Ads laden
+        //    _ = Task.Run(async () =>
+        //    {
+        //        await Task.Delay(5000); // 5 Sekunden nach Start
+        //        await _adService.LoadInterstitialAsync();
+        //    });
     }
 }
+

@@ -22,7 +22,8 @@
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
 
-            <!-- AdMob --><!--
+            <!-- AdMob -->
+            <!--
             <local:AdBannerView HeightRequest="50" 
                            WidthRequest="320" 
                            BackgroundColor="LightGray" />-->
@@ -47,6 +48,7 @@
                         <Editor Text="{Binding Theme}" 
                                 Grid.Column="0"
                                 Placeholder="{x:Static res:Resources.A_brave_squirrel_saves_the_forest}"
+                                TextColor="{StaticResource MagicBlackSoft}"
                                 PlaceholderColor="Gray" />
 
                         <Button Text="✖️"
@@ -77,6 +79,7 @@
 
                     <Picker Title="{x:Static res:Resources.Select}"
                         ItemsSource="{Binding AvailableFairyTaleTypes}"
+                            TextColor="{StaticResource MagicBlackSoft}"
                         SelectedItem="{Binding SelectedFairyTaleType}"
                         ItemDisplayBinding="{Binding Title_description}" />
                 </VerticalStackLayout>
@@ -113,7 +116,6 @@
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
             </Border>
-
             <!-- Sprache auswählen -->
             <Border Style="{StaticResource FairyInputBorderStyle}">
                 <VerticalStackLayout Spacing="10">
@@ -123,6 +125,7 @@
 
                     <Picker Title="{x:Static res:Resources.Select}"
                         ItemsSource="{Binding AvailableLanguages}"
+                            TextColor="{StaticResource MagicBlackSoft}"
                         SelectedItem="{Binding SelectedLanguage}"
                         ItemDisplayBinding="{Binding DisplayName}"                        
                         />
