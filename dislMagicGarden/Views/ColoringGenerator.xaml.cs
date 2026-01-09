@@ -12,6 +12,13 @@ public partial class ColoringGenerator : FairyBasePage
     private readonly ImageGeneratorService _generatorService = new();
     private readonly PdfExportService _pdfService = new();
 
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        _ =  GeneratePage(false);
+    }
+
     public ColoringGenerator(string prompt, string title)
     {
         InitializeComponent();
@@ -94,7 +101,7 @@ public partial class ColoringGenerator : FairyBasePage
         }
         catch (Exception ex)
         {
-            await DisplayAlert(Properties.Resources.Error, 
+            await DisplayAlert(Properties.Resources.Error,
                 Properties.Resources.PDF_could_not_be_created + ": " + ex.Message, "OK");
         }
         finally

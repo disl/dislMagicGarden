@@ -54,7 +54,6 @@
 
             <Button x:Name="CreatePDFBtn"
                  Text="{x:Static res:Resources.Create_PDF_with_image_and_text}"
-
                  Clicked="OnCreatePDFBtnClicked"
                  Style="{StaticResource MagicButtonStyle}" />
 

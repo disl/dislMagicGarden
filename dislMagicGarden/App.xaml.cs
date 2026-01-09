@@ -6,12 +6,14 @@ namespace dislMagicGarden
     public partial class App : Application
     {
         private readonly ILanguageService _language;
+        private readonly AdService _adService;
 
-        public App(ILanguageService languageService)
+        public App(ILanguageService languageService, AdService adService)
         {
             InitializeComponent();
 
             _language = languageService;
+            _adService = adService;
 
             ApplyStartupCulture();
 
@@ -28,7 +30,7 @@ namespace dislMagicGarden
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new AppShell());
+            return new Window(new AppShell(_adService));
         }
 
         private void ApplyStartupCulture()
@@ -60,13 +62,21 @@ namespace dislMagicGarden
             Thread.CurrentThread.CurrentUICulture = culture;
         }
 
-        public static void Reload()
-        {
-            MainThread.BeginInvokeOnMainThread(() =>
-            {
-                Current.MainPage = new AppShell();
-            });
-        }
+
+
+
+//        public static  void Reload()
+//        {
+//            MainThread.BeginInvokeOnMainThread(() =>
+//            {
+//#if ANDROID
+//                var currentActivity = Platform.CurrentActivity;
+
+//                Current.MainPage = new AppShell(_adService);
+
+//#endif
+//            });
+//        }
     }
 
 }

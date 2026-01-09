@@ -53,8 +53,7 @@
 
                         <!--Command="{Binding GoToNewStoryCommand}"-->
                         <Button Text="{x:Static res:Resources.Home_NewStory}"
-                            Clicked="GoToNewStory_Clicked"     
-         
+                            Clicked="GoToNewStory_Clicked"              
                             FontSize="20"
                             TextColor="White"
                             HeightRequest="70"

@@ -1,5 +1,4 @@
 ﻿using Android.App;
-using Android.Gms.Ads;
 using Android.Runtime;
 
 namespace dislMagicGarden

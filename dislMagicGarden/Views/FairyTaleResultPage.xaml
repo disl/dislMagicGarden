@@ -98,6 +98,40 @@
                       Margin="0,10,0,20">
 
                     <Button Grid.Column="0"
+        Style="{StaticResource MagicButtonStyle}"
+        Command="{Binding SpeakStoryCommand}">
+                        <Button.ImageSource>
+                            <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe050;" Size="24" />
+                        </Button.ImageSource>
+                    </Button>
+
+                    <Button Grid.Column="1"
+        Style="{StaticResource MagicButtonStyle}"
+        Command="{Binding StopStoryCommand}">
+                        <Button.ImageSource>
+                            <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe1a2;" Size="24" />
+                        </Button.ImageSource>
+                    </Button>
+
+                    <Button Grid.Column="2"
+        Style="{StaticResource MagicButtonStyle}"       
+        Command="{Binding ShareCommand}">
+                        <Button.ImageSource>
+                            <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe80d;" Size="24" /> 
+                        </Button.ImageSource>
+                    </Button>
+
+                    <Button Grid.Column="3"
+        Style="{StaticResource MagicButtonStyle}"
+        Command="{Binding ShowPictureCommand}">
+                        <Button.ImageSource>
+                            <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe3f4;" Size="24" />
+                        </Button.ImageSource>
+                    </Button>
+
+
+
+                    <!--<Button Grid.Column="0"
                             Text="&#x1F50A;"
                             Style="{StaticResource MagicButtonStyle}"
                             Command="{Binding SpeakStoryCommand}" />
@@ -116,7 +150,7 @@
                     <Button Grid.Column="3"
                             Text="🖼️"
                             Style="{StaticResource MagicButtonStyle}"
-                            Command="{Binding ShowPictureCommand}" />    
+                            Command="{Binding ShowPictureCommand}" />-->    
                 </Grid> 
 
             </VerticalStackLayout>

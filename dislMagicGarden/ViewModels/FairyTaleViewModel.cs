@@ -196,7 +196,7 @@ namespace dislMagicGarden.ViewModels
 
                 ReloadFairyTaleTypes();
 
-                App.Reload();
+                //App.Reload();
             }
             catch (Exception ex)
             {

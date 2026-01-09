@@ -41,6 +41,7 @@ namespace dislMagicGarden
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("MaterialIcons-Regular.ttf", "MaterialIcons");
                 });
 
             // 2. appsettings.json als Embedded Resource auslesen und zur Konfiguration hinzufügen
@@ -89,6 +90,7 @@ namespace dislMagicGarden
             builder.Services.AddSingleton<IBookExportService, BookExportService>();
             builder.Services.AddSingleton<ILanguageService, LanguageService>();
             builder.Services.AddSingleton<IHybridFairyTaleService, HybridFairyTaleService>();
+            builder.Services.AddSingleton<AdService>();
 
             builder.Services.AddHttpClient<ImageGeneratorService>();
 
@@ -102,6 +104,10 @@ namespace dislMagicGarden
 
             // Plugin registrieren
             builder.UseMauiMTAdmob();
+
+
+
+
 
 
             var app = builder.Build();

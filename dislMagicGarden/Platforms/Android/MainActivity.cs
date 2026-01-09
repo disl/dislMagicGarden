@@ -20,8 +20,11 @@ namespace dislMagicGarden
                 appId: "ca-app-pub-3940256099942544~3347511713",          // Test-App-ID (später deine echte)
                 forceTesting: true,                                       // Optional: Test-Ads erzwingen
                 debugMode: true                                           // Optional: Logs aktivieren
-            // weitere optionale Parameter wie license, openAdsId usw. bei Bedarf
+                                                                          // weitere optionale Parameter wie license, openAdsId usw. bei Bedarf            
             );
+
+            // Optional: Set user consent if needed
+            //CrossMauiMTAdmob.Current.UserPersonalizedAds = true;
         }
 
         public class OnInitializationCompleteListener : Java.Lang.Object, IOnInitializationCompleteListener

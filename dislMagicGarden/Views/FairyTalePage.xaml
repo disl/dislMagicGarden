@@ -169,10 +169,13 @@
             <!-- Quick Buttons -->
             <Grid ColumnDefinitions="*" ColumnSpacing="10">
                 <Button Grid.Column="0"
-                        Text="{x:Static res:Resources.Create_button}"
-                        Command="{Binding QuickGenerateTextOnlyCommand}"
+                        Text="{x:Static res:Resources.Create_button}"                        
+                        Clicked="QuickGenerateTextOnly_Clicked"
                         IsVisible="{Binding IsGenerating, Converter={StaticResource InverseBoolConverter}}"
                         Style="{StaticResource MagicButtonStyle}" />
+
+                <!--Command="{Binding QuickGenerateTextOnlyCommand}"-->
+
             </Grid>
 
         </VerticalStackLayout>
