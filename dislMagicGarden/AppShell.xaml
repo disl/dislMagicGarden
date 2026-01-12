@@ -26,4 +26,9 @@
         ContentTemplate="{DataTemplate views:FairyTalePage}"
         Route="FairyTalePage" />
 
+    <ShellContent 
+        Title="{x:Static res:Resources.NewStory}"
+        ContentTemplate="{DataTemplate views:SemiAutomaticPage}"
+        Route="SemiAutomaticPage" />
+
 </Shell>

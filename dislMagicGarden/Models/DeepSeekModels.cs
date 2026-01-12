@@ -34,6 +34,8 @@
         public TimeSpan GenerationTime { get; set; }
 
         public bool HasImages => ImageUrls?.Any() == true;
+
+        public List<string> Options { get; set; } = new(); // NEU für Plot Twist
     }
 
     public class CostBreakdown

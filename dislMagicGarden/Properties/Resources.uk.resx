@@ -351,4 +351,7 @@
   <data name="You_have_received_n_points" xml:space="preserve">
     <value>Ти отримав %1 балів. Дякуємо за підтримку!</value>
   </data>
+  <data name="Create_history_interactively" xml:space="preserve">
+    <value>Створення інтерактивної історії</value>
+  </data>
 </root>

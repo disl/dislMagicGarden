@@ -351,4 +351,7 @@
   <data name="You_have_received_n_points" xml:space="preserve">
     <value>Hai ottenuto %1 punti. Grazie per il tuo sostegno!</value>
   </data>
+  <data name="Create_history_interactively" xml:space="preserve">
+    <value>Creare la storia in modo interattivo</value>
+  </data>
 </root>

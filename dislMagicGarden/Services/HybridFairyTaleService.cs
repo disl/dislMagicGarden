@@ -13,6 +13,7 @@ namespace dislMagicGarden.Services
         Task<FairyTaleResponse> GenerateFairyTaleAsync(FairyTaleRequest request);
         Task<decimal> EstimateCostAsync(FairyTaleRequest request);
         Task<TextOnlyResponse> GenerateTextOnlyAsync(string theme);
+        Task<FairyTaleResponse> GenerateNextStoryStepAsync(string theme, string lastChoice, List<string> history);
     }
 
     public class HybridFairyTaleService : IHybridFairyTaleService
@@ -373,6 +374,72 @@ namespace dislMagicGarden.Services
         {
             var pricePerImage = isHd ? DALL_E_3_HD_PRICE : DALL_E_3_STANDARD_PRICE;
             return imageCount * pricePerImage;
+        }
+
+        public async Task<FairyTaleResponse> GenerateNextStoryStepAsync(string theme, string lastChoice, List<string> history)
+        {
+            if (_connectivity.NetworkAccess != NetworkAccess.Internet)
+                throw new Exception("Keine Internetverbindung.");
+
+            // Wir bauen einen speziellen Prompt für den interaktiven Modus
+            var historyText = string.Join(" -> ", history);
+            var prompt = $$"""
+                            Wir schreiben zusammen ein interaktives Kinderabenteuer zum Thema: {theme}.
+                            Bisheriger Verlauf: {historyText}
+                            Das Kind hat als letztes gewählt: {lastChoice}
+
+                            Schreibe den nächsten spannenden Teil (max. 4 Sätze).
+                            Gib dann 3 kurze Antwortmöglichkeiten (Optionen) für das Kind an.
+
+                            Format: JSON 
+                            {
+                                "title": "Abenteuer-Update",
+                                "story": "Der Text für das Kind...",
+                                "characters": ["Beteiligte Figuren"],
+                                "options": ["Option 1 🍎", "Option 2 🐾", "Option 3 🎈"],
+                                "image_prompts": ["A colorful scene showing the current situation"]
+                            }
+                            """;
+
+            var requestBody = new
+            {
+                model = DEEPSEEK_MODEL,
+                messages = new[]
+                {
+            new { role = "system", content = "Du bist ein interaktiver Märchenerzähler für Kinder. Antworte NUR im JSON-Format." },
+            new { role = "user", content = prompt }
+        },
+                response_format = new { type = "json_object" }, // DeepSeek unterstützt das!
+                temperature = 0.8
+            };
+
+            var json = JsonSerializer.Serialize(requestBody);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _deepSeekApiKey);
+
+            var response = await _httpClient.PostAsync(DEEPSEEK_API_URL, content);
+            response.EnsureSuccessStatusCode();
+
+            var responseJson = await response.Content.ReadAsStringAsync();
+            var apiResponse = JsonSerializer.Deserialize<DeepSeekApiResponse>(responseJson);
+            var rawContent = apiResponse.Choices[0].Message.Content;
+
+            // Wir nutzen dein existierendes Parsing mit einer kleinen Anpassung für "Options"
+            var cleanText = rawContent.Replace("```json", "").Replace("```", "").Trim();
+
+            // Hier nutzen wir ein dynamisches Objekt, um die Optionen abzugreifen
+            using var doc = JsonDocument.Parse(cleanText);
+            var root = doc.RootElement;
+
+            return new FairyTaleResponse
+            {
+                Title = root.GetProperty("title").GetString(),
+                Story = root.GetProperty("story").GetString(),
+                // Wir missbrauchen 'Moral' hier kurz als Container für die Optionen, 
+                // oder du fügst ein Feld 'Options' zu deiner FairyTaleResponse Klasse hinzu!
+                Moral = JsonSerializer.Serialize(root.GetProperty("options")),
+                ImagePrompts = root.GetProperty("image_prompts").EnumerateArray().Select(x => x.GetString()).ToList()
+            };
         }
 
         // Response-Klassen für APIs

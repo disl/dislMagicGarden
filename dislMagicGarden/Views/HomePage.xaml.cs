@@ -224,25 +224,7 @@ public partial class HomePage : FairyBasePage
 
     private async void GoToNewStory_Clicked(object sender, EventArgs e)
     {
-
-        _storyCount++;
-
-        // 2. Nach jeder 2. Story Ad prüfen
-        if (_storyCount % 2 == 0)
-        {
-            // Kleine Pause nach Erfolg
-            await Task.Delay(500);
-
-            // Ad versuchen zu zeigen
-            bool adShown = await _adService.TryShowInterstitial();
-
-            if (!adShown)
-            {
-                Debug.WriteLine("Keine Ad verfügbar, fahre fort...");
-            }            
-        }
-
-        await Shell.Current.GoToAsync("//FairyTalePage");
+        await GoToNextPage("//FairyTalePage");
 
 
         //#if ANDROID
@@ -264,11 +246,37 @@ public partial class HomePage : FairyBasePage
         //#endif
     }
 
+    private async Task GoToNextPage(string url )
+    {
+        //_storyCount++;
+
+        //// 2. Nach jeder 2. Story Ad prüfen
+        //if (_storyCount % 2 == 0)
+        //{
+        //    // Kleine Pause nach Erfolg
+        //    await Task.Delay(500);
+
+        //    // Ad versuchen zu zeigen
+        //    bool adShown = await _adService.TryShowInterstitial();
+
+        //    if (!adShown)
+        //    {
+        //        Debug.WriteLine("Keine Ad verfügbar, fahre fort...");
+        //    }
+        //}
+
+        await Shell.Current.GoToAsync(url);
+    }
 
     private void OnAdStatusChanged(object sender, string status)
     {
         Debug.WriteLine($"Ad Status: {status}");
         // Optional: UI aktualisieren
+    }
+
+    private async void SemiAutomaticGenerate_Clicked(object sender, EventArgs e)
+    {
+        await GoToNextPage("//SemiAutomaticPage");
     }
 }
 

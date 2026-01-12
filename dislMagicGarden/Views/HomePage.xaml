@@ -31,7 +31,7 @@
                         </Border.Shadow>
                         <Image Source="header_fairy_4.webp"
                            Aspect="AspectFit"
-                           HeightRequest="220" />
+                           HeightRequest="200" />
                     </Border>
 
                     <!-- Titel -->
@@ -41,7 +41,7 @@
                        FontSize="20"
                        TextColor="{StaticResource BlossomPink}" />
 
-                    <!-- Start Button -->
+                    <!-- Auto-Generate  Button -->
                     <Border StrokeShape="RoundRectangle 25"
                         BackgroundColor="{StaticResource BlossomPink}"
                         StrokeThickness="0"
@@ -60,10 +60,28 @@
                              />
                     </Border>
 
+                    <!-- Semi-automatic generate Button -->
+                    <Border StrokeShape="RoundRectangle 25"
+                         BackgroundColor="{StaticResource BlossomPink}"
+                         StrokeThickness="0"
+                         Margin="0"
+                         Padding="0">
+                        <Border.Shadow>
+                            <Shadow   />
+                        </Border.Shadow>
+                        <Button Text="{x:Static res:Resources.Create_history_interactively}"
+                             Clicked="SemiAutomaticGenerate_Clicked"              
+                             FontSize="20"
+                             TextColor="White"
+                             HeightRequest="70"
+                              />    
+                    </Border>
+
+
                     <!-- Maskottchen -->
                     <VerticalStackLayout Spacing="5" HorizontalOptions="Center">
                         <Image Source="character_bunny.webp"
-                           HeightRequest="250"
+                           HeightRequest="180"
                            Aspect="AspectFit" />
                         <Label Text="{x:Static res:Resources.Luna_is_waiting}"
                            FontSize="18"

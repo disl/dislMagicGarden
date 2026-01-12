@@ -196,6 +196,15 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Create history interactively ähnelt.
+        /// </summary>
+        internal static string Create_history_interactively {
+            get {
+                return ResourceManager.GetString("Create_history_interactively", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die CreaCreate PDF with image and text ähnelt.
         /// </summary>
         internal static string Create_PDF_with_image_and_text {
