@@ -5,7 +5,11 @@ namespace dislMagicGarden.Views;
 
 public partial class SemiAutomaticPage : FairyBasePage
 {
-	public SemiAutomaticPage(IHybridFairyTaleService fairyTaleService)
+    private readonly IHybridFairyTaleService _fairyTaleService;
+    private List<string> _storyHistory = new();
+    private string _currentTheme = Properties.Resources.A_brave_squirrel_saves_the_forest;
+
+    public SemiAutomaticPage(IHybridFairyTaleService fairyTaleService)
 	{
 		InitializeComponent();
 
@@ -13,12 +17,10 @@ public partial class SemiAutomaticPage : FairyBasePage
         //_currentTheme = selectedTheme;
 
         // Startet das Abenteuer automatisch beim Öffnen
-        StartAdventure();
+       // StartAdventure();
     }
 
-    private readonly IHybridFairyTaleService _fairyTaleService;
-    private List<string> _storyHistory = new();
-    private string _currentTheme;
+    
 
     // Konstruktor mit Dependency Injection (oder über ServiceHelper)
     public SemiAutomaticPage(IHybridFairyTaleService fairyTaleService, string selectedTheme )
@@ -29,7 +31,7 @@ public partial class SemiAutomaticPage : FairyBasePage
         _currentTheme = selectedTheme;
 
         // Startet das Abenteuer automatisch beim Öffnen
-        StartAdventure();
+        //StartAdventure();
     }
 
     private async void StartAdventure()
@@ -91,7 +93,7 @@ public partial class SemiAutomaticPage : FairyBasePage
         MainThread.BeginInvokeOnMainThread(async () =>
         {
             // Titel setzen
-            TitleLabel.Text = result.Title;
+            //TitleLabel.Text = result.Title;
 
             // Text mit Typewriter-Effekt einblenden
             await AnimateText(result.Story);
@@ -132,5 +134,13 @@ public partial class SemiAutomaticPage : FairyBasePage
 
         // Karte leicht ausgrauen
         StoryBorder.Opacity = isLoading ? 0.5 : 1.0;
+    }
+
+    private void OnStartWithThemeClicked(object sender, EventArgs e)
+    {
+        _currentTheme = ThemeEntry.Text;
+        ThemeSelectionArea.IsVisible = false; // Auswahl ausblenden
+        StoryBorder.IsVisible = true;       // Geschichte einblenden
+        StartAdventure();
     }
 }
