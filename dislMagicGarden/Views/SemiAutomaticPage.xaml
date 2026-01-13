@@ -9,13 +9,22 @@
              >
 
     <VerticalStackLayout x:Name="ThemeSelectionArea" IsVisible="True">
-        
+
         <Grid RowDefinitions="Auto, *, Auto" Padding="20">
 
             <Border Style="{StaticResource FairyInputBorderStyle}">
                 <VerticalStackLayout Spacing="10">
-                    <Label Text="{x:Static res:Resources.Theme_of_your_fairy_tale}"  
+                    <Grid ColumnDefinitions="*,Auto">
+
+                        <Label Grid.Column="0" Text="{x:Static res:Resources.Theme_of_your_fairy_tale}"  VerticalOptions="Center"
                            TextColor="{StaticResource MagicBlackSoft}" />
+
+                        <Button  Grid.Column="1" VerticalOptions="Center" HorizontalOptions="End" Clicked="Close_Clicked" >
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE5C4;" Size="24" />
+                            </Button.ImageSource>
+                        </Button>
+                    </Grid>
 
                     <Entry x:Name="ThemeEntry" 
                         Placeholder="{x:Static res:Resources.A_brave_squirrel_saves_the_forest}" />
@@ -39,7 +48,7 @@
 
                 <ScrollView Padding="20">
                     <Label x:Name="StoryLabel" 
-                       FontSize="20" 
+                        
                        TextColor="#2C3E50"
                        LineHeight="1.3" />
                 </ScrollView>

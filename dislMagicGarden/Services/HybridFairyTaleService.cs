@@ -80,7 +80,7 @@ namespace dislMagicGarden.Services
                     Characters = textResult.Characters,
                     Story = textResult.Story,
                     Moral = textResult.Moral,
-                    ImagePrompts = textResult.ImagePrompts,
+                    //ImagePrompts = textResult.ImagePrompts,
                     Cost = new CostBreakdown
                     {
                         TextCost = textResult.EstimatedCost
@@ -88,16 +88,16 @@ namespace dislMagicGarden.Services
                 };
 
                 // 2. Bilder nur bei FullStory Mode
-                if (request.Mode == GenerationMode.FullStory)
-                {
-                    var images = await GenerateImagesWithOpenAIAsync(
-                        response.ImagePrompts.Take(request.ImageCount).ToList(),
-                        request.Style
-                    );
+                //if (request.Mode == GenerationMode.FullStory)
+                //{
+                //    var images = await GenerateImagesWithOpenAIAsync(
+                //        //response.ImagePrompts.Take(request.ImageCount).ToList(),
+                //        request.Style
+                //    );
 
-                    response.ImageUrls = images;
-                    response.Cost.ImageCost = CalculateOpenAIImageCost(images.Count, request.Style == "HD");
-                }
+                //    response.ImageUrls = images;
+                //    response.Cost.ImageCost = CalculateOpenAIImageCost(images.Count, request.Style == "HD");
+                //}
 
                 response.Cost.TotalCost = response.Cost.TextCost + response.Cost.ImageCost;
                 response.GenerationTime = stopwatch.Elapsed;
@@ -199,27 +199,27 @@ namespace dislMagicGarden.Services
             return ParseFairyTaleResponse(fairyTaleText, apiResponse.Usage);
         }
 
-        private async Task<List<string>> GenerateImagesWithOpenAIAsync(List<string> prompts, string style)
-        {
-            var images = new List<string>();
+        //private async Task<List<string>> GenerateImagesWithOpenAIAsync(List<string> prompts, string style)
+        //{
+        //    var images = new List<string>();
 
-            foreach (var prompt in prompts)
-            {
-                try
-                {
-                    var imageUrl = await GenerateSingleImageAsync(prompt, style);
-                    if (!string.IsNullOrEmpty(imageUrl))
-                        images.Add(imageUrl);
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogWarning(ex, "Fehler beim Generieren von Bild für Prompt: {Prompt}", prompt);
-                    // Optional: Fallback-Bild oder Platzhalter
-                }
-            }
+        //    foreach (var prompt in prompts)
+        //    {
+        //        try
+        //        {
+        //            var imageUrl = await GenerateSingleImageAsync(prompt, style);
+        //            if (!string.IsNullOrEmpty(imageUrl))
+        //                images.Add(imageUrl);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            _logger.LogWarning(ex, "Fehler beim Generieren von Bild für Prompt: {Prompt}", prompt);
+        //            // Optional: Fallback-Bild oder Platzhalter
+        //        }
+        //    }
 
-            return images;
-        }
+        //    return images;
+        //}
 
         private async Task<string> GenerateSingleImageAsync(string prompt, string style)
         {
@@ -383,32 +383,32 @@ namespace dislMagicGarden.Services
 
             // Wir bauen einen speziellen Prompt für den interaktiven Modus
             var historyText = string.Join(" -> ", history);
-            var prompt = $$"""
+            var _prompt = $"""
                             Wir schreiben zusammen ein interaktives Kinderabenteuer zum Thema: {theme}.
                             Bisheriger Verlauf: {historyText}
                             Das Kind hat als letztes gewählt: {lastChoice}
 
                             Schreibe den nächsten spannenden Teil (max. 4 Sätze).
-                            Gib dann 3 kurze Antwortmöglichkeiten (Optionen) für das Kind an.
+                            Gib drei kurze Fortsetzungsmöglichkeiten, Optionen (s. JSON) für das Kind an.
 
-                            Format: JSON 
-                            {
+                            Format JSON: 
                                 "title": "Abenteuer-Update",
                                 "story": "Der Text für das Kind...",
                                 "characters": ["Beteiligte Figuren"],
-                                "options": ["Option 1 🍎", "Option 2 🐾", "Option 3 🎈"],
-                                "image_prompts": ["A colorful scene showing the current situation"]
-                            }
+                                "options": ["Option 1", "Option 2", "Option 3"],                                                      
                             """;
+
+            //    "image_prompts": ["A colorful scene showing the current situation"] 
 
             var requestBody = new
             {
                 model = DEEPSEEK_MODEL,
+                prompt = _prompt,
                 messages = new[]
                 {
-            new { role = "system", content = "Du bist ein interaktiver Märchenerzähler für Kinder. Antworte NUR im JSON-Format." },
-            new { role = "user", content = prompt }
-        },
+                    new { role = "system", content = "Du bist ein interaktiver Märchenerzähler für Kinder. Antworte NUR im JSON-Format." },
+                    new { role = "user", content = _prompt }
+                },
                 response_format = new { type = "json_object" }, // DeepSeek unterstützt das!
                 temperature = 0.8
             };
@@ -438,7 +438,7 @@ namespace dislMagicGarden.Services
                 // Wir missbrauchen 'Moral' hier kurz als Container für die Optionen, 
                 // oder du fügst ein Feld 'Options' zu deiner FairyTaleResponse Klasse hinzu!
                 Moral = JsonSerializer.Serialize(root.GetProperty("options")),
-                ImagePrompts = root.GetProperty("image_prompts").EnumerateArray().Select(x => x.GetString()).ToList()
+                //ImagePrompts = root.GetProperty("image_prompts").EnumerateArray().Select(x => x.GetString()).ToList()
             };
         }
 

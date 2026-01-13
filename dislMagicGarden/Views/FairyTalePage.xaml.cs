@@ -93,4 +93,9 @@ public partial class FairyTalePage : FairyBasePage
         await ((FairyTaleViewModel)BindingContext).QuickGenerateTextOnlyCommand.ExecuteAsync(null);
     }
 
+    private async void Close_Clicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("//HomePage");
+    }
+
 }

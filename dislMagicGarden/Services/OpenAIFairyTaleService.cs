@@ -71,25 +71,25 @@ namespace dislMagicGarden.Services
                 response.Characters = fairyTaleData.Characters;
                 response.Story = fairyTaleData.Story;
                 response.Moral = fairyTaleData.Moral;
-                response.ImagePrompts = fairyTaleData.ImagePrompts;
+                //response.ImagePrompts = fairyTaleData.ImagePrompts;
 
                 // 6. Bilder nur bei FullStory Mode
-                if (request.Mode == GenerationMode.FullStory)
-                {
-                    var imageTasks = response.ImagePrompts
-                        .Take(request.ImageCount)
-                        .Select(prompt => GenerateImageAsync(prompt, request.Style))
-                        .ToList();
+                //if (request.Mode == GenerationMode.FullStory)
+                //{
+                //    var imageTasks = response.ImagePrompts
+                //        .Take(request.ImageCount)
+                //        .Select(prompt => GenerateImageAsync(prompt, request.Style))
+                //        .ToList();
 
-                    var images = await Task.WhenAll(imageTasks);
-                    response.ImageUrls = images.ToList();
+                //    var images = await Task.WhenAll(imageTasks);
+                //    response.ImageUrls = images.ToList();
 
-                    // Kosten für Bilder berechnen
-                    cost.ImageCost = CalculateImageCost(
-                        request.ImageCount,
-                        isHd: request.Style == "HD"
-                    );
-                }
+                //    // Kosten für Bilder berechnen
+                //    cost.ImageCost = CalculateImageCost(
+                //        request.ImageCount,
+                //        isHd: request.Style == "HD"
+                //    );
+                //}
 
                 // Gesamtkosten
                 cost.TotalCost = cost.TextCost + cost.ImageCost;

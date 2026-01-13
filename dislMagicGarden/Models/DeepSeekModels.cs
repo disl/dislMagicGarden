@@ -29,7 +29,7 @@
         public string Story { get; set; } = string.Empty;
         public string Moral { get; set; } = string.Empty;
         public List<string> ImageUrls { get; set; } = new();
-        public List<string> ImagePrompts { get; set; } = new();
+        //public List<string> ImagePrompts { get; set; } = new();
         public CostBreakdown Cost { get; set; } = new();
         public TimeSpan GenerationTime { get; set; }
 

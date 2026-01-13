@@ -28,11 +28,29 @@
                            WidthRequest="320" 
                            BackgroundColor="LightGray" />-->
 
-
-            <Label Text="{x:Static res:Resources.Fairy_Tale_Generator}"
+            <Grid ColumnDefinitions="*,auto" Padding="10,0,10,0">
+                
+                <Label Text="{x:Static res:Resources.Fairy_Tale_Generator}"
+                   Grid.Column="0"
+                   VerticalOptions="Center"                       
                    FontSize="20"
                    FontAttributes="Bold"
-                   HorizontalOptions="Center" />
+                   HorizontalOptions="Start" />
+
+                <Button  Grid.Column="1"
+                     FontAttributes="Bold"
+                    
+                     VerticalOptions="Center"
+                     HorizontalOptions="End"
+                     TextColor="Gray"
+                     FontSize="24"
+                     Clicked="Close_Clicked" >
+                    <Button.ImageSource>
+                        <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE5C4;" Size="24" />
+                    </Button.ImageSource>
+                </Button>
+
+            </Grid>
 
             <!-- Thema -->
             <Border Style="{StaticResource FairyInputBorderStyle}">

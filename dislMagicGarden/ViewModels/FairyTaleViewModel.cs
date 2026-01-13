@@ -365,7 +365,7 @@ namespace dislMagicGarden.ViewModels
                 Moral = response.Moral,
                 Characters = new ObservableCollection<string>(response.Characters),
                 ImageUrls = new ObservableCollection<string>(response.ImageUrls),
-                ImagePromptsCombined = string.Join("\n\n", response.ImagePrompts),
+                //ImagePromptsCombined = string.Join("\n\n", response.ImagePrompts),
 
                 CostText = response.Cost != null
                     ? $"{Properties.Resources.Costs}: ${response.Cost?.TotalCost:F4}"

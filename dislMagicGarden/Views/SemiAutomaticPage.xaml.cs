@@ -7,28 +7,28 @@ public partial class SemiAutomaticPage : FairyBasePage
 {
     private readonly IHybridFairyTaleService _fairyTaleService;
     private List<string> _storyHistory = new();
-    private string _currentTheme = Properties.Resources.A_brave_squirrel_saves_the_forest;
+    //private string _currentTheme;  // = Properties.Resources.A_brave_squirrel_saves_the_forest;
 
     public SemiAutomaticPage(IHybridFairyTaleService fairyTaleService)
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
 
         _fairyTaleService = fairyTaleService;
         //_currentTheme = selectedTheme;
 
         // Startet das Abenteuer automatisch beim Öffnen
-       // StartAdventure();
+        // StartAdventure();
     }
 
-    
+
 
     // Konstruktor mit Dependency Injection (oder über ServiceHelper)
-    public SemiAutomaticPage(IHybridFairyTaleService fairyTaleService, string selectedTheme )
+    public SemiAutomaticPage(IHybridFairyTaleService fairyTaleService, string selectedTheme)
     {
         InitializeComponent();
 
         _fairyTaleService = fairyTaleService;
-        _currentTheme = selectedTheme;
+        ThemeEntry.Text = selectedTheme;
 
         // Startet das Abenteuer automatisch beim Öffnen
         //StartAdventure();
@@ -36,12 +36,27 @@ public partial class SemiAutomaticPage : FairyBasePage
 
     private async void StartAdventure()
     {
+        if (string.IsNullOrEmpty(ThemeEntry.Text))
+        {
+            await Application.Current.MainPage.DisplayAlert(Properties.Resources.Error, Properties.Resources.Please_enter_a_topic, "OK");
+            return;
+        }
+
+        _storyHistory.Add(ThemeEntry.Text); 
+
+        //_currentTheme = ThemeEntry.Text;
+        //ThemeSelectionArea.IsVisible = false;   // Auswahl ausblenden
+        //StoryBorder.IsVisible = true;           // Geschichte einblenden
+
         SetLoadingState(true);
+
         try
         {
+
+
             // Initialer Aufruf ohne vorherige Wahl
-            var result = await _fairyTaleService.GenerateNextStoryStepAsync(_currentTheme, "Beginne das Abenteuer", _storyHistory);
-            UpdateUI(result);
+            var result = await _fairyTaleService.GenerateNextStoryStepAsync(ThemeEntry.Text, "Beginne das Abenteuer", _storyHistory);
+            await UpdateUI(result);
         }
         catch (Exception ex)
         {
@@ -68,14 +83,14 @@ public partial class SemiAutomaticPage : FairyBasePage
             if (_storyHistory.Count > 10) _storyHistory.RemoveAt(0);
 
             var result = await _fairyTaleService.GenerateNextStoryStepAsync(
-                _currentTheme,
+                ThemeEntry.Text,
                 selectedOption,
                 _storyHistory
             );
 
             if (result != null)
             {
-                UpdateUI(result);
+                await UpdateUI(result);
             }
         }
         catch (Exception ex)
@@ -88,7 +103,7 @@ public partial class SemiAutomaticPage : FairyBasePage
         }
     }
 
-    private void UpdateUI(FairyTaleResponse result)
+    private async Task UpdateUI(FairyTaleResponse result)
     {
         MainThread.BeginInvokeOnMainThread(async () =>
         {
@@ -138,9 +153,12 @@ public partial class SemiAutomaticPage : FairyBasePage
 
     private void OnStartWithThemeClicked(object sender, EventArgs e)
     {
-        _currentTheme = ThemeEntry.Text;
-        ThemeSelectionArea.IsVisible = false; // Auswahl ausblenden
-        StoryBorder.IsVisible = true;       // Geschichte einblenden
+
         StartAdventure();
+    }
+
+    private async void Close_Clicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("//HomePage");
     }
 }
