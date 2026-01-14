@@ -17,6 +17,7 @@ namespace dislMagicGarden
             Routing.RegisterRoute("HomePage", typeof(HomePage));
             Routing.RegisterRoute(nameof(ColoringGenerator), typeof(ColoringGenerator));
             Routing.RegisterRoute("NewStoryPage", typeof(FairyTalePage));
+            Routing.RegisterRoute("AdventureHistoryPage", typeof(AdventureHistoryPage));
 
             // Navigation Events
             //this.Navigated += OnShellNavigated;

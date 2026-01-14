@@ -162,6 +162,9 @@
   <data name="Create_PDF_with_image_and_text" xml:space="preserve">
     <value>Створити PDF-файл із зображенням і текстом</value>
   </data>
+  <data name="Create" xml:space="preserve">
+    <value>Створити</value>
+  </data>
   <data name="Create_button" xml:space="preserve">
     <value>✨ Створити</value>
   </data>
@@ -353,5 +356,8 @@
   </data>
   <data name="Create_history_interactively" xml:space="preserve">
     <value>Створення інтерактивної історії</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Історія</value>
   </data>
 </root>

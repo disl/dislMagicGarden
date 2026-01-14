@@ -162,6 +162,9 @@
   <data name="Create_PDF_with_image_and_text" xml:space="preserve">
     <value>Creare un PDF con immagini e testo</value>
   </data>
+  <data name="Create" xml:space="preserve">
+    <value>Creare</value>
+  </data>
   <data name="Create_button" xml:space="preserve">
     <value>✨ Creare</value>
   </data>
@@ -353,5 +356,8 @@
   </data>
   <data name="Create_history_interactively" xml:space="preserve">
     <value>Creare la storia in modo interattivo</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Storia</value>
   </data>
 </root>

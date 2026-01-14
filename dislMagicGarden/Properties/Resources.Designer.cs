@@ -187,6 +187,15 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Create ähnelt.
+        /// </summary>
+        internal static string Create {
+            get {
+                return ResourceManager.GetString("Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die ✨ Create ähnelt.
         /// </summary>
         internal static string Create_button {
@@ -318,6 +327,15 @@ namespace dislMagicGarden.Properties {
         internal static string H_C_Andersen {
             get {
                 return ResourceManager.GetString("H_C_Andersen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die History ähnelt.
+        /// </summary>
+        internal static string History {
+            get {
+                return ResourceManager.GetString("History", resourceCulture);
             }
         }
         

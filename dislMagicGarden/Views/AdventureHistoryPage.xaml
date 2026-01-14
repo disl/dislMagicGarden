@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:FairyBasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="dislMagicGarden.Views.AdventureHistoryPage"
+             xmlns:views="clr-namespace:dislMagicGarden.Views"
+             Title="Abenteuerverlauf"
+             BackgroundColor="#F8FBFF">
+
+    <Grid RowDefinitions="Auto, *">
+        <!-- Header -->
+        <Border Grid.Row="0"
+                BackgroundColor="White"
+                Stroke="#4D96FF"
+                StrokeThickness="2"
+                HeightRequest="60">
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Grid.Column="0"
+                       Text="📚 Abenteuerverlauf"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="#2C3E50"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Start"
+                       Margin="20,0"/>
+
+                <Button Grid.Column="1"
+                        Text="✕"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="#FF6B6B"
+                        BackgroundColor="Transparent"
+                        WidthRequest="40"
+                        HeightRequest="40"
+                        Margin="0,0,10,0"
+                        Clicked="CloseButton_Clicked"/>
+            </Grid>
+        </Border>
+
+        <!-- Verlaufsliste -->
+        <Border Grid.Row="1"
+                Margin="10">
+            <CollectionView x:Name="HistoryCollectionView"
+                            SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border BackgroundColor="White"
+                                Stroke="#E8F4FF"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 10"
+                                Margin="0,0,0,8"
+                                Padding="15">
+                            <Grid ColumnDefinitions="Auto,*"
+                                  RowDefinitions="Auto,Auto">
+
+                                <!-- Emoji/Icon -->
+                                <Label Grid.Row="0"
+                                       Grid.Column="0"
+                                       Grid.RowSpan="2"
+                                       Text="{Binding Icon}"
+                                       FontSize="24"
+                                       VerticalOptions="Start"
+                                       HorizontalOptions="Center"
+                                       Margin="0,0,10,0"/>
+
+                                <!-- Schritt-Nummer -->
+                                <Label Grid.Row="0"
+                                       Grid.Column="1"
+                                       Text="{Binding StepNumber}"
+                                       FontSize="12"
+                                       TextColor="#7F8C8D"
+                                       Margin="0,0,0,2"/>
+
+                                <!-- Text -->
+                                <Label Grid.Row="1"
+                                       Grid.Column="1"
+                                       Text="{Binding Text}"
+                                       FontSize="14"
+                                       TextColor="#2C3E50"
+                                       LineBreakMode="WordWrap"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Border>
+    </Grid>
+</views:FairyBasePage>
