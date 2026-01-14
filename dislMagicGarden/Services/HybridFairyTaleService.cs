@@ -381,6 +381,8 @@ namespace dislMagicGarden.Services
             if (_connectivity.NetworkAccess != NetworkAccess.Internet)
                 throw new Exception("Keine Internetverbindung.");
 
+            string _currentLanguage = Thread.CurrentThread.CurrentCulture.NativeName;
+
             // Wir bauen einen speziellen Prompt für den interaktiven Modus
             var historyText = string.Join(" -> ", history);
             var _prompt = $"""
@@ -388,8 +390,10 @@ namespace dislMagicGarden.Services
                             Bisheriger Verlauf: {historyText}
                             Das Kind hat als letztes gewählt: {lastChoice}
 
+                            Ausgabesprache: {_currentLanguage}
+
                             Schreibe den nächsten spannenden Teil (max. 4 Sätze).
-                            Gib drei kurze Fortsetzungsmöglichkeiten, Optionen (s. JSON) für das Kind an.
+                            Wichtig, nicht ignorieren! Gib drei kurze Fortsetzungsmöglichkeiten, Optionen (s. JSON) für das Kind an.
 
                             Format JSON: 
                                 "title": "Abenteuer-Update",
@@ -437,7 +441,11 @@ namespace dislMagicGarden.Services
                 Story = root.GetProperty("story").GetString(),
                 // Wir missbrauchen 'Moral' hier kurz als Container für die Optionen, 
                 // oder du fügst ein Feld 'Options' zu deiner FairyTaleResponse Klasse hinzu!
-                Moral = JsonSerializer.Serialize(root.GetProperty("options")),
+                //Moral = JsonSerializer.Serialize(root.GetProperty("moral")),
+                Options = root.GetProperty("options")
+                  .EnumerateArray()
+                  .Select(x => x.GetString())
+                  .ToList()
                 //ImagePrompts = root.GetProperty("image_prompts").EnumerateArray().Select(x => x.GetString()).ToList()
             };
         }
