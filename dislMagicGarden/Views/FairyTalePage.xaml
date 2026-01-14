@@ -42,8 +42,9 @@
                     
                      VerticalOptions="Center"
                      HorizontalOptions="End"
-                     TextColor="Gray"
+                    
                      FontSize="24"
+
                      Clicked="Close_Clicked" >
                     <Button.ImageSource>
                         <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE5C4;" Size="24" />
@@ -69,21 +70,29 @@
                                 TextColor="{StaticResource MagicBlackSoft}"
                                 PlaceholderColor="Gray" />
 
-                        <Button Text="✖️"
+                        <Button 
                                 Grid.Column="1"
                                 VerticalOptions="Start"
                                 CornerRadius="10"
                                 FontSize="Medium"
                                 Style="{StaticResource MagicButtonStyle}"                        
-                                Command="{Binding ClearButtonCommand}" />
+                                Command="{Binding ClearButtonCommand}" >
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE872;" Size="24" />
+                            </Button.ImageSource>
+                        </Button>
 
-                        <Button Text="🎤"
+                        <Button 
                             Grid.Column="2"
                             CornerRadius="10"
-                                FontSize="Medium"
-                     VerticalOptions="Start"
+                           
+                            VerticalOptions="Start"
                             Command="{Binding AudioRecognationCommand}"
-                            Style="{StaticResource MagicButtonStyle}" />
+                            Style="{StaticResource MagicButtonStyle}" >
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE31D;" Size="24"  />
+                            </Button.ImageSource>
+                        </Button>
                     </Grid>
                 </VerticalStackLayout>
             </Border>

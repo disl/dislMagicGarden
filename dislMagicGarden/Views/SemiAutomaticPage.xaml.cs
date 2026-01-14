@@ -25,7 +25,7 @@ public partial class SemiAutomaticPage : FairyBasePage
     {
         if (string.IsNullOrEmpty(ThemeEntry.Text))
         {
-            await DisplayAlert("Fehler", "Bitte gib ein Thema ein!", "OK");
+            await DisplayAlert(Properties.Resources.Error, Properties.Resources.Please_enter_a_topic, "OK");
             return;
         }
 
@@ -38,14 +38,14 @@ public partial class SemiAutomaticPage : FairyBasePage
         {
             var result = await _fairyTaleService.GenerateNextStoryStepAsync(
                 ThemeEntry.Text,
-                "Beginne das Abenteuer",
+                Properties.Resources.Begin_the_adventure,
                 _storyHistory
             );
             await UpdateUI(result);
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Fehler", ex.Message, "OK");
+            await DisplayAlert(Properties.Resources.Error, ex.Message, "OK");
         }
         finally
         {
@@ -59,7 +59,7 @@ public partial class SemiAutomaticPage : FairyBasePage
 
         string selectedOption = button.Text;
 
-        _storyHistory.Add($"👉 Auswahl: {selectedOption}");
+        _storyHistory.Add($"👉 {Properties.Resources.Selection}: {selectedOption}");
 
         SetLoadingState(true);
 
@@ -83,7 +83,7 @@ public partial class SemiAutomaticPage : FairyBasePage
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Fehler", ex.Message, "OK");
+            await DisplayAlert(Properties.Resources.Error, ex.Message, "OK");
         }
         finally
         {
@@ -145,7 +145,7 @@ public partial class SemiAutomaticPage : FairyBasePage
     {
         if (_storyHistory.Count == 0)
         {
-            await DisplayAlert("Verlauf", "Noch kein Verlauf vorhanden.", "OK");
+            await DisplayAlert(Properties.Resources.History, Properties.Resources.No_history_available_yet, "OK");
             return;
         }
 

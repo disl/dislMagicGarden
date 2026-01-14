@@ -21,7 +21,7 @@ public partial class AdventureHistoryPage : FairyBasePage
         {
             var item = history[i];
             string icon = GetIconForStep(i, item);
-            string stepNumber = $"Schritt {i + 1}";
+            string stepNumber = $"{Properties.Resources.Step} {i + 1}";
 
             HistoryItems.Add(new HistoryItem
             {

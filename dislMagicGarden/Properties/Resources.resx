@@ -360,4 +360,19 @@
   <data name="History" xml:space="preserve">
     <value>History</value>
   </data>
+  <data name="Selection" xml:space="preserve">
+    <value>Selection</value>
+  </data>
+  <data name="No_history_available_yet" xml:space="preserve">
+    <value>No history available yet.</value>
+  </data>
+  <data name="Begin_the_adventure" xml:space="preserve">
+    <value>Begin the adventure</value>
+  </data>
+  <data name="Adventure_course" xml:space="preserve">
+    <value>📚 Adventure course</value>
+  </data>
+  <data name="Step" xml:space="preserve">
+    <value>Step</value>
+  </data>
 </root>

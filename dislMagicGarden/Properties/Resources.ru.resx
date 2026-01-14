@@ -360,4 +360,19 @@
   <data name="History" xml:space="preserve">
     <value>История</value>
   </data>
+  <data name="Selection" xml:space="preserve">
+    <value>Выбор</value>
+  </data>
+  <data name="No_history_available_yet" xml:space="preserve">
+    <value>История еще отсутствует.</value>
+  </data>
+  <data name="Begin_the_adventure" xml:space="preserve">
+    <value>Начни приключение</value>
+  </data>
+  <data name="Adventure_course" xml:space="preserve">
+    <value>📚 Ход приключения</value>
+  </data>
+  <data name="Step" xml:space="preserve">
+    <value>Шаг</value>
+  </data>
 </root>

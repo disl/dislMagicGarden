@@ -88,11 +88,29 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 📚 Adventure course ähnelt.
+        /// </summary>
+        internal static string Adventure_course {
+            get {
+                return ResourceManager.GetString("Adventure_course", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Adventurous ähnelt.
         /// </summary>
         internal static string Adventurous {
             get {
                 return ResourceManager.GetString("Adventurous", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Begin the adventure ähnelt.
+        /// </summary>
+        internal static string Begin_the_adventure {
+            get {
+                return ResourceManager.GetString("Begin_the_adventure", resourceCulture);
             }
         }
         
@@ -511,6 +529,15 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die No history available yet. ähnelt.
+        /// </summary>
+        internal static string No_history_available_yet {
+            get {
+                return ResourceManager.GetString("No_history_available_yet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die PDF could not be created ähnelt.
         /// </summary>
         internal static string PDF_could_not_be_created {
@@ -646,6 +673,15 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Selection ähnelt.
+        /// </summary>
+        internal static string Selection {
+            get {
+                return ResourceManager.GetString("Selection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die 📤 Share ähnelt.
         /// </summary>
         internal static string Share_button {
@@ -678,6 +714,15 @@ namespace dislMagicGarden.Properties {
         internal static string speed {
             get {
                 return ResourceManager.GetString("speed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Step ähnelt.
+        /// </summary>
+        internal static string Step {
+            get {
+                return ResourceManager.GetString("Step", resourceCulture);
             }
         }
         

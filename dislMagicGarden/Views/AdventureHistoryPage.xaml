@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="dislMagicGarden.Views.AdventureHistoryPage"
              xmlns:views="clr-namespace:dislMagicGarden.Views"
+             xmlns:res="clr-namespace:dislMagicGarden.Properties"
              Title="Abenteuerverlauf"
              BackgroundColor="#F8FBFF">
 
@@ -15,7 +16,7 @@
                 HeightRequest="60">
             <Grid ColumnDefinitions="*,Auto">
                 <Label Grid.Column="0"
-                       Text="📚 Abenteuerverlauf"
+                       Text="{x:Static res:Resources.Adventure_course}"
                        FontSize="18"
                        FontAttributes="Bold"
                        TextColor="#2C3E50"
