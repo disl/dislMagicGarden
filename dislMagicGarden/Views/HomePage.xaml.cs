@@ -1,6 +1,4 @@
 ﻿#if ANDROID
-using Android.Gms.Ads;
-using Android.Gms.Ads.Rewarded;
 using dislMagicGarden.Services;
 using dislMagicGarden.ViewModels;
 using Plugin.MauiMTAdmob;
@@ -14,15 +12,16 @@ public partial class HomePage : FairyBasePage
     private static bool _isAdLoading;
     private int _storyCount;
     private readonly AdService _adService;
+    private readonly FairyTaleViewModel _fairyTaleViewModel;
 
-    public HomePage(HomeViewModel vm, AdService adService)
+    public HomePage(HomeViewModel vm, AdService adService, FairyTaleViewModel fairyTaleViewModel)
     {
         InitializeComponent();
-
-      
-
+     
         _adService = adService;
         _adService.OnAdStatusChanged += OnAdStatusChanged;
+
+        _fairyTaleViewModel= fairyTaleViewModel;
 
         BindingContext = vm;
 
@@ -166,47 +165,7 @@ public partial class HomePage : FairyBasePage
         return false;
     }
 
-    // Minimale Callback-Klasse
-    //public class DirectCallback : RewardedAdLoadCallback
-    //{
-    //    private TaskCompletionSource<bool> _tcs;
-
-    //    public DirectCallback(TaskCompletionSource<bool> tcs)
-    //    {
-    //        _tcs = tcs;
-    //    }
-
-    //    public virtual void OnAdLoaded(RewardedAd rewardedAd)
-    //    {
-    //        Debug.WriteLine("DEBUG_AD: Ad geladen!");
-    //        rewardedAd.FullScreenContentCallback = new DirectFullScreenCallback(_tcs);
-    //        rewardedAd.Show(Platform.CurrentActivity, new DirectRewardListener(_tcs));
-    //    }
-
-    //    public override void OnAdFailedToLoad(LoadAdError error)
-    //    {
-    //        Debug.WriteLine($"DEBUG_AD: Fehler beim Laden: {error.Message}");
-    //        _tcs.TrySetResult(false);
-    //    }
-    //}
-
-    //public class DirectFullScreenCallback : FullScreenContentCallback
-    //{
-    //    private TaskCompletionSource<bool> _tcs;
-
-    //    public DirectFullScreenCallback(TaskCompletionSource<bool> tcs) => _tcs = tcs;
-
-    //    public override void OnAdDismissedFullScreenContent() => _tcs.TrySetResult(false);
-    //}
-
-    //public class DirectRewardListener : Java.Lang.Object, IOnUserEarnedRewardListener
-    //{
-    //    private TaskCompletionSource<bool> _tcs;
-
-    //    public DirectRewardListener(TaskCompletionSource<bool> tcs) => _tcs = tcs;
-
-    //    public void OnUserEarnedReward(IRewardItem reward) => _tcs.TrySetResult(true);
-    //}
+    
 
 
 
@@ -278,6 +237,8 @@ public partial class HomePage : FairyBasePage
     {
         await GoToNextPage("//SemiAutomaticPage");
     }
+
+
 }
 
 #endif

@@ -1,7 +1,6 @@
 ﻿using dislMagicGarden.Services;
 using dislMagicGarden.ViewModels;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace dislMagicGarden.Views;

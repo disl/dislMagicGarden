@@ -93,54 +93,54 @@ namespace dislMagicGarden.ViewModels
 
         // Verfügbare Sprachen
 
-        public ObservableCollection<LanguageOption> AvailableLanguages { get; }
-         = new ObservableCollection<LanguageOption>
-             {
-                new() { Code = "en-US", DisplayName = "English (US)" },
-                new() { Code = "de-DE", DisplayName = "Deutsch (DE)" },
-                new() { Code = "fr-FR", DisplayName = "Français (FR)" },
-                new() { Code = "es-ES", DisplayName = "Español (ES)" },
-                new() { Code = "it-IT", DisplayName = "Italiano (IT)" },
-                new() { Code = "uk-UA", DisplayName = "Українська (UA)" },
-                new() { Code = "ru-RU", DisplayName = "Русский (RU)" },
+        //public ObservableCollection<LanguageOption> AvailableLanguages { get; }
+        // = new ObservableCollection<LanguageOption>
+        //     {
+        //        new() { Code = "en-US", DisplayName = "English (US)" },
+        //        new() { Code = "de-DE", DisplayName = "Deutsch (DE)" },
+        //        new() { Code = "fr-FR", DisplayName = "Français (FR)" },
+        //        new() { Code = "es-ES", DisplayName = "Español (ES)" },
+        //        new() { Code = "it-IT", DisplayName = "Italiano (IT)" },
+        //        new() { Code = "uk-UA", DisplayName = "Українська (UA)" },
+        //        new() { Code = "ru-RU", DisplayName = "Русский (RU)" },
 
-             };
+        //     };
 
 
-        private bool _isApplyingLanguage;
+        //private bool _isApplyingLanguage;
 
-        private LanguageOption _selectedLanguage;
-        public LanguageOption SelectedLanguage
-        {
-            get => _selectedLanguage;
-            set
-            {
-                if (value == null)
-                {
-                    return;
-                }
+        //private LanguageOption _selectedLanguage;
+        //public LanguageOption SelectedLanguage
+        //{
+        //    get => _selectedLanguage;
+        //    set
+        //    {
+        //        if (value == null)
+        //        {
+        //            return;
+        //        }
 
-                if (_selectedLanguage?.Code == value.Code)
-                    return;
+        //        if (_selectedLanguage?.Code == value.Code)
+        //            return;
 
-                SetProperty(ref _selectedLanguage, value);
+        //        SetProperty(ref _selectedLanguage, value);
 
-                // verhindert Re-Entry beim Reload / Init
-                if (_isApplyingLanguage)
-                    return;
+        //        // verhindert Re-Entry beim Reload / Init
+        //        if (_isApplyingLanguage)
+        //            return;
 
-                ApplyLanguage(value.Code);
-            }
-        }
+        //        ApplyLanguage(value.Code);
+        //    }
+        //}
 
         public FairyTaleViewModel()
         {
             // Default Gerätelanguage übernehmen
-            var currentCulture = CultureInfo.CurrentUICulture.Name;
+            //var currentCulture = CultureInfo.CurrentUICulture.Name;
 
-            SelectedLanguage =
-                AvailableLanguages.FirstOrDefault(l => l.Code == currentCulture)
-                ?? AvailableLanguages.First(l => l.Code.StartsWith("en"));
+            //SelectedLanguage =
+            //    AvailableLanguages.FirstOrDefault(l => l.Code == currentCulture)
+            //    ?? AvailableLanguages.First(l => l.Code.StartsWith("en"));
 
 
 
@@ -182,31 +182,31 @@ namespace dislMagicGarden.ViewModels
         //    }
         //}
 
-        private void ApplyLanguage(string lang)
-        {
-            if (CultureInfo.CurrentUICulture.Name == lang)
-                return;
+        //private void ApplyLanguage(string lang)
+        //{
+        //    if (CultureInfo.CurrentUICulture.Name == lang)
+        //        return;
 
-            try
-            {
-                _isApplyingLanguage = true;
+        //    try
+        //    {
+        //        //_isApplyingLanguage = true;
 
-                LanguageService.SetLanguage(lang);
-                Preferences.Set("app_language", lang);
+        //        LanguageService.SetLanguage(lang);
+        //        Preferences.Set("app_language", lang);
 
-                ReloadFairyTaleTypes();
+        //        ReloadFairyTaleTypes();
 
-                //App.Reload();
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Language change failed: " + ex.Message);
-            }
-            finally
-            {
-                _isApplyingLanguage = false;
-            }
-        }
+        //        //App.Reload();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Debug.WriteLine("Language change failed: " + ex.Message);
+        //    }
+        //    finally
+        //    {
+        //        _isApplyingLanguage = false;
+        //    }
+        //}
 
 
 
@@ -234,15 +234,15 @@ namespace dislMagicGarden.ViewModels
             };
 
             // Default Gerätelanguage übernehmen
-            var currentCulture = CultureInfo.CurrentUICulture.Name;
+            //var currentCulture = CultureInfo.CurrentUICulture.Name;
 
-            _isApplyingLanguage = true;
+            //_isApplyingLanguage = true;
 
-            SelectedLanguage =
-                AvailableLanguages.FirstOrDefault(l => l.Code == currentCulture)
-                ?? AvailableLanguages.First(l => l.Code.StartsWith("en"));
+            //SelectedLanguage =
+            //    AvailableLanguages.FirstOrDefault(l => l.Code == currentCulture)
+            //    ?? AvailableLanguages.First(l => l.Code.StartsWith("en"));
 
-            _isApplyingLanguage = false;
+            //_isApplyingLanguage = false;
 
             ReloadFairyTaleTypes();
 

@@ -152,7 +152,7 @@
 
                     <Picker Title="{x:Static res:Resources.Select}"
                         ItemsSource="{Binding AvailableLanguages}"
-                            TextColor="{StaticResource MagicBlackSoft}"
+                        TextColor="{StaticResource MagicBlackSoft}"
                         SelectedItem="{Binding SelectedLanguage}"
                         ItemDisplayBinding="{Binding DisplayName}"                        
                         />

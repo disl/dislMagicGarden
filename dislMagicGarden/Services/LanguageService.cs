@@ -27,6 +27,8 @@ public class LanguageService : ILanguageService
     {
         var culture = new CultureInfo(cultureCode);
 
+        LocalizationResourceManager.Instance.SetCulture(culture); // Falls du einen Manager nutzt
+
         CultureInfo.DefaultThreadCurrentCulture = culture;
         CultureInfo.DefaultThreadCurrentUICulture = culture;
 

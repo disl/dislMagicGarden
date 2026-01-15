@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="dislMagicGarden.Views.SemiAutomaticPage"
              xmlns:views="clr-namespace:dislMagicGarden.Views"
+             xmlns:helpers="clr-namespace:dislMagicGarden.Helpers"
              xmlns:res="clr-namespace:dislMagicGarden.Properties"
              Title="Abenteuer-Welt">
 
@@ -13,33 +14,18 @@
             <Border Style="{StaticResource FairyInputBorderStyle}">
                 <VerticalStackLayout Spacing="8">
                     <Grid ColumnDefinitions="*,Auto">
+
                         <Label Grid.Column="0" 
-                               Text="{x:Static res:Resources.Theme_of_your_fairy_tale}"  
+                               Text="{helpers:Translate Key=Theme_of_your_fairy_tale}"  
                                VerticalOptions="Center"
                                TextColor="{StaticResource MagicBlackSoft}"
                                FontSize="14" />
-
-                        <!-- History-Button -->
-                        <!--<Button Grid.Column="1" 
-                                VerticalOptions="Center" 
-                                HorizontalOptions="End" 
-                                Clicked="ShowHistory_Clicked"
-                                BackgroundColor="Transparent"
-                                Padding="5">
-                            <Button.ImageSource>
-                                <FontImageSource FontFamily="MaterialIcons" 
-                                                 Glyph="&#xE889;" 
-                                                 Size="20" 
-                                                 Color="#4D96FF" />
-                            </Button.ImageSource>
-                        </Button>-->
 
                         <!-- Close-Button -->
                         <Button Grid.Column="2" 
                                 VerticalOptions="Center" 
                                 HorizontalOptions="End" 
-                                Clicked="Close_Clicked"
-                                
+                                Clicked="Close_Clicked"                                
                                 >
                             <Button.ImageSource>
                                 <FontImageSource FontFamily="MaterialIcons" 
@@ -51,25 +37,25 @@
                     </Grid>
 
                     <Entry x:Name="ThemeEntry" 
-                           Placeholder="{x:Static res:Resources.A_brave_squirrel_saves_the_forest}"
+                           Placeholder="{helpers:Translate Key=A_brave_squirrel_saves_the_forest}"
                            FontSize="14" />
-                    
+
                     <!-- Create-Button -->
-                    <Button Text="{x:Static res:Resources.Create}" 
+                    <Button Text="{helpers:Translate Key=Create}" 
                             Clicked="OnStartWithThemeClicked"
                             FontSize="14" >
                         <Button.ImageSource>
                             <FontImageSource FontFamily="MaterialIcons" 
                                  Glyph="&#xE150;" 
                                  Size="20" 
-                                  />        
+                                  />
                         </Button.ImageSource>
                     </Button>
 
                     <!-- History-Button -->
-                    <Button Text="{x:Static res:Resources.History}" 
+                    <Button Text="{helpers:Translate Key=History}" 
                          Clicked="ShowHistory_Clicked"
-                         FontSize="14" >    
+                         FontSize="14" >
                         <Button.ImageSource>
                             <FontImageSource FontFamily="MaterialIcons" 
                                  Glyph="&#xE889;" 
