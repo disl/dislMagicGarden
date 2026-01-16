@@ -1,3 +1,4 @@
+using dislMagicGarden.Services;
 using System.Collections.ObjectModel;
 
 namespace dislMagicGarden.Views;
@@ -5,17 +6,22 @@ namespace dislMagicGarden.Views;
 public partial class AdventureHistoryPage : FairyBasePage
 {
     public ObservableCollection<HistoryItem> HistoryItems { get; } = new();
+    private readonly ITextToSpeechService _ttsService = DependencyService.Get<ITextToSpeechService>();
+    string Title;
 
     public AdventureHistoryPage()
     {
         InitializeComponent();
         BindingContext = this;
         HistoryCollectionView.ItemsSource = HistoryItems;
+        //_ttsService = DependencyService.Get<ITextToSpeechService>();
     }
 
-    public void LoadHistory(List<string> history)
+    public void LoadHistory(List<string> history, string title)
     {
         HistoryItems.Clear();
+
+        Title = title;
 
         for (int i = 0; i < history.Count; i++)
         {
@@ -56,6 +62,39 @@ public partial class AdventureHistoryPage : FairyBasePage
     private async void CloseButton_Clicked(object sender, EventArgs e)
     {
         await Navigation.PopModalAsync();
+    }
+
+    private async void SpeakStory_Clicked(object sender, EventArgs e)
+    {
+        var SpeechSpeed = Preferences.Get("speechSpeed", 1f);
+
+        var full_text = string.Join(" ", HistoryItems.Select(x => x.Text.Trim()));
+
+        await _ttsService.Speak(full_text, SpeechSpeed);
+    }
+
+    private void StopStory_Clicked(object sender, EventArgs e)
+    {
+        _ttsService.Stop();
+    }
+
+    private async void Share_Clicked(object sender, EventArgs e)
+    {
+        var full_text = string.Join(" ", HistoryItems.Select(x => x.Text.Trim()));
+
+        await Share.RequestAsync(new ShareTextRequest
+        {
+            Title = Properties.Resources.Share_fairy_tales,
+            Text = full_text
+        });
+    }
+
+    private async void ShowPicture_Clicked(object sender, EventArgs e)
+    {
+        var full_text = string.Join(" ", HistoryItems.Select(x => x.Text.Trim()));
+
+        await Application.Current.MainPage.Navigation
+                      .PushModalAsync(new ColoringGenerator(full_text, Title), true);
     }
 }
 

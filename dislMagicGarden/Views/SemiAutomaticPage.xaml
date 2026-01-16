@@ -41,7 +41,7 @@
                            FontSize="14" />
 
                     <!-- Create-Button -->
-                    <Button Text="{helpers:Translate Key=Create}" 
+                    <Button Text="{helpers:Translate Key=Start}" 
                             Clicked="OnStartWithThemeClicked"
                             FontSize="14" >
                         <Button.ImageSource>
@@ -53,7 +53,7 @@
                     </Button>
 
                     <!-- History-Button -->
-                    <Button Text="{helpers:Translate Key=History}" 
+                    <Button Text="{helpers:Translate Key=Full_story}" 
                          Clicked="ShowHistory_Clicked"
                          FontSize="14" >
                         <Button.ImageSource>

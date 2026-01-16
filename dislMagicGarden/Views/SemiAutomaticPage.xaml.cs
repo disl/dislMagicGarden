@@ -7,11 +7,13 @@ public partial class SemiAutomaticPage : FairyBasePage
 {
     private readonly IHybridFairyTaleService _fairyTaleService;
     private List<string> _storyHistory = new();
+    //private readonly ITextToSpeechService _ttsService;
 
     public SemiAutomaticPage(IHybridFairyTaleService fairyTaleService)
     {
         InitializeComponent();
         _fairyTaleService = fairyTaleService;
+       
     }
 
     public SemiAutomaticPage(IHybridFairyTaleService fairyTaleService, string selectedTheme)
@@ -59,7 +61,7 @@ public partial class SemiAutomaticPage : FairyBasePage
 
         string selectedOption = button.Text;
 
-        _storyHistory.Add($"👉 {Properties.Resources.Selection}: {selectedOption}");
+        _storyHistory.Add($"👉 {selectedOption}");
 
         SetLoadingState(true);
 
@@ -150,7 +152,7 @@ public partial class SemiAutomaticPage : FairyBasePage
         }
 
         var historyPage = new AdventureHistoryPage();
-        historyPage.LoadHistory(_storyHistory);
+        historyPage.LoadHistory(_storyHistory, ThemeEntry.Text);
 
         await Navigation.PushModalAsync(historyPage);
     }

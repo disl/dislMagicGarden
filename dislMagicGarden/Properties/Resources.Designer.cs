@@ -304,6 +304,15 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Full story ähnelt.
+        /// </summary>
+        internal static string Full_story {
+            get {
+                return ResourceManager.GetString("Full_story", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Funny ähnelt.
         /// </summary>
         internal static string Funny {
@@ -714,6 +723,15 @@ namespace dislMagicGarden.Properties {
         internal static string speed {
             get {
                 return ResourceManager.GetString("speed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Start ähnelt.
+        /// </summary>
+        internal static string Start {
+            get {
+                return ResourceManager.GetString("Start", resourceCulture);
             }
         }
         

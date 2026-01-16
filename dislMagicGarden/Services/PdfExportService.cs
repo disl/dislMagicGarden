@@ -67,57 +67,145 @@ namespace dislMagicGarden.Services
         }
 
         private void AddTextWithAutoPageBreak(PdfDocument document, ref PdfPage page, ref XGraphics gfx,
-                                             string text, XFont font, double margin, double startY)
+                                      string text, XFont font, double margin, double startY)
         {
+            // 1. TEXT BEREINIGEN
+            // Entfernt Steuerzeichen und vereinheitlicht Leerzeichen
+            string cleanText = NormalizeText(text);
+
             double currentY = startY;
-            double pageWidth = page.Width;
             double pageHeight = page.Height;
-            double textWidth = pageWidth - (margin * 2);
+            double textWidth = page.Width - (margin * 2);
+            double lineHeight = font.GetHeight() * 1.2;
 
-            // Text in Zeilen aufteilen
-            string[] lines = text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
-            double lineHeight = font.GetHeight() * 1.5; // Mehr Zeilenabstand
+            string[] paragraphs = cleanText.Split(new[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
-            foreach (var line in lines)
+            foreach (var para in paragraphs)
             {
-                // Wenn nötig, neue Seite erstellen
-                if (currentY + lineHeight > pageHeight - margin)
+                // 2. ROBUSTES SPLITTING (behandelt mehrere Leerzeichen als eines)
+                string[] words = para.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                StringBuilder currentLine = new StringBuilder();
+
+                foreach (var word in words)
                 {
-                    page = document.AddPage();
-                    gfx = XGraphics.FromPdfPage(page);
-                    currentY = margin;
-                }
+                    string testLine = currentLine.Length == 0 ? word : currentLine + " " + word;
 
-                // Wenn die Zeile zu lang ist, in mehrere Zeilen aufteilen
-                string remainingLine = line;
-                while (!string.IsNullOrEmpty(remainingLine))
-                {
-                    // Finden, wie viele Wörter in diese Zeile passen
-                    string lineToDraw = GetLineThatFits(remainingLine, font, textWidth, gfx, out remainingLine);
-
-                    // Zeile zeichnen
-                    gfx.DrawString(lineToDraw, font, XBrushes.Black, margin, currentY);
-                    currentY += lineHeight;
-
-                    // Neue Seite prüfen
-                    if (currentY + lineHeight > pageHeight - margin && !string.IsNullOrEmpty(remainingLine))
+                    try
                     {
-                        page = document.AddPage();
-                        gfx = XGraphics.FromPdfPage(page);
-                        currentY = margin;
+                        if (gfx.MeasureString(testLine, font).Width < textWidth)
+                        {
+                            currentLine.Append((currentLine.Length == 0 ? "" : " ") + word);
+                        }
+                        else
+                        {
+                            gfx.DrawString(currentLine.ToString(), font, XBrushes.Black, margin, currentY);
+                            currentY += lineHeight;
+                            currentLine.Clear();
+                            currentLine.Append(word);
+
+                            if (currentY > pageHeight - margin)
+                            {
+                                page = document.AddPage();
+                                gfx = XGraphics.FromPdfPage(page);
+                                currentY = margin;
+                            }
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        // Falls ein Wort immer noch Fehler verursacht, überspringen wir es sicherheitshalber
+                        continue;
                     }
                 }
 
-                // Leere Zeilen bekommen etwas weniger Abstand
-                if (string.IsNullOrWhiteSpace(line))
+                if (currentLine.Length > 0)
                 {
-                    currentY += lineHeight / 3;
+                    gfx.DrawString(currentLine.ToString(), font, XBrushes.Black, margin, currentY);
+                    currentY += lineHeight + (lineHeight * 0.5); // Absatzabstand
                 }
             }
         }
 
+        // Hilfsmethode zur Bereinigung
+        private string NormalizeText(string text)
+        {
+            if (string.IsNullOrEmpty(text)) return "";
+
+            // Ersetzt geschützte Leerzeichen (\u00A0) durch normale
+            text = text.Replace('\u00A0', ' ');
+
+            // Ersetzt alle anderen Steuerzeichen (0-31), außer Zeilenumbrüche
+            StringBuilder sb = new StringBuilder();
+            foreach (char c in text)
+            {
+                if (c >= 32 || c == '\n' || c == '\r')
+                {
+                    sb.Append(c);
+                }
+            }
+
+            return sb.ToString().Replace("\r\n", "\n").Replace("\r", "\n");
+        }
+
+
+        //private void AddTextWithAutoPageBreak(PdfDocument document, ref PdfPage page, ref XGraphics gfx,
+        //                                     string text, XFont font, double margin, double startY)
+        //{
+        //    double currentY = startY;
+        //    double pageWidth = page.Width;
+        //    double pageHeight = page.Height;
+        //    double textWidth = pageWidth - (margin * 2);
+
+        //    // Text in Zeilen aufteilen
+        //    string[] lines = text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
+        //    double lineHeight = font.GetHeight() * 1.5; // Mehr Zeilenabstand
+
+        //    foreach (var line in lines)
+        //    {
+        //        // Wenn nötig, neue Seite erstellen
+        //        if (currentY + lineHeight > pageHeight - margin)
+        //        {
+        //            page = document.AddPage();
+        //            gfx = XGraphics.FromPdfPage(page);
+        //            currentY = margin;
+        //        }
+
+        //        // Wenn die Zeile zu lang ist, in mehrere Zeilen aufteilen
+        //        string remainingLine = line;
+        //        while (!string.IsNullOrEmpty(remainingLine))
+        //        {                    
+        //            // Finden, wie viele Wörter in diese Zeile passen
+        //            string lineToDraw = GetLineThatFits(remainingLine, font, textWidth, gfx, out remainingLine);
+
+        //            // Zeile zeichnen
+        //            gfx.DrawString(lineToDraw, font, XBrushes.Black, margin, currentY);
+        //            currentY += lineHeight;
+
+        //            // Neue Seite prüfen
+        //            if (currentY + lineHeight > pageHeight - margin && !string.IsNullOrEmpty(remainingLine))
+        //            {
+        //                page = document.AddPage();
+        //                gfx = XGraphics.FromPdfPage(page);
+        //                currentY = margin;
+        //            }
+        //        }
+
+        //        // Leere Zeilen bekommen etwas weniger Abstand
+        //        if (string.IsNullOrWhiteSpace(line))
+        //        {
+        //            currentY += lineHeight / 3;
+        //        }
+        //    }
+        //}
+
         private string GetLineThatFits(string text, XFont font, double maxWidth, XGraphics gfx, out string remaining)
         {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                remaining = "";
+                return "";
+            }
+
             if (gfx.MeasureString(text, font).Width <= maxWidth)
             {
                 remaining = "";

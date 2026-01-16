@@ -5,19 +5,19 @@
              xmlns:views="clr-namespace:dislMagicGarden.Views"
              xmlns:res="clr-namespace:dislMagicGarden.Properties"
              Title="Abenteuerverlauf"
-             BackgroundColor="#F8FBFF">
+             BackgroundColor="{StaticResource CottonCandy}">
 
-    <Grid RowDefinitions="Auto, *">
+    <Grid RowDefinitions="Auto, *, Auto" Margin="10">
         <!-- Header -->
         <Border Grid.Row="0"
-                BackgroundColor="White"
-                Stroke="#4D96FF"
-                StrokeThickness="2"
+                BackgroundColor="Transparent"
+                StrokeShape="RoundRectangle 5"                
+                StrokeThickness="0"
                 HeightRequest="60">
             <Grid ColumnDefinitions="*,Auto">
                 <Label Grid.Column="0"
                        Text="{x:Static res:Resources.Adventure_course}"
-                       FontSize="18"
+                       FontSize="20"
                        FontAttributes="Bold"
                        TextColor="#2C3E50"
                        VerticalOptions="Center"
@@ -25,21 +25,24 @@
                        Margin="20,0"/>
 
                 <Button Grid.Column="1"
-                        Text="✕"
-                        FontSize="16"
-                        FontAttributes="Bold"
-                        TextColor="#FF6B6B"
-                        BackgroundColor="Transparent"
-                        WidthRequest="40"
-                        HeightRequest="40"
-                        Margin="0,0,10,0"
-                        Clicked="CloseButton_Clicked"/>
+                        VerticalOptions="Center" 
+                        HorizontalOptions="End" 
+                        
+                        Clicked="CloseButton_Clicked">
+                    <Button.ImageSource>
+                        <FontImageSource FontFamily="MaterialIcons" 
+                     Glyph="&#xE5C4;" 
+                     Size="20" 
+                      />
+                    </Button.ImageSource>
+                </Button>
             </Grid>
         </Border>
 
         <!-- Verlaufsliste -->
         <Border Grid.Row="1"
-                Margin="10">
+                StrokeThickness="0"
+                Margin="0,5,0,5">
             <CollectionView x:Name="HistoryCollectionView"
                             SelectionMode="None">
                 <CollectionView.ItemTemplate>
@@ -48,20 +51,20 @@
                                 Stroke="#E8F4FF"
                                 StrokeThickness="1"
                                 StrokeShape="RoundRectangle 10"
-                                Margin="0,0,0,8"
+                                Margin="0,0,0,7"
                                 Padding="15">
                             <Grid ColumnDefinitions="Auto,*"
                                   RowDefinitions="Auto,Auto">
 
                                 <!-- Emoji/Icon -->
-                                <Label Grid.Row="0"
+                                <!--<Label Grid.Row="0"
                                        Grid.Column="0"
                                        Grid.RowSpan="2"
                                        Text="{Binding Icon}"
                                        FontSize="24"
                                        VerticalOptions="Start"
                                        HorizontalOptions="Center"
-                                       Margin="0,0,10,0"/>
+                                       Margin="0,0,10,0"/>-->
 
                                 <!-- Schritt-Nummer -->
                                 <Label Grid.Row="0"
@@ -84,5 +87,48 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </Border>
+
+
+        <!-- Buttons -->
+
+        <Grid ColumnDefinitions="*,*,*,*" Grid.Row="2"
+                  ColumnSpacing="10"
+                  Margin="0,10,0,5">
+
+            <Button Grid.Column="0"
+                        Style="{StaticResource MagicButtonStyle}"
+                        Clicked="SpeakStory_Clicked">
+                <Button.ImageSource>
+                    <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe050;" Size="24" />
+                </Button.ImageSource>
+            </Button>
+
+            <Button Grid.Column="1"
+                        Style="{StaticResource MagicButtonStyle}"
+                        Clicked="StopStory_Clicked">
+                <Button.ImageSource>
+                    <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe1a2;" Size="24" />
+                </Button.ImageSource>
+            </Button>
+
+            <Button Grid.Column="2"
+                        Style="{StaticResource MagicButtonStyle}"       
+                        Clicked="Share_Clicked">
+                <Button.ImageSource>
+                    <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe80d;" Size="24" />
+                </Button.ImageSource>
+            </Button>
+
+            <Button Grid.Column="3"
+                        Style="{StaticResource MagicButtonStyle}"
+                        Clicked="ShowPicture_Clicked">
+                <Button.ImageSource>
+                    <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe3f4;" Size="24" />
+                </Button.ImageSource>
+            </Button>
+
+        </Grid>
+
+
     </Grid>
 </views:FairyBasePage>

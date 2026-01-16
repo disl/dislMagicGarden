@@ -375,4 +375,10 @@
   <data name="Step" xml:space="preserve">
     <value>Step</value>
   </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Full_story" xml:space="preserve">
+    <value>Full story</value>
+  </data>
 </root>

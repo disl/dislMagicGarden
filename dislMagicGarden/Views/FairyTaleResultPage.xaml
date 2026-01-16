@@ -75,23 +75,9 @@
                             SelectedItem="{Binding SelectedVoice}"
                                 TextColor="{StaticResource MagicBlackSoft}"
                             ItemDisplayBinding="{Binding DisplayName}"
-                            FontSize="16" />    
+                            FontSize="16" />
                     </VerticalStackLayout>
                 </Border>
-
-                <!-- Geschwindigkeit auswaehlen -->
-                <!--<Border Style="{StaticResource FairyInputBorderStyle}">
-                    <VerticalStackLayout Spacing="6">
-                        <Label Text="{x:Static res:Resources.speed}"  
-                               FontAttributes="Bold"
-                               TextColor="{StaticResource MagicBlackSoft}" />
-
-                        <Entry Text="{Binding SpeechSpeed, Mode=TwoWay}"
-                               Keyboard="Numeric" />  
-                      
-                    </VerticalStackLayout>
-                </Border>-->
-
 
                 <!-- Action Buttons -->
                 <Grid ColumnDefinitions="*,*,*,*"
@@ -99,60 +85,38 @@
                       Margin="0,10,0,20">
 
                     <Button Grid.Column="0"
-        Style="{StaticResource MagicButtonStyle}"
-        Command="{Binding SpeakStoryCommand}">
-                        <Button.ImageSource>
-                            <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe050;" Size="24" />
-                        </Button.ImageSource>
+                            Style="{StaticResource MagicButtonStyle}"
+                            Command="{Binding SpeakStoryCommand}">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe050;" Size="24" />
+                            </Button.ImageSource>
                     </Button>
 
                     <Button Grid.Column="1"
-        Style="{StaticResource MagicButtonStyle}"
-        Command="{Binding StopStoryCommand}">
-                        <Button.ImageSource>
-                            <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe1a2;" Size="24" />
-                        </Button.ImageSource>
+                            Style="{StaticResource MagicButtonStyle}"
+                            Command="{Binding StopStoryCommand}">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe1a2;" Size="24" />
+                            </Button.ImageSource>
                     </Button>
 
                     <Button Grid.Column="2"
-        Style="{StaticResource MagicButtonStyle}"       
-        Command="{Binding ShareCommand}">
-                        <Button.ImageSource>
-                            <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe80d;" Size="24" /> 
-                        </Button.ImageSource>
+                            Style="{StaticResource MagicButtonStyle}"       
+                            Command="{Binding ShareCommand}">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe80d;" Size="24" />
+                            </Button.ImageSource>
                     </Button>
 
                     <Button Grid.Column="3"
-        Style="{StaticResource MagicButtonStyle}"
-        Command="{Binding ShowPictureCommand}">
-                        <Button.ImageSource>
-                            <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe3f4;" Size="24" />
-                        </Button.ImageSource>
+                            Style="{StaticResource MagicButtonStyle}"
+                            Command="{Binding ShowPictureCommand}">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe3f4;" Size="24" />
+                            </Button.ImageSource>
                     </Button>
-
-
-
-                    <!--<Button Grid.Column="0"
-                            Text="&#x1F50A;"
-                            Style="{StaticResource MagicButtonStyle}"
-                            Command="{Binding SpeakStoryCommand}" />
-
-                    <Button Grid.Column="1"
-                            Text="&#x23F8;"
-                            Style="{StaticResource MagicButtonStyle}"
-                            Command="{Binding StopStoryCommand}" />
-
-                    <Button Grid.Column="2"
-                            Text="&#x1F4E4;"
-                            Style="{StaticResource MagicButtonStyle}"
-                            TextColor="{StaticResource MidnightBlue}"
-                            Command="{Binding ShareCommand}" />
-
-                    <Button Grid.Column="3"
-                            Text="🖼️"
-                            Style="{StaticResource MagicButtonStyle}"
-                            Command="{Binding ShowPictureCommand}" />-->    
-                </Grid> 
+                  
+                </Grid>
 
             </VerticalStackLayout>
         </ScrollView>

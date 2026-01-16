@@ -144,7 +144,7 @@
                 </VerticalStackLayout>
             </Border>
             <!-- Sprache auswählen -->
-            <Border Style="{StaticResource FairyInputBorderStyle}">
+            <!--<Border Style="{StaticResource FairyInputBorderStyle}">
                 <VerticalStackLayout Spacing="10">
                     <Label Text="{x:Static res:Resources.Language}"
                         FontAttributes="Bold"
@@ -157,7 +157,7 @@
                         ItemDisplayBinding="{Binding DisplayName}"                        
                         />
                 </VerticalStackLayout>
-            </Border>
+            </Border>-->
 
             <!-- Fehler -->
             <Border IsVisible="{Binding HasError}"

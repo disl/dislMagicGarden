@@ -375,4 +375,10 @@
   <data name="Step" xml:space="preserve">
     <value>Крок</value>
   </data>
+  <data name="Start" xml:space="preserve">
+    <value>Почати</value>
+  </data>
+  <data name="Full_story" xml:space="preserve">
+    <value>Повна історія</value>
+  </data>
 </root>
