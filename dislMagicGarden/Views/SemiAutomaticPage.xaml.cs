@@ -7,13 +7,13 @@ public partial class SemiAutomaticPage : FairyBasePage
 {
     private readonly IHybridFairyTaleService _fairyTaleService;
     private List<string> _storyHistory = new();
-    //private readonly ITextToSpeechService _ttsService;
+    private readonly ITextToSpeechService _ttsService;
 
-    public SemiAutomaticPage(IHybridFairyTaleService fairyTaleService)
+    public SemiAutomaticPage(IHybridFairyTaleService fairyTaleService, ITextToSpeechService ttsService)
     {
         InitializeComponent();
         _fairyTaleService = fairyTaleService;
-       
+        _ttsService = ttsService;
     }
 
     public SemiAutomaticPage(IHybridFairyTaleService fairyTaleService, string selectedTheme)
@@ -32,7 +32,7 @@ public partial class SemiAutomaticPage : FairyBasePage
         }
 
         _storyHistory.Clear();
-        _storyHistory.Add($"🎯 Thema: {ThemeEntry.Text}");
+        _storyHistory.Add($"{ThemeEntry.Text}");
 
         SetLoadingState(true);
 
@@ -43,6 +43,9 @@ public partial class SemiAutomaticPage : FairyBasePage
                 Properties.Resources.Begin_the_adventure,
                 _storyHistory
             );
+
+            _storyHistory.Add($"{result.Story}");
+
             await UpdateUI(result);
         }
         catch (Exception ex)
@@ -61,7 +64,7 @@ public partial class SemiAutomaticPage : FairyBasePage
 
         string selectedOption = button.Text;
 
-        _storyHistory.Add($"👉 {selectedOption}");
+        _storyHistory.Add($"{selectedOption}");
 
         SetLoadingState(true);
 
@@ -79,7 +82,7 @@ public partial class SemiAutomaticPage : FairyBasePage
 
                 if (!string.IsNullOrEmpty(result.Story))
                 {
-                    _storyHistory.Add($"📖 {result.Story}");
+                    _storyHistory.Add($"{result.Story}");
                 }
             }
         }
@@ -151,7 +154,7 @@ public partial class SemiAutomaticPage : FairyBasePage
             return;
         }
 
-        var historyPage = new AdventureHistoryPage();
+        var historyPage = new AdventureHistoryPage(_ttsService);
         historyPage.LoadHistory(_storyHistory, ThemeEntry.Text);
 
         await Navigation.PushModalAsync(historyPage);

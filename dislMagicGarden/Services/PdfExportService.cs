@@ -1,5 +1,4 @@
 ﻿using PdfSharp.Drawing;
-using PdfSharp.Drawing.Layout;
 using PdfSharp.Pdf;
 using System.Text;
 
@@ -127,7 +126,7 @@ namespace dislMagicGarden.Services
         }
 
         // Hilfsmethode zur Bereinigung
-        private string NormalizeText(string text)
+        public static string NormalizeText(string text)
         {
             if (string.IsNullOrEmpty(text)) return "";
 

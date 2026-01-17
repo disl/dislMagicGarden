@@ -6,15 +6,15 @@ namespace dislMagicGarden.Views;
 public partial class AdventureHistoryPage : FairyBasePage
 {
     public ObservableCollection<HistoryItem> HistoryItems { get; } = new();
-    private readonly ITextToSpeechService _ttsService = DependencyService.Get<ITextToSpeechService>();
+    private readonly ITextToSpeechService _ttsService;  // = DependencyService.Get<ITextToSpeechService>();
     string Title;
 
-    public AdventureHistoryPage()
+    public AdventureHistoryPage(ITextToSpeechService textToSpeechService)
     {
         InitializeComponent();
         BindingContext = this;
         HistoryCollectionView.ItemsSource = HistoryItems;
-        //_ttsService = DependencyService.Get<ITextToSpeechService>();
+        _ttsService = textToSpeechService;
     }
 
     public void LoadHistory(List<string> history, string title)
@@ -26,7 +26,7 @@ public partial class AdventureHistoryPage : FairyBasePage
         for (int i = 0; i < history.Count; i++)
         {
             var item = history[i];
-            string icon = GetIconForStep(i, item);
+            string icon = "";  // GetIconForStep(i, item);
             string stepNumber = $"{Properties.Resources.Step} {i + 1}";
 
             HistoryItems.Add(new HistoryItem
@@ -50,14 +50,14 @@ public partial class AdventureHistoryPage : FairyBasePage
         }
     }
 
-    private string GetIconForStep(int index, string text)
-    {
-        if (index == 0) return "🎯";
-        if (text.StartsWith("👉")) return "👉";
-        if (text.StartsWith("📖")) return "📖";
-        if (text.Contains("gewählt") || text.Contains("Option")) return "✅";
-        return "📝";
-    }
+    //private string GetIconForStep(int index, string text)
+    //{
+    //    if (index == 0) return "🎯";
+    //    if (text.StartsWith("👉")) return "👉";
+    //    if (text.StartsWith("📖")) return "📖";
+    //    if (text.Contains("gewählt") || text.Contains("Option")) return "✅";
+    //    return "📝";
+    //}
 
     private async void CloseButton_Clicked(object sender, EventArgs e)
     {
@@ -69,8 +69,9 @@ public partial class AdventureHistoryPage : FairyBasePage
         var SpeechSpeed = Preferences.Get("speechSpeed", 1f);
 
         var full_text = string.Join(" ", HistoryItems.Select(x => x.Text.Trim()));
+        var normolazed_text = PdfExportService.NormalizeText(full_text);
 
-        await _ttsService.Speak(full_text, SpeechSpeed);
+        await _ttsService.Speak(normolazed_text, SpeechSpeed);
     }
 
     private void StopStory_Clicked(object sender, EventArgs e)
