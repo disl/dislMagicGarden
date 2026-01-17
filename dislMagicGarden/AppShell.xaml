@@ -31,4 +31,9 @@
         ContentTemplate="{DataTemplate views:SemiAutomaticPage}"
         Route="SemiAutomaticPage" />
 
+    <ShellContent 
+    Title="{x:Static res:Resources.NewStory}"
+    ContentTemplate="{DataTemplate views:SketchPage}"
+    Route="SketchPage" />
+
 </Shell>

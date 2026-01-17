@@ -381,4 +381,31 @@
   <data name="Full_story" xml:space="preserve">
     <value>Повна історія</value>
   </data>
+  <data name="Fairy_tales_through_sketches" xml:space="preserve">
+    <value>Казки через ескізи</value>
+  </data>
+  <data name="I_cannot_recognise_the_object" xml:space="preserve">
+    <value>Я не можу розпізнати об'єкт.</value>
+  </data>
+  <data name="A_blank_page_for_a_new_adventure" xml:space="preserve">
+    <value>Чистий аркуш для нових пригод!</value>
+  </data>
+  <data name="Oops_Draw_something_first_before_we_do_magic" xml:space="preserve">
+    <value>Ой! Спочатку намалюй щось, перш ніж ми зробимо магію.</value>
+  </data>
+  <data name="Im_thinking" xml:space="preserve">
+    <value>Я думаю...</value>
+  </data>
+  <data name="Draw_your_fairy_tale_idea" xml:space="preserve">
+    <value>Намалюй свою казкову ідею!</value>
+  </data>
+  <data name="What_do_you_think_your_drawing_will_turn_into" xml:space="preserve">
+    <value>Що ж вийде з твого малюнка?</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="magic_wand" xml:space="preserve">
+    <value>Чарівна паличка</value>
+  </data>
 </root>

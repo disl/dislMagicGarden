@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:FairyBasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:views="clr-namespace:dislMagicGarden.Views"
+             xmlns:helpers="clr-namespace:dislMagicGarden.Helpers"
+             x:Class="dislMagicGarden.Views.SketchPage"
+             Title="SketchPage">
+    <Grid RowDefinitions=" Auto, *, Auto" Padding="10" >
+
+        <Grid ColumnDefinitions="*,auto" Padding="10,0,10,5" Grid.Row="0" >
+
+            <Label Text="{helpers:Translate Key=Draw_your_fairy_tale_idea}"
+               Grid.Column="0"
+               VerticalOptions="Center"                       
+               FontSize="20"
+               FontAttributes="Bold"
+               HorizontalOptions="Start" />
+
+            <Button  Grid.Column="1"
+                 FontAttributes="Bold"
+        
+                 VerticalOptions="Center"
+                 HorizontalOptions="End"
+        
+                 FontSize="24"
+
+                 Clicked="Close_Clicked" >
+                <Button.ImageSource>
+                    <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE5C4;" Size="24" />
+                </Button.ImageSource>
+            </Button>
+
+        </Grid>
+
+        <Border Grid.Row="1"
+                Style="{StaticResource FairyInputBorderStyle}"
+                
+                >
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="20" />
+            </Border.StrokeShape>
+
+            <toolkit:DrawingView x:Name="MainDrawingView"
+                                 LineColor="Black"
+                                 BackgroundColor="{StaticResource BlossomPink}"
+                                 LineWidth="6"
+                                 IsMultiLineModeEnabled="True" />
+        </Border>
+
+        <VerticalStackLayout Grid.Row="2" Spacing="12">
+
+            <ActivityIndicator x:Name="LoadingSpinner" IsRunning="False" HeightRequest="20" />
+
+            <Label x:Name="DeepSeekResult" 
+                   Text="{helpers:Translate Key=What_do_you_think_your_drawing_will_turn_into}" 
+                   HorizontalTextAlignment="Center" 
+                   FontSize="16"
+                   FontAttributes="Italic" />
+
+            <Grid ColumnDefinitions="*, *" ColumnSpacing="10">
+                <Button Grid.Column="0" 
+                        Text="{helpers:Translate Key=Delete}" 
+                        Clicked="OnClearClicked" 
+                        Style="{StaticResource SecondaryButtonStyle}" 
+                        BackgroundColor="#E0E0E0" 
+                        TextColor="Black" />
+
+                <Button Grid.Column="1" 
+                        Text="{helpers:Translate Key=magic_wand}" 
+                        Clicked="OnRecognizeSketchClicked" 
+                        BackgroundColor="#512BD4" 
+                        TextColor="White" />
+            </Grid>
+        </VerticalStackLayout>
+
+    </Grid>
+</views:FairyBasePage>

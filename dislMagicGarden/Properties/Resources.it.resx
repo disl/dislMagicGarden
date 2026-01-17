@@ -381,4 +381,31 @@
   <data name="Full_story" xml:space="preserve">
     <value>Articolo completo</value>
   </data>
+  <data name="Fairy_tales_through_sketches" xml:space="preserve">
+    <value>Fiabe attraverso schizzi</value>
+  </data>
+  <data name="I_cannot_recognise_the_object" xml:space="preserve">
+    <value>Non riesco a riconoscere l'oggetto.</value>
+  </data>
+  <data name="A_blank_page_for_a_new_adventure" xml:space="preserve">
+    <value>Una pagina bianca per una nuova avventura!</value>
+  </data>
+  <data name="Oops_Draw_something_first_before_we_do_magic" xml:space="preserve">
+    <value>Ops! Disegna qualcosa prima di fare la magia.</value>
+  </data>
+  <data name="Im_thinking" xml:space="preserve">
+    <value>Sto pensando...</value>
+  </data>
+  <data name="Draw_your_fairy_tale_idea" xml:space="preserve">
+    <value>Disegna la tua idea di fiaba!</value>
+  </data>
+  <data name="What_do_you_think_your_drawing_will_turn_into" xml:space="preserve">
+    <value>Cosa ne sarà del tuo disegno?</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="magic_wand" xml:space="preserve">
+    <value>Bacchetta magica</value>
+  </data>
 </root>

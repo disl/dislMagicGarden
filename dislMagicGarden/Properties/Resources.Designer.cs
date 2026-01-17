@@ -61,6 +61,15 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die A blank page for a new adventure! ähnelt.
+        /// </summary>
+        internal static string A_blank_page_for_a_new_adventure {
+            get {
+                return ResourceManager.GetString("A_blank_page_for_a_new_adventure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die e.g. A brave squirrel saves the forest ähnelt.
         /// </summary>
         internal static string A_brave_squirrel_saves_the_forest {
@@ -241,11 +250,29 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Delete ähnelt.
+        /// </summary>
+        internal static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Dictate your fairy tale description ähnelt.
         /// </summary>
         internal static string Dictate_your_fairy_tale_description {
             get {
                 return ResourceManager.GetString("Dictate_your_fairy_tale_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Draw your fairy tale idea! ähnelt.
+        /// </summary>
+        internal static string Draw_your_fairy_tale_idea {
+            get {
+                return ResourceManager.GetString("Draw_your_fairy_tale_idea", resourceCulture);
             }
         }
         
@@ -291,6 +318,15 @@ namespace dislMagicGarden.Properties {
         internal static string fairy_tale_type {
             get {
                 return ResourceManager.GetString("fairy_tale_type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Fairy tales through sketches ähnelt.
+        /// </summary>
+        internal static string Fairy_tales_through_sketches {
+            get {
+                return ResourceManager.GetString("Fairy_tales_through_sketches", resourceCulture);
             }
         }
         
@@ -394,6 +430,24 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die I cannot recognise the object ähnelt.
+        /// </summary>
+        internal static string I_cannot_recognise_the_object {
+            get {
+                return ResourceManager.GetString("I_cannot_recognise_the_object", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die I&apos;m thinking... ähnelt.
+        /// </summary>
+        internal static string Im_thinking {
+            get {
+                return ResourceManager.GetString("Im_thinking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Image could not be generated ähnelt.
         /// </summary>
         internal static string Image_could_not_be_generated {
@@ -435,6 +489,15 @@ namespace dislMagicGarden.Properties {
         internal static string Luna_is_waiting {
             get {
                 return ResourceManager.GetString("Luna_is_waiting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Magic wand ähnelt.
+        /// </summary>
+        internal static string magic_wand {
+            get {
+                return ResourceManager.GetString("magic_wand", resourceCulture);
             }
         }
         
@@ -543,6 +606,15 @@ namespace dislMagicGarden.Properties {
         internal static string No_history_available_yet {
             get {
                 return ResourceManager.GetString("No_history_available_yet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Oops! Draw something first before we do magic. ähnelt.
+        /// </summary>
+        internal static string Oops_Draw_something_first_before_we_do_magic {
+            get {
+                return ResourceManager.GetString("Oops_Draw_something_first_before_we_do_magic", resourceCulture);
             }
         }
         
@@ -822,6 +894,15 @@ namespace dislMagicGarden.Properties {
         internal static string Watch_video {
             get {
                 return ResourceManager.GetString("Watch_video", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die What do you think your drawing will turn into? ähnelt.
+        /// </summary>
+        internal static string What_do_you_think_your_drawing_will_turn_into {
+            get {
+                return ResourceManager.GetString("What_do_you_think_your_drawing_will_turn_into", resourceCulture);
             }
         }
         

@@ -381,4 +381,31 @@
   <data name="Full_story" xml:space="preserve">
     <value>Histoire complète</value>
   </data>
+  <data name="Fairy_tales_through_sketches" xml:space="preserve">
+    <value>Contes de fées à travers des croquis</value>
+  </data>
+  <data name="I_cannot_recognise_the_object" xml:space="preserve">
+    <value>Je ne peux pas reconnaître l'objet.</value>
+  </data>
+  <data name="A_blank_page_for_a_new_adventure" xml:space="preserve">
+    <value>Une page blanche pour une nouvelle aventure !</value>
+  </data>
+  <data name="Oops_Draw_something_first_before_we_do_magic" xml:space="preserve">
+    <value>Oups ! Dessine quelque chose avant que nous fassions de la magie.</value>
+  </data>
+  <data name="Im_thinking" xml:space="preserve">
+    <value>Je réfléchis...</value>
+  </data>
+  <data name="Draw_your_fairy_tale_idea" xml:space="preserve">
+    <value>Dessine ton idée de conte de fées !</value>
+  </data>
+  <data name="What_do_you_think_your_drawing_will_turn_into" xml:space="preserve">
+    <value>Que va devenir ton dessin ?</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="magic_wand" xml:space="preserve">
+    <value>Baguette magique</value>
+  </data>
 </root>
