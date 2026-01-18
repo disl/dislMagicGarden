@@ -4,9 +4,10 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:views="clr-namespace:dislMagicGarden.Views"
              xmlns:helpers="clr-namespace:dislMagicGarden.Helpers"
+             xmlns:res="clr-namespace:dislMagicGarden.Properties"
              x:Class="dislMagicGarden.Views.SketchPage"
              Title="SketchPage">
-    <Grid RowDefinitions=" Auto, *, Auto" Padding="10" >
+    <Grid RowDefinitions="Auto, *, Auto" Padding="10" >
 
         <Grid ColumnDefinitions="*,auto" Padding="10,0,10,5" Grid.Row="0" >
 
@@ -18,13 +19,10 @@
                HorizontalOptions="Start" />
 
             <Button  Grid.Column="1"
-                 FontAttributes="Bold"
-        
+                 FontAttributes="Bold"        
                  VerticalOptions="Center"
-                 HorizontalOptions="End"
-        
+                 HorizontalOptions="End"        
                  FontSize="24"
-
                  Clicked="Close_Clicked" >
                 <Button.ImageSource>
                     <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE5C4;" Size="24" />
@@ -33,9 +31,8 @@
 
         </Grid>
 
-        <Border Grid.Row="1"
+        <Border Grid.Row="1" Margin="10,5,10,0"
                 Style="{StaticResource FairyInputBorderStyle}"
-                
                 >
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="20" />
@@ -43,14 +40,14 @@
 
             <toolkit:DrawingView x:Name="MainDrawingView"
                                  LineColor="Black"
-                                 BackgroundColor="{StaticResource BlossomPink}"
+                                 BackgroundColor="{StaticResource FairyRose}"
                                  LineWidth="6"
                                  IsMultiLineModeEnabled="True" />
         </Border>
 
-        <VerticalStackLayout Grid.Row="2" Spacing="12">
+        <VerticalStackLayout Grid.Row="2" Spacing="10">
 
-            <ActivityIndicator x:Name="LoadingSpinner" IsRunning="False" HeightRequest="20" />
+            <ActivityIndicator x:Name="LoadingSpinner" IsRunning="False" Color="{StaticResource BlossomPink}" HeightRequest="30" />
 
             <Label x:Name="DeepSeekResult" 
                    Text="{helpers:Translate Key=What_do_you_think_your_drawing_will_turn_into}" 
@@ -58,19 +55,26 @@
                    FontSize="16"
                    FontAttributes="Italic" />
 
-            <Grid ColumnDefinitions="*, *" ColumnSpacing="10">
+            <Grid ColumnDefinitions="auto, *" ColumnSpacing="12" Margin="10,0,10,0">
                 <Button Grid.Column="0" 
-                        Text="{helpers:Translate Key=Delete}" 
+                        Text="{helpers:Translate Key=Delete}"
+                        BackgroundColor="{StaticResource BlossomPink}"
                         Clicked="OnClearClicked" 
                         Style="{StaticResource SecondaryButtonStyle}" 
-                        BackgroundColor="#E0E0E0" 
-                        TextColor="Black" />
+                         >
+                    <Button.ImageSource>
+                        <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE872;" Size="24" />
+                    </Button.ImageSource>
+                </Button>
 
                 <Button Grid.Column="1" 
                         Text="{helpers:Translate Key=magic_wand}" 
-                        Clicked="OnRecognizeSketchClicked" 
-                        BackgroundColor="#512BD4" 
-                        TextColor="White" />
+                        Clicked="OnRecognizeSketchClicked" BackgroundColor="{StaticResource Magenta}"
+                                 >
+                    <Button.ImageSource>
+                        <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE3B7;" Size="24" />
+                    </Button.ImageSource>
+                </Button>
             </Grid>
         </VerticalStackLayout>
 

@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Configuration;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
@@ -8,15 +7,12 @@ namespace dislMagicGarden.Views;
 
 public partial class SketchPage : FairyBasePage
 {
-    private readonly IConfiguration _configuration;
     string apiUrl = "https://api.together.xyz/v1/chat/completions";
     private const string together_key = "295ca86aee0fa946e5398a216deb109147bc05b63a6eaa6a32312bce0a5ca94d"; // In Produktion sicher speichern!
 
-    public SketchPage(IConfiguration configuration)
+    public SketchPage()
     {
         InitializeComponent();
-
-        _configuration = configuration;
     }
 
     private void OnClearClicked(object sender, EventArgs e)
@@ -39,7 +35,9 @@ public partial class SketchPage : FairyBasePage
         try
         {
             // 1. Skizze als Stream exportieren (Format & Größe)
-            using var imageStream = await MainDrawingView.GetImageStream(800, 800);
+            using var imageStream = await MainDrawingView.GetImageStream(512, 512);
+
+            if (imageStream == null) return;
 
             // 2. In Byte-Array umwandeln
             using var memoryStream = new MemoryStream();
@@ -70,8 +68,8 @@ public partial class SketchPage : FairyBasePage
 
         var payload = new
         {
-            // Llama 3.2 Vision ist bei Together extrem günstig und schnell
-            model = "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
+            model = "meta-llama/Llama-3.2-11B-Vision-Instruct-Turbo",
+            //model = "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
             messages = new[]
         {
             new
@@ -91,7 +89,7 @@ public partial class SketchPage : FairyBasePage
                 }
             }
         },
-            max_tokens = 512,
+            max_tokens = 200,
             temperature = 0.7
         };
 
@@ -126,6 +124,7 @@ public partial class SketchPage : FairyBasePage
 
     private async void Close_Clicked(object sender, EventArgs e)
     {
+        MainDrawingView.Clear(); // Leert die Grafik-Layer vor dem Verlassen
         await Shell.Current.GoToAsync("//HomePage");
     }
 }
