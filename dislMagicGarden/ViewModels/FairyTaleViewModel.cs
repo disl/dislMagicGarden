@@ -6,8 +6,6 @@ using dislMagicGarden.Properties;
 using dislMagicGarden.Services;
 using dislMagicGarden.Views;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Globalization;
 
 namespace dislMagicGarden.ViewModels
 {
@@ -302,7 +300,7 @@ namespace dislMagicGarden.ViewModels
         }
 
         [RelayCommand]
-        private async Task GenerateFairyTale()
+        public async Task GenerateFairyTale()
         {
             if (string.IsNullOrWhiteSpace(Theme))
             {
@@ -337,7 +335,7 @@ namespace dislMagicGarden.ViewModels
                         .PushModalAsync(new FairyTaleResultPage(model, _textToSpeechService), true);
                 }
 
-                StatusMessage = $"Fertig! ({CurrentFairyTale.GenerationTime.TotalSeconds:F1}s)";
+                StatusMessage = $"Done! ({CurrentFairyTale.GenerationTime.TotalSeconds:F1}s)";
 
                 //string encodedPrompt = Uri.EscapeDataString(Theme);
                 //await Shell.Current.GoToAsync($"{nameof(ColoringGenerator)}?Prompt={encodedPrompt}");

@@ -1,3 +1,4 @@
+using dislMagicGarden.ViewModels;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
@@ -9,10 +10,13 @@ public partial class SketchPage : FairyBasePage
 {
     string apiUrl = "https://api.together.xyz/v1/chat/completions";
     private const string together_key = "295ca86aee0fa946e5398a216deb109147bc05b63a6eaa6a32312bce0a5ca94d"; // In Produktion sicher speichern!
+    private readonly FairyTaleViewModel _fairyTaleViewModel;
 
-    public SketchPage()
+    public SketchPage(FairyTaleViewModel fairyTaleViewModel)
     {
         InitializeComponent();
+
+        _fairyTaleViewModel=fairyTaleViewModel;
     }
 
     private void OnClearClicked(object sender, EventArgs e)
@@ -68,8 +72,8 @@ public partial class SketchPage : FairyBasePage
 
         var payload = new
         {
-            model = "meta-llama/Llama-3.2-11B-Vision-Instruct-Turbo",
-            //model = "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
+            //model = "meta-llama/Llama-3.2-11B-Vision-Instruct-Turbo",
+            model = "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
             messages = new[]
         {
             new
@@ -80,7 +84,7 @@ public partial class SketchPage : FairyBasePage
                     new {
                         type = "text",
                         text = "Du bist ein magischer Märchenerzähler. " +
-                        "Was siehst du auf diesem Bild? Beschreibe es kurz und fantasievoll für ein Kind."
+                        "Was siehst du auf diesem Bild? Beschreibe es kurz und fantasievoll für ein Kind. Nicht mehr als 3-4 Saetze"
                     },
                     new {
                         type = "image_url",
@@ -110,6 +114,13 @@ public partial class SketchPage : FairyBasePage
                 var result_content = node?["choices"]?[0]?["message"]?["content"]?.ToString();
 
                 DeepSeekResult.Text = result_content;
+
+                if (!string.IsNullOrEmpty(result_content))
+                {
+                    var navigationParameter = new Dictionary<string, object> { { "Note", result_content } };
+
+                    await Shell.Current.GoToAsync("//FairyTalePage", navigationParameter);
+                }
             }
             else
             {
@@ -126,5 +137,35 @@ public partial class SketchPage : FairyBasePage
     {
         MainDrawingView.Clear(); // Leert die Grafik-Layer vor dem Verlassen
         await Shell.Current.GoToAsync("//HomePage");
+    }
+
+    private async void OnCreate_Clicked(object sender, EventArgs e)
+    {
+
+        if (string.IsNullOrWhiteSpace(DeepSeekResult.Text) || DeepSeekResult.Text == Properties.Resources.Im_thinking)
+        {
+            /*  await DisplayAlert(Properties.Resources.Error, Properties.Resources.Please_draw_and_recognize_an_object_before_creating_a_story, "OK")*/
+            ;
+            return;
+        }
+
+        var navigationParameter = new Dictionary<string, object>
+                                    {
+                                        { "Note", DeepSeekResult.Text }
+                                    };
+
+        await Shell.Current.GoToAsync("//FairyTalePage", navigationParameter);
+
+        /*
+         Theme = Theme,
+                    Style = SelectedStyle,
+                    Mode = SelectedMode,
+                    ImageCount = SelectedMode == GenerationMode.FullStory ? 4 : 0,
+                    Duration_min = SelectedDuration,
+                    FairyTaleType = SelectedFairyTaleType?.Type ?? FairyTaleType.Funny,
+                    Gender_male = SelectedGender
+         */
+
+        //await _fairyTaleViewModel.GenerateFairyTale();
     }
 }

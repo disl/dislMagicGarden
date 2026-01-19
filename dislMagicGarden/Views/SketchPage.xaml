@@ -60,7 +60,6 @@
                         Text="{helpers:Translate Key=Delete}"
                         BackgroundColor="{StaticResource BlossomPink}"
                         Clicked="OnClearClicked" 
-                        Style="{StaticResource SecondaryButtonStyle}" 
                          >
                     <Button.ImageSource>
                         <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE872;" Size="24" />
@@ -74,7 +73,17 @@
                     <Button.ImageSource>
                         <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE3B7;" Size="24" />
                     </Button.ImageSource>
-                </Button>
+                </Button> 
+                
+                <!--<Button Grid.Column="1" 
+                        Text="{helpers:Translate Key=magic_wand}" 
+                        Clicked="OnCreate_Clicked" 
+                        BackgroundColor="{StaticResource Magenta}"
+                                 >
+                    <Button.ImageSource>
+                        <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE3B7;" Size="24" />
+                    </Button.ImageSource>
+                </Button>-->
             </Grid>
         </VerticalStackLayout>
 

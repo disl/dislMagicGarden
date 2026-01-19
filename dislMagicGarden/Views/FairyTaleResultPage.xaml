@@ -11,26 +11,42 @@
           RowDefinitions="Auto,*">
 
         <!-- Header -->
-        <Grid Background="{StaticResource BlossomPink}"
-              Padding="15,10"
+        <Border Style="{StaticResource FairyInputBorderStyle}"
+         StrokeShape="RoundRectangle 8"
+         Padding="10">
+            <Grid Background="Transparent"
+              Padding="10,10,0,10"
               RowDefinitions="Auto"
               ColumnDefinitions="*,Auto"
               >
 
-            <Label Grid.Column="0"
+                <Label Grid.Column="0"
                    Text="{Binding FairyTale.Title}"
                    FontSize="20"
                    FontAttributes="Bold"
-                   TextColor="White"
+                   
                    VerticalOptions="Center" />
 
-            <Button Grid.Column="1"
+                <Button  Grid.Column="1"
+          FontAttributes="Bold"
+          VerticalOptions="Center"
+          HorizontalOptions="End"
+          FontSize="24"
+         Command="{Binding CloseCommand}" >
+                    <Button.ImageSource>
+                        <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE5C4;" Size="24" />
+                    </Button.ImageSource>
+                </Button>
+
+
+                <!--<Button Grid.Column="1"
                     Text="✕"
                     BackgroundColor="Transparent"
                     TextColor="White"
                     FontSize="24"
-                    Command="{Binding CloseCommand}" />
-        </Grid>
+                    Command="{Binding CloseCommand}" />-->
+            </Grid>
+        </Border>
 
         <!-- Content -->
         <ScrollView Grid.Row="1" Padding="5">

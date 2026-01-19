@@ -29,7 +29,7 @@
                            BackgroundColor="LightGray" />-->
 
             <Grid ColumnDefinitions="*,auto" Padding="10,0,10,0">
-                
+
                 <Label Text="{x:Static res:Resources.Fairy_Tale_Generator}"
                    Grid.Column="0"
                    VerticalOptions="Center"                       
@@ -61,9 +61,11 @@
 
                        ColumnSpacing="10">
 
-                        <Editor Text="{Binding Theme}" 
-                                Grid.Column="0"
+                        <Editor Text="{Binding Theme}" Grid.Column="0" 
+                                                  AutoSize="Disabled"         
                                 Placeholder="{x:Static res:Resources.A_brave_squirrel_saves_the_forest}"
+                                MaximumHeightRequest="100"
+                                VerticalOptions="Start"
                                 TextColor="{StaticResource MagicBlackSoft}"
                                 PlaceholderColor="Gray" />
 

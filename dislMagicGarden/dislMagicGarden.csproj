@@ -56,8 +56,8 @@
 	
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-android|AnyCPU'">
-	  <ApplicationDisplayVersion>1.21</ApplicationDisplayVersion>
-	  <ApplicationVersion>21</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.22</ApplicationDisplayVersion>
+	  <ApplicationVersion>22</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-ios|AnyCPU'">
@@ -76,8 +76,8 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android|AnyCPU'">
-	  <ApplicationDisplayVersion>1.21</ApplicationDisplayVersion>
-	  <ApplicationVersion>21</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.22</ApplicationDisplayVersion>
+	  <ApplicationVersion>22</ApplicationVersion>
 	  <AndroidLinkTool>r8</AndroidLinkTool>
 	</PropertyGroup>
 

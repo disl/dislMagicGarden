@@ -2,10 +2,11 @@
 using dislMagicGarden.ViewModels;
 using System.Diagnostics;
 using System.Windows.Input;
+using static Android.Provider.ContactsContract.CommonDataKinds;
 
 namespace dislMagicGarden.Views;
 
-public partial class FairyTalePage : FairyBasePage
+public partial class FairyTalePage : FairyBasePage, IQueryAttributable
 {
     private int _storyCount = 0;
     public ICommand GenerateStoryCommand { get; }
@@ -23,6 +24,13 @@ public partial class FairyTalePage : FairyBasePage
         _adService.OnAdStatusChanged += OnAdStatusChanged;
 
         InitializeAds();
+    }
+
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        var note = query["Note"] as string;
+
+        ((FairyTaleViewModel)BindingContext).Theme = note ?? string.Empty;
     }
 
     protected async override void OnAppearing()
@@ -97,4 +105,5 @@ public partial class FairyTalePage : FairyBasePage
         await Shell.Current.GoToAsync("//HomePage");
     }
 
+    
 }
