@@ -427,5 +427,30 @@ namespace dislMagicGarden.ViewModels
             // Optional: Dialog anzeigen
             await Application.Current.MainPage.DisplayAlert(Properties.Resources.Error, message, "OK");
         }
+
+
+        [RelayCommand]
+
+        public async Task<List<string>?> TestGenerateNextStoryStepAsync()
+        {
+
+            try
+            {
+                IsGenerating = true;
+
+                var result = await _fairyTaleService.GetMaerchenThemenFromDeepSeekAsync();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                await ShowErrorAsync($"{Properties.Resources.Error}: {ex.Message}");
+                return null;
+
+            }
+            finally
+            {
+                IsGenerating = false;
+            }
+        }
     }
 }

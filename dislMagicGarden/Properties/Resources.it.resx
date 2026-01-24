@@ -408,4 +408,10 @@
   <data name="magic_wand" xml:space="preserve">
     <value>Bacchetta magica</value>
   </data>
+  <data name="Call_up_random_topics_list" xml:space="preserve">
+    <value>Richiedi elenco argomenti casuali</value>
+  </data>
+  <data name="Select_a_random_topic" xml:space="preserve">
+    <value>Scegli un argomento a caso...</value>
+  </data>
 </root>

@@ -2,8 +2,10 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
 namespace dislMagicGarden.Services
@@ -14,6 +16,8 @@ namespace dislMagicGarden.Services
         Task<decimal> EstimateCostAsync(FairyTaleRequest request);
         Task<TextOnlyResponse> GenerateTextOnlyAsync(string theme);
         Task<FairyTaleResponse> GenerateNextStoryStepAsync(string theme, string lastChoice, List<string> history);
+
+        Task<List<string>> GetMaerchenThemenFromDeepSeekAsync();
     }
 
     public class HybridFairyTaleService : IHybridFairyTaleService
@@ -63,14 +67,12 @@ namespace dislMagicGarden.Services
         {
             // Internetverbindung prüfen
             if (_connectivity.NetworkAccess != NetworkAccess.Internet)
-                throw new Exception("Keine Internetverbindung. Bitte überprüfe deine Verbindung.");
+                throw new Exception("No internet connection. Please check your connection.");
 
             var stopwatch = Stopwatch.StartNew();
 
             try
             {
-                _logger.LogInformation("Starte Märchen-Generierung für Thema: {Theme}", request.Theme);
-
                 // 1. Text mit DeepSeek generieren
                 var textResult = await GenerateTextWithDeepSeekAsync(request);
 
@@ -123,6 +125,42 @@ namespace dislMagicGarden.Services
                 throw new Exception($"Fehler: {ex.Message}");
             }
         }
+
+        public async Task<List<string>> GetMaerchenThemenFromDeepSeekAsync()
+        {
+            using var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _deepSeekApiKey);
+
+            var payload = new
+            {
+                model = "deepseek-chat",
+                messages = new[]
+                {
+            new { role = "system", content = "Du bist ein kreativer Autor. Generiere 10 verschiedene, kurze Märchenthemen für Kinder. Jedes Thema genau ein Satz. Gib NUR die Themen untereinander aus, ohne Nummern oder Bindestriche." },
+            new { role = "user", content = "Gib mir 10 neue Themen." }
+        },
+                temperature = 1.0 // Höhere Temperatur für mehr Zufall
+            };
+
+            var response = await client.PostAsync("https://api.deepseek.com/chat/completions",
+                new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json"));
+
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                var node = JsonNode.Parse(json);
+                string content = node["choices"]?[0]?["message"]?["content"]?.ToString();
+
+                // Den Text in eine Liste von Zeilen splitten
+                return content.Split('\n', StringSplitOptions.RemoveEmptyEntries)
+                              .Select(s => s.Trim())
+                              .ToList();
+            }
+            return new List<string> { "Ein magisches Abenteuer erwartet dich..." };
+        }
+
+        // Button-Click Event
+        
 
         public async Task<TextOnlyResponse> GenerateTextOnlyAsync(string theme)
         {

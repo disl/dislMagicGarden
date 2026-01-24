@@ -2,7 +2,6 @@
 using dislMagicGarden.ViewModels;
 using System.Diagnostics;
 using System.Windows.Input;
-using static Android.Provider.ContactsContract.CommonDataKinds;
 
 namespace dislMagicGarden.Views;
 
@@ -24,6 +23,8 @@ public partial class FairyTalePage : FairyBasePage, IQueryAttributable
         _adService.OnAdStatusChanged += OnAdStatusChanged;
 
         InitializeAds();
+
+        //OnReloadThemesClicked(null, null);
     }
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -34,7 +35,7 @@ public partial class FairyTalePage : FairyBasePage, IQueryAttributable
     }
 
     protected async override void OnAppearing()
-    {        
+    {
         // Bei Seitenwechsel Ad prüfen
         //Device.StartTimer(TimeSpan.FromSeconds(1), () =>
         //{
@@ -105,5 +106,45 @@ public partial class FairyTalePage : FairyBasePage, IQueryAttributable
         await Shell.Current.GoToAsync("//HomePage");
     }
 
-    
+    private async void OnReloadThemesClicked(object sender, EventArgs e)
+    {
+        try
+        {
+            ReloadThemesButton.IsEnabled = false;
+
+            var themes = await ((FairyTaleViewModel)BindingContext).TestGenerateNextStoryStepAsync();
+
+            if (themes == null)
+                return;
+
+            ThemePicker.ItemsSource = themes;
+
+            //if (themes.Any())
+            //    ThemePicker.SelectedIndex = 0;
+
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert(Properties.Resources.Error,  ex.Message, "OK");
+        }
+        finally
+        {
+            ReloadThemesButton.IsEnabled = true;
+        }
+    }
+
+    private void ThemePicker_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        ((FairyTaleViewModel)BindingContext).Theme = ThemePicker.SelectedItem as string ?? string.Empty;
+    }
+
+    private void ThemePicker_Focused(object sender, FocusEventArgs e)
+    {
+        if(ThemePicker.ItemsSource==null)
+        {
+            ThemePicker.Unfocus();
+
+            OnReloadThemesClicked(null, null);
+        }
+    }
 }

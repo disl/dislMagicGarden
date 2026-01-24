@@ -142,6 +142,15 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Call up random topics list ähnelt.
+        /// </summary>
+        internal static string Call_up_random_topics_list {
+            get {
+                return ResourceManager.GetString("Call_up_random_topics_list", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Chapter ähnelt.
         /// </summary>
         internal static string Chapter {
@@ -723,6 +732,15 @@ namespace dislMagicGarden.Properties {
         internal static string Select {
             get {
                 return ResourceManager.GetString("Select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Select a random topic... ähnelt.
+        /// </summary>
+        internal static string Select_a_random_topic {
+            get {
+                return ResourceManager.GetString("Select_a_random_topic", resourceCulture);
             }
         }
         

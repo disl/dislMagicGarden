@@ -57,42 +57,66 @@
                            FontAttributes="Bold"
                            TextColor="{StaticResource MagicBlackSoft}" />
 
-                    <Grid ColumnDefinitions="*,Auto,Auto"
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="5">
 
-                       ColumnSpacing="10">
-
-                        <Editor Text="{Binding Theme}" Grid.Column="0" 
-                                                  AutoSize="Disabled"         
+                        <Entry Text="{Binding Theme}" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
                                 Placeholder="{x:Static res:Resources.A_brave_squirrel_saves_the_forest}"
-                                MaximumHeightRequest="100"
-                                VerticalOptions="Start"
                                 TextColor="{StaticResource MagicBlackSoft}"
                                 PlaceholderColor="Gray" />
 
                         <Button 
-                                Grid.Column="1"
+                                Grid.Column="0" Grid.Row="1"
                                 VerticalOptions="Start"
                                 CornerRadius="10"
-                                FontSize="Medium"
+                 
                                 Style="{StaticResource MagicButtonStyle}"                        
                                 Command="{Binding ClearButtonCommand}" >
                             <Button.ImageSource>
-                                <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE872;" Size="24" />
+                                <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE872;"  />
                             </Button.ImageSource>
                         </Button>
 
                         <Button 
-                            Grid.Column="2"
+                            Grid.Column="1" Grid.Row="1"
                             CornerRadius="10"
-                           
+                            FontSize="Medium"
                             VerticalOptions="Start"
                             Command="{Binding AudioRecognationCommand}"
                             Style="{StaticResource MagicButtonStyle}" >
                             <Button.ImageSource>
-                                <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE31D;" Size="24"  />
+                                <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE31D;"   />
                             </Button.ImageSource>
                         </Button>
+
+
+                        
+                        <!-- Zufalls-Themen -->
+                        <Picker x:Name="ThemePicker" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"
+                                    Title="{x:Static res:Resources.Select_a_random_topic}"
+                                    TitleColor="Gray"
+                                    Focused="ThemePicker_Focused"
+                                    SelectedIndexChanged="ThemePicker_SelectedIndexChanged"
+                                    TextColor="{StaticResource MagicBlackSoft}"
+                                    HorizontalOptions="Fill" />
+
+                        <Button  
+                            x:Name="ReloadThemesButton"
+                             Text="{x:Static res:Resources.Call_up_random_topics_list}"  
+                             Grid.Row="3" Grid.ColumnSpan="2"   
+                             FontSize="Header"
+                             VerticalOptions="Start"
+                             CornerRadius="10"
+                             Style="{StaticResource MagicButtonStyle}"      
+                             Clicked="OnReloadThemesClicked" >
+                            
+                        </Button>
+
                     </Grid>
+
+
+
+
+
                 </VerticalStackLayout>
             </Border>
 
