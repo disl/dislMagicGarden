@@ -57,7 +57,7 @@
                            FontAttributes="Bold"
                            TextColor="{StaticResource MagicBlackSoft}" />
 
-                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="5">
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="10">
 
                         <Entry Text="{Binding Theme}" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
                                 Placeholder="{x:Static res:Resources.A_brave_squirrel_saves_the_forest}"
@@ -72,7 +72,7 @@
                                 Style="{StaticResource MagicButtonStyle}"                        
                                 Command="{Binding ClearButtonCommand}" >
                             <Button.ImageSource>
-                                <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE872;"  />
+                                <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE872;" FontAutoScalingEnabled="True"  />
                             </Button.ImageSource>
                         </Button>
 
@@ -84,22 +84,52 @@
                             Command="{Binding AudioRecognationCommand}"
                             Style="{StaticResource MagicButtonStyle}" >
                             <Button.ImageSource>
-                                <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE31D;"   />
+                                <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE31D;" FontAutoScalingEnabled="True"   />
                             </Button.ImageSource>
                         </Button>
 
 
-                        
+
                         <!-- Zufalls-Themen -->
-                        <Picker x:Name="ThemePicker" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"
+                        <Grid ColumnDefinitions="*,Auto" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+
+                            <Picker x:Name="ThemePicker" Grid.Column="0" 
                                     Title="{x:Static res:Resources.Select_a_random_topic}"
                                     TitleColor="Gray"
                                     Focused="ThemePicker_Focused"
+                                    IsEnabled="{Binding IsNotLoadingThemes}"
                                     SelectedIndexChanged="ThemePicker_SelectedIndexChanged"
                                     TextColor="{StaticResource MagicBlackSoft}"
-                                    HorizontalOptions="Fill" />
+                                    />
 
-                        <Button  
+                            <ActivityIndicator 
+                                    Grid.Column="1"
+                                    IsRunning="{Binding IsLoadingThemes}"
+                                    Color="Tomato"
+                                    WidthRequest="24"
+                                    HeightRequest="24"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="End"
+                                    Margin="10,0,0,0"
+                                    IsVisible="{Binding IsLoadingThemes}" />
+                        </Grid>
+
+                        <Button  Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"
+                                    x:Name="ReloadThemesButton"
+                                     Text="{x:Static res:Resources.Call_up_random_topics_list}"  
+                                     FontSize="Header"
+                                     VerticalOptions="Start" 
+                                     CornerRadius="10"
+                                     Style="{StaticResource MagicButtonStyle}"      
+                                     Clicked="OnReloadThemesClicked" >
+                        </Button>
+
+
+
+
+
+
+                        <!--<Button  
                             x:Name="ReloadThemesButton"
                              Text="{x:Static res:Resources.Call_up_random_topics_list}"  
                              Grid.Row="3" Grid.ColumnSpan="2"   
@@ -109,7 +139,7 @@
                              Style="{StaticResource MagicButtonStyle}"      
                              Clicked="OnReloadThemesClicked" >
                             
-                        </Button>
+                        </Button>-->
 
                     </Grid>
 

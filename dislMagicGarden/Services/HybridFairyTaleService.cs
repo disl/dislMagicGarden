@@ -131,14 +131,24 @@ namespace dislMagicGarden.Services
             using var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _deepSeekApiKey);
 
+            string _currentLanguage = Thread.CurrentThread.CurrentCulture.NativeName;
+
             var payload = new
             {
                 model = "deepseek-chat",
                 messages = new[]
                 {
-            new { role = "system", content = "Du bist ein kreativer Autor. Generiere 10 verschiedene, kurze Märchenthemen für Kinder. Jedes Thema genau ein Satz. Gib NUR die Themen untereinander aus, ohne Nummern oder Bindestriche." },
-            new { role = "user", content = "Gib mir 10 neue Themen." }
-        },
+                    new {
+                        role = "system",
+                        content = 
+                "Du bist ein kreativer Autor. Generiere 10 verschiedene, kurze Märchenthemen für Kinder." +
+                
+                          " Jedes Thema genau ein Satz. Gib NUR die Themen untereinander aus, ohne Nummern oder Bindestriche." +
+                          " Ausgabesprache: " + _currentLanguage
+
+                    },
+                    new { role = "user", content = "Gib mir 10 neue Themen." }
+                },
                 temperature = 1.0 // Höhere Temperatur für mehr Zufall
             };
 

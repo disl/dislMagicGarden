@@ -81,11 +81,16 @@ namespace dislMagicGarden.ViewModels
         [ObservableProperty]
         FairyTaleTypeOption? selectedFairyTaleType;
 
-        //public FairyTaleTypeOption? SelectedFairyTaleType
-        //{
-        //    get => _selectedFairyTaleType;
-        //    set => SetProperty(ref _selectedFairyTaleType, value);
-        //}
+        [ObservableProperty] bool isLoadingThemes;
+        [ObservableProperty] bool isNotLoadingThemes=true;
+
+        partial void OnIsLoadingThemesChanged(bool value)
+        {
+            IsNotLoadingThemes = !value;
+        }
+
+
+
 
 
 
@@ -436,7 +441,7 @@ namespace dislMagicGarden.ViewModels
 
             try
             {
-                IsGenerating = true;
+                IsLoadingThemes = true;
 
                 var result = await _fairyTaleService.GetMaerchenThemenFromDeepSeekAsync();
                 return result;
@@ -449,7 +454,7 @@ namespace dislMagicGarden.ViewModels
             }
             finally
             {
-                IsGenerating = false;
+                IsLoadingThemes = false;
             }
         }
     }
