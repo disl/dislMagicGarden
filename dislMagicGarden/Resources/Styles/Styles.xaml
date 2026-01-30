@@ -462,6 +462,7 @@
         <Setter Property="CornerRadius" Value="20"/>
         <Setter Property="FontAttributes" Value="Bold"/>
         <Setter Property="Padding" Value="14,10"/>
+        <Setter Property="LineBreakMode" Value="WordWrap" />
         <Setter Property="Shadow">
             <Setter.Value>
                 <Shadow Brush="#FF84C9"

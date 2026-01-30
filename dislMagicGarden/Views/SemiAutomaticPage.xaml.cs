@@ -60,9 +60,19 @@ public partial class SemiAutomaticPage : FairyBasePage
 
     private async void OnOptionSelected(object sender, EventArgs e)
     {
-        if (sender is not Button button) return;
+        if (sender == null || (sender is not Button button && sender is not Entry entry)) 
+            return;
 
-        string selectedOption = button.Text;
+        string selectedOption = string.Empty;
+
+        if (sender is Button)
+        {
+            selectedOption = (sender as Button).Text;
+        }
+        else if (sender is Entry)
+        {
+            selectedOption = (sender as Entry).Text;
+        }
 
         _storyHistory.Add($"{selectedOption}");
 
@@ -108,6 +118,8 @@ public partial class SemiAutomaticPage : FairyBasePage
                 Option2Btn.Text = result.Options[1];
                 Option3Btn.Text = result.Options[2];
             }
+
+            Option4Entry.Text = string.Empty;
 
             await StoryBorder.ScaleTo(1.02, 80);
             await StoryBorder.ScaleTo(1.0, 80);
@@ -159,4 +171,5 @@ public partial class SemiAutomaticPage : FairyBasePage
 
         await Navigation.PushModalAsync(historyPage);
     }
+
 }

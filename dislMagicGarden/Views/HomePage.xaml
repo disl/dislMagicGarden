@@ -53,6 +53,7 @@
                     <Label Text="{helpers:Translate Key=Home_Welcome}"
                        HorizontalOptions="Center"
                        FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
                        FontSize="20"
                        TextColor="{StaticResource BlossomPink}" />
 

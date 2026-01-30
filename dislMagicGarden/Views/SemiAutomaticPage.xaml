@@ -90,19 +90,23 @@
             </Border>
 
             <!-- Options-Buttons -->
-            <StackLayout Grid.Row="2" Spacing="8" Padding="0,8,0,0">
+            <StackLayout Grid.Row="2" Spacing="10" Padding="0,5,0,5">
                 <Button x:Name="Option1Btn" 
                         Text="Option 1" 
                         Style="{StaticResource MagicButtonStyle}"                   
                         BackgroundColor="#FF6B6B"
                         FontSize="13"
+                        HeightRequest="-1"
+                        Padding="0"        
+                        VerticalOptions="Center"                        
                         Clicked="OnOptionSelected" />
 
                 <Button x:Name="Option2Btn" 
                         Text="Option 2" 
                         Style="{StaticResource MagicButtonStyle}"
                         BackgroundColor="#4D96FF"
-                        FontSize="13"
+                        FontSize="13"          
+                        HeightRequest="-1"
                         Clicked="OnOptionSelected" />
 
                 <Button x:Name="Option3Btn" 
@@ -110,7 +114,14 @@
                         Style="{StaticResource MagicButtonStyle}"
                         BackgroundColor="#6BCB77"
                         FontSize="13"
+                        HeightRequest="-1"
                         Clicked="OnOptionSelected" />
+
+                <Entry 
+                    x:Name="Option4Entry"  
+                    Placeholder="{helpers:Translate Key=Your_suggestion}"    
+                    Completed="OnOptionSelected"
+                />
 
                 <ActivityIndicator x:Name="LoadingIndicator" 
                                    IsRunning="False" 

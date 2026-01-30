@@ -950,5 +950,14 @@ namespace dislMagicGarden.Properties {
                 return ResourceManager.GetString("Your_description_appears_here", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Your suggestion? ähnelt.
+        /// </summary>
+        internal static string Your_suggestion {
+            get {
+                return ResourceManager.GetString("Your_suggestion", resourceCulture);
+            }
+        }
     }
 }
