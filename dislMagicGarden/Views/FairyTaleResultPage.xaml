@@ -12,13 +12,12 @@
 
         <!-- Header -->
         <Border Style="{StaticResource FairyInputBorderStyle}"
-         StrokeShape="RoundRectangle 8"
-         Padding="10">
+                StrokeShape="RoundRectangle 8"
+                Padding="10">
             <Grid Background="Transparent"
               Padding="10,10,0,10"
               RowDefinitions="Auto"
-              ColumnDefinitions="*,Auto"
-              >
+              ColumnDefinitions="*,Auto" >
 
                 <Label Grid.Column="0"
                    Text="{Binding FairyTale.Title}"
@@ -28,14 +27,14 @@
                    VerticalOptions="Center" />
 
                 <Button  Grid.Column="1"
-          FontAttributes="Bold"
-          VerticalOptions="Center"
-          HorizontalOptions="End"
-          FontSize="24"
-         Command="{Binding CloseCommand}" >
-                    <Button.ImageSource>
-                        <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE5C4;" Size="24" />
-                    </Button.ImageSource>
+                          FontAttributes="Bold"
+                          VerticalOptions="Center"
+                          HorizontalOptions="End"
+                          FontSize="24"
+                         Command="{Binding CloseCommand}" >
+                                    <Button.ImageSource>
+                                        <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE5C4;" Size="24" />
+                                    </Button.ImageSource>
                 </Button>
 
 

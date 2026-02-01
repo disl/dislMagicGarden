@@ -34,16 +34,6 @@ public partial class FairyTalePage : FairyBasePage, IQueryAttributable
         ((FairyTaleViewModel)BindingContext).Theme = note ?? string.Empty;
     }
 
-    protected async override void OnAppearing()
-    {
-        // Bei Seitenwechsel Ad prüfen
-        //Device.StartTimer(TimeSpan.FromSeconds(1), () =>
-        //{
-        //    _adService.TryShowInterstitial();
-        //    return false; // Nur einmal ausführen
-        //});
-    }
-
     private void InitializeAds()
     {
         try

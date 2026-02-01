@@ -12,6 +12,16 @@
     <Color x:Key="BlossomPink">#FF9ECD</Color>
     <Color x:Key="CottonCandy">#FFE2F1</Color>
 
+    <Color x:Key="AdventureBlue">#4A90E2</Color>
+    <Color x:Key="SkyAbyss">#D1E9FF</Color>
+    <Color x:Key="DeepSeaBlue">#2171C1</Color>
+
+    <Color x:Key="ThemePrimaryColor">#FF9ECD</Color>
+    <Color x:Key="ThemeBackgroundColor">#FFE2F1</Color>
+
+    <Color x:Key="DynamicPageBackground">#FFE2F1</Color>
+    <Color x:Key="ThemeLabelColor">#4A4A4A</Color>
+
     <!-- Sekundär -->
     <Color x:Key="LavenderDream">#C7A5FF</Color>
     <Color x:Key="MintGarden">#C8F7DC</Color>

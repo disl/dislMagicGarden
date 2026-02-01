@@ -5,7 +5,6 @@
              x:Class="dislMagicGarden.Views.HomePage"
              xmlns:helpers="clr-namespace:dislMagicGarden.Helpers"
              xmlns:views="clr-namespace:dislMagicGarden.Views"
-             BackgroundColor="{StaticResource CottonCandy}"
              Title="Magic Garden">
 
     <Grid>
@@ -18,13 +17,32 @@
         <ScrollView>
             <VerticalStackLayout Padding="15">
 
-                <Grid ColumnDefinitions="*,auto" Padding="10,3,10,0">
+                <Grid ColumnDefinitions="auto,*,auto" Padding="10,3,10,0" >
 
                     <Label Text="{Binding AppVersion}" 
-                           Grid.Column="0" FontSize="Body" VerticalOptions="Center"  />
+                           Style="{StaticResource FairyLabelStyle}"
+                           Grid.Column="0" FontSize="Body" 
+                           VerticalOptions="Center"  />
+
+                    <!-- Style -->
+                    <HorizontalStackLayout Spacing="3" HorizontalOptions="Center" Padding="10" Grid.Column="1">
+                        <Label Text="👧" 
+                               VerticalOptions="Center"
+                               FontSize="Title"
+                               Style="{StaticResource FairyLabelStyle}"
+                               />
+
+                        <Switch IsToggled="{Binding IsBlueTheme}"  />
+
+
+                        <Label Text="👦" 
+                               VerticalOptions="Center"  
+                               FontSize="Title" 
+                               Style="{StaticResource FairyLabelStyle}"/>
+                    </HorizontalStackLayout>
 
                     <Picker Title="{helpers:Translate Key=Select_language}"
-                        Grid.Column="1"
+                        Grid.Column="2"
                         VerticalOptions="Center"
                     
                         ItemsSource="{Binding AvailableLanguages}"
@@ -44,7 +62,7 @@
                         <Border.Shadow>
                             <Shadow />
                         </Border.Shadow>
-                        <Image Source="header_fairy_4.webp"
+                        <Image Source="{Binding HeaderTaleImage}"
                            Aspect="AspectFit"
                            HeightRequest="180" />
                     </Border>
@@ -55,7 +73,7 @@
                        FontAttributes="Bold"
                        HorizontalTextAlignment="Center"
                        FontSize="20"
-                       TextColor="{StaticResource BlossomPink}" />
+                        Style="{StaticResource FairyLabelStyle}" />
 
                     <!-- Auto-Generate  Button -->
                     <Border StrokeShape="RoundRectangle 25"
@@ -73,7 +91,7 @@
                             FontSize="20"
                             TextColor="White"
                             HeightRequest="50"
-                         /> 
+                         />
 
                     </Border>
 
@@ -95,7 +113,7 @@
                     </Border>
 
                     <!-- Sketch generate Button -->
-                    <Border StrokeShape="RoundRectangle 25"
+                    <!--<Border StrokeShape="RoundRectangle 25"
                               BackgroundColor="{StaticResource BlossomPink}"
                               StrokeThickness="0"
                               Margin="0"
@@ -109,7 +127,7 @@
                               TextColor="White"
                               HeightRequest="50"
                                />   
-                    </Border>
+                    </Border>-->
 
 
                     <!-- Maskottchen -->
@@ -119,7 +137,7 @@
                            Aspect="AspectFit" />
                         <Label Text="{helpers:Translate Key=Luna_is_waiting}"
                            FontSize="18"
-                           TextColor="{StaticResource MagicBlackSoft}"
+                           Style="{StaticResource FairyLabelStyle}"
                            HorizontalTextAlignment="Center"/>
                     </VerticalStackLayout>
 

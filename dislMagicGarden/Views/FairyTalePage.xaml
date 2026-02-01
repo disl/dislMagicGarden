@@ -167,6 +167,7 @@
 
 
             <!-- Geschlecht -->
+            <!--
             <Border Style="{StaticResource FairyInputBorderStyle}">
                 <VerticalStackLayout>
                     <Label Text="{x:Static res:Resources.Gender}" FontAttributes="Bold" />
@@ -195,7 +196,7 @@
 
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
-            </Border>
+            </Border>-->
             <!-- Sprache auswählen -->
             <!--<Border Style="{StaticResource FairyInputBorderStyle}">
                 <VerticalStackLayout Spacing="10">

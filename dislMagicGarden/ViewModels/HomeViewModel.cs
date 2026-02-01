@@ -10,9 +10,67 @@ namespace dislMagicGarden.ViewModels
 {
     public partial class HomeViewModel : BaseViewModel
     {
-        [ObservableProperty] string appVersion = $"Version {AppInfo.Current.VersionString}";
+        // Sex
+        private const string m_c_selectedGender = "selectedGender";
+        [ObservableProperty]
+        private GenderOption _selectedGender = GenderOption.Female;
+        partial void OnSelectedGenderChanged(GenderOption value)
+        {
+            Preferences.Set(m_c_selectedGender, value.ToString());
+            IsBlueTheme= value == GenderOption.Male;
+        }
 
 
+        // Pictures
+        [ObservableProperty] string headerTaleImage = "header_fairy_4.webp";
+
+        // Thema
+        // In HomeViewModel.cs
+        [ObservableProperty]
+        bool isBlueTheme; // True = Blau, False = Rosa
+
+        partial void OnIsBlueThemeChanged(bool value)
+        {
+            ApplyTheme(value);
+        }
+
+        private void ApplyTheme(bool useBlue)
+        {
+            var res = Application.Current.Resources;
+
+            if (useBlue)
+            {
+                SelectedGender = GenderOption.Male;
+                res["ThemePrimaryColor"] = Color.FromArgb("#4A90E2");
+                res["ThemeBackgroundColor"] = Color.FromArgb("#D1E9FF");
+                // Du kannst hier auch die Hintergrundfarbe der HomePage ändern:
+                res["CottonCandy"] = res["SkyAbyss"];
+                res["ThemeLabelColor"] = Color.FromArgb("#190649"); // Dunkles Blau (MidnightBlue)
+                res["DynamicPageBackground"] = Color.FromArgb("#CFEAFF");
+                HeaderTaleImage = "header_fairy_for_man.webp";
+                
+
+            }
+            else
+            {
+                SelectedGender = GenderOption.Female;
+                res["ThemePrimaryColor"] = Color.FromArgb("#FF9ECD");
+                res["ThemeBackgroundColor"] = Color.FromArgb("#FFE2F1");
+                res["CottonCandy"] = Color.FromArgb("#FFE2F1"); // Original CottonCandy
+                res["ThemeLabelColor"] = Color.FromArgb("#4A4A4A"); // Klassisch Grau (MagicBlackSoft)
+                res["DynamicPageBackground"] = Color.FromArgb("#FFE2F1");
+                HeaderTaleImage = "header_fairy_4.webp";
+                
+            }
+
+            OnPropertyChanged(nameof(HeaderTaleImage));
+            OnPropertyChanged(nameof(IsBlueTheme));
+        }
+
+
+
+
+        [ObservableProperty] string appVersion = $"v. {AppInfo.Current.VersionString}";
         [ObservableProperty] FairyTaleTypeOption? selectedFairyTaleType;
 
         public ObservableCollection<FairyTaleTypeOption> AvailableFairyTaleTypes { get; } = new();
@@ -120,6 +178,16 @@ namespace dislMagicGarden.ViewModels
             SelectedLanguage =
                 AvailableLanguages.FirstOrDefault(l => l.Code == currentCulture)
                 ?? AvailableLanguages.First(l => l.Code.StartsWith("en"));
+
+            var genderString = Preferences.Get(m_c_selectedGender, defaultValue: GenderOption.Neutral.ToString());
+            if (Enum.TryParse<GenderOption>(genderString, out var gender))
+            {
+                SelectedGender = gender;
+            }
+            else
+            {
+                SelectedGender = GenderOption.Neutral;
+            }
         }
 
 

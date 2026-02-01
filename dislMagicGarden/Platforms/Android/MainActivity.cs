@@ -9,7 +9,6 @@ namespace dislMagicGarden
     [Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, LaunchMode = LaunchMode.SingleTop, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Density)]
     public class MainActivity : MauiAppCompatActivity
     {
-
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -25,6 +24,17 @@ namespace dislMagicGarden
 
             // Optional: Set user consent if needed
             //CrossMauiMTAdmob.Current.UserPersonalizedAds = true;
+
+            // AdService erst jetzt starten
+            //try
+            //{
+            //    var adService = Application.Current?.Services?.GetService<dislMagicGarden.Services.AdService>();
+            //    adService?.Start();
+            //}
+            //catch (Exception ex)
+            //{
+            //    Debug.WriteLine($"[MainActivity] AdService Start Fehler: {ex.Message}");
+            //}
         }
 
         public class OnInitializationCompleteListener : Java.Lang.Object, IOnInitializationCompleteListener
