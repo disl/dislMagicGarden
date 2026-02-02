@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using dislMagicGarden.Platforms.Android;
 using dislMagicGarden.Services;
 using dislMagicGarden.Services.dislMagicGarden.Services;
 using dislMagicGarden.ViewModels;
@@ -106,7 +107,13 @@ namespace dislMagicGarden
             builder.UseMauiMTAdmob();
 
 
-
+            builder.Services.AddSingleton<ITextToSpeechService>(
+#if ANDROID
+    new dislMagicGarden.Platforms.Android.TextToSpeechService()
+#elif IOS
+    new YourApp.Platforms.iOS.Services.TextToSpeechService()
+#endif
+);
 
 
 

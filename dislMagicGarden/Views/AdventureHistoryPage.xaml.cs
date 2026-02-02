@@ -71,7 +71,7 @@ public partial class AdventureHistoryPage : FairyBasePage
         var full_text = string.Join(" ", HistoryItems.Select(x => x.Text.Trim()));
         var normolazed_text = PdfExportService.NormalizeText(full_text);
 
-        await _ttsService.Speak(normolazed_text, SpeechSpeed);
+        await _ttsService.SpeakAsync(normolazed_text);
     }
 
     private void StopStory_Clicked(object sender, EventArgs e)

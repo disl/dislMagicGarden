@@ -129,7 +129,7 @@ namespace dislMagicGarden.ViewModels
             SpeechSpeed = Preferences.Get("speechSpeed", 1f);
 
             // Funktioniert plattformübergreifend, dank der Implementierungen
-            await _ttsService.Speak(FairyTale.Story, SpeechSpeed);
+            await _ttsService.SpeakAsync(FairyTale.Story);
         }
     }
 
