@@ -32,6 +32,7 @@ namespace dislMagicGarden.ViewModels
 
         public ICommand SpeakStoryCommand { get; }
         public ICommand StopStoryCommand { get; }
+        public ICommand PauseStoryCommand { get; }
         public ICommand ShareCommand { get; }
         public ICommand CloseCommand { get; }  
         public ICommand ShowPictureCommand { get; }
@@ -101,6 +102,11 @@ namespace dislMagicGarden.ViewModels
             StopStoryCommand = new Command(() =>
             {
                 _ttsService.Stop();
+            });
+
+            PauseStoryCommand = new Command(() =>
+            {
+                _ttsService.Pause();
             });
 
             ShareCommand = new Command(async () =>

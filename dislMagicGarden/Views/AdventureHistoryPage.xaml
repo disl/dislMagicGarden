@@ -99,7 +99,7 @@
                         Style="{StaticResource MagicButtonStyle}"
                         Clicked="SpeakStory_Clicked">
                 <Button.ImageSource>
-                    <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe050;" Size="24" />
+                    <FontImageSource FontFamily="MaterialIcons" Glyph="{Binding m_SpeakStory_Glyph}" Size="24" />
                 </Button.ImageSource>
             </Button>
 

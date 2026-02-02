@@ -6,6 +6,8 @@ namespace dislMagicGarden.Views;
 public partial class AdventureHistoryPage : FairyBasePage
 {
     public ObservableCollection<HistoryItem> HistoryItems { get; } = new();
+    bool IsSpeeking = false;
+    string m_SpeakStory_Glyph = "&#xe050;";
     private readonly ITextToSpeechService _ttsService;  // = DependencyService.Get<ITextToSpeechService>();
     string Title;
 
@@ -66,17 +68,33 @@ public partial class AdventureHistoryPage : FairyBasePage
 
     private async void SpeakStory_Clicked(object sender, EventArgs e)
     {
-        var SpeechSpeed = Preferences.Get("speechSpeed", 1f);
+        if (!IsSpeeking)
+        {
+            var SpeechSpeed = Preferences.Get("speechSpeed", 1f);
 
-        var full_text = string.Join(" ", HistoryItems.Select(x => x.Text.Trim()));
-        var normolazed_text = PdfExportService.NormalizeText(full_text);
+            var full_text = string.Join(" ", HistoryItems.Select(x => x.Text.Trim()));
+            var normolazed_text = PdfExportService.NormalizeText(full_text);
 
-        await _ttsService.SpeakAsync(normolazed_text);
+            m_SpeakStory_Glyph = "&#xe1a2;";
+
+            await _ttsService.SpeakAsync(normolazed_text);
+        }
+        else
+        {
+            _ttsService.Pause();
+            m_SpeakStory_Glyph = "&#xe050;";
+        }
+        IsSpeeking = !IsSpeeking;
     }
 
     private void StopStory_Clicked(object sender, EventArgs e)
     {
         _ttsService.Stop();
+    }
+
+    private void PauseStory_Clicked(object sender, EventArgs e)
+    {
+        _ttsService.Pause();
     }
 
     private async void Share_Clicked(object sender, EventArgs e)
