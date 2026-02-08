@@ -9,6 +9,7 @@ public partial class SemiAutomaticPage : FairyBasePage
     private List<string> _storyHistory = new();
     private readonly ITextToSpeechService _ttsService;
 
+
     public SemiAutomaticPage(IHybridFairyTaleService fairyTaleService, ITextToSpeechService ttsService)
     {
         InitializeComponent();
@@ -60,7 +61,7 @@ public partial class SemiAutomaticPage : FairyBasePage
 
     private async void OnOptionSelected(object sender, EventArgs e)
     {
-        if (sender == null || (sender is not Button button && sender is not Entry entry)) 
+        if (sender == null || (sender is not Button button && sender is not Entry entry))
             return;
 
         string selectedOption = string.Empty;
@@ -170,6 +171,55 @@ public partial class SemiAutomaticPage : FairyBasePage
         historyPage.LoadHistory(_storyHistory, ThemeEntry.Text);
 
         await Navigation.PushModalAsync(historyPage);
+    }
+
+    private async void OnReloadThemesClicked(object sender, EventArgs e)
+    {
+        try
+        {
+            ReloadThemesButton.IsEnabled = false;
+            ThemaActivityIndicator.IsRunning = true;
+            ThemaActivityIndicator.IsVisible = true;
+
+            ThemePicker.IsEnabled = false;
+
+            var themes = await _fairyTaleService.GetMaerchenThemenFromDeepSeekAsync();
+
+            if (themes == null)
+                return;
+
+            ThemePicker.ItemsSource = themes;
+
+            //if (themes.Any())
+            //    ThemePicker.SelectedIndex = 0;
+
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert(Properties.Resources.Error, ex.Message, "OK");
+        }
+        finally
+        {
+            ReloadThemesButton.IsEnabled = true;
+            ThemePicker.IsEnabled = true;
+            ThemaActivityIndicator.IsRunning = false;
+            ThemaActivityIndicator.IsVisible = false;
+        }
+    }
+
+    private void ThemePicker_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        ThemeEntry.Text = ThemePicker.SelectedItem as string ?? string.Empty;
+    }
+
+    private void ThemePicker_Focused(object sender, FocusEventArgs e)
+    {
+        if (ThemePicker.ItemsSource == null)
+        {
+            ThemePicker.Unfocus();
+
+            OnReloadThemesClicked(null, null);
+        }
     }
 
 }

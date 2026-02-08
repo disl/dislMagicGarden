@@ -103,7 +103,7 @@
                             Style="{StaticResource MagicButtonStyle}"
                             Command="{Binding SpeakStoryCommand}">
                             <Button.ImageSource>
-                                <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe050;" Size="24" />
+                            <FontImageSource FontFamily="MaterialIcons" Glyph="{Binding SpeakStoryGlyphIcon}" Size="24" />
                             </Button.ImageSource>
                     </Button>
 
@@ -111,7 +111,7 @@
                             Style="{StaticResource MagicButtonStyle}"
                             Command="{Binding StopStoryCommand}">
                             <Button.ImageSource>
-                                <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe1a2;" Size="24" />
+                            <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE047;" Size="24" />
                             </Button.ImageSource>
                     </Button>
 

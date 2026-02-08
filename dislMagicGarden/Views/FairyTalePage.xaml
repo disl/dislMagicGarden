@@ -124,29 +124,7 @@
                                      Clicked="OnReloadThemesClicked" >
                         </Button>
 
-
-
-
-
-
-                        <!--<Button  
-                            x:Name="ReloadThemesButton"
-                             Text="{x:Static res:Resources.Call_up_random_topics_list}"  
-                             Grid.Row="3" Grid.ColumnSpan="2"   
-                             FontSize="Header"
-                             VerticalOptions="Start"
-                             CornerRadius="10"
-                             Style="{StaticResource MagicButtonStyle}"      
-                             Clicked="OnReloadThemesClicked" >
-                            
-                        </Button>-->
-
                     </Grid>
-
-
-
-
-
                 </VerticalStackLayout>
             </Border>
 

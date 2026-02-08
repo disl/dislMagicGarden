@@ -1,6 +1,7 @@
 ﻿using Android.Content;
 using Android.Runtime;
 using Android.Speech.Tts;
+using dislMagicGarden.Models;
 using dislMagicGarden.Services;
 using Application = Android.App.Application;
 using Locale = Java.Util.Locale;
@@ -15,6 +16,10 @@ namespace dislMagicGarden.Platforms.Android
         private float _speed = 1.0f;
         private TaskCompletionSource<bool> _tcs;
 
+        public bool IsSpeaking => throw new NotImplementedException();
+
+        public bool IsPaused => throw new NotImplementedException();
+
         // Konstruktor mit explizitem Context-Parameter
         public TextToSpeechService(Context context = null)
         {
@@ -24,10 +29,10 @@ namespace dislMagicGarden.Platforms.Android
             _speaker = new TextToSpeech(appContext, this);
         }
 
-        public Task Speak(string text, float speed)
+        public Task Speak(string text)
         {
             _textToSpeak = text;
-            _speed = speed;
+            _speed = 1.0f;
             _tcs = new TaskCompletionSource<bool>();
 
             if (_speaker == null)
@@ -84,11 +89,6 @@ namespace dislMagicGarden.Platforms.Android
             _speaker?.Stop();
         }
 
-        public Task SpeakAsync(string text)
-        {
-            return Speak(text, _speed);
-        }
-
         public void Pause()
         {
             Stop(); // In Android gibt es kein echtes Pause, nur Stop
@@ -107,5 +107,6 @@ namespace dislMagicGarden.Platforms.Android
             _speed = rate;
             _speaker?.SetSpeechRate(rate);
         }
+
     }
 }

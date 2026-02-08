@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using dislMagicGarden.Models;
 using dislMagicGarden.Platforms.Android;
 using dislMagicGarden.Services;
 using dislMagicGarden.Services.dislMagicGarden.Services;
@@ -98,7 +99,7 @@ namespace dislMagicGarden
             //builder.Services.AddTransient<DeepSeekClient>();
 
 #if ANDROID
-            builder.Services.AddSingleton<ITextToSpeechService, TextToSpeechService>();
+            builder.Services.AddSingleton<ITextToSpeechService, AndroidTtsService>();
 #endif
 
             builder.Services.AddLocalization();
@@ -109,7 +110,7 @@ namespace dislMagicGarden
 
             builder.Services.AddSingleton<ITextToSpeechService>(
 #if ANDROID
-    new dislMagicGarden.Platforms.Android.TextToSpeechService()
+    new dislMagicGarden.Platforms.Android.AndroidTtsService()
 #elif IOS
     new YourApp.Platforms.iOS.Services.TextToSpeechService()
 #endif

@@ -143,6 +143,7 @@
 		<Compile Remove="Platforms\Android\ContinuousSpeechListener_old.cs" />
 		<Compile Remove="Platforms\Android\Handlers\AdBannerViewHandler.cs" />
 		<Compile Remove="Platforms\Android\RewardedAdService.cs" />
+		<Compile Remove="Platforms\Android\TextToSpeechService.cs" />
 		<Compile Remove="Services\DeepSeekClient.cs" />
 		<Compile Remove="Services\EditorService.cs" />
 		<Compile Remove="ViewModels\ChapterEditorViewModel.cs" />

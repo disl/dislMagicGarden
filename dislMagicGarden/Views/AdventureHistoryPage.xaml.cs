@@ -1,3 +1,4 @@
+using dislMagicGarden.Models;
 using dislMagicGarden.Services;
 using System.Collections.ObjectModel;
 
@@ -77,7 +78,7 @@ public partial class AdventureHistoryPage : FairyBasePage
 
             m_SpeakStory_Glyph = "&#xe1a2;";
 
-            await _ttsService.SpeakAsync(normolazed_text);
+            await _ttsService.Speak(normolazed_text);
         }
         else
         {

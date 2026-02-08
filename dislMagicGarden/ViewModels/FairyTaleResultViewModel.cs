@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using dislMagicGarden.Models;
-using dislMagicGarden.Services;
 using dislMagicGarden.Views;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -13,10 +12,26 @@ namespace dislMagicGarden.ViewModels
         public FairyTaleModel FairyTale { get; }
         private readonly Action _closeAction;
 
+       const string  SpeakStoryGlyphIconPlay = "\uE037"; //"&#xe050;";
+       const string SpeakStoryGlyphIconPause = "\uE034"; //"&#xe1a2;";
+
+        // Glyph Icons als Konstanten
+        private const string SPEAK_ICON_PLAY = "\uE037";  // Play arrow
+        private const string SPEAK_ICON_PAUSE = "\uE034"; // Pause
+        private const string SPEAK_ICON_STOP = "\uE047";  // Stop
+
+        [ObservableProperty]
+        string speakStoryGlyphIcon= SpeakStoryGlyphIconPlay;
+
+        private string _speakStoryGlyphIcon = SPEAK_ICON_PLAY;
+        private bool _isSpeaking = false;
+
+      
+
         [ObservableProperty]
         private float speechSpeed = 1f;
 
-        partial  void OnSpeechSpeedChanging(float value)
+        partial void OnSpeechSpeedChanging(float value)
         {
             Preferences.Set("speechSpeed", value);
         }
@@ -34,7 +49,7 @@ namespace dislMagicGarden.ViewModels
         public ICommand StopStoryCommand { get; }
         public ICommand PauseStoryCommand { get; }
         public ICommand ShareCommand { get; }
-        public ICommand CloseCommand { get; }  
+        public ICommand CloseCommand { get; }
         public ICommand ShowPictureCommand { get; }
 
         private readonly ITextToSpeechService _ttsService;
@@ -83,11 +98,25 @@ namespace dislMagicGarden.ViewModels
             _closeAction = closeAction;
 
             _ttsService = ttsService;
-            
+
+            SpeakStoryGlyphIcon = SpeakStoryGlyphIconPlay;
+
             SpeakStoryCommand = new Command(async () =>
             {
+                if (SpeakStoryGlyphIcon == SpeakStoryGlyphIconPlay)
+                {
+                    SpeechSpeed = Preferences.Get("speechSpeed", 1f);
 
-                await SpeakAtHalfSpeed();
+                    await _ttsService.Speak(FairyTale.Story);
+                }
+                else
+                {
+                    _ttsService.Pause();
+                }
+
+                SpeakStoryGlyphIcon = SpeakStoryGlyphIcon == SpeakStoryGlyphIconPlay ? SpeakStoryGlyphIconPause : SpeakStoryGlyphIconPlay;
+
+
 
                 //var options = new SpeechOptions
                 //{
@@ -132,10 +161,7 @@ namespace dislMagicGarden.ViewModels
 
         public async Task SpeakAtHalfSpeed()
         {
-            SpeechSpeed = Preferences.Get("speechSpeed", 1f);
-
-            // Funktioniert plattformübergreifend, dank der Implementierungen
-            await _ttsService.SpeakAsync(FairyTale.Story);
+           
         }
     }
 
