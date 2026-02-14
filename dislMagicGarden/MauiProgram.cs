@@ -93,6 +93,7 @@ namespace dislMagicGarden
             builder.Services.AddSingleton<ILanguageService, LanguageService>();
             builder.Services.AddSingleton<IHybridFairyTaleService, HybridFairyTaleService>();
             builder.Services.AddSingleton<AdService>();
+            builder.Services.AddSingleton<QuizViewModel>();
 
             builder.Services.AddHttpClient<ImageGeneratorService>();
 

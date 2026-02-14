@@ -1,4 +1,6 @@
-﻿namespace dislMagicGarden.Models
+﻿using System.Text.Json.Serialization;
+
+namespace dislMagicGarden.Models
 {
     public enum GenerationMode
     {
@@ -36,6 +38,8 @@
         public bool HasImages => ImageUrls?.Any() == true;
 
         public List<string> Options { get; set; } = new(); // NEU für Plot Twist
+
+        public List<QuizQuestion> QuizQuestions { get; set; } = new();
     }
 
     public class CostBreakdown

@@ -237,6 +237,9 @@
 		<MauiXaml Update="Views\ColoringGenerator.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Views\QuizPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Views\SemiAutomaticPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

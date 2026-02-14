@@ -376,7 +376,9 @@ namespace dislMagicGarden.ViewModels
 
                 DurationText = response.GenerationTime.TotalSeconds > 0
                     ? $"{Properties.Resources.Duration}: {response.GenerationTime.TotalSeconds:F1} {Properties.Resources.seconds}"
-                    : string.Empty
+                    : string.Empty,
+
+                QuizQuestions = response.QuizQuestions
             };
         }
 

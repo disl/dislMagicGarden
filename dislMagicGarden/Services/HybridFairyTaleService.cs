@@ -74,19 +74,20 @@ namespace dislMagicGarden.Services
             try
             {
                 // 1. Text mit DeepSeek generieren
-                var textResult = await GenerateTextWithDeepSeekAsync(request);
+                var ResultObj = await GenerateTextWithDeepSeekAsync(request);
 
                 var response = new FairyTaleResponse
                 {
-                    Title = textResult.Title,
-                    Characters = textResult.Characters,
-                    Story = textResult.Story,
-                    Moral = textResult.Moral,
+                    Title = ResultObj.Title,
+                    Characters = ResultObj.Characters,
+                    Story = ResultObj.Story,
+                    Moral = ResultObj.Moral,
                     //ImagePrompts = textResult.ImagePrompts,
                     Cost = new CostBreakdown
                     {
-                        TextCost = textResult.EstimatedCost
-                    }
+                        TextCost = ResultObj.EstimatedCost
+                    },
+                    QuizQuestions = ResultObj.QuizQuestions
                 };
 
                 // 2. Bilder nur bei FullStory Mode
@@ -140,9 +141,9 @@ namespace dislMagicGarden.Services
                 {
                     new {
                         role = "system",
-                        content = 
+                        content =
                 "Du bist ein kreativer Autor. Generiere 10 verschiedene, kurze Märchenthemen für Kinder." +
-                
+
                           " Jedes Thema genau ein Satz. Gib NUR die Themen untereinander aus, ohne Nummern oder Bindestriche." +
                           " Ausgabesprache: " + _currentLanguage
 
@@ -170,7 +171,7 @@ namespace dislMagicGarden.Services
         }
 
         // Button-Click Event
-        
+
 
         public async Task<TextOnlyResponse> GenerateTextOnlyAsync(string theme)
         {
@@ -335,7 +336,7 @@ namespace dislMagicGarden.Services
             };
 
 
-            string _currentLanguage = Thread.CurrentThread.CurrentCulture.NativeName;          
+            string _currentLanguage = Thread.CurrentThread.CurrentCulture.NativeName;
 
             return $$"""
                 {{Gender_male_text}}
@@ -350,7 +351,7 @@ namespace dislMagicGarden.Services
                 {
                     "title": "Titel des Märchens",
                     "characters": ["Charakter 1", "Charakter 2", "Charakter 3"],
-                    "story": "Die vollständige Geschichte (Dauer zirka {{ request.Duration_min }} min.)",
+                    "story": "Die vollständige Geschichte (Dauer zirka {{request.Duration_min}} min.)",
                     "moral": "Die Moral der Geschichte",
                     "image_prompts": [
                         "English description for image 1: magical forest scene",
@@ -361,6 +362,15 @@ namespace dislMagicGarden.Services
                 }
                 
                 Die Bildbeschreibungen müssen auf Englisch sein und visuelle Details enthalten.
+
+                Generiere bitte 3 Fragen zum Text im JSON-Format mit je 4 Antwortmoeglichkeiten und der Kennzeichnung der richtigen Antwort.
+                QuizQuestions: [
+                {
+                  question: "",
+                  options: [],
+                  correctIndex: 2
+                }, ...]
+
                 """;
         }
 
@@ -517,6 +527,8 @@ namespace dislMagicGarden.Services
             {
                 [JsonPropertyName("content")]
                 public string Content { get; set; } = string.Empty;
+
+                
             }
         }
 
@@ -549,6 +561,9 @@ namespace dislMagicGarden.Services
             public string Moral { get; set; } = string.Empty;
             public List<string> ImagePrompts { get; set; } = new();
             public decimal EstimatedCost { get; set; }
+
+            [JsonPropertyName("QuizQuestions")]
+            public List<QuizQuestion> QuizQuestions { get; set; } = new();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using dislMagicGarden.Models;
 using dislMagicGarden.Views;
 using System.Collections.ObjectModel;
@@ -12,21 +13,21 @@ namespace dislMagicGarden.ViewModels
         public FairyTaleModel FairyTale { get; }
         private readonly Action _closeAction;
 
-       const string  SpeakStoryGlyphIconPlay = "\uE037"; //"&#xe050;";
-       const string SpeakStoryGlyphIconPause = "\uE034"; //"&#xe1a2;";
+        const string m_c_SpeakStoryGlyphIconPlay = "\uE037"; //"&#xe050;";
+        const string m_c_SpeakStoryGlyphIconPause = "\uE034"; //"&#xe1a2;";
 
         // Glyph Icons als Konstanten
-        private const string SPEAK_ICON_PLAY = "\uE037";  // Play arrow
-        private const string SPEAK_ICON_PAUSE = "\uE034"; // Pause
-        private const string SPEAK_ICON_STOP = "\uE047";  // Stop
+        private const string m_c_SPEAK_ICON_PLAY = "\uE037";  // Play arrow
+        private const string m_c_SPEAK_ICON_PAUSE = "\uE034"; // Pause
+        private const string m_c_SPEAK_ICON_STOP = "\uE047";  // Stop
 
         [ObservableProperty]
-        string speakStoryGlyphIcon= SpeakStoryGlyphIconPlay;
+        string speakStoryGlyphIcon = m_c_SpeakStoryGlyphIconPlay;
 
-        private string _speakStoryGlyphIcon = SPEAK_ICON_PLAY;
+        private string _speakStoryGlyphIcon = m_c_SPEAK_ICON_PLAY;
         private bool _isSpeaking = false;
 
-      
+
 
         [ObservableProperty]
         private float speechSpeed = 1f;
@@ -53,6 +54,27 @@ namespace dislMagicGarden.ViewModels
         public ICommand ShowPictureCommand { get; }
 
         private readonly ITextToSpeechService _ttsService;
+
+        [RelayCommand]
+        private async void StartQuiz()
+        {
+            // Angenommen, _currentStoryResponse enthält die Liste der Fragen
+            List<QuizQuestion> questions = FairyTale.QuizQuestions;
+
+            //// Navigation zur QuizPage und Übergabe der Daten
+            //// Variante A (direkt und einfach):
+            //var quizPage = new QuizPage(new QuizViewModel());
+            //quizPage.SetQuizData(questions);
+
+            //await Application.Current.MainPage.Navigation.PushAsync(quizPage);
+
+            // Variante B (Shell Navigation mit Parametern - sauberer MVVM Weg):
+            var navigationParameter = new Dictionary<string, object>
+             {
+                 { "Questions", questions }
+             };
+            await Shell.Current.GoToAsync(nameof(QuizPage), navigationParameter);
+        }
 
         public async Task LoadVoicesAsync()
         {
@@ -99,39 +121,63 @@ namespace dislMagicGarden.ViewModels
 
             _ttsService = ttsService;
 
-            SpeakStoryGlyphIcon = SpeakStoryGlyphIconPlay;
+            SpeakStoryGlyphIcon = m_c_SpeakStoryGlyphIconPlay;
+
+            //SpeakStoryCommand = new Command(async () =>
+            //{
+            //    //if (SpeakStoryGlyphIcon == m_c_SpeakStoryGlyphIconPlay)
+            //    if (!_ttsService.IsSpeaking)
+            //    {
+            //        SpeechSpeed = Preferences.Get("speechSpeed", 1f);
+
+            //        await _ttsService.Speak(FairyTale.Story);
+            //    }
+            //    else
+            //    {
+            //        _ttsService.Pause();
+            //    }
+
+            //    SpeakStoryGlyphIcon = SpeakStoryGlyphIcon == m_c_SpeakStoryGlyphIconPlay ? m_c_SpeakStoryGlyphIconPause : m_c_SpeakStoryGlyphIconPlay;
+            //});
 
             SpeakStoryCommand = new Command(async () =>
             {
-                if (SpeakStoryGlyphIcon == SpeakStoryGlyphIconPlay)
+                // 1. Status "Pause" prüfen -> Resume
+                if (_ttsService.IsPaused)
                 {
-                    SpeechSpeed = Preferences.Get("speechSpeed", 1f);
-
-                    await _ttsService.Speak(FairyTale.Story);
+                    _ttsService.Resume();
+                    SpeakStoryGlyphIcon = m_c_SpeakStoryGlyphIconPause; // Icon auf Pause stellen
                 }
-                else
+                // 2. Status "Playing" -> Pause
+                else if (_ttsService.IsSpeaking)
                 {
                     _ttsService.Pause();
+                    SpeakStoryGlyphIcon = m_c_SpeakStoryGlyphIconPlay; // Icon auf Play stellen
                 }
+                // 3. Status "Stopped/Idle" -> Neu Starten
+                else
+                {
+                    // Geschwindigkeit laden
+                    float speed = Preferences.Get("speechSpeed", 1f);
 
-                SpeakStoryGlyphIcon = SpeakStoryGlyphIcon == SpeakStoryGlyphIconPlay ? SpeakStoryGlyphIconPause : SpeakStoryGlyphIconPlay;
+                    // HINWEIS: Du musst sicherstellen, dass der Service die Speed kennt.
+                    // Falls ITextToSpeechService eine SetSpeed Methode hat:
+                    // _ttsService.SetSpeed(speed); 
 
+                    // Oder du erweiterst die Speak-Methode im Interface:
+                    // await _ttsService.Speak(FairyTale.Story, speed);
 
-
-                //var options = new SpeechOptions
-                //{
-                //    Locale = SelectedVoice?.Locale, // 💡 jetzt eindeutig
-                //    Pitch = 1.15f,                   // etwas höher = märchenhaft
-                //    Volume = 1.0f,                    
-                //};
-
-                //await TextToSpeech.SpeakAsync(FairyTale.Story, options);
+                    await _ttsService.Speak(FairyTale.Story);
+                    SpeakStoryGlyphIcon = m_c_SpeakStoryGlyphIconPause;
+                }
             });
 
             StopStoryCommand = new Command(() =>
             {
                 _ttsService.Stop();
+                SpeakStoryGlyphIcon = m_c_SpeakStoryGlyphIconPlay; // Reset Icon
             });
+
 
             PauseStoryCommand = new Command(() =>
             {
@@ -151,9 +197,6 @@ namespace dislMagicGarden.ViewModels
             {
                 await Application.Current.MainPage.Navigation
                        .PushModalAsync(new ColoringGenerator(FairyTale.Story, FairyTale.Title), true);
-
-                //string encodedPrompt = Uri.EscapeDataString(Theme);
-                //await Shell.Current.GoToAsync($"{nameof(ColoringGenerator)}?Prompt={encodedPrompt}");
             });
 
             CloseCommand = new Command(_closeAction);
@@ -161,7 +204,7 @@ namespace dislMagicGarden.ViewModels
 
         public async Task SpeakAtHalfSpeed()
         {
-           
+
         }
     }
 

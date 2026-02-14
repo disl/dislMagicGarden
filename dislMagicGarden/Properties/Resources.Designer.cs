@@ -655,6 +655,15 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Quiz ähnelt.
+        /// </summary>
+        internal static string Quiz {
+            get {
+                return ResourceManager.GetString("Quiz", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die 🔊 Read aloud ähnelt.
         /// </summary>
         internal static string Read_aloud {

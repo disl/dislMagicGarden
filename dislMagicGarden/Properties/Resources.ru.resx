@@ -417,4 +417,7 @@
   <data name="Your_suggestion" xml:space="preserve">
     <value>Ваше предложение?</value>
   </data>
+  <data name="Quiz" xml:space="preserve">
+    <value>Викторина</value>
+  </data>
 </root>

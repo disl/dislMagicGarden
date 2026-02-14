@@ -23,6 +23,7 @@ namespace dislMagicGarden.Models
 
         public string CostText { get; set; }
         public string DurationText { get; set; }
+        public List<QuizQuestion> QuizQuestions { get; internal set; }
 
         public FairyTaleModel() { }
 
@@ -33,5 +34,6 @@ namespace dislMagicGarden.Models
             Moral = moral;
             Cost = cost;
         }
+
     }
 }
