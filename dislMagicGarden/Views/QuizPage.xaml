@@ -8,91 +8,115 @@
                      x:Class="dislMagicGarden.Views.QuizPage"
                      Title="QuizPage">
 
-    <!-- HEADER -->
-    <Grid RowDefinitions="Auto,Auto,*,Auto" Margin="10,10,10,50">
+    <!-- Haupt-Grid mit Overlay -->
+    <Grid x:Name="MainGrid">
 
-        <Grid Grid.Row="0"
+        <!-- HEADER -->
+
+        <Grid RowDefinitions="Auto,Auto,*,Auto" Margin="10,10,10,50">
+
+            <Border Style="{StaticResource FairyInputBorderStyle}"
+        StrokeShape="RoundRectangle 8"
+        Padding="10">
+                <Grid Grid.Row="0"
             RowDefinitions="Auto, Auto, *, Auto" Padding="20"
           ColumnDefinitions="*, Auto">
 
-            <Label Text="{x:Static res:Resources.Quiz}"
+                    <Label Text="{x:Static res:Resources.Quiz}"
                 Grid.Column="0"
                 VerticalOptions="Center"                       
                 FontSize="20"
                 FontAttributes="Bold"
                 HorizontalOptions="Start" />
 
-            <Button Grid.Column="1"
+                    <Button Grid.Column="1"
                   FontAttributes="Bold"
                   VerticalOptions="Center"
                   HorizontalOptions="End"
                   FontSize="24"
                   Clicked="Close_Clicked" >
-                <Button.ImageSource>
-                    <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE5C4;" Size="24" />
-                </Button.ImageSource>
-            </Button>
-        </Grid>
+                        <Button.ImageSource>
+                            <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE5C4;" Size="24" />
+                        </Button.ImageSource>
+                    </Button>
+                </Grid>
+            </Border>
 
-        <!-- Query-Nr. -->
-        <Grid Grid.Row="1" RowDefinitions="Auto, *, Auto" Padding="20">
-            <!-- Fortschritt -->
-            <VerticalStackLayout Grid.Row="0" Spacing="5">
-                <Label Text="{Binding ProgressText}" 
+            <!-- Query-Nr. -->
+            <Grid Grid.Row="1" RowDefinitions="Auto, *, Auto" Padding="20">
+                <!-- Fortschritt -->
+                <VerticalStackLayout Grid.Row="0" Spacing="5">
+                    <Label Text="{Binding ProgressText}" 
                    FontSize="18" 
                    FontAttributes="Bold"
                    TextColor="#555"/>
-                <ProgressBar Progress="0.5" />
-            </VerticalStackLayout>
+                    <ProgressBar Progress="0.5" />
+                </VerticalStackLayout>
 
 
-        </Grid>
+            </Grid>
 
-        <!-- Mitte: Frage -->
-        <Frame Grid.Row="2" 
+            <!-- Mitte: Frage -->
+            <Frame Grid.Row="2" 
    BackgroundColor="White" 
    CornerRadius="15" 
    Padding="20"
    HasShadow="True"
    VerticalOptions="Center">
-            <Label Text="{Binding QuestionText}" 
+                <Label Text="{Binding QuestionText}" 
        FontSize="24" 
        HorizontalTextAlignment="Center"
        TextColor="#333"
        LineBreakMode="WordWrap"/>
-        </Frame>
+            </Frame>
 
-        <!-- Unten: Antworten (Buttons) -->
-        <VerticalStackLayout Grid.Row="3" Spacing="20">
+            <!-- Unten: Antworten (Buttons) -->
+            <VerticalStackLayout Grid.Row="3" Spacing="20">
 
-            <!-- Option A (Index 0) -->
-            <Button Text="{Binding Options[0].Text}"
+                <!-- Option A (Index 0) -->
+                <Button Text="{Binding Options[0].TextCorrect}"
                     Style="{StaticResource MagicButtonStyle}" 
+                    BackgroundColor="{Binding Options[0].BackgroundColor}"
+                    IsEnabled="{Binding Options[0].IsEnabled}"
                     Command="{Binding SelectAnswerCommand}"
                     CommandParameter="{Binding Options[0]}"/>
 
-            <!-- Option B (Index 1) -->
-            <Button 
-                    Text="{Binding Options[1].Text}"
-                    Style="{StaticResource MagicButtonStyle}"  
+                <!-- Option B (Index 1) -->
+                <Button 
+                    Text="{Binding Options[1].TextCorrect}"
+                    Style="{StaticResource MagicButtonStyle}" 
+                    BackgroundColor="{Binding Options[1].BackgroundColor}"
+                    IsEnabled="{Binding Options[1].IsEnabled}"
                     Command="{Binding SelectAnswerCommand}"
                     CommandParameter="{Binding Options[1]}"/>
 
-            <!-- Option C (Index 2) -->
-            <Button 
-                    Text="{Binding Options[2].Text}"
-                    Style="{StaticResource MagicButtonStyle}"  
+                <!-- Option C (Index 2) -->
+                <Button 
+                    Text="{Binding Options[2].TextCorrect}"
+                    Style="{StaticResource MagicButtonStyle}" 
+                    BackgroundColor="{Binding Options[2].BackgroundColor}"
+                    IsEnabled="{Binding Options[2].IsEnabled}"
                     Command="{Binding SelectAnswerCommand}"
                     CommandParameter="{Binding Options[2]}"/>
 
-            <!-- Option D (Index 3) -->
-            <Button 
-                    Text="{Binding Options[3].Text}"
-                    Style="{StaticResource MagicButtonStyle}"  
+                <!-- Option D (Index 3) -->
+                <Button 
+                    Text="{Binding Options[3].TextCorrect}"
+                    Style="{StaticResource MagicButtonStyle}"
+                    BackgroundColor="{Binding Options[3].BackgroundColor}"
+                    IsEnabled="{Binding Options[3].IsEnabled}"
                     Command="{Binding SelectAnswerCommand}"
                     CommandParameter="{Binding Options[3]}"/>
 
-        </VerticalStackLayout>
+            </VerticalStackLayout>
+
+        </Grid>
+
+        <!-- Feuerwerk-Overlay (initial unsichtbar) -->
+        <Grid x:Name="FireworksOverlay"
+              InputTransparent="True"
+              IsVisible="False"
+              BackgroundColor="Transparent"/>
 
     </Grid>
 </views:FairyBasePage>

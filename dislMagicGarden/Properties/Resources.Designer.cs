@@ -637,6 +637,15 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Perfect! All questions correct! ähnelt.
+        /// </summary>
+        internal static string Perfect_All_questions_correct {
+            get {
+                return ResourceManager.GetString("Perfect_All_questions_correct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Please enter a topic ähnelt.
         /// </summary>
         internal static string Please_enter_a_topic {
@@ -655,11 +664,29 @@ namespace dislMagicGarden.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Question %1 of %2 ähnelt.
+        /// </summary>
+        internal static string Question_of_n {
+            get {
+                return ResourceManager.GetString("Question_of_n", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Quiz ähnelt.
         /// </summary>
         internal static string Quiz {
             get {
                 return ResourceManager.GetString("Quiz", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Quiz finished! ähnelt.
+        /// </summary>
+        internal static string Quiz_finished {
+            get {
+                return ResourceManager.GetString("Quiz_finished", resourceCulture);
             }
         }
         
@@ -939,6 +966,15 @@ namespace dislMagicGarden.Properties {
         internal static string Would_you_like_to_watch_a_short_video {
             get {
                 return ResourceManager.GetString("Would_you_like_to_watch_a_short_video", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die You answered %1 out of %2 questions correctly. ähnelt.
+        /// </summary>
+        internal static string You_answered_out_of_questions_correctly {
+            get {
+                return ResourceManager.GetString("You_answered_out_of_questions_correctly", resourceCulture);
             }
         }
         

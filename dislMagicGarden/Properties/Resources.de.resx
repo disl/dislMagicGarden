@@ -420,4 +420,16 @@
   <data name="Quiz" xml:space="preserve">
     <value>Quiz</value>
   </data>
+  <data name="Question_of_n" xml:space="preserve">
+    <value>Frage %1 von %2</value>
+  </data>
+  <data name="Perfect_All_questions_correct" xml:space="preserve">
+    <value>Perfekt! Alle Fragen richtig!!!</value>
+  </data>
+  <data name="You_answered_out_of_questions_correctly" xml:space="preserve">
+    <value>Du hast %1 von %2 Fragen richtig beantwortet.</value>
+  </data>
+  <data name="Quiz_finished" xml:space="preserve">
+    <value>Quiz beendet!</value>
+  </data>
 </root>
