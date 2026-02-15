@@ -132,7 +132,7 @@
                     <Button Grid.Column="3"
                             Grid.Row="0"
                             Style="{StaticResource MagicButtonStyle}"
-                            Command="{Binding StartQuizCommand}">
+                            Command="{Binding ShowPictureCommand}">
                             <Button.ImageSource>
                                 <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe3f4;" Size="24" />
                             </Button.ImageSource>

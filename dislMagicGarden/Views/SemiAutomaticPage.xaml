@@ -47,7 +47,7 @@
                             <Picker x:Name="ThemePicker" Grid.Column="0" 
                                  Title="{x:Static res:Resources.Select_a_random_topic}"
                                  TitleColor="Gray"
-                                 Focused="ThemePicker_Focused"
+                             
                                  IsEnabled="{Binding IsNotLoadingThemes}"
                                  SelectedIndexChanged="ThemePicker_SelectedIndexChanged"
                                  TextColor="{StaticResource MagicBlackSoft}"

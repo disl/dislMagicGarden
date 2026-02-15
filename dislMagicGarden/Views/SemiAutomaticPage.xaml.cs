@@ -190,6 +190,8 @@ public partial class SemiAutomaticPage : FairyBasePage
 
             ThemePicker.ItemsSource = themes;
 
+            ThemePicker.Focus();
+
             //if (themes.Any())
             //    ThemePicker.SelectedIndex = 0;
 

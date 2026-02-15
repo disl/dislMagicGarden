@@ -109,8 +109,7 @@ public partial class FairyTalePage : FairyBasePage, IQueryAttributable
 
             ThemePicker.ItemsSource = themes;
 
-            //if (themes.Any())
-            //    ThemePicker.SelectedIndex = 0;
+            ThemePicker.Focus();
 
         }
         catch (Exception ex)
