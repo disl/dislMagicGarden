@@ -51,9 +51,17 @@
         <ScrollView Grid.Row="1" Padding="5">
             <VerticalStackLayout Spacing="14">
 
-                <Label Text="{Binding FairyTale.Story}"
+                <!--<Label Text="{Binding FairyTale.Story}"
                        FontSize="18"
-                       TextColor="{StaticResource MidnightBlue}" />
+                       TextColor="{StaticResource MidnightBlue}" />-->
+
+                <!-- In deiner XAML Page -->
+               <Label Grid.Row="1" 
+       FormattedText="{Binding StoryFormatted}" 
+       LineBreakMode="WordWrap" />
+
+
+
 
                 <Border BackgroundColor="{StaticResource MintGarden}"
                         StrokeShape="RoundRectangle 8"

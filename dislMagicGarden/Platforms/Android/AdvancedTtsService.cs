@@ -27,8 +27,9 @@ namespace dislMagicGarden.Platforms.Android
 
         public bool IsInitialized => _isInitialized;
 
+        public event Action<string> OnSentenceStarted;
 
-    
+
         private TtsLanguage _selectedLanguage = TtsLanguage.Auto;
 
         // NEU: Benötigt für Pause/Resume

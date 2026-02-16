@@ -6,7 +6,6 @@ using dislMagicGarden.Views;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Input;
-using Xamarin.KotlinX.Coroutines.Selects;
 
 namespace dislMagicGarden.ViewModels
 {
@@ -24,6 +23,9 @@ namespace dislMagicGarden.ViewModels
         private const string m_c_SPEAK_ICON_PLAY = "\uE037";  // Play arrow
         private const string m_c_SPEAK_ICON_PAUSE = "\uE034"; // Pause
         private const string m_c_SPEAK_ICON_STOP = "\uE047";  // Stop
+
+        // Neue Eigenschaft für das formatierte Label
+        [ObservableProperty] private FormattedString _storyFormatted;
 
         [ObservableProperty]
         string speakStoryGlyphIcon = m_c_SpeakStoryGlyphIconPlay;
@@ -44,6 +46,9 @@ namespace dislMagicGarden.ViewModels
         // Verfügbare Stimmen
         public ObservableCollection<LocaleWrapper> AvailableVoices { get; } = new();
         private LocaleWrapper _selectedVoice;
+
+        [ObservableProperty] private string textToSpeak;
+
         public LocaleWrapper SelectedVoice
         {
             get => _selectedVoice;
@@ -131,22 +136,19 @@ namespace dislMagicGarden.ViewModels
 
             SpeakStoryGlyphIcon = m_c_SpeakStoryGlyphIconPlay;
 
-            //SpeakStoryCommand = new Command(async () =>
-            //{
-            //    //if (SpeakStoryGlyphIcon == m_c_SpeakStoryGlyphIconPlay)
-            //    if (!_ttsService.IsSpeaking)
-            //    {
-            //        SpeechSpeed = Preferences.Get("speechSpeed", 1f);
-
-            //        await _ttsService.Speak(FairyTale.Story);
-            //    }
-            //    else
-            //    {
-            //        _ttsService.Pause();
-            //    }
-
-            //    SpeakStoryGlyphIcon = SpeakStoryGlyphIcon == m_c_SpeakStoryGlyphIconPlay ? m_c_SpeakStoryGlyphIconPause : m_c_SpeakStoryGlyphIconPlay;
-            //});
+            // WICHTIG: Initiales Setzen des Textes für das Label
+            StoryFormatted = new FormattedString
+            {
+                Spans =
+                {
+                    new Span
+                    {
+                        Text = FairyTale.Story,
+                        FontSize = 18,
+                        TextColor = (Color)Application.Current.Resources["MidnightBlue"]
+                    }
+                }
+            };
 
             SpeakStoryCommand = new Command(async () =>
             {
@@ -192,26 +194,39 @@ namespace dislMagicGarden.ViewModels
 
                     // Text in Sätze aufteilen (einfache Methode)
                     var sentences = FairyTale.Story.Split(new[] { '.', '?', '!' }, StringSplitOptions.RemoveEmptyEntries);
+                    var fullText = FairyTale.Story;
 
                     foreach (var sentence in sentences)
                     {
-                        var textToSpeak = sentence.Trim() + ".";
+                        if (string.IsNullOrWhiteSpace(sentence)) continue;
 
-                        // --- HIER DIE VERWENDUNG ---
-                        // Prüfen, ob ein Keyword im Satz vorkommt und Sound abspielen
-                        // Das läuft parallel zur Vorbereitung der Stimme
-                        await _soundEffectService.TriggerSoundForTextAsync(textToSpeak);
+                        // 1. Den aktuellen Satz inkl. Satzzeichen bauen
+                        string currentSentence = sentence.Trim() + "."; // Annahme: Punkt war im Split
 
-                        // 2. TTS spricht den Satz
-                        await TextToSpeech.SpeakAsync(textToSpeak);
+                        // --- A. VISUELL UPDATE (Highlighting) ---
+                        UpdateHighlightedText(fullText, currentSentence);
 
-                        // Kurze Pause zwischen den Sätzen (optional)
-                        await Task.Delay(100);
+                        // --- B. SOUND EFFEKTE ---
+                        await _soundEffectService.TriggerSoundForTextAsync(currentSentence);
+
+                        // --- C. TTS SPRECHEN ---
+                        // WICHTIG: Du darfst hier NICHT TextToSpeech.SpeakAsync direkt nutzen, 
+                        // wenn du Pause/Resume im _ttsService unterstützen willst.
+                        // Du musst deinen eigenen Service nutzen, der das unterstützt!
+
+                        // Wenn dein _ttsService nur den ganzen Text kann, ist das hier ein Problem.
+                        // Wir nehmen an, _ttsService hat eine Methode Speak(string) oder ähnlich.
+                        // Als Workaround für das Highlighting nutzen wir hier die Standard MAUI API:
+
+                        await TextToSpeech.SpeakAsync(currentSentence);
+
+                        // HINWEIS: Wenn du Pause-Resume Buttons hast, funktioniert das mit der 
+                        // Standard-Schleife hier schlecht, da man die Schleife nicht pausieren kann.
+                        // Für ein erstes "Highlighting-Demo" ist das aber okay.
+
+                        await Task.Delay(50);
+
                     }
-
-
-
-
 
                     SpeakStoryGlyphIcon = m_c_SpeakStoryGlyphIconPause;
                 }
@@ -245,6 +260,59 @@ namespace dislMagicGarden.ViewModels
             });
 
             CloseCommand = new Command(_closeAction);
+        }
+
+        private void UpdateHighlightedText(string fullText, string sentenceToHighlight)
+        {
+            try
+            {
+                // Wir suchen die Position des Satzes im Gesamtext
+                int index = fullText.IndexOf(sentenceToHighlight);
+
+                if (index >= 0)
+                {
+                    var formatted = new FormattedString();
+
+                    // 1. Text VOR dem Satz (Normal)
+                    if (index > 0)
+                    {
+                        formatted.Spans.Add(new Span
+                        {
+                            Text = fullText.Substring(0, index),
+                            FontSize = 18,
+                            TextColor = (Color)Application.Current.Resources["MidnightBlue"]
+                        });
+                    }
+
+                    // 2. Der zu highlightende Satz (Fett/Bunt)
+                    formatted.Spans.Add(new Span
+                    {
+                        Text = sentenceToHighlight,
+                        FontSize = 18,
+                        FontAttributes = FontAttributes.Bold,
+                        TextColor = Colors.DarkGoldenrod // Oder deine Highlight-Farbe
+                    });
+
+                    // 3. Text NACH dem Satz (Normal)
+                    int afterIndex = index + sentenceToHighlight.Length;
+                    if (afterIndex < fullText.Length)
+                    {
+                        formatted.Spans.Add(new Span
+                        {
+                            Text = fullText.Substring(afterIndex),
+                            FontSize = 18,
+                            TextColor = (Color)Application.Current.Resources["MidnightBlue"]
+                        });
+                    }
+
+                    // Zuweisen
+                    StoryFormatted = formatted;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Highlighting Error: {ex.Message}");
+            }
         }
 
         public async Task SpeakAtHalfSpeed()

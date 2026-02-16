@@ -17,6 +17,9 @@ namespace dislMagicGarden.ViewModels
         private readonly ITextToSpeechService _textToSpeechService;
         private readonly SoundEffectService _soundEffectService;
 
+        // Neue Eigenschaft für das formatierte Label
+        [ObservableProperty] private FormattedString _storyFormatted;
+
         [ObservableProperty]
         private GenderOption _selectedGender = GenderOption.Neutral;
         partial void OnSelectedGenderChanged(GenderOption value)
