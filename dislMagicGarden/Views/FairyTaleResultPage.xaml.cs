@@ -13,10 +13,10 @@ public partial class FairyTaleResultPage : ContentPage
             await vm.LoadVoicesAsync();
     }
 
-    public FairyTaleResultPage(FairyTaleModel fairyTale, ITextToSpeechService textToSpeechService)
+    public FairyTaleResultPage(FairyTaleModel fairyTale, ITextToSpeechService textToSpeechService, SoundEffectService soundEffectService)
     {
         InitializeComponent();
-        BindingContext = new FairyTaleResultViewModel(fairyTale, Close, textToSpeechService);
+        BindingContext = new FairyTaleResultViewModel(fairyTale, Close, textToSpeechService, soundEffectService);
     }
 
     private async void Close()

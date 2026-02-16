@@ -1,10 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using dislMagicGarden.Models;
+using dislMagicGarden.Services;
 using dislMagicGarden.Views;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Input;
+using Xamarin.KotlinX.Coroutines.Selects;
 
 namespace dislMagicGarden.ViewModels
 {
@@ -12,6 +14,8 @@ namespace dislMagicGarden.ViewModels
     {
         public FairyTaleModel FairyTale { get; }
         private readonly Action _closeAction;
+        private readonly SoundEffectService _soundEffectService;
+        private readonly ITextToSpeechService _ttsService;
 
         const string m_c_SpeakStoryGlyphIconPlay = "\uE037"; //"&#xe050;";
         const string m_c_SpeakStoryGlyphIconPause = "\uE034"; //"&#xe1a2;";
@@ -53,7 +57,6 @@ namespace dislMagicGarden.ViewModels
         public ICommand CloseCommand { get; }
         public ICommand ShowPictureCommand { get; }
 
-        private readonly ITextToSpeechService _ttsService;
 
         [RelayCommand]
         private async void StartQuiz()
@@ -114,12 +117,17 @@ namespace dislMagicGarden.ViewModels
         }
 
 
-        public FairyTaleResultViewModel(FairyTaleModel fairyTale, Action closeAction, ITextToSpeechService ttsService)
+        public FairyTaleResultViewModel(
+            FairyTaleModel fairyTale,
+            Action closeAction,
+            ITextToSpeechService ttsService,
+            Services.SoundEffectService soundEffectService)
         {
             FairyTale = fairyTale;
             _closeAction = closeAction;
 
             _ttsService = ttsService;
+            _soundEffectService = soundEffectService;
 
             SpeakStoryGlyphIcon = m_c_SpeakStoryGlyphIconPlay;
 
@@ -167,7 +175,44 @@ namespace dislMagicGarden.ViewModels
                     // Oder du erweiterst die Speak-Methode im Interface:
                     // await _ttsService.Speak(FairyTale.Story, speed);
 
-                    await _ttsService.Speak(FairyTale.Story);
+                    // OLD VERSION
+                    // Ambient music
+                    //_soundEffectService.SetLanguage(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName);
+                    //await _soundEffectService.PlayBackgroundMusicAsync("fairytail_ambient.mp3");
+
+                    //await _ttsService.Speak(FairyTale.Story);
+
+
+                    // NEW VERSION
+                    _soundEffectService.SetLanguage(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName);
+                    await _soundEffectService.PlayBackgroundMusicAsync("fairytail_ambient.mp3");
+
+
+                    // In deinem ViewModel oder Service
+
+                    // Text in Sätze aufteilen (einfache Methode)
+                    var sentences = FairyTale.Story.Split(new[] { '.', '?', '!' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    foreach (var sentence in sentences)
+                    {
+                        var textToSpeak = sentence.Trim() + ".";
+
+                        // --- HIER DIE VERWENDUNG ---
+                        // Prüfen, ob ein Keyword im Satz vorkommt und Sound abspielen
+                        // Das läuft parallel zur Vorbereitung der Stimme
+                        await _soundEffectService.TriggerSoundForTextAsync(textToSpeak);
+
+                        // 2. TTS spricht den Satz
+                        await TextToSpeech.SpeakAsync(textToSpeak);
+
+                        // Kurze Pause zwischen den Sätzen (optional)
+                        await Task.Delay(100);
+                    }
+
+
+
+
+
                     SpeakStoryGlyphIcon = m_c_SpeakStoryGlyphIconPause;
                 }
             });
