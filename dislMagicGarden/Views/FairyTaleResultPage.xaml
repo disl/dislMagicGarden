@@ -55,13 +55,10 @@
                        FontSize="18"
                        TextColor="{StaticResource MidnightBlue}" />-->
 
-                <!-- In deiner XAML Page -->
-               <Label Grid.Row="1" 
-       FormattedText="{Binding StoryFormatted}" 
-       LineBreakMode="WordWrap" />
-
-
-
+                <!-- Inhalt -->
+                <Label Grid.Row="1" 
+                       FormattedText="{Binding StoryFormatted}" 
+                       LineBreakMode="WordWrap" />      
 
                 <Border BackgroundColor="{StaticResource MintGarden}"
                         StrokeShape="RoundRectangle 8"
