@@ -31,10 +31,10 @@
                           VerticalOptions="Center"
                           HorizontalOptions="End"
                           FontSize="24"
-                         Command="{Binding CloseCommand}" >
-                                    <Button.ImageSource>
-                                        <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE5C4;" Size="24" />
-                                    </Button.ImageSource>
+                          Command="{Binding CloseCommand}" >
+                          <Button.ImageSource>
+                            <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE5C4;" Size="24" />
+                          </Button.ImageSource>
                 </Button>
 
 
