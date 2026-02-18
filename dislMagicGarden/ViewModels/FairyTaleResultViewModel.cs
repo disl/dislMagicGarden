@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using dislMagicGarden.Models;
 using dislMagicGarden.Services;
 using dislMagicGarden.Views;
@@ -11,6 +12,13 @@ namespace dislMagicGarden.ViewModels
 {
     public partial class FairyTaleResultViewModel : BaseViewModel
     {
+        public record ScrollToSentenceMessage(int Index);
+
+        private int _currentSentenceIndex = 0;
+        [ObservableProperty]
+        private string[] _storyChunks;
+        private CancellationTokenSource _ttsCancellation;
+
         public FairyTaleModel FairyTale { get; }
         private readonly Action _closeAction;
         private readonly SoundEffectService _soundEffectService;
@@ -34,7 +42,6 @@ namespace dislMagicGarden.ViewModels
         private bool _isSpeaking = false;
 
 
-
         [ObservableProperty]
         private float speechSpeed = 1f;
 
@@ -55,12 +62,232 @@ namespace dislMagicGarden.ViewModels
             set => SetProperty(ref _selectedVoice, value);
         }
 
-        public ICommand SpeakStoryCommand { get; }
-        public ICommand StopStoryCommand { get; }
+        //public ICommand SpeakStoryCommand { get; }
+        //public ICommand StopStoryCommand { get; }
         public ICommand PauseStoryCommand { get; }
         public ICommand ShareCommand { get; }
         public ICommand CloseCommand { get; }
         public ICommand ShowPictureCommand { get; }
+
+
+        [RelayCommand]
+        private void SpeakStory() // Synchroner Einstieg, damit der Button immer klickbar bleibt
+        {
+            if (_isSpeaking)
+            {
+                // PAUSE LOGIK
+                _isSpeaking = false;
+                _ttsCancellation?.Cancel();
+                SpeakStoryGlyphIcon = m_c_SPEAK_ICON_PLAY;
+
+                // Optional: Musk pausieren (oder leise machen)
+                _soundEffectService.StopBackgroundMusic();
+            }
+            else
+            {
+                // PLAY LOGIK
+                _isSpeaking = true;
+                SpeakStoryGlyphIcon = m_c_SPEAK_ICON_PAUSE;
+
+                // Hintergrundmusik starten (läuft parallel)
+                _soundEffectService.SetLanguage(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName);
+                // Wir 'awaiten' das hier nicht, damit die Sprache sofort starten kann
+                _ = _soundEffectService.PlayBackgroundMusicAsync("fairytail_ambient.mp3");
+
+                // Starte den Prozess im Hintergrund, ohne den Command zu blockieren
+                Task.Run(async () => await PlayNextChunk());
+            }
+        }
+
+        private async Task PlayNextChunk()
+        {
+            if (_storyChunks == null)
+            {
+                _storyChunks = FairyTale.Story.Split(new[] { '.', '?', '!' }, StringSplitOptions.RemoveEmptyEntries)
+                                              .Select(s => s.Trim() + ".")
+                                              .ToArray();
+            }
+
+            while (_isSpeaking && _currentSentenceIndex < _storyChunks.Length)
+            {
+                string currentSentence = _storyChunks[_currentSentenceIndex];
+
+                // 1. DUCKING: Musik leiser machen (z.B. auf 10%)
+                _soundEffectService.SetBackgroundVolume(0.1f);
+
+
+                // UI Updates müssen auf dem MainThread laufen!
+                MainThread.BeginInvokeOnMainThread(() => {
+                    UpdateHighlightedText(FairyTale.Story, currentSentence);
+                    WeakReferenceMessenger.Default.Send(new ScrollToSentenceMessage(_currentSentenceIndex));
+                });
+
+                // Effekt triggern (Geraeusche usw.)
+                await _soundEffectService.TriggerSoundForTextAsync(currentSentence);
+
+                // Speaking starten
+                _ttsCancellation = new CancellationTokenSource();
+
+                try
+                {
+                    var settings = new SpeechOptions { Locale = SelectedVoice?.Locale };
+
+                    // Warten, bis der Satz zu Ende gesprochen wurde (oder abgebrochen wurde)
+                    await TextToSpeech.Default.SpeakAsync(currentSentence, settings, _ttsCancellation.Token);
+
+
+                    // PAUSE ZWISCHEN SÄTZEN: Musik kurz wieder lauter (z.B. auf 40%)
+                    _soundEffectService.SetBackgroundVolume(0.3f);
+                    await Task.Delay(500); // Kurzes Luftholen für die Atmosphäre
+
+                    if (_isSpeaking) _currentSentenceIndex++;
+                }
+                catch (OperationCanceledException)
+                {
+                    // Pause wurde gedrückt
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Fehler: {ex.Message}");
+                    break;
+                }
+            }
+
+            if (_currentSentenceIndex >= _storyChunks.Length)
+            {
+                MainThread.BeginInvokeOnMainThread(() => ResetToStart());
+            }
+        }
+
+        private void ResetToStart()
+        {
+            _isSpeaking = false;
+            _currentSentenceIndex = 0;
+            SpeakStoryGlyphIcon = m_c_SPEAK_ICON_PLAY;
+            // Optional: Highlighting entfernen
+        }
+
+        //[RelayCommand]
+        //private async Task SpeakStory()
+        //{
+        //    if (_isSpeaking)
+        //    {
+        //        _isSpeaking = false;
+        //        _ttsCancellation?.Cancel();
+        //        SpeakStoryGlyphIcon = m_c_SPEAK_ICON_PLAY;
+        //        return;
+        //    }
+
+        //    _isSpeaking = true;
+        //    SpeakStoryGlyphIcon = m_c_SPEAK_ICON_PAUSE;
+
+        //    if (StoryChunks == null)
+        //    {
+        //        StoryChunks = FairyTale.Story.Split(new[] { '.', '?', '!' }, StringSplitOptions.RemoveEmptyEntries)
+        //                                      .Select(s => s.Trim() + ".")
+        //                                      .ToArray();
+        //    }
+
+        //    await PlayNextChunk();
+        //}
+
+        //private async Task PlayNextChunk()
+        //{
+        //    while (_isSpeaking && _currentSentenceIndex < StoryChunks.Length)
+        //    {
+        //        string currentSentence = StoryChunks[_currentSentenceIndex];
+        //        UpdateHighlightedText(FairyTale.Story, currentSentence);
+
+        //        // Signal an die View: "Habe Text geupdated, bitte scrollen"
+        //        WeakReferenceMessenger.Default.Send(new ScrollToSentenceMessage(_currentSentenceIndex));
+
+        //        _ttsCancellation = new CancellationTokenSource();
+        //        try
+        //        {
+        //            await TextToSpeech.Default.SpeakAsync(currentSentence, new SpeechOptions
+        //            {
+        //                Locale = SelectedVoice?.Locale,
+        //                Pitch = 1.0f
+        //            }, _ttsCancellation.Token);
+
+        //            _currentSentenceIndex++;
+        //        }
+        //        catch (OperationCanceledException) { break; }
+        //    }
+
+        //    if (_currentSentenceIndex >= StoryChunks?.Length) ResetPlayback();
+        //}
+
+        private void ResetPlayback()
+        {
+            _isSpeaking = false;
+            _currentSentenceIndex = 0;
+            SpeakStoryGlyphIcon = m_c_SPEAK_ICON_PLAY;
+            // Initialen Text ohne Highlighting wiederherstellen
+        }
+
+        //private async Task PlayNextChunk()
+        //{
+        //    while (_isSpeaking && _currentSentenceIndex < _storyChunks.Length)
+        //    {
+        //        string currentSentence = _storyChunks[_currentSentenceIndex];
+
+        //        UpdateHighlightedText(FairyTale.Story, currentSentence);
+
+        //        // Sende eine Nachricht an die View, dass wir gescrollt werden wollen
+        //        // Wir senden den Index mit, um die Position zu bestimmen
+        //        WeakReferenceMessenger.Default.Send(new ScrollToSentenceMessage(_currentSentenceIndex));
+
+
+        //        // Sound Effekt optional
+        //        await _soundEffectService.TriggerSoundForTextAsync(currentSentence);
+
+        //        _ttsCancellation = new CancellationTokenSource();
+
+        //        try
+        //        {
+        //            var settings = new SpeechOptions
+        //            {
+        //                Locale = SelectedVoice?.Locale,
+        //                Pitch = 1.0f,
+        //                Volume = 1.0f
+        //            };
+
+        //            // Den aktuellen Chunk sprechen
+        //            await TextToSpeech.Default.SpeakAsync(currentSentence, settings, _ttsCancellation.Token);
+
+        //            _currentSentenceIndex++;
+        //            await Task.Delay(100); // Kleine Pause zwischen Sätzen
+        //        }
+        //        catch (OperationCanceledException)
+        //        {
+        //            // Wurde pausiert
+        //            break;
+        //        }
+        //    }
+
+        //    if (_currentSentenceIndex >= _storyChunks.Length)
+        //    {
+        //        // Ende der Geschichte erreicht
+        //        _isSpeaking = false;
+        //        _currentSentenceIndex = 0;
+        //        SpeakStoryGlyphIcon = m_c_SPEAK_ICON_PLAY;
+        //        // Text-Highlighting zurücksetzen
+        //        StoryFormatted = new FormattedString { Spans = { new Span { Text = FairyTale.Story, FontSize = 18 } } };
+        //    }
+        //}
+
+        [RelayCommand]
+        private void StopStory()
+        {
+            _isSpeaking = false;
+            _ttsCancellation?.Cancel();
+            _currentSentenceIndex = 0;
+            SpeakStoryGlyphIcon = m_c_SPEAK_ICON_PLAY;
+
+            _soundEffectService.StopBackgroundMusic();
+        }
 
 
         [RelayCommand]
@@ -150,93 +377,93 @@ namespace dislMagicGarden.ViewModels
                 }
             };
 
-            SpeakStoryCommand = new Command(async () =>
-            {
-                // 1. Status "Pause" prüfen -> Resume
-                if (_ttsService.IsPaused)
-                {
-                    _ttsService.Resume();
-                    SpeakStoryGlyphIcon = m_c_SpeakStoryGlyphIconPause; // Icon auf Pause stellen
-                }
-                // 2. Status "Playing" -> Pause
-                else if (_ttsService.IsSpeaking)
-                {
-                    _ttsService.Pause();
-                    SpeakStoryGlyphIcon = m_c_SpeakStoryGlyphIconPlay; // Icon auf Play stellen
-                }
-                // 3. Status "Stopped/Idle" -> Neu Starten
-                else
-                {
-                    // Geschwindigkeit laden
-                    float speed = Preferences.Get("speechSpeed", 1f);
+            //SpeakStoryCommand = new Command(async () =>
+            //{
+            //    // 1. Status "Pause" prüfen -> Resume
+            //    if (_ttsService.IsPaused)
+            //    {
+            //        _ttsService.Resume();
+            //        SpeakStoryGlyphIcon = m_c_SpeakStoryGlyphIconPause; // Icon auf Pause stellen
+            //    }
+            //    // 2. Status "Playing" -> Pause
+            //    else if (_ttsService.IsSpeaking)
+            //    {
+            //        _ttsService.Pause();
+            //        SpeakStoryGlyphIcon = m_c_SpeakStoryGlyphIconPlay; // Icon auf Play stellen
+            //    }
+            //    // 3. Status "Stopped/Idle" -> Neu Starten
+            //    else
+            //    {
+            //        // Geschwindigkeit laden
+            //        float speed = Preferences.Get("speechSpeed", 1f);
 
-                    // HINWEIS: Du musst sicherstellen, dass der Service die Speed kennt.
-                    // Falls ITextToSpeechService eine SetSpeed Methode hat:
-                    // _ttsService.SetSpeed(speed); 
+            //        // HINWEIS: Du musst sicherstellen, dass der Service die Speed kennt.
+            //        // Falls ITextToSpeechService eine SetSpeed Methode hat:
+            //        // _ttsService.SetSpeed(speed); 
 
-                    // Oder du erweiterst die Speak-Methode im Interface:
-                    // await _ttsService.Speak(FairyTale.Story, speed);
+            //        // Oder du erweiterst die Speak-Methode im Interface:
+            //        // await _ttsService.Speak(FairyTale.Story, speed);
 
-                    // OLD VERSION
-                    // Ambient music
-                    //_soundEffectService.SetLanguage(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName);
-                    //await _soundEffectService.PlayBackgroundMusicAsync("fairytail_ambient.mp3");
+            //        // OLD VERSION
+            //        // Ambient music
+            //        //_soundEffectService.SetLanguage(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName);
+            //        //await _soundEffectService.PlayBackgroundMusicAsync("fairytail_ambient.mp3");
 
-                    //await _ttsService.Speak(FairyTale.Story);
-
-
-                    // NEW VERSION
-                    _soundEffectService.SetLanguage(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName);
-                    await _soundEffectService.PlayBackgroundMusicAsync("fairytail_ambient.mp3");
+            //        //await _ttsService.Speak(FairyTale.Story);
 
 
-                    // In deinem ViewModel oder Service
+            //        // NEW VERSION
+            //        _soundEffectService.SetLanguage(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName);
+            //        await _soundEffectService.PlayBackgroundMusicAsync("fairytail_ambient.mp3");
 
-                    // Text in Sätze aufteilen (einfache Methode)
-                    var sentences = FairyTale.Story.Split(new[] { '.', '?', '!' }, StringSplitOptions.RemoveEmptyEntries);
-                    var fullText = FairyTale.Story;
 
-                    foreach (var sentence in sentences)
-                    {
-                        if (string.IsNullOrWhiteSpace(sentence)) continue;
+            //        // In deinem ViewModel oder Service
 
-                        // 1. Den aktuellen Satz inkl. Satzzeichen bauen
-                        string currentSentence = sentence.Trim() + "."; // Annahme: Punkt war im Split
+            //        // Text in Sätze aufteilen (einfache Methode)
+            //        var sentences = FairyTale.Story.Split(new[] { '.', '?', '!' }, StringSplitOptions.RemoveEmptyEntries);
+            //        var fullText = FairyTale.Story;
 
-                        // --- A. VISUELL UPDATE (Highlighting) ---
-                        UpdateHighlightedText(fullText, currentSentence);
+            //        foreach (var sentence in sentences)
+            //        {
+            //            if (string.IsNullOrWhiteSpace(sentence)) continue;
 
-                        // --- B. SOUND EFFEKTE ---
-                        await _soundEffectService.TriggerSoundForTextAsync(currentSentence);
+            //            // 1. Den aktuellen Satz inkl. Satzzeichen bauen
+            //            string currentSentence = sentence.Trim() + "."; // Annahme: Punkt war im Split
 
-                        // --- C. TTS SPRECHEN ---
-                        // WICHTIG: Du darfst hier NICHT TextToSpeech.SpeakAsync direkt nutzen, 
-                        // wenn du Pause/Resume im _ttsService unterstützen willst.
-                        // Du musst deinen eigenen Service nutzen, der das unterstützt!
+            //            // --- A. VISUELL UPDATE (Highlighting) ---
+            //            UpdateHighlightedText(fullText, currentSentence);
 
-                        // Wenn dein _ttsService nur den ganzen Text kann, ist das hier ein Problem.
-                        // Wir nehmen an, _ttsService hat eine Methode Speak(string) oder ähnlich.
-                        // Als Workaround für das Highlighting nutzen wir hier die Standard MAUI API:
+            //            // --- B. SOUND EFFEKTE ---
+            //            await _soundEffectService.TriggerSoundForTextAsync(currentSentence);
 
-                        await TextToSpeech.SpeakAsync(currentSentence);
+            //            // --- C. TTS SPRECHEN ---
+            //            // WICHTIG: Du darfst hier NICHT TextToSpeech.SpeakAsync direkt nutzen, 
+            //            // wenn du Pause/Resume im _ttsService unterstützen willst.
+            //            // Du musst deinen eigenen Service nutzen, der das unterstützt!
 
-                        // HINWEIS: Wenn du Pause-Resume Buttons hast, funktioniert das mit der 
-                        // Standard-Schleife hier schlecht, da man die Schleife nicht pausieren kann.
-                        // Für ein erstes "Highlighting-Demo" ist das aber okay.
+            //            // Wenn dein _ttsService nur den ganzen Text kann, ist das hier ein Problem.
+            //            // Wir nehmen an, _ttsService hat eine Methode Speak(string) oder ähnlich.
+            //            // Als Workaround für das Highlighting nutzen wir hier die Standard MAUI API:
 
-                        await Task.Delay(50);
+            //            await TextToSpeech.SpeakAsync(currentSentence);
 
-                    }
+            //            // HINWEIS: Wenn du Pause-Resume Buttons hast, funktioniert das mit der 
+            //            // Standard-Schleife hier schlecht, da man die Schleife nicht pausieren kann.
+            //            // Für ein erstes "Highlighting-Demo" ist das aber okay.
 
-                    SpeakStoryGlyphIcon = m_c_SpeakStoryGlyphIconPause;
-                }
-            });
+            //            await Task.Delay(50);
 
-            StopStoryCommand = new Command(() =>
-            {
-                _ttsService.Stop();
-                SpeakStoryGlyphIcon = m_c_SpeakStoryGlyphIconPlay; // Reset Icon
-            });
+            //        }
+
+            //        SpeakStoryGlyphIcon = m_c_SpeakStoryGlyphIconPause;
+            //    }
+            //});
+
+            //StopStoryCommand = new Command(() =>
+            //{
+            //    _ttsService.Stop();
+            //    SpeakStoryGlyphIcon = m_c_SpeakStoryGlyphIconPlay; // Reset Icon
+            //});
 
 
             PauseStoryCommand = new Command(() =>

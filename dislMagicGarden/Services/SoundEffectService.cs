@@ -193,6 +193,15 @@ namespace dislMagicGarden.Services
             }
         }
 
+        public void SetBackgroundVolume(double volume)
+        {
+            // Sicherstellen, dass der Wert zwischen 0.0 und 1.0 liegt
+            if (_musicPlayer != null)
+            {
+                _musicPlayer.Volume = Math.Clamp(volume, 0.0, 1.0);
+            }
+        }
+
         // Startet Hintergrundmusik (Loop)
         public async Task PlayBackgroundMusicAsync(string fileName, double volume = 0.3)
         {
