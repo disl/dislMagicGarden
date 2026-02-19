@@ -15,6 +15,10 @@ namespace dislMagicGarden.ViewModels
         private const string m_c_selectedGender = "selectedGender";
         private readonly IHybridFairyTaleService _fairyTaleService;
         private readonly ITextToSpeechService _textToSpeechService;
+        private readonly SoundEffectService _soundEffectService;
+
+        // Neue Eigenschaft für das formatierte Label
+        [ObservableProperty] private FormattedString _storyFormatted;
 
         [ObservableProperty]
         private GenderOption _selectedGender = GenderOption.Neutral;
@@ -216,16 +220,23 @@ namespace dislMagicGarden.ViewModels
         // Duration-Auswahl (in Minuten)
         public ObservableCollection<int> DurationOptions { get; } = new() { 3, 5, 10 };
         private int _selectedDuration = 3;
+        
+
         public int SelectedDuration
         {
             get => _selectedDuration;
             set => SetProperty(ref _selectedDuration, value);
         }
 
-        public FairyTaleViewModel(IHybridFairyTaleService fairyTaleService, ILanguageService language, ITextToSpeechService textToSpeechService)
+        public FairyTaleViewModel(
+            IHybridFairyTaleService fairyTaleService, 
+            ILanguageService language, 
+            ITextToSpeechService textToSpeechService, SoundEffectService soundEffectService)
         {
             _fairyTaleService = fairyTaleService;
             _textToSpeechService = textToSpeechService;
+            _soundEffectService = soundEffectService;
+
             Title = Properties.Resources.Home_NewStory;
             _language = language;
 
@@ -337,7 +348,7 @@ namespace dislMagicGarden.ViewModels
                     var model = ConvertResponseToModel(CurrentFairyTale);
 
                     await Application.Current.MainPage.Navigation
-                        .PushModalAsync(new FairyTaleResultPage(model, _textToSpeechService), true);
+                        .PushModalAsync(new FairyTaleResultPage(model, _textToSpeechService, _soundEffectService), true);
                 }
 
                 StatusMessage = $"Done! ({CurrentFairyTale.GenerationTime.TotalSeconds:F1}s)";

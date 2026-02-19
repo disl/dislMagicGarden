@@ -1,6 +1,10 @@
 ﻿using dislMagicGarden.Models;
 using OpenAI.Chat;
 using OpenAI.Images;
+
+
+//using OpenAI.Chat;
+//using OpenAI.Images;
 using System.Diagnostics;
 using System.Text;
 using System.Text.Json;

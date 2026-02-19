@@ -31,10 +31,10 @@
                           VerticalOptions="Center"
                           HorizontalOptions="End"
                           FontSize="24"
-                         Command="{Binding CloseCommand}" >
-                                    <Button.ImageSource>
-                                        <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE5C4;" Size="24" />
-                                    </Button.ImageSource>
+                          Command="{Binding CloseCommand}" >
+                          <Button.ImageSource>
+                            <FontImageSource FontFamily="MaterialIcons" Glyph="&#xE5C4;" Size="24" />
+                          </Button.ImageSource>
                 </Button>
 
 
@@ -51,9 +51,19 @@
         <ScrollView Grid.Row="1" Padding="5">
             <VerticalStackLayout Spacing="14">
 
-                <Label Text="{Binding FairyTale.Story}"
+                <!--<Label Text="{Binding FairyTale.Story}"
                        FontSize="18"
-                       TextColor="{StaticResource MidnightBlue}" />
+                       TextColor="{StaticResource MidnightBlue}" />-->
+
+                <!-- Inhalt -->
+                <ScrollView Grid.Row="1" x:Name="StoryScrollView" Padding="5">
+                    <VerticalStackLayout Spacing="14">
+                        <Label Grid.Row="1" 
+                       x:Name="StoryLabel"
+                       FormattedText="{Binding StoryFormatted}" 
+                       LineBreakMode="WordWrap" />
+                    </VerticalStackLayout>
+                </ScrollView>
 
                 <Border BackgroundColor="{StaticResource MintGarden}"
                         StrokeShape="RoundRectangle 8"

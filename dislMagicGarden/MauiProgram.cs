@@ -7,6 +7,7 @@ using dislMagicGarden.ViewModels;
 using dislMagicGarden.Views;
 using Microsoft.Extensions.Configuration;
 using PdfSharp.Fonts;
+using Plugin.Maui.Audio;
 using Plugin.MauiMTAdmob;
 using System.Globalization;
 using System.Reflection;
@@ -39,6 +40,7 @@ namespace dislMagicGarden
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
+                //.UseMauiAudio()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -66,9 +68,9 @@ namespace dislMagicGarden
             //    handlers.AddHandler<AdBannerView, AdBannerViewHandler>();
             //});
 
-//#if ANDROID
-//            builder.Services.AddSingleton<IAdMobRewardedService, dislMagicGarden.Platforms.Android.AdMobRewardedService>();
-//#endif
+            //#if ANDROID
+            //            builder.Services.AddSingleton<IAdMobRewardedService, dislMagicGarden.Platforms.Android.AdMobRewardedService>();
+            //#endif
 
 
 #if DEBUG
@@ -95,7 +97,12 @@ namespace dislMagicGarden
             builder.Services.AddSingleton<AdService>();
             builder.Services.AddSingleton<QuizViewModel>();
 
-            builder.Services.AddHttpClient<ImageGeneratorService>();
+            builder.AddAudio();
+            builder.Services.AddSingleton<SoundEffectService>();
+
+
+            builder.Services.AddSingleton<ImageGeneratorService>();
+
 
             //builder.Services.AddTransient<DeepSeekClient>();
 
@@ -125,7 +132,7 @@ namespace dislMagicGarden
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.CurrentCulture;
             CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.CurrentUICulture;
 
-           
+
 
             return app;
 
