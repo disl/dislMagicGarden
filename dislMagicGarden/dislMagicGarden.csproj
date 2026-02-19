@@ -56,8 +56,8 @@
 	
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-android|AnyCPU'">
-	  <ApplicationDisplayVersion>1.27</ApplicationDisplayVersion>
-	  <ApplicationVersion>27</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.30</ApplicationDisplayVersion>
+	  <ApplicationVersion>30</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-ios|AnyCPU'">
@@ -76,8 +76,8 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android|AnyCPU'">
-	  <ApplicationDisplayVersion>1.27</ApplicationDisplayVersion>
-	  <ApplicationVersion>27</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.30</ApplicationDisplayVersion>
+	  <ApplicationVersion>30</ApplicationVersion>
 	  <AndroidLinkTool>r8</AndroidLinkTool>
 	</PropertyGroup>
 
@@ -156,6 +156,8 @@
 
 	<ItemGroup>
 	  <EmbeddedResource Remove="Resources\Fonts\MaterialIcons-Regular.ttf" />
+	  <EmbeddedResource Remove="Resources\Fonts\OpenSans-Regular.ttf" />
+	  <EmbeddedResource Remove="Resources\Fonts\OpenSans-Semibold.ttf" />
 	</ItemGroup>
 
 	<ItemGroup>
