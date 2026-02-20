@@ -45,7 +45,7 @@ namespace dislMagicGarden
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                    fonts.AddFont("MaterialIcons-Regular.ttf", "MaterialIcons");
+                    fonts.AddFont("MaterialSymbolsSharp-Regular.ttf", "MaterialIcons");
                 });
 
             // 2. appsettings.json als Embedded Resource auslesen und zur Konfiguration hinzufügen

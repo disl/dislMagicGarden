@@ -56,8 +56,9 @@
 	
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-android|AnyCPU'">
-	  <ApplicationDisplayVersion>1.30</ApplicationDisplayVersion>
-	  <ApplicationVersion>30</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.31</ApplicationDisplayVersion>
+	  <ApplicationVersion>31</ApplicationVersion>
+		<AndroidSupportedAbis>armeabi-v7a;arm64-v8a;x86;x86_64</AndroidSupportedAbis>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-ios|AnyCPU'">
@@ -76,8 +77,8 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android|AnyCPU'">
-	  <ApplicationDisplayVersion>1.30</ApplicationDisplayVersion>
-	  <ApplicationVersion>30</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.31</ApplicationDisplayVersion>
+	  <ApplicationVersion>31</ApplicationVersion>
 	  <AndroidLinkTool>r8</AndroidLinkTool>
 	</PropertyGroup>
 
@@ -156,8 +157,15 @@
 
 	<ItemGroup>
 	  <EmbeddedResource Remove="Resources\Fonts\MaterialIcons-Regular.ttf" />
+	  <EmbeddedResource Remove="Resources\Fonts\MaterialSymbolsRounded_28pt-Regular.ttf" />
+	  <EmbeddedResource Remove="Resources\Fonts\MaterialSymbolsSharp-Regular.ttf" />
 	  <EmbeddedResource Remove="Resources\Fonts\OpenSans-Regular.ttf" />
 	  <EmbeddedResource Remove="Resources\Fonts\OpenSans-Semibold.ttf" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiFont Remove="Resources\Fonts\MaterialIcons-Regular.ttf" />
+	  <MauiFont Remove="Resources\Fonts\MaterialSymbolsRounded_28pt-Regular.ttf" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -180,6 +188,8 @@
 
 	<ItemGroup>
 		<None Remove="Resources\Config\appsettings.json" />
+		<None Remove="Resources\Fonts\MaterialIcons-Regular.ttf" />
+		<None Remove="Resources\Fonts\MaterialSymbolsRounded_28pt-Regular.ttf" />
 		<None Remove="Resources\Images\background_magic.jpg" />
 		<None Remove="Resources\Images\background_magic.png" />
 		<None Remove="Resources\Images\character_bunny.png" />

@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using dislMagicGarden.Helpers;
 using dislMagicGarden.Models;
 using dislMagicGarden.Services;
 using dislMagicGarden.Views;
@@ -24,13 +25,13 @@ namespace dislMagicGarden.ViewModels
         private readonly SoundEffectService _soundEffectService;
         private readonly ITextToSpeechService _ttsService;
 
-        const string m_c_SpeakStoryGlyphIconPlay = "\uE037"; //"&#xe050;";
-        const string m_c_SpeakStoryGlyphIconPause = "\uE034"; //"&#xe1a2;";
+        const string m_c_SpeakStoryGlyphIconPlay = IconFont.Play_arrow;  //"\uE037"; //"&#xe050;";
+        const string m_c_SpeakStoryGlyphIconPause = IconFont.Pause; //"\uE034"; //"&#xe1a2;";
 
         // Glyph Icons als Konstanten
-        private const string m_c_SPEAK_ICON_PLAY = "\uE037";  // Play arrow
-        private const string m_c_SPEAK_ICON_PAUSE = "\uE034"; // Pause
-        private const string m_c_SPEAK_ICON_STOP = "\uE047";  // Stop
+        private const string m_c_SPEAK_ICON_PLAY = IconFont.Play_arrow;  // "\uE037";  // Play arrow
+        private const string m_c_SPEAK_ICON_PAUSE = IconFont.Pause; // "\uE034"; // Pause
+        private const string m_c_SPEAK_ICON_STOP = IconFont.Stop; // "\uE047";  // Stop
 
         // Neue Eigenschaft für das formatierte Label
         [ObservableProperty] private FormattedString _storyFormatted;
@@ -38,7 +39,7 @@ namespace dislMagicGarden.ViewModels
         [ObservableProperty]
         string speakStoryGlyphIcon = m_c_SpeakStoryGlyphIconPlay;
 
-        private string _speakStoryGlyphIcon = m_c_SPEAK_ICON_PLAY;
+        //private string _speakStoryGlyphIcon = m_c_SPEAK_ICON_PLAY;
         private bool _isSpeaking = false;
 
 
