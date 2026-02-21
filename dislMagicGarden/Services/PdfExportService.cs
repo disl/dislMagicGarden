@@ -1,4 +1,5 @@
 ﻿using PdfSharp.Drawing;
+using PdfSharp.Maui;
 using PdfSharp.Pdf;
 using System.Text;
 
@@ -10,9 +11,11 @@ namespace dislMagicGarden.Services
         {
             try
             {
+                var pdfManager = new PdfManager();
+
                 var document = new PdfDocument();
-                var titleFont = new XFont("OpenSans-Regular", 22, XFontStyleEx.Bold);
-                var textFont = new XFont("OpenSans-Regular", 13, XFontStyleEx.Regular);
+                var titleFont = new XFont("OpenSansSemibold", 22, XFontStyleEx.Bold);
+                var textFont = new XFont("OpenSansRegular", 13, XFontStyleEx.Regular);
                 double margin = 50;
 
                 // Erste Seite
