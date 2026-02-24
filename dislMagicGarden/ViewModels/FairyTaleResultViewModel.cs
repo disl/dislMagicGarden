@@ -114,7 +114,7 @@ namespace dislMagicGarden.ViewModels
                 string currentSentence = _storyChunks[_currentSentenceIndex];
 
                 // 1. DUCKING: Musik leiser machen (z.B. auf 10%)
-                _soundEffectService.SetBackgroundVolume(0.1f);
+                //_soundEffectService.SetBackgroundVolume(0.1f);
 
 
                 // UI Updates müssen auf dem MainThread laufen!
@@ -157,6 +157,8 @@ namespace dislMagicGarden.ViewModels
 
             if (_currentSentenceIndex >= _storyChunks.Length)
             {
+                _soundEffectService.SetBackgroundVolume(1.0f);
+
                 MainThread.BeginInvokeOnMainThread(() => ResetToStart());
             }
         }
@@ -169,57 +171,7 @@ namespace dislMagicGarden.ViewModels
             // Optional: Highlighting entfernen
         }
 
-        //[RelayCommand]
-        //private async Task SpeakStory()
-        //{
-        //    if (_isSpeaking)
-        //    {
-        //        _isSpeaking = false;
-        //        _ttsCancellation?.Cancel();
-        //        SpeakStoryGlyphIcon = m_c_SPEAK_ICON_PLAY;
-        //        return;
-        //    }
-
-        //    _isSpeaking = true;
-        //    SpeakStoryGlyphIcon = m_c_SPEAK_ICON_PAUSE;
-
-        //    if (StoryChunks == null)
-        //    {
-        //        StoryChunks = FairyTale.Story.Split(new[] { '.', '?', '!' }, StringSplitOptions.RemoveEmptyEntries)
-        //                                      .Select(s => s.Trim() + ".")
-        //                                      .ToArray();
-        //    }
-
-        //    await PlayNextChunk();
-        //}
-
-        //private async Task PlayNextChunk()
-        //{
-        //    while (_isSpeaking && _currentSentenceIndex < StoryChunks.Length)
-        //    {
-        //        string currentSentence = StoryChunks[_currentSentenceIndex];
-        //        UpdateHighlightedText(FairyTale.Story, currentSentence);
-
-        //        // Signal an die View: "Habe Text geupdated, bitte scrollen"
-        //        WeakReferenceMessenger.Default.Send(new ScrollToSentenceMessage(_currentSentenceIndex));
-
-        //        _ttsCancellation = new CancellationTokenSource();
-        //        try
-        //        {
-        //            await TextToSpeech.Default.SpeakAsync(currentSentence, new SpeechOptions
-        //            {
-        //                Locale = SelectedVoice?.Locale,
-        //                Pitch = 1.0f
-        //            }, _ttsCancellation.Token);
-
-        //            _currentSentenceIndex++;
-        //        }
-        //        catch (OperationCanceledException) { break; }
-        //    }
-
-        //    if (_currentSentenceIndex >= StoryChunks?.Length) ResetPlayback();
-        //}
-
+       
         private void ResetPlayback()
         {
             _isSpeaking = false;
@@ -227,57 +179,7 @@ namespace dislMagicGarden.ViewModels
             SpeakStoryGlyphIcon = m_c_SPEAK_ICON_PLAY;
             // Initialen Text ohne Highlighting wiederherstellen
         }
-
-        //private async Task PlayNextChunk()
-        //{
-        //    while (_isSpeaking && _currentSentenceIndex < _storyChunks.Length)
-        //    {
-        //        string currentSentence = _storyChunks[_currentSentenceIndex];
-
-        //        UpdateHighlightedText(FairyTale.Story, currentSentence);
-
-        //        // Sende eine Nachricht an die View, dass wir gescrollt werden wollen
-        //        // Wir senden den Index mit, um die Position zu bestimmen
-        //        WeakReferenceMessenger.Default.Send(new ScrollToSentenceMessage(_currentSentenceIndex));
-
-
-        //        // Sound Effekt optional
-        //        await _soundEffectService.TriggerSoundForTextAsync(currentSentence);
-
-        //        _ttsCancellation = new CancellationTokenSource();
-
-        //        try
-        //        {
-        //            var settings = new SpeechOptions
-        //            {
-        //                Locale = SelectedVoice?.Locale,
-        //                Pitch = 1.0f,
-        //                Volume = 1.0f
-        //            };
-
-        //            // Den aktuellen Chunk sprechen
-        //            await TextToSpeech.Default.SpeakAsync(currentSentence, settings, _ttsCancellation.Token);
-
-        //            _currentSentenceIndex++;
-        //            await Task.Delay(100); // Kleine Pause zwischen Sätzen
-        //        }
-        //        catch (OperationCanceledException)
-        //        {
-        //            // Wurde pausiert
-        //            break;
-        //        }
-        //    }
-
-        //    if (_currentSentenceIndex >= _storyChunks.Length)
-        //    {
-        //        // Ende der Geschichte erreicht
-        //        _isSpeaking = false;
-        //        _currentSentenceIndex = 0;
-        //        SpeakStoryGlyphIcon = m_c_SPEAK_ICON_PLAY;
-        //        // Text-Highlighting zurücksetzen
-        //        StoryFormatted = new FormattedString { Spans = { new Span { Text = FairyTale.Story, FontSize = 18 } } };
-        //    }
-        //}
+        
 
         [RelayCommand]
         private void StopStory()
