@@ -80,6 +80,11 @@
 	  <ApplicationDisplayVersion>1.33</ApplicationDisplayVersion>
 	  <ApplicationVersion>33</ApplicationVersion>
 	  <AndroidLinkTool>r8</AndroidLinkTool>
+
+		<Platform>AnyCPU</Platform>
+
+		<RuntimeIdentifier>android-arm64</RuntimeIdentifier>
+
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-ios|AnyCPU'">
