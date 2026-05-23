@@ -56,8 +56,8 @@
 
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-android|AnyCPU'">
-		<ApplicationDisplayVersion>1.34</ApplicationDisplayVersion>
-		<ApplicationVersion>34</ApplicationVersion>
+		<ApplicationDisplayVersion>1.35</ApplicationDisplayVersion>
+		<ApplicationVersion>35</ApplicationVersion>
 		<AndroidSupportedAbis>armeabi-v7a;arm64-v8a;x86;x86_64</AndroidSupportedAbis>
 	</PropertyGroup>
 
@@ -77,8 +77,8 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android|AnyCPU'">
-		<ApplicationDisplayVersion>1.34</ApplicationDisplayVersion>
-		<ApplicationVersion>34</ApplicationVersion>
+		<ApplicationDisplayVersion>1.35</ApplicationDisplayVersion>
+		<ApplicationVersion>35</ApplicationVersion>
 		<AndroidLinkTool>r8</AndroidLinkTool>
 
 		<Platform>AnyCPU</Platform>
