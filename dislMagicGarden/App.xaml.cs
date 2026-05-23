@@ -24,8 +24,6 @@ namespace dislMagicGarden
 
             var lang = Preferences.Get("app_language", curr_cult);
             LanguageService.SetLanguage(lang);
-
-            
         }
 
         protected override Window CreateWindow(IActivationState? activationState)

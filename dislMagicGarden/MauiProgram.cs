@@ -132,7 +132,8 @@ namespace dislMagicGarden
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.CurrentCulture;
             CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.CurrentUICulture;
 
-
+            // Production Ads aktivieren
+            //AdService.Instance.SetProductionMode(true);
 
             return app;
 

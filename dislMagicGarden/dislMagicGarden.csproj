@@ -44,62 +44,61 @@
 
 		<!-- WICHTIG für Release-Builds -->
 		<MauiEnableAssemblyTrimming>false</MauiEnableAssemblyTrimming>
-	
+
 		<EnableCompressionInSingleFile>false</EnableCompressionInSingleFile>
-	
+
 		<AllowUnsafeBlocks>False</AllowUnsafeBlocks>
-		
-		
+
+
 	</PropertyGroup>
 
 
-	
+
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-android|AnyCPU'">
-	  <ApplicationDisplayVersion>1.33</ApplicationDisplayVersion>
-	  <ApplicationVersion>33</ApplicationVersion>
+		<ApplicationDisplayVersion>1.34</ApplicationDisplayVersion>
+		<ApplicationVersion>34</ApplicationVersion>
 		<AndroidSupportedAbis>armeabi-v7a;arm64-v8a;x86;x86_64</AndroidSupportedAbis>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-ios|AnyCPU'">
-	  <ApplicationDisplayVersion>1.18</ApplicationDisplayVersion>
-	  <ApplicationVersion>18</ApplicationVersion>
+		<ApplicationDisplayVersion>1.18</ApplicationDisplayVersion>
+		<ApplicationVersion>18</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-maccatalyst|AnyCPU'">
-	  <ApplicationDisplayVersion>1.18</ApplicationDisplayVersion>
-	  <ApplicationVersion>18</ApplicationVersion>
+		<ApplicationDisplayVersion>1.18</ApplicationDisplayVersion>
+		<ApplicationVersion>18</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-windows10.0.19041.0|AnyCPU'">
-	  <ApplicationDisplayVersion>1.17</ApplicationDisplayVersion>
-	  <ApplicationVersion>17</ApplicationVersion>
+		<ApplicationDisplayVersion>1.17</ApplicationDisplayVersion>
+		<ApplicationVersion>17</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android|AnyCPU'">
-	  <ApplicationDisplayVersion>1.33</ApplicationDisplayVersion>
-	  <ApplicationVersion>33</ApplicationVersion>
-	  <AndroidLinkTool>r8</AndroidLinkTool>
+		<ApplicationDisplayVersion>1.34</ApplicationDisplayVersion>
+		<ApplicationVersion>34</ApplicationVersion>
+		<AndroidLinkTool>r8</AndroidLinkTool>
 
 		<Platform>AnyCPU</Platform>
-
-		<RuntimeIdentifier>android-arm64</RuntimeIdentifier>
+		<AndroidPackageFormats>aab</AndroidPackageFormats>
 
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-ios|AnyCPU'">
-	  <ApplicationDisplayVersion>1.18</ApplicationDisplayVersion>
-	  <ApplicationVersion>18</ApplicationVersion>
+		<ApplicationDisplayVersion>1.18</ApplicationDisplayVersion>
+		<ApplicationVersion>18</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-maccatalyst|AnyCPU'">
-	  <ApplicationDisplayVersion>1.18</ApplicationDisplayVersion>
-	  <ApplicationVersion>18</ApplicationVersion>
+		<ApplicationDisplayVersion>1.18</ApplicationDisplayVersion>
+		<ApplicationVersion>18</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-windows10.0.19041.0|AnyCPU'">
-	  <ApplicationDisplayVersion>1.17</ApplicationDisplayVersion>
-	  <ApplicationVersion>17</ApplicationVersion>
+		<ApplicationDisplayVersion>1.17</ApplicationDisplayVersion>
+		<ApplicationVersion>17</ApplicationVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -117,11 +116,11 @@
 
 		<!-- ODER alle Fonts als Embedded Resource -->
 		<EmbeddedResource Include="Resources\Fonts\*.ttf" />
-		
-		
-		
-		
-		
+
+
+
+
+
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
@@ -161,16 +160,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Remove="Resources\Fonts\MaterialIcons-Regular.ttf" />
-	  <EmbeddedResource Remove="Resources\Fonts\MaterialSymbolsRounded_28pt-Regular.ttf" />
-	  <EmbeddedResource Remove="Resources\Fonts\MaterialSymbolsSharp-Regular.ttf" />
+		<EmbeddedResource Remove="Resources\Fonts\MaterialIcons-Regular.ttf" />
+		<EmbeddedResource Remove="Resources\Fonts\MaterialSymbolsRounded_28pt-Regular.ttf" />
+		<EmbeddedResource Remove="Resources\Fonts\MaterialSymbolsSharp-Regular.ttf" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiFont Remove="Resources\Fonts\MaterialIcons-Regular.ttf" />
-	  <MauiFont Remove="Resources\Fonts\MaterialSymbolsRounded_28pt-Regular.ttf" />
-	  <MauiFont Remove="Resources\Fonts\OpenSans-Regular.ttf" />
-	  <MauiFont Remove="Resources\Fonts\OpenSans-Semibold.ttf" />
+		<MauiFont Remove="Resources\Fonts\MaterialIcons-Regular.ttf" />
+		<MauiFont Remove="Resources\Fonts\MaterialSymbolsRounded_28pt-Regular.ttf" />
+		<MauiFont Remove="Resources\Fonts\OpenSans-Regular.ttf" />
+		<MauiFont Remove="Resources\Fonts\OpenSans-Semibold.ttf" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -236,8 +235,8 @@
 
 	<ItemGroup>
 		<EmbeddedResource Update="Properties\Resources.ru.resx">
-		  <SubType>Designer</SubType>
-		  <Generator></Generator>
+			<SubType>Designer</SubType>
+			<Generator></Generator>
 		</EmbeddedResource>
 		<EmbeddedResource Update="Properties\Resources.resx">
 			<Generator>ResXFileCodeGenerator</Generator>
@@ -247,25 +246,25 @@
 
 	<ItemGroup>
 		<MauiXaml Update="Controls\FlyoutHeader.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\AdventureHistoryPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ColoringGenerator.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\QuizPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\SemiAutomaticPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\SketchPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\VoiceRecognitionPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\FairyBasePage.xaml">
 			<Generator>MSBuild:Compile</Generator>
@@ -286,18 +285,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiIcon Include="Resources\AppIcon\appicon.png" />
-	  <MauiSplashScreen Include="Resources\Splash\appicon.png" color="white" />
+		<MauiIcon Include="Resources\AppIcon\appicon.png" />
+		<MauiSplashScreen Include="Resources\Splash\appicon.png" color="white" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
-	  <PackageReference Include="Xamarin.Google.Android.Play.Core">
-	    <Version>1.10.3.20</Version>
-	  </PackageReference>
+		<PackageReference Include="Xamarin.Google.Android.Play.Core">
+			<Version>1.10.3.20</Version>
+		</PackageReference>
 	</ItemGroup>
 
-	
 
-	
+
+
 
 </Project>

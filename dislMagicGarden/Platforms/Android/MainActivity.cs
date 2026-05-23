@@ -16,7 +16,7 @@ namespace dislMagicGarden
             // AdMob initialisieren – HIER die App ID angeben!
             CrossMauiMTAdmob.Current.Init(
                 activity: this,                                           // Pflicht: die aktuelle Activity
-                appId: "ca-app-pub-3940256099942544~3347511713",          // Test-App-ID (später deine echte)
+                appId: "ca-app-pub-9459821903521146~7288668937",          // Test-App-ID (später deine echte)
                 forceTesting: true,                                       // Optional: Test-Ads erzwingen
                 debugMode: true                                           // Optional: Logs aktivieren
                                                                           // weitere optionale Parameter wie license, openAdsId usw. bei Bedarf            
