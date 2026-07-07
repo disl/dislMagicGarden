@@ -8,7 +8,7 @@
              Title="Abenteuer-Welt">
 
     <ScrollView>
-        <VerticalStackLayout x:Name="ThemeSelectionArea" IsVisible="True">
+        <VerticalStackLayout x:Name="ThemeSelectionArea" IsVisible="False">
             <Grid RowDefinitions="Auto, *, Auto,Auto,Auto,Auto" Padding="15" RowSpacing="5">
 
                 <!-- Header -->

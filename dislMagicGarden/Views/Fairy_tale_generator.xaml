@@ -18,7 +18,7 @@
     </ContentPage.Resources>
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
+        <VerticalStackLayout Padding="20" Spacing="15" IsVisible="False">
 
             <!-- Header -->
             <Label Text="🎭 Märchen Generator" 
