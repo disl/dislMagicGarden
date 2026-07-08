@@ -1,6 +1,5 @@
 {
   "DeepSeek": {
-    "ApiKey": "sk-35ab209dcf1b42109a9c83c3c6ea690e",
     "BaseUrl": "https://api.deepseek.com"
   },
   "OpenAI": {

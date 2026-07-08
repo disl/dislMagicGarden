@@ -52,9 +52,8 @@ namespace dislMagicGarden.Services
 
             _configuration = configuration;
 
-            // API Keys aus Konfiguration laden
-            _deepSeekApiKey = _configuration["DeepSeek:ApiKey"]
-                ?? throw new ArgumentException("DeepSeek API Key fehlt. Bitte in appsettings.json eintragen.");
+            // DeepSeek-Key kommt obfuskiert aus dem Code (SecretVault), nicht mehr aus appsettings.json
+            _deepSeekApiKey = SecretVault.DeepSeekApiKey;
 
             _openAiApiKey = _configuration["OpenAI:ApiKey"]
                 ?? throw new ArgumentException("OpenAI API Key fehlt. Bitte in appsettings.json eintragen.");
