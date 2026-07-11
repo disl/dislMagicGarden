@@ -364,3 +364,4 @@ FodyWeavers.xsd
 
 # Lokale Secrets - niemals committen
 dislMagicGarden/appsettings.json
+dislMagicGarden/info.txt

@@ -9,8 +9,8 @@ namespace dislMagicGarden.Services
     {
         private const string Passphrase = "WhimsyTales_v2_Salt#2026";
 
-        // Neu generieren nach jeder Key-Rotation: siehe scratchpad/obfuscate.py
-        private const string DeepSeekApiKeyEncoded = "JANEXkYYNlNcXBc8EAM9Z1NdRBpTCVEOZAtaDkUcNVdVVRY=";
+        // Neu generieren nach jeder Key-Rotation: python Tools/obfuscate_key.py <neuer-key>
+        private const string DeepSeekApiKeyEncoded = "JANEDkYaZgAOURdrEgU7Z1hYQEJTVAICMwwKWktIbFZbV0s=";
 
         public static string DeepSeekApiKey => Decode(DeepSeekApiKeyEncoded);
 
