@@ -49,6 +49,10 @@ public partial class SemiAutomaticPage : FairyBasePage
 
             await UpdateUI(result);
         }
+        catch (AiNotConfiguredException)
+        {
+            await PromptForSettingsAsync();
+        }
         catch (Exception ex)
         {
             await DisplayAlert(Properties.Resources.Error, ex.Message, "OK");
@@ -96,6 +100,10 @@ public partial class SemiAutomaticPage : FairyBasePage
                     _storyHistory.Add($"{result.Story}");
                 }
             }
+        }
+        catch (AiNotConfiguredException)
+        {
+            await PromptForSettingsAsync();
         }
         catch (Exception ex)
         {
@@ -196,6 +204,10 @@ public partial class SemiAutomaticPage : FairyBasePage
             //    ThemePicker.SelectedIndex = 0;
 
         }
+        catch (AiNotConfiguredException)
+        {
+            await PromptForSettingsAsync();
+        }
         catch (Exception ex)
         {
             await DisplayAlert(Properties.Resources.Error, ex.Message, "OK");
@@ -212,6 +224,18 @@ public partial class SemiAutomaticPage : FairyBasePage
     private void ThemePicker_SelectedIndexChanged(object sender, EventArgs e)
     {
         ThemeEntry.Text = ThemePicker.SelectedItem as string ?? string.Empty;
+    }
+
+    private async Task PromptForSettingsAsync()
+    {
+        bool go = await DisplayAlert(
+            AiSettingsService.T("SettingsMissingTitle"),
+            AiSettingsService.T("SettingsMissing"),
+            AiSettingsService.T("SettingsOpen"),
+            AiSettingsService.T("Cancel"));
+
+        if (go)
+            await Shell.Current.GoToAsync("//SettingsPage");
     }
 
     private void ThemePicker_Focused(object sender, FocusEventArgs e)

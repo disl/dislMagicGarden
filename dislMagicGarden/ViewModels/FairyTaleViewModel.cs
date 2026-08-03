@@ -356,6 +356,11 @@ namespace dislMagicGarden.ViewModels
                 //string encodedPrompt = Uri.EscapeDataString(Theme);
                 //await Shell.Current.GoToAsync($"{nameof(ColoringGenerator)}?Prompt={encodedPrompt}");
             }
+            catch (AiNotConfiguredException)
+            {
+                await PromptForSettingsAsync();
+                CurrentFairyTale = null;
+            }
             catch (Exception ex)
             {
                 await ShowErrorAsync($"{Properties.Resources.Error}: {ex.Message}");
@@ -365,6 +370,21 @@ namespace dislMagicGarden.ViewModels
             {
                 IsGenerating = false;
             }
+        }
+
+        /// <summary>
+        /// Guides the user to the settings page when no AI provider is configured yet.
+        /// </summary>
+        private async Task PromptForSettingsAsync()
+        {
+            bool go = await Application.Current!.MainPage!.DisplayAlert(
+                AiSettingsService.T("SettingsMissingTitle"),
+                AiSettingsService.T("SettingsMissing"),
+                AiSettingsService.T("SettingsOpen"),
+                AiSettingsService.T("Cancel"));
+
+            if (go)
+                await Shell.Current.GoToAsync("//SettingsPage");
         }
 
         private FairyTaleModel ConvertResponseToModel(FairyTaleResponse response)
@@ -458,6 +478,11 @@ namespace dislMagicGarden.ViewModels
 
                 var result = await _fairyTaleService.GetMaerchenThemenFromDeepSeekAsync();
                 return result;
+            }
+            catch (AiNotConfiguredException)
+            {
+                await PromptForSettingsAsync();
+                return null;
             }
             catch (Exception ex)
             {

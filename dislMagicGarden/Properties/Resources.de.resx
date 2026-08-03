@@ -432,4 +432,88 @@
   <data name="Quiz_finished" xml:space="preserve">
     <value>Quiz beendet!</value>
   </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
+  <data name="SettingsTextSection" xml:space="preserve">
+    <value>Text / KI (Geschichten)</value>
+  </data>
+  <data name="SettingsImageSection" xml:space="preserve">
+    <value>Bildgenerierung</value>
+  </data>
+  <data name="SettingsProviderLabel" xml:space="preserve">
+    <value>Anbieter</value>
+  </data>
+  <data name="SettingsApiKeyLabel" xml:space="preserve">
+    <value>API-Key</value>
+  </data>
+  <data name="SettingsBaseUrlLabel" xml:space="preserve">
+    <value>Base-URL (OpenAI-kompatibel)</value>
+  </data>
+  <data name="SettingsModelLabel" xml:space="preserve">
+    <value>Modell</value>
+  </data>
+  <data name="SettingsSaveAndTest" xml:space="preserve">
+    <value>Speichern &amp; Verbindung testen</value>
+  </data>
+  <data name="SettingsTestOk" xml:space="preserve">
+    <value>Verbindung OK — Modell erreichbar.</value>
+  </data>
+  <data name="SettingsTestFailed" xml:space="preserve">
+    <value>Verbindung fehlgeschlagen: {0}</value>
+  </data>
+  <data name="SettingsInvalid" xml:space="preserve">
+    <value>Bitte Base-URL und Modell ausfüllen.</value>
+  </data>
+  <data name="SettingsMissing" xml:space="preserve">
+    <value>Kein KI-Anbieter konfiguriert. Bitte in den Einstellungen den API-Key hinterlegen.</value>
+  </data>
+  <data name="SettingsMissingImage" xml:space="preserve">
+    <value>Kein Bildgenerierungs-Anbieter konfiguriert. Bitte in den Einstellungen den API-Key hinterlegen.</value>
+  </data>
+  <data name="SettingsMissingTitle" xml:space="preserve">
+    <value>KI-Anbieter einrichten</value>
+  </data>
+  <data name="SettingsOpen" xml:space="preserve">
+    <value>Einstellungen öffnen</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Zurück</value>
+  </data>
+  <data name="SettingsButton" xml:space="preserve">
+    <value>⚙️ Einstellungen</value>
+  </data>
+  <data name="ProviderDeepSeek" xml:space="preserve">
+    <value>DeepSeek</value>
+  </data>
+  <data name="ProviderOpenRouter" xml:space="preserve">
+    <value>OpenRouter</value>
+  </data>
+  <data name="ProviderCustom" xml:space="preserve">
+    <value>Benutzerdefiniert (OpenAI-kompatibel)</value>
+  </data>
+  <data name="ProviderTogether" xml:space="preserve">
+    <value>Together</value>
+  </data>
+  <data name="ProviderOpenAi" xml:space="preserve">
+    <value>OpenAI</value>
+  </data>
+  <data name="ApiKeyLinkDeepSeek" xml:space="preserve">
+    <value>API-Key hier anlegen: platform.deepseek.com/api_keys</value>
+  </data>
+  <data name="ApiKeyLinkOpenRouter" xml:space="preserve">
+    <value>API-Key hier anlegen: openrouter.ai/keys</value>
+  </data>
+  <data name="ApiKeyLinkOpenAi" xml:space="preserve">
+    <value>API-Key hier anlegen: platform.openai.com/api-keys</value>
+  </data>
+  <data name="ApiKeyLinkTogether" xml:space="preserve">
+    <value>API-Key hier anlegen: api.together.xyz/settings/api-keys</value>
+  </data>
+  <data name="ApiKeyLinkCustom" xml:space="preserve">
+    <value>API-Key (z.B. OpenAI): platform.openai.com/api-keys</value>
+  </data>
 </root>

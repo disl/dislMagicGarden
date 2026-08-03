@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="dislMagicGarden.Views.SettingsPage"
+             Title="Settings">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
+
+            <!-- Back -->
+            <Button x:Name="BackBtn" HeightRequest="42" BackgroundColor="Transparent"
+                    TextColor="#7C4DFF" HorizontalOptions="Start"
+                    Clicked="OnBackClicked" />
+
+            <!-- ── Text / KI (Geschichten) ── -->
+            <Label x:Name="TextSectionTitle" FontSize="17" FontAttributes="Bold" />
+            <VerticalStackLayout Spacing="10">
+                <Label x:Name="TextProviderLabel" FontSize="13" />
+                <Picker x:Name="TextProviderPicker" SelectedIndexChanged="OnTextProviderChanged" />
+
+                <Label x:Name="TextApiKeyLabel" FontSize="13" />
+                <Entry x:Name="TextApiKeyEntry" IsPassword="True" />
+                <Label x:Name="TextApiKeyLinkLabel" FontSize="13" TextColor="#7C4DFF" TextDecorations="Underline">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTextApiKeyLinkTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <Label x:Name="TextBaseUrlLabel" FontSize="13" />
+                <Entry x:Name="TextBaseUrlEntry" Keyboard="Url" />
+
+                <Label x:Name="TextModelLabel" FontSize="13" />
+                <Entry x:Name="TextModelEntry" />
+
+                <Button x:Name="TextSaveBtn" HeightRequest="46" Clicked="OnTextSaveClicked" />
+                <Label x:Name="TextStatusLabel" FontSize="13" IsVisible="False" />
+            </VerticalStackLayout>
+
+            <!-- ── Bildgenerierung ── -->
+            <Label x:Name="ImageSectionTitle" FontSize="17" FontAttributes="Bold" Margin="0,16,0,0" />
+            <VerticalStackLayout Spacing="10">
+                <Label x:Name="ImageProviderLabel" FontSize="13" />
+                <Picker x:Name="ImageProviderPicker" SelectedIndexChanged="OnImageProviderChanged" />
+
+                <Label x:Name="ImageApiKeyLabel" FontSize="13" />
+                <Entry x:Name="ImageApiKeyEntry" IsPassword="True" />
+                <Label x:Name="ImageApiKeyLinkLabel" FontSize="13" TextColor="#7C4DFF" TextDecorations="Underline">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnImageApiKeyLinkTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <Label x:Name="ImageBaseUrlLabel" FontSize="13" />
+                <Entry x:Name="ImageBaseUrlEntry" Keyboard="Url" />
+
+                <Label x:Name="ImageModelLabel" FontSize="13" />
+                <Entry x:Name="ImageModelEntry" />
+
+                <Button x:Name="ImageSaveBtn" HeightRequest="46" Clicked="OnImageSaveClicked" />
+                <Label x:Name="ImageStatusLabel" FontSize="13" IsVisible="False" />
+            </VerticalStackLayout>
+
+            <ActivityIndicator x:Name="BusyIndicator" IsRunning="False" Color="#7C4DFF" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

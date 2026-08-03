@@ -7,13 +7,15 @@ namespace dislMagicGarden
     {
         private readonly ILanguageService _language;
         private readonly AdService _adService;
+        private readonly AiSettingsService _aiSettings;
 
-        public App(ILanguageService languageService, AdService adService)
+        public App(ILanguageService languageService, AdService adService, AiSettingsService aiSettings)
         {
             InitializeComponent();
 
             _language = languageService;
             _adService = adService;
+            _aiSettings = aiSettings;
 
             ApplyStartupCulture();
 
@@ -28,7 +30,7 @@ namespace dislMagicGarden
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new AppShell(_adService));
+            return new Window(new AppShell(_adService, _aiSettings));
         }
 
         private void ApplyStartupCulture()

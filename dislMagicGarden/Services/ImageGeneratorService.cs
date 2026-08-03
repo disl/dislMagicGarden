@@ -1,41 +1,33 @@
-﻿using System.Net.Http.Json;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 
 namespace dislMagicGarden.Services
 {
-   
-
     public class ImageGeneratorService
     {
-        private readonly HttpClient _httpClient = new HttpClient();
+        private readonly AiSettingsService _settings;
 
-        // https://api.together.xyz/settings/api-keys
-        private const string ApiKey = "295ca86aee0fa946e5398a216deb109147bc05b63a6eaa6a32312bce0a5ca94d"; // In Produktion sicher speichern!
-
-        public ImageGeneratorService()
+        public ImageGeneratorService(AiSettingsService settings)
         {
+            _settings = settings;
         }
 
         public async Task<string?> GenerateColoringPage(string theme)
         {
+            var settings = await _settings.LoadImageAsync();
+            if (string.IsNullOrWhiteSpace(settings.ApiKey) || string.IsNullOrWhiteSpace(settings.BaseUrl))
+                throw new AiNotConfiguredException(AiSettingsService.T("SettingsMissingImage"));
+
             // Der "Coloring Page" System-Prompt für beste Ergebnisse
             string fullPrompt = $"A colorless coloring page for kids, {theme}," +
                 $"strictly black and white, no colors, no shading, black outlines only, white background, clean line art on white paper.";
 
-            var requestBody = new
-            {
-                model = "black-forest-labs/FLUX.1-schnell", // Extrem schnell & günstig
-                prompt = fullPrompt,
-                width = 1024,
-                height = 1024,
-                steps = 4, // Reicht für "schnell" Modelle völlig aus
-                n = 1,
-                response_format = "url"
-            };
+            var requestBody = BuildRequestBody(settings, fullPrompt);
 
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", ApiKey);
+            using var client = new HttpClient { Timeout = TimeSpan.FromSeconds(120) };
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", settings.ApiKey);
 
-            var response = await _httpClient.PostAsJsonAsync("https://api.together.xyz/v1/images/generations", requestBody);
+            var response = await client.PostAsJsonAsync(BuildEndpoint(settings.BaseUrl), requestBody);
 
             if (response.IsSuccessStatusCode)
             {
@@ -44,6 +36,64 @@ namespace dislMagicGarden.Services
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Validates the image endpoint + key via the cheap GET models endpoint.
+        /// </summary>
+        public async Task TestImageConnectionAsync(AiImageSettings settings)
+        {
+            using var client = new HttpClient { Timeout = TimeSpan.FromSeconds(20) };
+            if (!string.IsNullOrWhiteSpace(settings.ApiKey))
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", settings.ApiKey);
+
+            var response = await client.GetAsync($"{settings.BaseUrl.Trim().TrimEnd('/')}/models");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var err = await response.Content.ReadAsStringAsync();
+                throw new InvalidOperationException($"API Fehler {(int)response.StatusCode}: {err[..Math.Min(300, err.Length)]}");
+            }
+        }
+
+        /// <summary>
+        /// The request body differs between the two image providers (Together/FLUX vs OpenAI).
+        /// </summary>
+        private static object BuildRequestBody(AiImageSettings settings, string fullPrompt)
+        {
+            if (settings.Provider == AiSettingsService.ImageProviderOpenAi)
+            {
+                return new
+                {
+                    model = settings.Model,
+                    prompt = fullPrompt,
+                    n = 1,
+                    size = "1024x1024",
+                    response_format = "url"
+                };
+            }
+
+            return new
+            {
+                model = settings.Model,
+                prompt = fullPrompt,
+                width = 1024,
+                height = 1024,
+                steps = 4, // Reicht für "schnell" Modelle völlig aus
+                n = 1,
+                response_format = "url"
+            };
+        }
+
+        /// <summary>
+        /// Builds the OpenAI-compatible images URL from a base URL.
+        /// </summary>
+        private static string BuildEndpoint(string baseUrl)
+        {
+            var url = baseUrl.Trim().TrimEnd('/');
+            if (url.EndsWith("/images/generations", StringComparison.OrdinalIgnoreCase))
+                return url;
+            return url + "/images/generations";
         }
 
         // Hilfsklassen für die API-Antwort

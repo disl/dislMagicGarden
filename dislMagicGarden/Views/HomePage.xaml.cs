@@ -238,6 +238,11 @@ public partial class HomePage : FairyBasePage
         await GoToNextPage("//SemiAutomaticPage");
     }
 
+    private async void GoToSettings_Clicked(object sender, EventArgs e)
+    {
+        await GoToNextPage("//SettingsPage");
+    }
+
     private async void Fairy_tales_through_sketches_Clicked(object sender, EventArgs e)
     {
         await GoToNextPage("//SketchPage");

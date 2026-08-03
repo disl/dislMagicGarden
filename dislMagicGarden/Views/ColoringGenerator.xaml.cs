@@ -1,4 +1,6 @@
 using dislMagicGarden.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Maui.Hosting;
 
 namespace dislMagicGarden.Views;
 
@@ -9,7 +11,8 @@ public partial class ColoringGenerator : FairyBasePage
 
     string apiPrompt_coloring_page = "";
     private string? currentImageUrl;
-    private readonly ImageGeneratorService _generatorService = new();
+    private readonly ImageGeneratorService _generatorService;
+    private readonly AiSettingsService _settings;
     private readonly PdfExportService _pdfService = new();
 
     protected override void OnAppearing()
@@ -22,6 +25,14 @@ public partial class ColoringGenerator : FairyBasePage
     public ColoringGenerator(string prompt, string title)
     {
         InitializeComponent();
+
+        // Resolve DI services (the page is created via Shell routing, not constructor DI).
+        var services = IPlatformApplication.Current?.Services
+            ?? throw new InvalidOperationException("Services not available.");
+        _generatorService = services.GetService<ImageGeneratorService>()
+            ?? throw new InvalidOperationException("ImageGeneratorService not registered.");
+        _settings = services.GetService<AiSettingsService>()
+            ?? throw new InvalidOperationException("AiSettingsService not registered.");
 
         Topic = prompt;
         Title= title;
@@ -59,6 +70,13 @@ public partial class ColoringGenerator : FairyBasePage
         LoadingIndicator.IsRunning = true;
         ImageFrame.IsVisible = false;
 
+        if (!_settings.HasImageSettings)
+        {
+            LoadingIndicator.IsRunning = false;
+            await PromptForImageSettingsAsync();
+            return false;
+        }
+
         currentImageUrl = await _generatorService.GenerateColoringPage(theme);
 
         if (!string.IsNullOrEmpty(currentImageUrl))
@@ -77,12 +95,24 @@ public partial class ColoringGenerator : FairyBasePage
         return true;
     }
 
+    private async Task PromptForImageSettingsAsync()
+    {
+        bool go = await DisplayAlert(
+            AiSettingsService.T("SettingsMissingTitle"),
+            AiSettingsService.T("SettingsMissingImage"),
+            AiSettingsService.T("SettingsOpen"),
+            AiSettingsService.T("Cancel"));
+
+        if (go)
+            await Shell.Current.GoToAsync("//SettingsPage");
+    }
+
     private async void OnSaveClicked(object sender, EventArgs e)
     {
         if (string.IsNullOrEmpty(currentImageUrl)) return;
 
         var saveService = new ImageSaveService();
-        // Name generieren, z.B. "Ausmalbild_Löwe.png"
+        // Name generieren, z.B. "Ausmalbild_Lï¿½we.png"
         string fileName = $"Coloring_page_{DateTime.Now:yyyyMMdd_HHmmss}.png";
 
         await saveService.SaveImageToGallery(currentImageUrl, fileName);

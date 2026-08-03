@@ -1,5 +1,4 @@
 ﻿using dislMagicGarden.Models;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Net.Http.Headers;
@@ -18,6 +17,7 @@ namespace dislMagicGarden.Services
         Task<FairyTaleResponse> GenerateNextStoryStepAsync(string theme, string lastChoice, List<string> history);
 
         Task<List<string>> GetMaerchenThemenFromDeepSeekAsync();
+        Task TestTextConnectionAsync(AiTextSettings settings);
     }
 
     public class HybridFairyTaleService : IHybridFairyTaleService
@@ -25,18 +25,7 @@ namespace dislMagicGarden.Services
         private readonly HttpClient _httpClient;
         private readonly IConnectivity _connectivity;
         private readonly ILogger<HybridFairyTaleService> _logger;
-        private readonly IConfiguration _configuration;
-
-        // API Keys (aus SecureStorage oder appsettings)
-        private readonly string _deepSeekApiKey;
-        private readonly string _openAiApiKey;
-
-        // DeepSeek Configuration
-        private const string DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions";
-        private const string DEEPSEEK_MODEL = "deepseek-chat";
-
-        // OpenAI Configuration
-        private const string OPENAI_IMAGE_API_URL = "https://api.openai.com/v1/images/generations";
+        private readonly AiSettingsService _settings;
 
         // Preise (pro 1000 Tokens/Bild)
         private const decimal DEEPSEEK_INPUT_PRICE = 0.0000014M;   // $0.00014 pro 1K Tokens
@@ -44,19 +33,12 @@ namespace dislMagicGarden.Services
         private const decimal DALL_E_3_STANDARD_PRICE = 0.040M;    // $0.04 pro Bild
         private const decimal DALL_E_3_HD_PRICE = 0.080M;          // $0.08 pro Bild
 
-        public HybridFairyTaleService(IConfiguration configuration)
+        public HybridFairyTaleService(AiSettingsService settings)
         {
             _httpClient = new HttpClient();
             _connectivity = Connectivity.Current;
             _logger = LoggerFactory.Create(builder => builder.AddDebug()).CreateLogger<HybridFairyTaleService>();
-
-            _configuration = configuration;
-
-            // DeepSeek-Key kommt obfuskiert aus dem Code (SecretVault), nicht mehr aus appsettings.json
-            _deepSeekApiKey = SecretVault.DeepSeekApiKey;
-
-            _openAiApiKey = _configuration["OpenAI:ApiKey"]
-                ?? throw new ArgumentException("OpenAI API Key fehlt. Bitte in appsettings.json eintragen.");
+            _settings = settings;
 
             // Timeout setzen
             _httpClient.Timeout = TimeSpan.FromSeconds(120);
@@ -109,6 +91,10 @@ namespace dislMagicGarden.Services
 
                 return response;
             }
+            catch (AiNotConfiguredException)
+            {
+                throw;
+            }
             catch (HttpRequestException httpEx)
             {
                 _logger.LogError(httpEx, "Netzwerkfehler bei der Generierung");
@@ -128,14 +114,17 @@ namespace dislMagicGarden.Services
 
         public async Task<List<string>> GetMaerchenThemenFromDeepSeekAsync()
         {
-            using var client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _deepSeekApiKey);
+            var settings = await _settings.LoadTextAsync();
+            EnsureConfigured(settings);
+
+            using var client = new HttpClient { Timeout = TimeSpan.FromSeconds(120) };
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", settings.ApiKey);
 
             string _currentLanguage = Thread.CurrentThread.CurrentCulture.NativeName;
 
             var payload = new
             {
-                model = "deepseek-chat",
+                model = settings.Model,
                 messages = new[]
                 {
                     new {
@@ -152,7 +141,7 @@ namespace dislMagicGarden.Services
                 temperature = 1.0 // Höhere Temperatur für mehr Zufall
             };
 
-            var response = await client.PostAsync("https://api.deepseek.com/chat/completions",
+            var response = await client.PostAsync(BuildEndpoint(settings.BaseUrl),
                 new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json"));
 
             if (response.IsSuccessStatusCode)
@@ -211,11 +200,14 @@ namespace dislMagicGarden.Services
         // Private Hilfsmethoden
         private async Task<DeepSeekResult> GenerateTextWithDeepSeekAsync(FairyTaleRequest request)
         {
+            var settings = await _settings.LoadTextAsync();
+            EnsureConfigured(settings);
+
             var prompt = CreatePrompt(request);
 
             var requestBody = new
             {
-                model = DEEPSEEK_MODEL,
+                model = settings.Model,
                 messages = new[]
                 {
                     new { role = "system", content = "Du bist ein Märchenerzähler." },
@@ -230,9 +222,9 @@ namespace dislMagicGarden.Services
 
             // Authorization Header setzen
             _httpClient.DefaultRequestHeaders.Authorization =
-                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _deepSeekApiKey);
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", settings.ApiKey);
 
-            var response = await _httpClient.PostAsync(DEEPSEEK_API_URL, content);
+            var response = await _httpClient.PostAsync(BuildEndpoint(settings.BaseUrl), content);
             response.EnsureSuccessStatusCode();
 
             var responseJson = await response.Content.ReadAsStringAsync();
@@ -245,57 +237,6 @@ namespace dislMagicGarden.Services
 
             // Parse die Antwort
             return ParseFairyTaleResponse(fairyTaleText, apiResponse.Usage);
-        }
-
-        //private async Task<List<string>> GenerateImagesWithOpenAIAsync(List<string> prompts, string style)
-        //{
-        //    var images = new List<string>();
-
-        //    foreach (var prompt in prompts)
-        //    {
-        //        try
-        //        {
-        //            var imageUrl = await GenerateSingleImageAsync(prompt, style);
-        //            if (!string.IsNullOrEmpty(imageUrl))
-        //                images.Add(imageUrl);
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            _logger.LogWarning(ex, "Fehler beim Generieren von Bild für Prompt: {Prompt}", prompt);
-        //            // Optional: Fallback-Bild oder Platzhalter
-        //        }
-        //    }
-
-        //    return images;
-        //}
-
-        private async Task<string> GenerateSingleImageAsync(string prompt, string style)
-        {
-            var requestBody = new
-            {
-                model = "dall-e-3",
-                prompt = $"Children's book illustration, fairy tale style: {prompt}",
-                n = 1,
-                size = "1024x1024",
-                quality = style == "HD" ? "hd" : "standard",
-                style = style == "HD" ? "vivid" : "natural"
-            };
-
-            var json = JsonSerializer.Serialize(requestBody);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            using var client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization =
-                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _openAiApiKey);
-
-            var response = await client.PostAsync(OPENAI_IMAGE_API_URL, content);
-            response.EnsureSuccessStatusCode();
-
-            var responseJson = await response.Content.ReadAsStringAsync();
-            var imageResponse = JsonSerializer.Deserialize<OpenAiImageResponse>(responseJson);
-
-            return imageResponse?.Data?.FirstOrDefault()?.Url
-                ?? throw new Exception("Keine Bild-URL erhalten");
         }
 
         private string CreatePrompt(FairyTaleRequest request)
@@ -427,16 +368,13 @@ namespace dislMagicGarden.Services
                    (outputTokens * DEEPSEEK_OUTPUT_PRICE / 1000);
         }
 
-        private decimal CalculateOpenAIImageCost(int imageCount, bool isHd)
-        {
-            var pricePerImage = isHd ? DALL_E_3_HD_PRICE : DALL_E_3_STANDARD_PRICE;
-            return imageCount * pricePerImage;
-        }
-
         public async Task<FairyTaleResponse> GenerateNextStoryStepAsync(string theme, string lastChoice, List<string> history)
         {
             if (_connectivity.NetworkAccess != NetworkAccess.Internet)
                 throw new Exception("Keine Internetverbindung.");
+
+            var settings = await _settings.LoadTextAsync();
+            EnsureConfigured(settings);
 
             string _currentLanguage = Thread.CurrentThread.CurrentCulture.NativeName;
 
@@ -463,7 +401,7 @@ namespace dislMagicGarden.Services
 
             var requestBody = new
             {
-                model = DEEPSEEK_MODEL,
+                model = settings.Model,
                 prompt = _prompt,
                 messages = new[]
                 {
@@ -476,9 +414,9 @@ namespace dislMagicGarden.Services
 
             var json = JsonSerializer.Serialize(requestBody);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
-            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _deepSeekApiKey);
+            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", settings.ApiKey);
 
-            var response = await _httpClient.PostAsync(DEEPSEEK_API_URL, content);
+            var response = await _httpClient.PostAsync(BuildEndpoint(settings.BaseUrl), content);
             response.EnsureSuccessStatusCode();
 
             var responseJson = await response.Content.ReadAsStringAsync();
@@ -505,6 +443,50 @@ namespace dislMagicGarden.Services
                   .ToList()
                 //ImagePrompts = root.GetProperty("image_prompts").EnumerateArray().Select(x => x.GetString()).ToList()
             };
+        }
+
+        /// <summary>
+        /// Verifies the configured text endpoint/model is reachable (chat ping).
+        /// </summary>
+        public async Task TestTextConnectionAsync(AiTextSettings settings)
+        {
+            var body = new
+            {
+                model = settings.Model,
+                messages = new[] { new { role = "user", content = "ping" } },
+                max_tokens = 5
+            };
+
+            using var client = new HttpClient { Timeout = TimeSpan.FromSeconds(20) };
+            if (!string.IsNullOrWhiteSpace(settings.ApiKey))
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", settings.ApiKey);
+
+            var response = await client.PostAsync(
+                BuildEndpoint(settings.BaseUrl),
+                new StringContent(JsonSerializer.Serialize(body), Encoding.UTF8, "application/json"));
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var err = await response.Content.ReadAsStringAsync();
+                throw new InvalidOperationException($"API Fehler {(int)response.StatusCode}: {err[..Math.Min(300, err.Length)]}");
+            }
+        }
+
+        private static void EnsureConfigured(AiTextSettings settings)
+        {
+            if (string.IsNullOrWhiteSpace(settings.ApiKey) || string.IsNullOrWhiteSpace(settings.BaseUrl))
+                throw new AiNotConfiguredException(AiSettingsService.T("SettingsMissing"));
+        }
+
+        /// <summary>
+        /// Builds the OpenAI-compatible chat completions URL from a base URL.
+        /// </summary>
+        private static string BuildEndpoint(string baseUrl)
+        {
+            var url = baseUrl.Trim().TrimEnd('/');
+            if (url.EndsWith("/chat/completions", StringComparison.OrdinalIgnoreCase))
+                return url;
+            return url + "/chat/completions";
         }
 
         // Response-Klassen für APIs
@@ -538,18 +520,6 @@ namespace dislMagicGarden.Services
 
             [JsonPropertyName("completion_tokens")]
             public int CompletionTokens { get; set; }
-        }
-
-        private class OpenAiImageResponse
-        {
-            [JsonPropertyName("data")]
-            public List<ImageData> Data { get; set; } = new();
-
-            public class ImageData
-            {
-                [JsonPropertyName("url")]
-                public string Url { get; set; } = string.Empty;
-            }
         }
 
         private class DeepSeekResult

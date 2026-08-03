@@ -100,8 +100,9 @@ namespace dislMagicGarden
             builder.AddAudio();
             builder.Services.AddSingleton<SoundEffectService>();
 
-
+            builder.Services.AddSingleton<AiSettingsService>();
             builder.Services.AddSingleton<ImageGeneratorService>();
+            builder.Services.AddTransient<SettingsPage>();
 
 
             //builder.Services.AddTransient<DeepSeekClient>();

@@ -31,9 +31,15 @@
         ContentTemplate="{DataTemplate views:SemiAutomaticPage}"
         Route="SemiAutomaticPage" />
 
-    <ShellContent 
+    <ShellContent
     Title="{x:Static res:Resources.NewStory}"
     ContentTemplate="{DataTemplate views:SketchPage}"
     Route="SketchPage" />
+
+    <ShellContent
+        Title="Settings"
+        x:Name="SettingsShellContent"
+        ContentTemplate="{DataTemplate views:SettingsPage}"
+        Route="SettingsPage" />
 
 </Shell>
