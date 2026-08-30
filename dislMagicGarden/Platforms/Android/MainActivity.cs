@@ -6,7 +6,9 @@ using Plugin.MauiMTAdmob;
 
 namespace dislMagicGarden
 {
-    [Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, LaunchMode = LaunchMode.SingleTop, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Density)]
+    // MagicGardenTheme extends Maui.SplashTheme and only adds the light/dark status bar
+    // icon flags (see Platforms/Android/Resources/values(-night)/styles.xml).
+    [Activity(Theme = "@style/MagicGardenTheme", MainLauncher = true, LaunchMode = LaunchMode.SingleTop, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Density)]
     public class MainActivity : MauiAppCompatActivity
     {
         protected override void OnCreate(Bundle? savedInstanceState)
