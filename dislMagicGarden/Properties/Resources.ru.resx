@@ -474,4 +474,28 @@
   <data name="Child_profile_add" xml:space="preserve">
     <value>Добавить ребёнка</value>
   </data>
+  <data name="OpenRouterConnect" xml:space="preserve">
+    <value>Подключить OpenRouter</value>
+  </data>
+  <data name="OpenRouterHint" xml:space="preserve">
+    <value>Самый простой способ: войдите в свой аккаунт OpenRouter и пополните там баланс. Приложение получит ключ автоматически, копировать ничего не нужно. Оплата идёт напрямую OpenRouter.</value>
+  </data>
+  <data name="OpenRouterConnecting" xml:space="preserve">
+    <value>Ожидание входа в OpenRouter...</value>
+  </data>
+  <data name="OpenRouterConnected" xml:space="preserve">
+    <value>OpenRouter подключён.</value>
+  </data>
+  <data name="OpenRouterCancelled" xml:space="preserve">
+    <value>Вход отменён.</value>
+  </data>
+  <data name="OpenRouterFailed" xml:space="preserve">
+    <value>Не удалось подключить OpenRouter: {0}</value>
+  </data>
+  <data name="OpenRouterReturnText" xml:space="preserve">
+    <value>Вход выполнен! Можно вернуться в приложение.</value>
+  </data>
+  <data name="OpenRouterReturnButton" xml:space="preserve">
+    <value>Вернуться в приложение</value>
+  </data>
 </root>

@@ -28,6 +28,13 @@
 
 	</application>
 
+	<!-- Custom Tabs for the OpenRouter login (WebAuthenticator, Android 11+ package visibility) -->
+	<queries>
+		<intent>
+			<action android:name="android.support.customtabs.action.CustomTabsService" />
+		</intent>
+	</queries>
 
 
-</manifest>
+
+</manifest>

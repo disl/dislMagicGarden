@@ -474,4 +474,28 @@
   <data name="Child_profile_add" xml:space="preserve">
     <value>Ajouter un enfant</value>
   </data>
+  <data name="OpenRouterConnect" xml:space="preserve">
+    <value>Se connecter avec OpenRouter</value>
+  </data>
+  <data name="OpenRouterHint" xml:space="preserve">
+    <value>Le plus simple : connecte-toi avec ton propre compte OpenRouter et recharge ton crédit là-bas. L&apos;app reçoit la clé automatiquement, sans copier. Tu paies directement OpenRouter.</value>
+  </data>
+  <data name="OpenRouterConnecting" xml:space="preserve">
+    <value>En attente de la connexion à OpenRouter...</value>
+  </data>
+  <data name="OpenRouterConnected" xml:space="preserve">
+    <value>Connecté à OpenRouter.</value>
+  </data>
+  <data name="OpenRouterCancelled" xml:space="preserve">
+    <value>Connexion annulée.</value>
+  </data>
+  <data name="OpenRouterFailed" xml:space="preserve">
+    <value>Échec de la connexion à OpenRouter : {0}</value>
+  </data>
+  <data name="OpenRouterReturnText" xml:space="preserve">
+    <value>Connexion réussie ! Tu peux revenir à l&apos;app.</value>
+  </data>
+  <data name="OpenRouterReturnButton" xml:space="preserve">
+    <value>Retour à l&apos;app</value>
+  </data>
 </root>

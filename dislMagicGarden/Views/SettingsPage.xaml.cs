@@ -10,18 +10,22 @@ public partial class SettingsPage : ContentPage
     private readonly AiSettingsService _settings;
     private readonly IHybridFairyTaleService _fairyTaleService;
     private readonly ImageGeneratorService _imageService;
+    private readonly OpenRouterAuthService _openRouterAuth;
     private bool _savingText;
+    private bool _connectingOpenRouter;
     private bool _savingImage;
     private string? _textKeysUrl;
     private string? _imageKeysUrl;
     private bool _loadingLanguage;
 
-    public SettingsPage(AiSettingsService settings, IHybridFairyTaleService fairyTaleService, ImageGeneratorService imageService)
+    public SettingsPage(AiSettingsService settings, IHybridFairyTaleService fairyTaleService, ImageGeneratorService imageService,
+        OpenRouterAuthService openRouterAuth)
     {
         InitializeComponent();
         _settings = settings;
         _fairyTaleService = fairyTaleService;
         _imageService = imageService;
+        _openRouterAuth = openRouterAuth;
 
         TextProviderPicker.ItemsSource = new[]
         {
@@ -53,6 +57,15 @@ public partial class SettingsPage : ContentPage
         ApplyTexts();
         SelectCurrentLanguage();
 
+        // Returning from the OpenRouter login must not overwrite the fields with the old settings
+        if (_connectingOpenRouter)
+            return;
+
+        await LoadSettingsIntoFormAsync();
+    }
+
+    private async Task LoadSettingsIntoFormAsync()
+    {
         var text = await _settings.LoadTextAsync();
         TextProviderPicker.SelectedIndex = TextProviderToIndex(text.Provider);
         TextApiKeyEntry.Text = text.ApiKey;
@@ -112,6 +125,8 @@ public partial class SettingsPage : ContentPage
         BackBtn.Text = "←  " + AiSettingsService.T("Back");
         LanguageSectionTitle.Text = AiSettingsService.T("Language");
         TextSectionTitle.Text = AiSettingsService.T("SettingsTextSection");
+        OpenRouterConnectBtn.Text = AiSettingsService.T("OpenRouterConnect");
+        OpenRouterHintLabel.Text = AiSettingsService.T("OpenRouterHint");
         TextProviderLabel.Text = AiSettingsService.T("SettingsProviderLabel");
         TextApiKeyLabel.Text = AiSettingsService.T("SettingsApiKeyLabel");
         TextBaseUrlLabel.Text = AiSettingsService.T("SettingsBaseUrlLabel");
@@ -166,6 +181,14 @@ public partial class SettingsPage : ContentPage
             baseUrl,
             model);
 
+        await TestAndSaveTextAsync(settings);
+    }
+
+    /// <summary>
+    /// Tests the connection and saves the settings only if the test succeeds. Returns true on success.
+    /// </summary>
+    private async Task<bool> TestAndSaveTextAsync(AiTextSettings settings)
+    {
         _savingText = true;
         SetBusy(true);
         try
@@ -173,15 +196,62 @@ public partial class SettingsPage : ContentPage
             await _fairyTaleService.TestTextConnectionAsync(settings);
             await _settings.SaveTextAsync(settings);
             ShowTextStatus(AiSettingsService.T("SettingsTestOk"), isError: false);
+            return true;
         }
         catch (Exception ex)
         {
             ShowTextStatus(string.Format(AiSettingsService.T("SettingsTestFailed"), ex.Message), isError: true);
+            return false;
         }
         finally
         {
             _savingText = false;
             SetBusy(false);
+        }
+    }
+
+    // ── OpenRouter login ──
+    private async void OnOpenRouterConnectClicked(object? sender, EventArgs e)
+    {
+        if (_savingText || _connectingOpenRouter)
+            return;
+
+        _connectingOpenRouter = true;
+        OpenRouterConnectBtn.IsEnabled = false;
+        ShowTextStatus(AiSettingsService.T("OpenRouterConnecting"), isError: false);
+        try
+        {
+            var apiKey = await _openRouterAuth.ConnectAsync();
+
+            // Keep an already chosen OpenRouter model, otherwise use the default
+            var current = await _settings.LoadTextAsync();
+            var model = current.Provider == AiSettingsService.TextProviderOpenRouter && !string.IsNullOrWhiteSpace(current.Model)
+                ? current.Model
+                : AiSettingsService.OpenRouterDefaultModel;
+
+            var settings = new AiTextSettings(
+                AiSettingsService.TextProviderOpenRouter, apiKey, AiSettingsService.OpenRouterBaseUrl, model);
+
+            if (await TestAndSaveTextAsync(settings))
+            {
+                _connectingOpenRouter = false;
+                await LoadSettingsIntoFormAsync();
+                ShowTextStatus(AiSettingsService.T("OpenRouterConnected"), isError: false);
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            ShowTextStatus(AiSettingsService.T("OpenRouterCancelled"), isError: true);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"OpenRouter login failed: {ex}");
+            ShowTextStatus(string.Format(AiSettingsService.T("OpenRouterFailed"), ex.Message), isError: true);
+        }
+        finally
+        {
+            _connectingOpenRouter = false;
+            OpenRouterConnectBtn.IsEnabled = true;
         }
     }
 

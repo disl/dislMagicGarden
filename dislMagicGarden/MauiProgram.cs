@@ -104,6 +104,7 @@ namespace dislMagicGarden
             builder.Services.AddSingleton<SoundEffectService>();
 
             builder.Services.AddSingleton<AiSettingsService>();
+            builder.Services.AddSingleton<OpenRouterAuthService>();
             builder.Services.AddSingleton<ImageGeneratorService>();
             builder.Services.AddTransient<SettingsPage>();
 
