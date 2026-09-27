@@ -402,7 +402,7 @@ namespace dislMagicGarden.Services
             var requestBody = new
             {
                 model = settings.Model,
-                prompt = _prompt,
+                // No additional "prompt" field: OpenRouter rejects requests with both "prompt" and "messages" (400)
                 messages = new[]
                 {
                     new { role = "system", content = "Du bist ein interaktiver Märchenerzähler für Kinder. Antworte NUR im JSON-Format." },
@@ -417,6 +417,8 @@ namespace dislMagicGarden.Services
             _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", settings.ApiKey);
 
             var response = await _httpClient.PostAsync(BuildEndpoint(settings.BaseUrl), content);
+            if (!response.IsSuccessStatusCode)
+                Debug.WriteLine($"Next story step failed ({(int)response.StatusCode}): {await response.Content.ReadAsStringAsync()}");
             response.EnsureSuccessStatusCode();
 
             var responseJson = await response.Content.ReadAsStringAsync();
