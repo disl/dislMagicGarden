@@ -1,4 +1,6 @@
+using System.Diagnostics;
 using System.Globalization;
+using dislMagicGarden.Models;
 using dislMagicGarden.Services;
 
 namespace dislMagicGarden.Views;
@@ -12,6 +14,7 @@ public partial class SettingsPage : ContentPage
     private bool _savingImage;
     private string? _textKeysUrl;
     private string? _imageKeysUrl;
+    private bool _loadingLanguage;
 
     public SettingsPage(AiSettingsService settings, IHybridFairyTaleService fairyTaleService, ImageGeneratorService imageService)
     {
@@ -33,6 +36,9 @@ public partial class SettingsPage : ContentPage
             AiSettingsService.T("ProviderOpenAi"),
             AiSettingsService.T("ProviderCustom")
         };
+
+        LanguagePicker.ItemsSource = LanguageService.SupportedLanguages.ToList();
+        VersionLabel.Text = $"Version {AppInfo.Current.VersionString} ({AppInfo.Current.BuildString})";
     }
 
     private async void OnBackClicked(object? sender, EventArgs e)
@@ -44,20 +50,8 @@ public partial class SettingsPage : ContentPage
     {
         base.OnAppearing();
 
-        BackBtn.Text = "←  " + AiSettingsService.T("Back");
-        TextSectionTitle.Text = AiSettingsService.T("SettingsTextSection");
-        TextProviderLabel.Text = AiSettingsService.T("SettingsProviderLabel");
-        TextApiKeyLabel.Text = AiSettingsService.T("SettingsApiKeyLabel");
-        TextBaseUrlLabel.Text = AiSettingsService.T("SettingsBaseUrlLabel");
-        TextModelLabel.Text = AiSettingsService.T("SettingsModelLabel");
-        TextSaveBtn.Text = AiSettingsService.T("SettingsSaveAndTest");
-
-        ImageSectionTitle.Text = AiSettingsService.T("SettingsImageSection");
-        ImageProviderLabel.Text = AiSettingsService.T("SettingsProviderLabel");
-        ImageApiKeyLabel.Text = AiSettingsService.T("SettingsApiKeyLabel");
-        ImageBaseUrlLabel.Text = AiSettingsService.T("SettingsBaseUrlLabel");
-        ImageModelLabel.Text = AiSettingsService.T("SettingsModelLabel");
-        ImageSaveBtn.Text = AiSettingsService.T("SettingsSaveAndTest");
+        ApplyTexts();
+        SelectCurrentLanguage();
 
         var text = await _settings.LoadTextAsync();
         TextProviderPicker.SelectedIndex = TextProviderToIndex(text.Provider);
@@ -73,6 +67,63 @@ public partial class SettingsPage : ContentPage
 
         OnTextProviderChanged(null, EventArgs.Empty);
         OnImageProviderChanged(null, EventArgs.Empty);
+    }
+
+    // ── Language ──
+    private void SelectCurrentLanguage()
+    {
+        // Match by language only, so e.g. de-AT selects "Deutsch (DE)"
+        var iso = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+        var languages = LanguageService.SupportedLanguages;
+        var current = languages.FirstOrDefault(l => new CultureInfo(l.Code).TwoLetterISOLanguageName == iso);
+
+        _loadingLanguage = true;
+        try
+        {
+            LanguagePicker.SelectedIndex = current == null ? -1 : languages.ToList().IndexOf(current);
+        }
+        finally
+        {
+            _loadingLanguage = false;
+        }
+    }
+
+    private void OnLanguageChanged(object? sender, EventArgs e)
+    {
+        if (_loadingLanguage || LanguagePicker.SelectedItem is not LanguageOption language)
+            return;
+
+        try
+        {
+            LanguageService.SetAndSaveLanguage(language.Code);
+
+            // Texts of this page are set in code, refresh them in the new language.
+            // Provider pickers are left alone: OnTextProviderChanged would reset base URL and model.
+            ApplyTexts();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Language change failed: {ex}");
+        }
+    }
+
+    private void ApplyTexts()
+    {
+        BackBtn.Text = "←  " + AiSettingsService.T("Back");
+        LanguageSectionTitle.Text = AiSettingsService.T("Language");
+        TextSectionTitle.Text = AiSettingsService.T("SettingsTextSection");
+        TextProviderLabel.Text = AiSettingsService.T("SettingsProviderLabel");
+        TextApiKeyLabel.Text = AiSettingsService.T("SettingsApiKeyLabel");
+        TextBaseUrlLabel.Text = AiSettingsService.T("SettingsBaseUrlLabel");
+        TextModelLabel.Text = AiSettingsService.T("SettingsModelLabel");
+        TextSaveBtn.Text = AiSettingsService.T("SettingsSaveAndTest");
+
+        ImageSectionTitle.Text = AiSettingsService.T("SettingsImageSection");
+        ImageProviderLabel.Text = AiSettingsService.T("SettingsProviderLabel");
+        ImageApiKeyLabel.Text = AiSettingsService.T("SettingsApiKeyLabel");
+        ImageBaseUrlLabel.Text = AiSettingsService.T("SettingsBaseUrlLabel");
+        ImageModelLabel.Text = AiSettingsService.T("SettingsModelLabel");
+        ImageSaveBtn.Text = AiSettingsService.T("SettingsSaveAndTest");
     }
 
     // ── Text provider ──

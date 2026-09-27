@@ -5,6 +5,7 @@
              x:Class="dislMagicGarden.Views.HomePage"
              xmlns:helpers="clr-namespace:dislMagicGarden.Helpers"
              xmlns:views="clr-namespace:dislMagicGarden.Views"
+             xmlns:vm="clr-namespace:dislMagicGarden.ViewModels"
              Title="Magic Garden">
 
     <Grid>
@@ -17,40 +18,63 @@
         <ScrollView>
             <VerticalStackLayout Padding="15">
 
-                <Grid ColumnDefinitions="auto,*,auto" Padding="10,3,10,0" >
+                <!-- Version und Sprache sind in den Einstellungen -->
 
-                    <Label Text="{Binding AppVersion}" 
-                           Style="{StaticResource FairyLabelStyle}"
-                           Grid.Column="0" FontSize="Body" 
-                           VerticalOptions="Center"  />
-
-                    <!-- Style -->
-                    <HorizontalStackLayout Spacing="3" HorizontalOptions="Center" Padding="10" Grid.Column="1">
-                        <Label Text="👧" 
-                               VerticalOptions="Center"
-                               FontSize="Title"
-                               Style="{StaticResource FairyLabelStyle}"
-                               />
-
-                        <Switch IsToggled="{Binding IsBlueTheme}"  />
-
-
-                        <Label Text="👦" 
-                               VerticalOptions="Center"  
-                               FontSize="Title" 
-                               Style="{StaticResource FairyLabelStyle}"/>
+                <!-- Kind-Profile: Tipp wechselt, Tipp auf aktives Profil bearbeitet, ＋ legt neues an -->
+                <HorizontalStackLayout Spacing="8" HorizontalOptions="Center" Padding="0,10,0,0">
+                    <HorizontalStackLayout Spacing="8"
+                                           BindableLayout.ItemsSource="{Binding ProfileChips}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="vm:ChildProfileChipItem">
+                                <Border StrokeShape="RoundRectangle 18"
+                                        Stroke="{DynamicResource ThemePrimaryColor}"
+                                        StrokeThickness="1.5"
+                                        BackgroundColor="Transparent"
+                                        Padding="14,6">
+                                    <Border.Triggers>
+                                        <DataTrigger TargetType="Border" Binding="{Binding IsActive}" Value="True">
+                                            <Setter Property="BackgroundColor" Value="{DynamicResource ThemePrimaryColor}" />
+                                        </DataTrigger>
+                                    </Border.Triggers>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=SelectProfileCommand, x:DataType=vm:HomeViewModel}"
+                                            CommandParameter="{Binding .}" />
+                                    </Border.GestureRecognizers>
+                                    <Label Text="{Binding DisplayText}"
+                                           FontSize="15"
+                                           LineBreakMode="TailTruncation"
+                                           MaximumWidthRequest="85"
+                                           TextColor="{DynamicResource ThemeLabelColor}">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding IsActive}" Value="True">
+                                                <Setter Property="TextColor" Value="White" />
+                                                <Setter Property="FontAttributes" Value="Bold" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                </Border>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
                     </HorizontalStackLayout>
 
-                    <Picker Title="{helpers:Translate Key=Select_language}"
-                        Grid.Column="2"
-                        VerticalOptions="Center"
-                    
-                        ItemsSource="{Binding AvailableLanguages}"
-                        TextColor="{StaticResource MagicBlackSoft}"
-                        SelectedItem="{Binding SelectedLanguage}"
-                        ItemDisplayBinding="{Binding DisplayName}"                        
-                        />
-                </Grid>
+                    <!-- Neues Profil -->
+                    <Border StrokeShape="RoundRectangle 18"
+                            Stroke="{DynamicResource ThemePrimaryColor}"
+                            StrokeThickness="1.5"
+                            StrokeDashArray="3,2"
+                            BackgroundColor="Transparent"
+                            Padding="14,6"
+                            IsVisible="{Binding CanAddProfile}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding AddProfileCommand}" />
+                        </Border.GestureRecognizers>
+                        <Label Text="{Binding AddProfileText}"
+                               FontSize="15"
+                               FontAttributes="Bold"
+                               TextColor="{DynamicResource ThemePrimaryColor}" />
+                    </Border>
+                </HorizontalStackLayout>
 
                 <VerticalStackLayout Padding="12" Spacing="10">
                     <!-- Header Illustration -->
@@ -112,6 +136,22 @@
                               />
                     </Border>
 
+                    <!-- Kind-Profil Button (Beschreibung fließt in alle Prompts ein) -->
+                    <Border StrokeShape="RoundRectangle 25"
+                         BackgroundColor="{StaticResource BlossomPink}"
+                         StrokeThickness="0"
+                         Margin="0"
+                         Padding="0">
+                        <Border.Shadow>
+                            <Shadow   />
+                        </Border.Shadow>
+                        <Button Text="{helpers:Translate Key=Child_description}"
+                             Command="{Binding EditActiveProfileCommand}"
+                             FontSize="16"
+                             TextColor="White"
+                             HeightRequest="42" />
+                    </Border>
+
                     <!-- Setup / Einstellungen Button -->
                     <Border StrokeShape="RoundRectangle 25"
                          BackgroundColor="{StaticResource BlossomPink}"
@@ -144,7 +184,6 @@
                               HeightRequest="42"
                                />   
                     </Border>-->
-
 
                     <!-- Maskottchen -->
                     <VerticalStackLayout Spacing="5" HorizontalOptions="Center">

@@ -516,4 +516,46 @@
   <data name="ApiKeyLinkCustom" xml:space="preserve">
     <value>API-Key (z.B. OpenAI): platform.openai.com/api-keys</value>
   </data>
+  <data name="Child_description" xml:space="preserve">
+    <value>Über dein Kind</value>
+  </data>
+  <data name="Child_description_placeholder" xml:space="preserve">
+    <value>z. B. 6 Jahre, liebt Pferde und hat etwas Angst im Dunkeln</value>
+  </data>
+  <data name="Child_profile_notice" xml:space="preserve">
+    <value>Datenschutz: Name und Beschreibung werden bei jeder Geschichte an den in den Einstellungen gewählten KI-Anbieter (z. B. DeepSeek, OpenAI) übertragen und dort verarbeitet, in der Regel außerhalb der EU. Verwende am besten einen Spitznamen und gib keine Nachnamen, Adressen, Fotos oder Gesundheitsdaten ein. Ohne Zustimmung bleibt der Name nur auf diesem Gerät, und die Beschreibung muss leer bleiben.</value>
+  </data>
+  <data name="Child_profile_consent_checkbox" xml:space="preserve">
+    <value>Ich habe den Hinweis gelesen und bin einverstanden, dass Name und Beschreibung an den KI-Anbieter übertragen werden.</value>
+  </data>
+  <data name="Child_profile_cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="Child_profile_consent_required" xml:space="preserve">
+    <value>Bitte bestätige den Datenschutz-Hinweis oder lass die Beschreibung leer.</value>
+  </data>
+  <data name="Child_profile_name" xml:space="preserve">
+    <value>Name oder Spitzname</value>
+  </data>
+  <data name="Child_profile_name_placeholder" xml:space="preserve">
+    <value>z. B. Mia</value>
+  </data>
+  <data name="Child_profile_name_required" xml:space="preserve">
+    <value>Bitte gib einen Namen ein.</value>
+  </data>
+  <data name="Child_profile_gender_none" xml:space="preserve">
+    <value>keine Angabe</value>
+  </data>
+  <data name="Child_profile_delete" xml:space="preserve">
+    <value>Profil löschen</value>
+  </data>
+  <data name="Child_profile_delete_confirm" xml:space="preserve">
+    <value>Profil „{0}“ wirklich löschen?</value>
+  </data>
+  <data name="Child_profile_delete_yes" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="Child_profile_add" xml:space="preserve">
+    <value>Kind hinzufügen</value>
+  </data>
 </root>

@@ -432,4 +432,46 @@
   <data name="Quiz_finished" xml:space="preserve">
     <value>Викторина завершена!</value>
   </data>
+  <data name="Child_description" xml:space="preserve">
+    <value>О вашем ребёнке</value>
+  </data>
+  <data name="Child_description_placeholder" xml:space="preserve">
+    <value>напр. 6 лет, любит лошадей и немного боится темноты</value>
+  </data>
+  <data name="Child_profile_notice" xml:space="preserve">
+    <value>Конфиденциальность: имя и описание при каждой сказке передаются выбранному в настройках поставщику ИИ (например, DeepSeek, OpenAI) и обрабатываются там, как правило за пределами ЕС. Лучше используйте прозвище и не указывайте фамилии, адреса, фото и данные о здоровье. Без согласия имя остаётся только на этом устройстве, а описание должно быть пустым.</value>
+  </data>
+  <data name="Child_profile_consent_checkbox" xml:space="preserve">
+    <value>Я прочитал(а) уведомление и согласен(на) на передачу имени и описания поставщику ИИ.</value>
+  </data>
+  <data name="Child_profile_cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Child_profile_consent_required" xml:space="preserve">
+    <value>Подтвердите уведомление о конфиденциальности или оставьте описание пустым.</value>
+  </data>
+  <data name="Child_profile_name" xml:space="preserve">
+    <value>Имя или прозвище</value>
+  </data>
+  <data name="Child_profile_name_placeholder" xml:space="preserve">
+    <value>напр. Мия</value>
+  </data>
+  <data name="Child_profile_name_required" xml:space="preserve">
+    <value>Пожалуйста, введите имя.</value>
+  </data>
+  <data name="Child_profile_gender_none" xml:space="preserve">
+    <value>не указано</value>
+  </data>
+  <data name="Child_profile_delete" xml:space="preserve">
+    <value>Удалить профиль</value>
+  </data>
+  <data name="Child_profile_delete_confirm" xml:space="preserve">
+    <value>Действительно удалить профиль «{0}»?</value>
+  </data>
+  <data name="Child_profile_delete_yes" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Child_profile_add" xml:space="preserve">
+    <value>Добавить ребёнка</value>
+  </data>
 </root>

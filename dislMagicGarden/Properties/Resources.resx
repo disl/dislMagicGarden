@@ -516,4 +516,46 @@
   <data name="ApiKeyLinkCustom" xml:space="preserve">
     <value>API key (e.g. OpenAI): platform.openai.com/api-keys</value>
   </data>
+  <data name="Child_description" xml:space="preserve">
+    <value>About your child</value>
+  </data>
+  <data name="Child_description_placeholder" xml:space="preserve">
+    <value>e.g. 6 years old, loves horses and is a little afraid of the dark</value>
+  </data>
+  <data name="Child_profile_notice" xml:space="preserve">
+    <value>Privacy: Name and description are sent with every story to the AI provider selected in the settings (e.g. DeepSeek, OpenAI) and processed there, usually outside the EU. Preferably use a nickname and do not enter surnames, addresses, photos or health information. Without consent the name stays on this device and the description must remain empty.</value>
+  </data>
+  <data name="Child_profile_consent_checkbox" xml:space="preserve">
+    <value>I have read the notice and agree that name and description are sent to the AI provider.</value>
+  </data>
+  <data name="Child_profile_cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Child_profile_consent_required" xml:space="preserve">
+    <value>Please confirm the privacy notice or leave the description empty.</value>
+  </data>
+  <data name="Child_profile_name" xml:space="preserve">
+    <value>Name or nickname</value>
+  </data>
+  <data name="Child_profile_name_placeholder" xml:space="preserve">
+    <value>e.g. Mia</value>
+  </data>
+  <data name="Child_profile_name_required" xml:space="preserve">
+    <value>Please enter a name.</value>
+  </data>
+  <data name="Child_profile_gender_none" xml:space="preserve">
+    <value>not specified</value>
+  </data>
+  <data name="Child_profile_delete" xml:space="preserve">
+    <value>Delete profile</value>
+  </data>
+  <data name="Child_profile_delete_confirm" xml:space="preserve">
+    <value>Really delete the profile &quot;{0}&quot;?</value>
+  </data>
+  <data name="Child_profile_delete_yes" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Child_profile_add" xml:space="preserve">
+    <value>Add child</value>
+  </data>
 </root>

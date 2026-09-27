@@ -71,6 +71,9 @@ public partial class HomePage : FairyBasePage
 
     protected async override void OnAppearing()
     {
+        // Profiles may have been added/edited/deleted on the ChildProfilePage
+        (BindingContext as HomeViewModel)?.RefreshProfiles();
+
         if (m_need_for_update)
         {
 
@@ -247,6 +250,7 @@ public partial class HomePage : FairyBasePage
     {
         await GoToNextPage("//SketchPage");
     }
+
 }
 
 #endif

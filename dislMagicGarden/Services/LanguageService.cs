@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using dislMagicGarden.Models;
+using System.Globalization;
 
 namespace dislMagicGarden.Services;
 
@@ -22,6 +23,32 @@ public class LanguageService : ILanguageService
         { "uk", "Ukrainian" },
         { "ru", "Russian" },
     };
+
+    // Read on startup in App.xaml.cs; without a saved value the device language is used
+    public const string PreferenceKeyAppLanguage = "app_language";
+
+    /// <summary>
+    /// App and story languages selectable in the settings.
+    /// </summary>
+    public static IReadOnlyList<LanguageOption> SupportedLanguages { get; } = new List<LanguageOption>
+    {
+        new() { Code = "en-US", DisplayName = "English (US)" },
+        new() { Code = "de-DE", DisplayName = "Deutsch (DE)" },
+        new() { Code = "fr-FR", DisplayName = "Français (FR)" },
+        new() { Code = "es-ES", DisplayName = "Español (ES)" },
+        new() { Code = "it-IT", DisplayName = "Italiano (IT)" },
+        new() { Code = "uk-UA", DisplayName = "Українська (UA)" },
+        new() { Code = "ru-RU", DisplayName = "Русский (RU)" },
+    };
+
+    /// <summary>
+    /// Switches app and story language and remembers the choice for the next start.
+    /// </summary>
+    public static void SetAndSaveLanguage(string cultureCode)
+    {
+        SetLanguage(cultureCode);
+        Preferences.Set(PreferenceKeyAppLanguage, cultureCode);
+    }
 
     public static void SetLanguage(string cultureCode)
     {

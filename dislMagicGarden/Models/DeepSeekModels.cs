@@ -20,7 +20,7 @@ namespace dislMagicGarden.Models
         public int AgeGroup { get; internal set; }
         public int Duration_min { get; internal set; } = 5;
 
-        public GenderOption Gender_male { get; set; } = GenderOption.Neutral;
+        // Child context (gender, name, description) comes from the active ChildProfile in HybridFairyTaleService
 
     }
 

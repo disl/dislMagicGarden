@@ -432,4 +432,46 @@
   <data name="Quiz_finished" xml:space="preserve">
     <value>Quiz terminé !</value>
   </data>
+  <data name="Child_description" xml:space="preserve">
+    <value>À propos de ton enfant</value>
+  </data>
+  <data name="Child_description_placeholder" xml:space="preserve">
+    <value>p. ex. 6 ans, adore les chevaux et a un peu peur du noir</value>
+  </data>
+  <data name="Child_profile_notice" xml:space="preserve">
+    <value>Confidentialité : le nom et la description sont envoyés à chaque histoire au fournisseur d&apos;IA choisi dans les paramètres (p. ex. DeepSeek, OpenAI) et y sont traités, généralement hors de l&apos;UE. Utilise de préférence un surnom et ne saisis pas de nom de famille, d&apos;adresse, de photo ni de données de santé. Sans consentement, le nom reste uniquement sur cet appareil et la description doit rester vide.</value>
+  </data>
+  <data name="Child_profile_consent_checkbox" xml:space="preserve">
+    <value>J&apos;ai lu l&apos;avis et j&apos;accepte que le nom et la description soient envoyés au fournisseur d&apos;IA.</value>
+  </data>
+  <data name="Child_profile_cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="Child_profile_consent_required" xml:space="preserve">
+    <value>Merci de confirmer l&apos;avis de confidentialité ou de laisser la description vide.</value>
+  </data>
+  <data name="Child_profile_name" xml:space="preserve">
+    <value>Prénom ou surnom</value>
+  </data>
+  <data name="Child_profile_name_placeholder" xml:space="preserve">
+    <value>p. ex. Mia</value>
+  </data>
+  <data name="Child_profile_name_required" xml:space="preserve">
+    <value>Merci de saisir un nom.</value>
+  </data>
+  <data name="Child_profile_gender_none" xml:space="preserve">
+    <value>non précisé</value>
+  </data>
+  <data name="Child_profile_delete" xml:space="preserve">
+    <value>Supprimer le profil</value>
+  </data>
+  <data name="Child_profile_delete_confirm" xml:space="preserve">
+    <value>Supprimer vraiment le profil « {0} » ?</value>
+  </data>
+  <data name="Child_profile_delete_yes" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="Child_profile_add" xml:space="preserve">
+    <value>Ajouter un enfant</value>
+  </data>
 </root>

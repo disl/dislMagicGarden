@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:FairyBasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:dislMagicGarden.Helpers"
+             xmlns:views="clr-namespace:dislMagicGarden.Views"
+             xmlns:vm="clr-namespace:dislMagicGarden.ViewModels"
+             xmlns:models="clr-namespace:dislMagicGarden.Models"
+             xmlns:converters="clr-namespace:dislMagicGarden.Converters"
+             x:Class="dislMagicGarden.Views.ChildProfilePage"
+             x:DataType="vm:ChildProfileViewModel"
+             Shell.NavBarIsVisible="False">
+
+    <views:FairyBasePage.Resources>
+        <converters:EnumToBoolConverter x:Key="EnumToBoolConverter" />
+    </views:FairyBasePage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="14">
+
+            <!-- Titel -->
+            <Label Text="{helpers:Translate Key=Child_description}"
+                   Style="{StaticResource FairyHeaderStyle}"
+                   HorizontalOptions="Center" />
+
+            <!-- Name + Geschlecht -->
+            <Border Style="{StaticResource FairyInputBorderStyle}">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="{helpers:Translate Key=Child_profile_name}"
+                           FontAttributes="Bold"
+                           Style="{StaticResource FairyLabelStyle}" />
+                    <Entry Text="{Binding Name}"
+                           Placeholder="{helpers:Translate Key=Child_profile_name_placeholder}"
+                           MaxLength="{Binding MaxNameLength}"
+                           TextColor="{StaticResource MagicBlackSoft}" />
+
+                    <Label Text="{helpers:Translate Key=Gender}"
+                           FontAttributes="Bold"
+                           Margin="0,6,0,0"
+                           Style="{StaticResource FairyLabelStyle}" />
+                    <HorizontalStackLayout Spacing="16" HorizontalOptions="Center">
+                        <RadioButton GroupName="ChildGender"
+                                     Content="👧"
+                                     FontSize="Title"
+                                     IsChecked="{Binding Gender,
+                                         Converter={StaticResource EnumToBoolConverter},
+                                         ConverterParameter={x:Static models:GenderOption.Female}}" />
+                        <RadioButton GroupName="ChildGender"
+                                     Content="👦"
+                                     FontSize="Title"
+                                     IsChecked="{Binding Gender,
+                                         Converter={StaticResource EnumToBoolConverter},
+                                         ConverterParameter={x:Static models:GenderOption.Male}}" />
+                        <RadioButton GroupName="ChildGender"
+                                     Content="{helpers:Translate Key=Child_profile_gender_none}"
+                                     IsChecked="{Binding Gender,
+                                         Converter={StaticResource EnumToBoolConverter},
+                                         ConverterParameter={x:Static models:GenderOption.Neutral}}" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Beschreibung -->
+            <Border Style="{StaticResource FairyInputBorderStyle}">
+                <VerticalStackLayout Spacing="4">
+                    <Editor Text="{Binding Description}"
+                            Placeholder="{helpers:Translate Key=Child_description_placeholder}"
+                            MaxLength="{Binding MaxDescriptionLength}"
+                            AutoSize="TextChanges"
+                            MinimumHeightRequest="100"
+                            TextColor="{StaticResource MagicBlackSoft}" />
+                    <Label Text="{Binding CharCountText}"
+                           FontSize="Caption"
+                           Opacity="0.7"
+                           HorizontalOptions="End"
+                           Style="{StaticResource FairyLabelStyle}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Datenschutz-Hinweis (immer sichtbar) -->
+            <Border BackgroundColor="#FFF8E1"
+                    Stroke="#FFB300"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 12"
+                    Padding="12">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="{helpers:Translate Key=Child_profile_notice}"
+                           TextColor="#5D4037"
+                           FontSize="13" />
+
+                    <Grid ColumnDefinitions="auto,*" ColumnSpacing="6">
+                        <CheckBox IsChecked="{Binding HasConsent}"
+                                  Color="#FF8F00"
+                                  VerticalOptions="Start" />
+                        <Label Grid.Column="1"
+                               Text="{helpers:Translate Key=Child_profile_consent_checkbox}"
+                               TextColor="#5D4037"
+                               FontSize="13"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center" />
+                        <!-- No tap gesture on the text: the navigation tap from the HomePage button
+                             was passed through and ticked the consent unintentionally -->
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="{Binding ValidationMessage}"
+                   IsVisible="{Binding HasValidationMessage}"
+                   TextColor="#B71C1C"
+                   FontSize="13" />
+
+            <!-- Buttons -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <Button Text="{helpers:Translate Key=Child_profile_cancel}"
+                        Command="{Binding CancelCommand}"
+                        BackgroundColor="Transparent"
+                        BorderColor="{DynamicResource ThemePrimaryColor}"
+                        BorderWidth="1"
+                        TextColor="{DynamicResource ThemePrimaryColor}"
+                        CornerRadius="21"
+                        HeightRequest="42" />
+                <Button Grid.Column="1"
+                        Text="{helpers:Translate Key=Save}"
+                        Command="{Binding SaveCommand}"
+                        BackgroundColor="{DynamicResource ThemePrimaryColor}"
+                        TextColor="White"
+                        CornerRadius="21"
+                        HeightRequest="42">
+                    <!-- Make the blocked state visible -->
+                    <Button.Triggers>
+                        <Trigger TargetType="Button" Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.4" />
+                        </Trigger>
+                    </Button.Triggers>
+                </Button>
+            </Grid>
+
+            <!-- Löschen (nur bei bestehendem Profil) -->
+            <Button Text="{helpers:Translate Key=Child_profile_delete}"
+                    Command="{Binding DeleteCommand}"
+                    IsVisible="{Binding IsExistingProfile}"
+                    BackgroundColor="Transparent"
+                    TextColor="#B71C1C"
+                    HorizontalOptions="Center"
+                    Margin="0,12,0,0" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</views:FairyBasePage>

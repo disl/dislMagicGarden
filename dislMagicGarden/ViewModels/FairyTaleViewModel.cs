@@ -12,7 +12,6 @@ namespace dislMagicGarden.ViewModels
 
     public partial class FairyTaleViewModel : BaseViewModel
     {
-        private const string m_c_selectedGender = "selectedGender";
         private readonly IHybridFairyTaleService _fairyTaleService;
         private readonly ITextToSpeechService _textToSpeechService;
         private readonly SoundEffectService _soundEffectService;
@@ -20,15 +19,7 @@ namespace dislMagicGarden.ViewModels
         // Neue Eigenschaft für das formatierte Label
         [ObservableProperty] private FormattedString _storyFormatted;
 
-        [ObservableProperty]
-        private GenderOption _selectedGender = GenderOption.Neutral;
-        partial void OnSelectedGenderChanged(GenderOption value)
-        {
-            Preferences.Set(m_c_selectedGender, value.ToString());
-        }
-
-        public IEnumerable<GenderOption> AvailableGenders =>
-            Enum.GetValues(typeof(GenderOption)).Cast<GenderOption>();
+        // Gender, name and description of the child come from the active ChildProfile (HybridFairyTaleService)
 
 
         [ObservableProperty]
@@ -262,16 +253,6 @@ namespace dislMagicGarden.ViewModels
 
             //SelectedFairyTaleType = AvailableFairyTaleTypes.FirstOrDefault();
             _textToSpeechService = textToSpeechService;
-
-            var genderString = Preferences.Get(m_c_selectedGender, defaultValue: GenderOption.Neutral.ToString());
-            if (Enum.TryParse<GenderOption>(genderString, out var gender))
-            {
-                SelectedGender = gender;
-            }
-            else
-            {
-                SelectedGender = GenderOption.Neutral;
-            }
         }
 
         public void ReloadFairyTaleTypes()
@@ -337,8 +318,7 @@ namespace dislMagicGarden.ViewModels
                     Mode = SelectedMode,
                     ImageCount = SelectedMode == GenerationMode.FullStory ? 4 : 0,
                     Duration_min = SelectedDuration,
-                    FairyTaleType = SelectedFairyTaleType?.Type ?? FairyTaleType.Funny,
-                    Gender_male = SelectedGender
+                    FairyTaleType = SelectedFairyTaleType?.Type ?? FairyTaleType.Funny
                 };
 
                 CurrentFairyTale = await _fairyTaleService.GenerateFairyTaleAsync(request);

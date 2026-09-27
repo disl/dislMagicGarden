@@ -26,6 +26,7 @@ namespace dislMagicGarden.Services
         private readonly IConnectivity _connectivity;
         private readonly ILogger<HybridFairyTaleService> _logger;
         private readonly AiSettingsService _settings;
+        private readonly ChildProfileService _childProfile;
 
         // Preise (pro 1000 Tokens/Bild)
         private const decimal DEEPSEEK_INPUT_PRICE = 0.0000014M;   // $0.00014 pro 1K Tokens
@@ -33,12 +34,13 @@ namespace dislMagicGarden.Services
         private const decimal DALL_E_3_STANDARD_PRICE = 0.040M;    // $0.04 pro Bild
         private const decimal DALL_E_3_HD_PRICE = 0.080M;          // $0.08 pro Bild
 
-        public HybridFairyTaleService(AiSettingsService settings)
+        public HybridFairyTaleService(AiSettingsService settings, ChildProfileService childProfile)
         {
             _httpClient = new HttpClient();
             _connectivity = Connectivity.Current;
             _logger = LoggerFactory.Create(builder => builder.AddDebug()).CreateLogger<HybridFairyTaleService>();
             _settings = settings;
+            _childProfile = childProfile;
 
             // Timeout setzen
             _httpClient.Timeout = TimeSpan.FromSeconds(120);
@@ -250,12 +252,7 @@ namespace dislMagicGarden.Services
             //    _ => "im klassischen Märchenstil"
             //};
 
-            var Gender_male_text = request.Gender_male switch
-            {
-                GenderOption.Male => "Das Kind, für das das Märchen erstellt wird, ist ein Junge.",
-                GenderOption.Female => "Das Kind, für das das Märchen erstellt wird, ist ein Mädchen.",
-                GenderOption.Neutral => ""
-            };
+            var childContextText = _childProfile.BuildPromptContext();
 
             var FairyTaleTypeText = request.FairyTaleType switch
             {
@@ -279,7 +276,7 @@ namespace dislMagicGarden.Services
             string _currentLanguage = Thread.CurrentThread.CurrentCulture.NativeName;
 
             return $$"""
-                {{Gender_male_text}}
+                {{childContextText}}
 
                 Erstelle ein komplettes (!) als {{FairyTaleTypeText}}. Ohne '...' am Ende. 
                 
@@ -380,7 +377,10 @@ namespace dislMagicGarden.Services
 
             // Wir bauen einen speziellen Prompt für den interaktiven Modus
             var historyText = string.Join(" -> ", history);
+            var childContextText = _childProfile.BuildPromptContext();
             var _prompt = $"""
+                            {childContextText}
+
                             Wir schreiben zusammen ein interaktives Kinderabenteuer zum Thema: {theme}.
                             Bisheriger Verlauf: {historyText}
                             Das Kind hat als letztes gewählt: {lastChoice}

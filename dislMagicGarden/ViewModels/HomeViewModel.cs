@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using dislMagicGarden.Models;
 using dislMagicGarden.Services;
+using dislMagicGarden.Views;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -10,29 +11,75 @@ namespace dislMagicGarden.ViewModels
 {
     public partial class HomeViewModel : BaseViewModel
     {
-        // Sex
-        private const string m_c_selectedGender = "selectedGender";
+        // Child profiles (switchable chips, theme follows the gender of the active profile)
+        private readonly ChildProfileService _childProfile;
+
+        public ObservableCollection<ChildProfileChipItem> ProfileChips { get; } = new();
+
         [ObservableProperty]
-        private GenderOption _selectedGender = GenderOption.Female;
-        partial void OnSelectedGenderChanged(GenderOption value)
+        bool canAddProfile;
+
+        // Without any profile a bare "+" is not self-explanatory
+        [ObservableProperty]
+        string addProfileText = "＋";
+
+        /// <summary>
+        /// Rebuilds the profile chips and applies the theme of the active profile.
+        /// Called on construction and whenever the HomePage appears (e.g. after editing a profile).
+        /// </summary>
+        public void RefreshProfiles()
         {
-            Preferences.Set(m_c_selectedGender, value.ToString());
-            IsBlueTheme= value == GenderOption.Male;
+            var activeId = _childProfile.ActiveProfile?.Id;
+
+            ProfileChips.Clear();
+            foreach (var profile in _childProfile.Profiles)
+                ProfileChips.Add(new ChildProfileChipItem(profile, profile.Id == activeId));
+
+            CanAddProfile = _childProfile.CanAddProfile;
+            AddProfileText = ProfileChips.Count == 0
+                ? $"＋ {LocalizationResourceManager.Instance["Child_profile_add"]}"
+                : "＋";
+            ApplyTheme(_childProfile.Gender == GenderOption.Male);
+        }
+
+        [RelayCommand]
+        async Task SelectProfile(ChildProfileChipItem item)
+        {
+            // Tap on the active chip edits it, tap on another chip switches the profile
+            if (item.IsActive)
+            {
+                await OpenProfileAsync(item.Profile.Id);
+                return;
+            }
+
+            _childProfile.SetActive(item.Profile.Id);
+            RefreshProfiles();
+        }
+
+        [RelayCommand]
+        async Task AddProfile() => await OpenProfileAsync(null);
+
+        [RelayCommand]
+        async Task EditActiveProfile() => await OpenProfileAsync(_childProfile.ActiveProfile?.Id);
+
+        private static async Task OpenProfileAsync(Guid? id)
+        {
+            try
+            {
+                var route = id.HasValue
+                    ? $"{nameof(ChildProfilePage)}?{ChildProfileViewModel.QueryId}={id.Value}"
+                    : nameof(ChildProfilePage);
+                await Shell.Current.GoToAsync(route);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Opening child profile failed: {ex}");
+            }
         }
 
 
         // Pictures
         [ObservableProperty] string headerTaleImage = "header_fairy_4.webp";
-
-        // Thema
-        // In HomeViewModel.cs
-        [ObservableProperty]
-        bool isBlueTheme; // True = Blau, False = Rosa
-
-        partial void OnIsBlueThemeChanged(bool value)
-        {
-            ApplyTheme(value);
-        }
 
         private void ApplyTheme(bool useBlue)
         {
@@ -40,7 +87,6 @@ namespace dislMagicGarden.ViewModels
 
             if (useBlue)
             {
-                SelectedGender = GenderOption.Male;
                 res["ThemePrimaryColor"] = Color.FromArgb("#4A90E2");
                 res["ThemeBackgroundColor"] = Color.FromArgb("#D1E9FF");
                 // Du kannst hier auch die Hintergrundfarbe der HomePage ändern:
@@ -53,7 +99,6 @@ namespace dislMagicGarden.ViewModels
             }
             else
             {
-                SelectedGender = GenderOption.Female;
                 res["ThemePrimaryColor"] = Color.FromArgb("#FF9ECD");
                 res["ThemeBackgroundColor"] = Color.FromArgb("#FFE2F1");
                 res["CottonCandy"] = Color.FromArgb("#FFE2F1"); // Original CottonCandy
@@ -64,92 +109,14 @@ namespace dislMagicGarden.ViewModels
             }
 
             OnPropertyChanged(nameof(HeaderTaleImage));
-            OnPropertyChanged(nameof(IsBlueTheme));
         }
 
 
 
 
-        [ObservableProperty] string appVersion = $"v. {AppInfo.Current.VersionString}";
         [ObservableProperty] FairyTaleTypeOption? selectedFairyTaleType;
 
         public ObservableCollection<FairyTaleTypeOption> AvailableFairyTaleTypes { get; } = new();
-
-        public ObservableCollection<LanguageOption> AvailableLanguages { get; }
-         = new ObservableCollection<LanguageOption>
-             {
-                new() { Code = "en-US", DisplayName = "English (US)" },
-                new() { Code = "de-DE", DisplayName = "Deutsch (DE)" },
-                new() { Code = "fr-FR", DisplayName = "Français (FR)" },
-                new() { Code = "es-ES", DisplayName = "Español (ES)" },
-                new() { Code = "it-IT", DisplayName = "Italiano (IT)" },
-                new() { Code = "uk-UA", DisplayName = "Українська (UA)" },
-                new() { Code = "ru-RU", DisplayName = "Русский (RU)" },
-
-             };
-
-        private bool _isApplyingLanguage;
-
-        private LanguageOption _selectedLanguage;
-        public LanguageOption SelectedLanguage
-        {
-            get => _selectedLanguage;
-            set
-            {
-                if (value == null)
-                {
-                    return;
-                }
-
-                if (_selectedLanguage?.Code == value.Code)
-                    return;
-
-                if (SetProperty(ref _selectedLanguage, value))
-                {
-
-                    // verhindert Re-Entry beim Reload / Init
-                    if (_isApplyingLanguage)
-                        return;
-
-                    _ = ApplyLanguage(value.Code);
-
-                    var culture = new CultureInfo(value.Code);
-
-                    Thread.CurrentThread.CurrentCulture = culture;
-                    Thread.CurrentThread.CurrentUICulture = culture;
-                    CultureInfo.DefaultThreadCurrentCulture = culture;
-                    CultureInfo.DefaultThreadCurrentUICulture = culture;
-
-                    LocalizationResourceManager.Instance.SetCulture(culture);
-                }
-            }
-        }
-
-        private async Task ApplyLanguage(string lang)
-        {
-            if (CultureInfo.CurrentUICulture.Name == lang)
-                return;
-
-            try
-            {
-                _isApplyingLanguage = true;
-
-                LanguageService.SetLanguage(lang);
-                Preferences.Set("app_language", lang);
-
-                //ReloadFairyTaleTypes();
-
-
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Language change failed: " + ex.Message);
-            }
-            finally
-            {
-                _isApplyingLanguage = false;
-            }
-        }
 
         //public void ReloadFairyTaleTypes()
         //{
@@ -169,25 +136,14 @@ namespace dislMagicGarden.ViewModels
         //}
 
 
-        public HomeViewModel()
+        public HomeViewModel(ChildProfileService childProfile)
         {
             Title = "Magic Garden";
 
-            var currentCulture = CultureInfo.CurrentUICulture.Name;
+            _childProfile = childProfile;
 
-            SelectedLanguage =
-                AvailableLanguages.FirstOrDefault(l => l.Code == currentCulture)
-                ?? AvailableLanguages.First(l => l.Code.StartsWith("en"));
-
-            var genderString = Preferences.Get(m_c_selectedGender, defaultValue: GenderOption.Neutral.ToString());
-            if (Enum.TryParse<GenderOption>(genderString, out var gender))
-            {
-                SelectedGender = gender;
-            }
-            else
-            {
-                SelectedGender = GenderOption.Neutral;
-            }
+            // Language is chosen in the settings (default: device language, see App.xaml.cs)
+            RefreshProfiles();
         }
 
 

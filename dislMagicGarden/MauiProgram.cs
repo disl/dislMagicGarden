@@ -93,6 +93,9 @@ namespace dislMagicGarden
             //builder.Services.AddSingleton<IEditorService, EditorService>();
             builder.Services.AddSingleton<IBookExportService, BookExportService>();
             builder.Services.AddSingleton<ILanguageService, LanguageService>();
+            builder.Services.AddSingleton<ChildProfileService>();
+            builder.Services.AddTransient<ChildProfileViewModel>();
+            builder.Services.AddTransient<ChildProfilePage>();
             builder.Services.AddSingleton<IHybridFairyTaleService, HybridFairyTaleService>();
             builder.Services.AddSingleton<AdService>();
             builder.Services.AddSingleton<QuizViewModel>();

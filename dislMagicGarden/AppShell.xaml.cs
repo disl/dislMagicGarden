@@ -28,6 +28,7 @@ namespace dislMagicGarden
             Routing.RegisterRoute("AdventureHistoryPage", typeof(AdventureHistoryPage));
             Routing.RegisterRoute("SketchPage", typeof(SketchPage));
             Routing.RegisterRoute(nameof(QuizPage), typeof(QuizPage));
+            Routing.RegisterRoute(nameof(ChildProfilePage), typeof(ChildProfilePage));
 
             // Navigation Events
             //this.Navigated += OnShellNavigated;
