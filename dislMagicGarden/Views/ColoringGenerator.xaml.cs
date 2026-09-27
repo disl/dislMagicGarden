@@ -26,6 +26,9 @@ public partial class ColoringGenerator : FairyBasePage
     {
         InitializeComponent();
 
+        // Modal page: keep content out from under the system bars (Android edge-to-edge)
+        Helpers.ModalPageInsets.Apply(this);
+
         // Resolve DI services (the page is created via Shell routing, not constructor DI).
         var services = IPlatformApplication.Current?.Services
             ?? throw new InvalidOperationException("Services not available.");
@@ -139,4 +142,4 @@ public partial class ColoringGenerator : FairyBasePage
             LoadingIndicator.IsRunning = false;
         }
     }
-}
+}

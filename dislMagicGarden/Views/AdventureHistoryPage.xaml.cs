@@ -15,6 +15,9 @@ public partial class AdventureHistoryPage : FairyBasePage
     public AdventureHistoryPage(ITextToSpeechService textToSpeechService)
     {
         InitializeComponent();
+
+        // Modal page: keep content out from under the system bars (Android edge-to-edge)
+        Helpers.ModalPageInsets.Apply(this);
         BindingContext = this;
         HistoryCollectionView.ItemsSource = HistoryItems;
         _ttsService = textToSpeechService;
@@ -123,4 +126,4 @@ public class HistoryItem
     public string Icon { get; set; }
     public string StepNumber { get; set; }
     public string Text { get; set; }
-}
+}

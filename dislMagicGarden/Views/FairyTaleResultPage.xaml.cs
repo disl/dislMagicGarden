@@ -19,6 +19,9 @@ public partial class FairyTaleResultPage : ContentPage
     {
         InitializeComponent();
 
+        // Modal page: keep header and buttons out from under the system bars (Android edge-to-edge)
+        Helpers.ModalPageInsets.Apply(this);
+
         BindingContext = new FairyTaleResultViewModel(fairyTale, Close, textToSpeechService, soundEffectService);
 
         WeakReferenceMessenger.Default.Register<ScrollToSentenceMessage>(this, (r, m) =>
@@ -58,4 +61,4 @@ public partial class FairyTaleResultPage : ContentPage
     {
         await Navigation.PopModalAsync(true);
     }
-}
+}
