@@ -3,6 +3,7 @@ using Android.Content.PM;
 using Android.Gms.Ads.Initialization;
 using Android.OS;
 using Plugin.MauiMTAdmob;
+using Plugin.MauiMTAdmob.Extra;
 
 namespace dislMagicGarden
 {
@@ -15,17 +16,26 @@ namespace dislMagicGarden
         {
             base.OnCreate(savedInstanceState);
 
-            // AdMob initialisieren – HIER die App ID angeben!
-            CrossMauiMTAdmob.Current.Init(
-                activity: this,                                           // Pflicht: die aktuelle Activity
-                appId: "ca-app-pub-9459821903521146~7288668937",          // Test-App-ID (später deine echte)
-                forceTesting: true,                                       // Optional: Test-Ads erzwingen
-                debugMode: true                                           // Optional: Logs aktivieren
-                                                                          // weitere optionale Parameter wie license, openAdsId usw. bei Bedarf            
-            );
+            // Kinder-App (Google Play Families Policy / COPPA / DSGVO Art. 8):
+            // muss VOR Init gesetzt werden, damit jede Anzeigenanfrage kindgerecht markiert ist.
+            CrossMauiMTAdmob.Current.ComplyWithFamilyPolicies = true;
+            CrossMauiMTAdmob.Current.TagForChildDirectedTreatment = MTTagForChildDirectedTreatment.TagForChildDirectedTreatmentTrue;
+            CrossMauiMTAdmob.Current.TagForUnderAgeOfConsent = MTTagForUnderAgeOfConsent.TagForUnderAgeOfConsentTrue;
+            CrossMauiMTAdmob.Current.MaxAdContentRating = MTMaxAdContentRating.MaxAdContentRatingG;
+            CrossMauiMTAdmob.Current.UserPersonalizedAds = false;
 
-            // Optional: Set user consent if needed
-            //CrossMauiMTAdmob.Current.UserPersonalizedAds = true;
+#if DEBUG
+            const bool adTesting = true;
+#else
+            const bool adTesting = false;
+#endif
+            // AdMob initialisieren (App ID "Whimsy Tales", muss zum Manifest passen)
+            CrossMauiMTAdmob.Current.Init(
+                activity: this,
+                appId: "ca-app-pub-9459821903521146~7288668937",
+                forceTesting: adTesting,                                  // Test-Ads nur im Debug
+                debugMode: adTesting                                      // Logs nur im Debug
+            );
 
             // AdService erst jetzt starten
             //try

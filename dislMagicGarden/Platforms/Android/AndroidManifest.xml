@@ -1,27 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+		  xmlns:tools="http://schemas.android.com/tools">
 
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.RECORD_AUDIO" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<!-- Families Policy: Kinder-Apps dürfen die Werbe-ID nicht übertragen; vom AdMob-SDK automatisch eingetragen -->
+	<uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove" />
+	<uses-permission android:name="android.permission.ACCESS_ADSERVICES_AD_ID" tools:node="remove" />
+	<!-- Nur für alte Android-Versionen (FileSaver); ab Android 13 wirkungslos und im Play-Review auffällig -->
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
 
-	<uses-sdk android:minSdkVersion="23"
+	<uses-sdk android:minSdkVersion="24"
 			  android:targetSdkVersion="36" />
 
-	<application android:allowBackup="true"
+	<!-- allowBackup=false: Kinderprofile (Name, Alter, Interessen) nicht in Google-Cloud-Backups -->
+	<application android:allowBackup="false"
 				 android:icon="@mipmap/appicon"
 				 android:roundIcon="@mipmap/appicon_round"
 				 android:hardwareAccelerated="true"
 				 android:supportsRtl="true"
 				 >
 
-		<!-- Test-ID -->
+		<!-- AdMob App ID "Whimsy Tales" (muss zu appId in MainActivity passen) -->
 		<meta-data
         android:name="com.google.android.gms.ads.APPLICATION_ID"
-        android:value="ca-app-pub-3940256099942544~1458002511" />
-		<!-- Test-ID -->
+        android:value="ca-app-pub-9459821903521146~7288668937" />
 		<meta-data
 			android:name="com.google.android.gms.ads.DELAY_APP_MEASUREMENT_INIT"
 			android:value="true" />

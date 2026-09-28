@@ -6,7 +6,13 @@ namespace dislMagicGarden.Services
     public class AdService : IDisposable
     {
         // Ad Unit IDs
-        private const string TEST_INTERSTITIAL_ID = "ca-app-pub-9459821903521146/5177510910";
+        // Debug: Google-Test-ID, damit eigene Klicks/Impressions nicht als Invalid Traffic zählen.
+#if DEBUG
+        private const string INTERSTITIAL_ID = "ca-app-pub-3940256099942544/1033173712";
+#else
+        private const string INTERSTITIAL_ID = "ca-app-pub-9459821903521146/5177510910"; // WhimsyTales_Interstitial
+#endif
+        // Rewarded/Banner werden derzeit nicht angezeigt -> keine eigenen Ad Units angelegt
         private const string TEST_REWARDED_ID = "ca-app-pub-3940256099942544/5224354917";
         private const string TEST_BANNER_ID = "ca-app-pub-3940256099942544/6300978111";
 
@@ -16,7 +22,7 @@ namespace dislMagicGarden.Services
         private bool _isInterstitialLoading = false;
         private bool _isRewardedLoading = false;
 
-        private string _interstitialId = TEST_INTERSTITIAL_ID;
+        private string _interstitialId = INTERSTITIAL_ID;
         private string _rewardedId = TEST_REWARDED_ID;
         private string _bannerId = TEST_BANNER_ID;
 
@@ -524,11 +530,8 @@ namespace dislMagicGarden.Services
             {
                 Debug.WriteLine("[AdService] Starte Initiales Preloading...");
 
-                // Beide Ads parallel laden
-                await Task.WhenAll(
-                    LoadInterstitialAsync(),
-                    LoadRewardedAsync()
-                );
+                // Nur Interstitial - Rewarded wird nirgends angezeigt
+                await LoadInterstitialAsync();
 
                 Debug.WriteLine($"[AdService] Preloading abgeschlossen");
             }

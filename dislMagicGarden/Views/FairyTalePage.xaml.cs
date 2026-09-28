@@ -45,7 +45,7 @@ public partial class FairyTalePage : FairyBasePage, IQueryAttributable
             _ = Task.Run(async () =>
             {
                 await Task.Delay(3000); // 3 Sekunden warten
-                await _adService.LoadRewardedAsync(); //  LoadInterstitialAsync();
+                await _adService.LoadInterstitialAsync();
             });
         }
         catch (Exception ex)
